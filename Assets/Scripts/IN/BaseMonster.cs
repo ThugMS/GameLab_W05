@@ -34,10 +34,9 @@ public abstract class BaseMonster : MonoBehaviour
     [SerializeField] protected int m_speed;
     [SerializeField] protected int m_range;
     [SerializeField] protected int m_basicAttack;
-    [SerializeField] private float m_health;
-
     [Header("Time")]
     [SerializeField] private float m_knockBackTime;
+    [SerializeField] private float m_health;
     [SerializeField] private float m_patrolTime;
     //==Positions
     private Vector3 m_initialPosition;
@@ -69,7 +68,7 @@ public abstract class BaseMonster : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //collision.gameObject.GetComponent<Player>()
+            //Player.getDamag();
         }
     }
 
