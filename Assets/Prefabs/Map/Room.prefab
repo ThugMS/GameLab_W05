@@ -1894,13 +1894,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c7b12194bb27254f91a98e696d0818a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {x: 0, y: 0}
+  m_monsterSpawnPositions: {fileID: 3350617661991068297}
   m_doors:
   - {fileID: 3350617660700380955}
   - {fileID: 1307412039280871507}
   - {fileID: 1307412040051004096}
   - {fileID: 1307412040225257623}
-  m_monsterSpawnPositions: {fileID: 3350617661991068297}
   m_desactiveAllDoorObj: {fileID: 3350617662095305450}
 --- !u!1 &3350617661991068298
 GameObject:
@@ -5963,6 +5962,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 3350617662087635989}
     m_Modifications:
     - target: {fileID: 4349093300189802079, guid: f0758e1008a1f614bbf3553c7da1afff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4349093300189802079, guid: f0758e1008a1f614bbf3553c7da1afff, type: 3}
       propertyPath: m_TagString
       value: Walls
       objectReference: {fileID: 0}
@@ -6326,6 +6329,10 @@ PrefabInstance:
     - target: {fileID: 4349093300189802075, guid: f0758e1008a1f614bbf3553c7da1afff, type: 3}
       propertyPath: m_Tiles.Array.data[9].second.m_TileObjectToInstantiateIndex
       value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 4349093300189802079, guid: f0758e1008a1f614bbf3553c7da1afff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4349093300189802079, guid: f0758e1008a1f614bbf3553c7da1afff, type: 3}
       propertyPath: m_TagString
@@ -6713,6 +6720,10 @@ PrefabInstance:
       value: 65535
       objectReference: {fileID: 0}
     - target: {fileID: 4349093300189802079, guid: f0758e1008a1f614bbf3553c7da1afff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4349093300189802079, guid: f0758e1008a1f614bbf3553c7da1afff, type: 3}
       propertyPath: m_TagString
       value: Walls
       objectReference: {fileID: 0}
@@ -7096,6 +7107,10 @@ PrefabInstance:
     - target: {fileID: 4349093300189802075, guid: f0758e1008a1f614bbf3553c7da1afff, type: 3}
       propertyPath: m_Tiles.Array.data[9].second.m_TileObjectToInstantiateIndex
       value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 4349093300189802079, guid: f0758e1008a1f614bbf3553c7da1afff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4349093300189802079, guid: f0758e1008a1f614bbf3553c7da1afff, type: 3}
       propertyPath: m_TagString
