@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour
     
     public void ReLoadScene()
     { 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     
     public void Exit()
