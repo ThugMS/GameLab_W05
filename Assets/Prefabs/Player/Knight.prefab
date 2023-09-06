@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4138420507533337179}
   - component: {fileID: 4138420507533337174}
   - component: {fileID: 4138420507533337175}
+  - component: {fileID: 1230473402}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Untagged
@@ -121,6 +122,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_rigidbody: {fileID: 4138420507533337179}
+  m_heart: 3
+  m_power: 0
   m_maxSpeed: 5
   m_accelSpeed: 0.5
   m_decelSpeed: 1
@@ -128,6 +131,13 @@ MonoBehaviour:
   m_inputDirection: {x: 0, y: 0}
   m_Direction: {x: 0, y: 0}
   m_isMove: 0
+  m_boxSize: {x: 1.5, y: 2}
+  m_offset: 0.5
+  m_range: 0
+  m_dashDis: 5
+  m_durationTime: 0.5
+  m_coolTime: 3
+  m_dashEase: 26
 --- !u!114 &4138420507533337175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,3 +216,19 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!58 &1230473402
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4138420507533337178}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
