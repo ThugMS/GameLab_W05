@@ -3,36 +3,38 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class RoomDoor : MonoBehaviour
 {
-    private UIRoom _mUIRoom;
+    #region PublicVariables
+    public Transform m_spawnPosition;
+    #endregion
+    
+    #region PrivateVariables
+    private UIRoom m_UIRoom;
+    private RoomType m_roomType;
     [SerializeField] private GameObject m_desactiveObj;
     [SerializeField] private Direction m_direction;
-    private bool m_isOpen;
+    #endregion
 
-    public Transform spawnPosition;
+    #region PublicMethod
+    public void Init(UIRoom _uiRoom, RoomType _type)
+    {
+        m_UIRoom = _uiRoom;
+        m_roomType = _type;
 
-    public void Init(UIRoom uiRoom, bool _isOpen)
-    {
-        _mUIRoom = uiRoom;
-        m_isOpen = _isOpen; 
+        m_desactiveObj.SetActive(m_roomType == default);
     }
-    
-    /// <summary>
-    /// 클리어 시 오픈
-    /// </summary>
-    /// <param name="_isActive"></param>
-    private void SetDoor(bool _isActive)
-    {
-        m_desactiveObj.SetActive(!_isActive);
-    }
-    
-    public void OnTriggerEnter2D(Collider2D _col)
+    #endregion
+
+    #region PrivateMethod
+    void OnTriggerEnter2D(Collider2D _col)
     {
         if (_col.CompareTag("Player"))
         {
-            _mUIRoom.LeavedRoom(m_direction);
+            m_UIRoom.LeaveRoom(m_direction);
         }
     }
+    #endregion
 }

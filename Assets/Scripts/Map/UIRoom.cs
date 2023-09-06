@@ -1,32 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public enum Direction
-{
-    Ignore,
-    Up = 1,
-    Down,
-    Left,
-    Right
-}
 
 public class UIRoom : MonoBehaviour
 {
+    #region PublicVaraibles
+    public Vector2Int m_grid { get; set; }
+    #endregion
+    
+    #region PrivateVaraibles
     private RoomManager m_roomManager;
     private Room m_baseRoom;
     
-    public Vector2Int grid;
-
     [Header("위치 정보")]
-    [SerializeField] public RoomDoor[] m_doors;
-    [SerializeField] public Transform m_monsterSpawnPositions;
-
+    [SerializeField] private Transform m_monsterSpawnPositions;
 
     [Header("방 구성")]
+    [SerializeField] private RoomDoor[] m_doors;
     [SerializeField] private GameObject m_desactiveAllDoorObj;
 
-    private bool m_isInit;
     private bool m_isClear;
     public bool IsClear
     {
@@ -38,34 +28,46 @@ public class UIRoom : MonoBehaviour
             else CloseDoor();
         }
     }
-    
+    #endregion
+
+    #region PublicMethod
     /// <summary>
     /// 방 정보를 초기화
     /// 지정된 정보에 맞게 문 및 생성
     /// </summary>
-    public void Init(Room baseRoom)
+    public void Init(RoomManager _roomManager, Room _baseRoom, RoomType[] _types)
     {
-        m_baseRoom = baseRoom;
+        m_roomManager = _roomManager;
+        m_baseRoom = _baseRoom;
+
+        for (int i = 0; i < 4; i++)
+        {
+            m_doors[i].Init(this, _types[i]);
+        }
+
+        IsClear = true;
     }
-    
+
+    public void VisitRoom(Transform _playerTr, Direction _direction)
+    {
+        _playerTr.position = GetDirectionTr(_direction).position;
+    }
+
+    public void LeaveRoom(Direction _inDirection)
+    {
+        m_roomManager.MovePlayer(this, _inDirection);
+    }
+    #endregion
+
+    #region PrivateMethod
     void OpenDoor()
     {
-        
+        m_desactiveAllDoorObj.SetActive(false);
     }
     
     void CloseDoor()
     {
-        
-    }
-
-    public void VisitRoom(Transform playerTr, Direction _direction)
-    {
-        playerTr.position = GetDirectionTr(_direction).position;
-    }
-
-    public void LeavedRoom(Direction _direction)
-    {
-        
+        m_desactiveAllDoorObj.SetActive(true);
     }
 
 
@@ -73,10 +75,11 @@ public class UIRoom : MonoBehaviour
     {
         return direction switch
         {
-            Direction.Up    => m_doors[0].spawnPosition,
-            Direction.Down  => m_doors[1].spawnPosition,
-            Direction.Left  => m_doors[2].spawnPosition,
-            Direction.Right => m_doors[3].spawnPosition,
+            Direction.Up    => m_doors[0].m_spawnPosition,
+            Direction.Down  => m_doors[1].m_spawnPosition,
+            Direction.Left  => m_doors[2].m_spawnPosition,
+            Direction.Right => m_doors[3].m_spawnPosition,
         };
     }
+    #endregion
 }

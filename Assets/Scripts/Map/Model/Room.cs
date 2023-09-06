@@ -1,6 +1,6 @@
 public class Room
 {
-    private RoomType Type;
+    public RoomType Type { get; private set; }
 
     public Room(RoomType type)
     {
