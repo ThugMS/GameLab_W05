@@ -12,6 +12,9 @@ public class Knight : Player
     [SerializeField] private Vector2 m_boxSize;
     [SerializeField] private float m_offset = 0.5f;
     [SerializeField] private float m_range = 2f;
+
+    [Header("Ability")]
+    [SerializeField] private float m_dashDis;
     #endregion
 
     #region Test
@@ -32,7 +35,12 @@ public class Knight : Player
 
     protected override void Ability()
     {
+        Dash();
+    }
 
+    protected override void SetStatus()
+    {
+        m_power = 5f;
     }
     #endregion
 
@@ -45,11 +53,17 @@ public class Knight : Player
         Vector3 attackPos = transform.position + new Vector3(attackDir.x, attackDir.y, 0);
 
         float angle = Vector2.Angle(Vector2.right, m_Direction.normalized);
-        Debug.Log(angle);
-        collider = Physics2D.OverlapBoxAll(attackPos, m_boxSize, angle, 1 << LayerMask.NameToLayer("Monster"));
+       
+        collider = Physics2D.OverlapBoxAll(attackPos, m_boxSize, angle, 1 << LayerMask.NameToLayer("Monster"), 1 << LayerMask.NameToLayer("Boss"));
 
         return collider;
     }
-    #endregion
 
+    private void Dash()
+    {
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.5f, m_Direction, m_dashDis, 1<<LayerMask.NameToLayer("Ground"), 1<<LayerMask.NameToLayer("Monster"), 1<<LayerMask.NameToLayer("Boss"));
+
+        
+    }
+    #endregion
 }

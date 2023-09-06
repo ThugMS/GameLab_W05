@@ -13,6 +13,10 @@ public abstract class Player : MonoBehaviour
     #region PrivateVariables
     [SerializeField] protected Rigidbody2D m_rigidbody;
 
+    [Header("Status")]
+    [SerializeField] protected float m_heart = 3f;
+    [SerializeField] protected float m_power;
+
     [Header("Move")]
     [SerializeField] protected float m_maxSpeed = 5f;
     [SerializeField] protected float m_accelSpeed = 0.5f;
@@ -21,6 +25,8 @@ public abstract class Player : MonoBehaviour
     [SerializeField] protected Vector2 m_inputDirection = Vector2.zero;
     [SerializeField] protected Vector2 m_Direction = Vector2.down;
     [SerializeField] protected bool m_isMove = false;
+
+    
     #endregion
 
     #region PublicMethod
@@ -60,7 +66,12 @@ public abstract class Player : MonoBehaviour
     }
     protected virtual void Awake()
     {
-        TryGetComponent<Rigidbody2D>(out m_rigidbody);   
+        TryGetComponent<Rigidbody2D>(out m_rigidbody);
+    }
+
+    protected virtual void Start()
+    {
+        SetStatus();
     }
 
     protected virtual void FixedUpdate()
@@ -76,6 +87,8 @@ public abstract class Player : MonoBehaviour
         }
         #endregion
     }
+
+    protected abstract void SetStatus();
 
     protected abstract void Attack();
 
