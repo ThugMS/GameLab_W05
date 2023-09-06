@@ -25,39 +25,39 @@ public class Knight : Player
     #endregion
 
     #region Test
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
 
-        #region Attack
+    //    #region Attack
 
-        //Vector2 attackDir = m_Direction.normalized * (m_offset + m_boxSize.x / 2);
-        //Vector3 attackPos = transform.position + new Vector3(attackDir.x, attackDir.y, 0);
+    //    //Vector2 attackDir = m_Direction.normalized * (m_offset + m_boxSize.x / 2);
+    //    //Vector3 attackPos = transform.position + new Vector3(attackDir.x, attackDir.y, 0);
 
-        //Gizmos.DrawWireCube(attackPos, m_boxSize);
-        #endregion
+    //    //Gizmos.DrawWireCube(attackPos, m_boxSize);
+    //    #endregion
 
-        #region Dash
-        //RaycastHit2D hit = Physics2D.CircleCast(transform.position, 2f, m_Direction, m_dashDis, m_dashLayerMask);
+    //    #region Dash
+    //    //RaycastHit2D hit = Physics2D.CircleCast(transform.position, 2f, m_Direction, m_dashDis, m_dashLayerMask);
 
-        //if (hit)
-        //{
-        //    Debug.Log(hit.point);
-        //    Gizmos.DrawRay(transform.position, m_Direction * hit.distance);
-        //}
-        //else
-        //{
-        //    Gizmos.DrawRay(transform.position, m_Direction*m_dashDis);
-        //}
+    //    //if (hit)
+    //    //{
+    //    //    Debug.Log(hit.point);
+    //    //    Gizmos.DrawRay(transform.position, m_Direction * hit.distance);
+    //    //}
+    //    //else
+    //    //{
+    //    //    Gizmos.DrawRay(transform.position, m_Direction*m_dashDis);
+    //    //}
 
-        Vector2 attackDir = m_Direction.normalized * (m_dashAttackBoxSize.x / 2);
-        Vector3 attackPos = transform.position + new Vector3(attackDir.x, attackDir.y, 0);
+    //    //Vector2 attackDir = m_Direction.normalized * (m_dashAttackBoxSize.x / 2);
+    //    //Vector3 attackPos = transform.position + new Vector3(attackDir.x, attackDir.y, 0);
 
-        float angle = Vector2.Angle(Vector2.right, m_Direction.normalized);
+    //    //float angle = Vector2.Angle(Vector2.right, m_Direction.normalized);
 
-        Gizmos.DrawWireCube(attackPos, m_dashAttackBoxSize);
-        #endregion
-    }
+    //    //Gizmos.DrawWireCube(attackPos, m_dashAttackBoxSize);
+    //    #endregion
+    //}
     #endregion
     #region PublicMethod
     protected override void Attack()
@@ -68,7 +68,6 @@ public class Knight : Player
     protected override void Ability()
     {
         Dash();
-        DashAttackCheckCollider();
     }
 
     protected override void SetStatus()
@@ -103,18 +102,23 @@ public class Knight : Player
     private RaycastHit2D Dash()
     {
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.5f, m_Direction, m_dashDis, m_dashLayerMask);
+        Tweener tween = null;
 
-        if(hit == true)
+        if (hit == true)
         {
-            transform.DOMove(hit.point, m_durationTime).SetEase(m_dashEase);
+            tween = transform.DOMove(hit.point, m_durationTime).SetEase(m_dashEase);
+
         }
         else
         {
             Vector3 dis = m_Direction.normalized * m_dashDis;
             Vector3 targetPos = transform.position + dis;
 
-            transform.DOMove(targetPos, m_durationTime).SetEase(m_dashEase);
+            tween = transform.DOMove(targetPos, m_durationTime).SetEase(m_dashEase);
+
         }
+        StartCoroutine(nameof(IE_DashAttack), tween);
+
 
         return hit;
     }
@@ -131,6 +135,13 @@ public class Knight : Player
         collider = Physics2D.OverlapBoxAll(attackPos, m_dashAttackBoxSize, angle, 1 << LayerMask.NameToLayer("Monster"), 1 << LayerMask.NameToLayer("Boss"));
 
         return collider;
+    }
+
+    private IEnumerator IE_DashAttack(Tweener _tween)
+    {
+        yield return _tween.WaitForCompletion();
+
+        DashAttackCheckCollider();
     }
     #endregion
 }
