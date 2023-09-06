@@ -65,6 +65,22 @@ public abstract class Player : MonoBehaviour
 
         Ability();
     }
+
+    public void GetDamage(float _damage)
+    {
+        m_heart -= _damage;
+
+        if(m_heart <= 0)
+        {
+            Dead();
+        }
+    }
+
+    public void Dead()
+    {
+
+    }
+
     protected virtual void Awake()
     {
         TryGetComponent<Rigidbody2D>(out m_rigidbody);

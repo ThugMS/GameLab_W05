@@ -68,6 +68,8 @@ public class Knight : Player
     protected override void Attack()
     {
         Collider2D[] collider = AttackCheckCollider();
+
+        DamageAttackMonster(collider);
     }
 
     protected override void Ability()
@@ -93,7 +95,7 @@ public class Knight : Player
         Vector3 attackPos = transform.position + new Vector3(attackDir.x, attackDir.y, 0);
 
         float angle = Vector2.Angle(Vector2.right, m_Direction.normalized);
-       
+
         collider = Physics2D.OverlapBoxAll(attackPos, m_attackBoxSize, angle, 1 << LayerMask.NameToLayer("Monster"), 1 << LayerMask.NameToLayer("Boss"));
 
         return collider;
@@ -137,11 +139,25 @@ public class Knight : Player
         return collider;
     }
 
+    private void DamageAttackMonster(Collider2D[] _collider)
+    {
+        foreach (var iter in _collider)
+        {
+            BaseMonster monster;
+
+            iter.TryGetComponent<BaseMonster>(out monster);
+
+            monster.getDamage(m_power);
+        }
+    }
+
     private IEnumerator IE_DashAttack(Tweener _tween)
     {
         yield return _tween.WaitForCompletion();
 
-        DashAttackCheckCollider();
+        Collider2D[] collider = DashAttackCheckCollider();
+
+        DamageAttackMonster(collider);
     }
     #endregion
 }
