@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public abstract class Player : MonoBehaviour
 {
     #region PublicVariables
     
@@ -12,29 +13,65 @@ public class Player : MonoBehaviour
     #region PrivateVariables
     [SerializeField] protected Rigidbody2D m_rigidbody;
 
+    [Header("Status")]
+    [SerializeField] protected float m_heart = 3f;
+    [SerializeField] protected float m_power;
+
     [Header("Move")]
     [SerializeField] protected float m_maxSpeed = 5f;
     [SerializeField] protected float m_accelSpeed = 0.5f;
     [SerializeField] protected float m_decelSpeed = 1.0f;
     [SerializeField] protected float m_curSpeed = 0f;
     [SerializeField] protected Vector2 m_inputDirection = Vector2.zero;
-    [SerializeField] protected Vector2 m_Direction = Vector2.zero;
+    [SerializeField] protected Vector2 m_Direction = Vector2.down;
     [SerializeField] protected bool m_isMove = false;
+
+    
     #endregion
 
     #region PublicMethod
     public void OnMovement(InputAction.CallbackContext _context)
-    {   
+    {
         m_inputDirection = _context.ReadValue<Vector2>();
 
-        if(m_inputDirection == Vector2.zero)
+        if (m_inputDirection == Vector2.zero)
         {
             SetIsMove(false);
         }
         else
         {
             SetIsMove(true);
+            m_Direction = m_inputDirection;
         }
+    }
+
+    public void OnAttack(InputAction.CallbackContext _context)
+    {
+        if(_context.started == false)
+        {
+            return;
+        }
+
+        Attack();
+    }
+
+    public void OnAbility(InputAction.CallbackContext _context)
+    {
+        if (_context.started == false)
+        {
+            return;
+        }
+
+        Ability();
+    }
+    protected virtual void Awake()
+    {
+        TryGetComponent<Rigidbody2D>(out m_rigidbody);
+    }
+
+    protected virtual void Start()
+    {
+        SetStatus();
     }
 
     protected virtual void FixedUpdate()
@@ -50,6 +87,12 @@ public class Player : MonoBehaviour
         }
         #endregion
     }
+
+    protected abstract void SetStatus();
+
+    protected abstract void Attack();
+
+    protected abstract void Ability();
     #endregion
 
     #region PrivateMethod
