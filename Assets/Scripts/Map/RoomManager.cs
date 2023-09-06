@@ -69,9 +69,9 @@ public class RoomManager : MonoBehaviour
         m_rooms = new Room[1, 3]
         {
             {
-                new (RoomType.Start),
-                new (RoomType.Monster),
-                new (RoomType.Boss)
+                new MonsterRoom(new()),
+                new StartRoom(),
+                new BossRoom(new())
             },
         }; 
     }
@@ -100,11 +100,14 @@ public class RoomManager : MonoBehaviour
                 {
                     var obj = Instantiate(m_roomPrefabs, m_gridTr);
                     obj.transform.position = new Vector3(x * m_roomWidthSize, y * m_roomHeightSize, 0);
+
+                    var roomByType = CreateUIRoomByType(obj, room.Type);
+                    roomByType.Init(room);
                     
                     var uiRoom = obj.GetComponent<UIRoom>();
                     m_uiRooms[y, x] = uiRoom;
                     uiRoom.m_grid = new Vector2Int(y, x);
-                    uiRoom.Init(this, room, GetRoomType(y, x));
+                    uiRoom.Init(this, roomByType, GetRoomTypes(y, x));
                     
                     if (room.Type == RoomType.Start)
                     {
@@ -116,7 +119,7 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    RoomType[] GetRoomType(int _y, int _x)
+    RoomType[] GetRoomTypes(int _y, int _x)
     {
         var types = new RoomType[4];
 
@@ -168,7 +171,7 @@ public class RoomManager : MonoBehaviour
     /// </summary>
     void InitPlayerPosition()
     {
-        
+        m_startUIRoom.VisitRoom(player);
     }
 
 
@@ -199,5 +202,19 @@ public class RoomManager : MonoBehaviour
 
         return visitUIRoom;
     }
+
+    #region Factory
+
+    public IRoom CreateUIRoomByType(GameObject _obj, RoomType _type)
+    {
+        return _type switch
+        {
+            RoomType.Start   => _obj.AddComponent<UIStartRoom>(),
+            RoomType.Monster => _obj.AddComponent<UIMonsterRoom>(),
+            RoomType.Boss    => _obj.AddComponent<UIBossRoom>(),
+        };
+    }
+
+    #endregion
     #endregion
 }

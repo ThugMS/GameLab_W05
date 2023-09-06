@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// 모든 방이 가지는 기본 설정
+/// [TODO] 추후, BaseRoom로 이름 변경 할 것 (인터페이스를 구현한 오브젝트와 차별)
+/// </summary>
 public class UIRoom : MonoBehaviour
 {
     #region PublicVaraibles
@@ -8,14 +12,12 @@ public class UIRoom : MonoBehaviour
     
     #region PrivateVaraibles
     private RoomManager m_roomManager;
-    private Room m_baseRoom;
-    
-    [Header("위치 정보")]
-    [SerializeField] private Transform m_monsterSpawnPositions;
+    private IRoom m_roomByType;
 
     [Header("방 구성")]
     [SerializeField] private RoomDoor[] m_doors;
     [SerializeField] private GameObject m_desactiveAllDoorObj;
+    public Transform m_monsterSpawnPositions;
 
     private bool m_isClear;
     public bool IsClear
@@ -35,23 +37,41 @@ public class UIRoom : MonoBehaviour
     /// 방 정보를 초기화
     /// 지정된 정보에 맞게 문 및 생성
     /// </summary>
-    public void Init(RoomManager _roomManager, Room _baseRoom, RoomType[] _types)
+    public void Init(RoomManager _roomManager, IRoom _roomByType, RoomType[] _types)
     {
         m_roomManager = _roomManager;
-        m_baseRoom = _baseRoom;
+        m_roomByType = _roomByType;
 
         for (int i = 0; i < 4; i++)
         {
             m_doors[i].Init(this, _types[i]);
         }
 
-        IsClear = true;
+        IsClear = false;
     }
 
-    public void VisitRoom(Transform _playerTr, Direction _direction)
+    /// <summary>
+    /// 해당 방으로 이동
+    /// 만약, 방향이 입력되지 않았다면 중앙에서 생성
+    /// </summary>
+    public void VisitRoom(Transform _playerTr, Direction _direction = Direction.Ignore)
     {
-        var moveTransform = GetDirectionTr(_direction);
-        _playerTr.position = moveTransform.position;
+        if (_direction != Direction.Ignore)
+        {
+            var moveTransform = GetDirectionTr(_direction);
+            _playerTr.position = moveTransform.position;
+            
+        }
+        else
+        {
+            _playerTr.position = transform.position;
+        }
+
+        // 클리어가 되지 않은 맵의 경우, 맵 특성에 맞게 동작 수행
+        if (IsClear == false)
+        {
+            m_roomByType.Execute();
+        }
     }
 
     public void LeaveRoom(Direction _inDirection)
