@@ -1199,7 +1199,7 @@ MonoBehaviour:
   player: {fileID: 509111913}
   m_roomPrefabs: {fileID: 3350617661772655293, guid: 7594296276745d5408f49196ed1034c4, type: 3}
   m_gridTr: {fileID: 46587034}
-  m_roomWidthSize: 26
+  m_roomWidthSize: 27
   m_roomHeightSize: 19
 --- !u!4 &509111913
 Transform:
@@ -2036,7 +2036,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3511,10 +3511,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
-      propertyPath: panel.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
       propertyPath: panel.Array.data[0]
       value: 
