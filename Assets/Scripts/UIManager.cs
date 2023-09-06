@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     [Header("Panel")]
     [SerializeField] private List<GameObject> m_panel;
     [SerializeField] private GameObject m_gameOverPanel;
+    [SerializeField] private GameObject m_clearPanel;
     [SerializeField] private GameObject m_hitPanel; 
     
     
@@ -37,6 +38,11 @@ public class UIManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+    
+    private void Update()
+    {
+        CheckMonster();
     }
     
     #region PublicMethod
@@ -68,6 +74,11 @@ public class UIManager : MonoBehaviour
     {
         m_gameOverPanel.SetActive(true);
     }
+    public void ShowClearPanel()
+    {
+        m_clearPanel.SetActive(true);
+    }
+
     public void ClosePanel()
     {
         for (int i = m_panel.Count - 1; i >= 0; i--)
@@ -148,5 +159,27 @@ public class UIManager : MonoBehaviour
     #endregion
     
     #region PrivateMethod
+    private void CheckMonster()
+    {
+        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+        
+        bool isAnyMonsterInView = false;
+        Camera cam = Camera.main;
+
+        foreach (GameObject monster in monsters)
+        {
+            Vector3 viewPos = cam.WorldToViewportPoint(monster.transform.position);
+            if (viewPos.x >= 0 && viewPos.x <= 1 && viewPos.y >= 0 && viewPos.y <= 1)
+            {
+                isAnyMonsterInView = true;
+                break;
+            }
+        }
+        
+        if (!isAnyMonsterInView)
+        {
+            GameManager.Instance.GameClear();
+        }
+    }
     #endregion
 }

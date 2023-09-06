@@ -1408,6 +1408,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 751177879}
     - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
+      propertyPath: m_clearPanel
+      value: 
+      objectReference: {fileID: 1358072064}
+    - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
       propertyPath: m_lifePrefab
       value: 
       objectReference: {fileID: 1130354117882895896}

@@ -38,6 +38,14 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.ShowGameOverPanel();
         Time.timeScale = 0f;
     }
+    public void GameClear()
+    {
+        isGameOver = true;
+        UIManager.Instance.ShowClearPanel();
+        Time.timeScale = 0f;
+    }
+    
+    
     #endregion
 
     #region PrivateMethod
