@@ -9,6 +9,8 @@ public class Knight : Player
     #endregion
 
     #region PrivateVariables
+    private Collider2D[] m_colliders = null;
+
     [Header("Attack")]
     [SerializeField] private Vector2 m_attackBoxSize;
     [SerializeField] private float m_offset = 0.5f;
@@ -22,6 +24,9 @@ public class Knight : Player
     [SerializeField] private float m_coolTime = 3f;
     [SerializeField] private Ease m_dashEase = Ease.Linear;
     [SerializeField] private int m_dashLayerMask;
+
+    [Header("Animator")]
+    [SerializeField] private Animator m_animator;
     #endregion
 
     #region Test
@@ -59,6 +64,7 @@ public class Knight : Player
     //    #endregion
     //}
     #endregion
+
     #region PublicMethod
     protected override void SetStatus()
     {
@@ -66,10 +72,17 @@ public class Knight : Player
     }
 
     protected override void Attack()
-    {
-        Collider2D[] collider = AttackCheckCollider();
+    {   
+        if(m_canAct == false)
+        {
+            return;
+        }
 
-        DamageAttackMonster(collider);
+        m_animator.SetTrigger("AttackRight");
+        m_canAct = false;
+        m_canMove = false;
+
+        AttackCheckCollider();
     }
 
     protected override void Ability()
@@ -84,21 +97,32 @@ public class Knight : Player
         m_attackLayerMask = LayerMask.GetMask("Monster", "Boss");
         m_dashLayerMask = LayerMask.GetMask("Wall", "Monster", "Boss");
     }
+
+
+    public void DamageAttackMonster()
+    {
+        foreach (var iter in m_colliders)
+        {
+            BaseMonster monster;
+
+            iter.TryGetComponent<BaseMonster>(out monster);
+
+            monster.getDamage(m_power);
+        }
+    }
     #endregion
 
     #region PrivateMethod
-    private Collider2D[] AttackCheckCollider()
+    private void AttackCheckCollider()
     {
-        Collider2D[] collider = null;
+        m_colliders = null;
 
         Vector2 attackDir = m_Direction.normalized * (m_offset + m_attackBoxSize.x / 2);
         Vector3 attackPos = transform.position + new Vector3(attackDir.x, attackDir.y, 0);
 
         float angle = Vector2.Angle(Vector2.right, m_Direction.normalized);
 
-        collider = Physics2D.OverlapBoxAll(attackPos, m_attackBoxSize, angle, 1 << LayerMask.NameToLayer("Monster"), 1 << LayerMask.NameToLayer("Boss"));
-
-        return collider;
+        m_colliders = Physics2D.OverlapBoxAll(attackPos, m_attackBoxSize, angle, m_attackLayerMask);
     }
 
     private RaycastHit2D Dash()
@@ -125,39 +149,25 @@ public class Knight : Player
         return hit;
     }
 
-    private Collider2D[] DashAttackCheckCollider()
+    private void DashAttackCheckCollider()
     {
-        Collider2D[] collider = null;
+        m_colliders = null;
 
         Vector2 attackDir = m_Direction.normalized * (m_dashAttackBoxSize.x / 2);
         Vector3 attackPos = transform.position + new Vector3(attackDir.x, attackDir.y, 0);
 
         float angle = Vector2.Angle(Vector2.right, m_Direction.normalized);
 
-        collider = Physics2D.OverlapBoxAll(attackPos, m_dashAttackBoxSize, angle, 1 << LayerMask.NameToLayer("Monster"), 1 << LayerMask.NameToLayer("Boss"));
-
-        return collider;
-    }
-
-    private void DamageAttackMonster(Collider2D[] _collider)
-    {
-        foreach (var iter in _collider)
-        {
-            BaseMonster monster;
-
-            iter.TryGetComponent<BaseMonster>(out monster);
-
-            monster.getDamage(m_power);
-        }
+        m_colliders = Physics2D.OverlapBoxAll(attackPos, m_dashAttackBoxSize, angle, m_attackLayerMask);
     }
 
     private IEnumerator IE_DashAttack(Tweener _tween)
     {
         yield return _tween.WaitForCompletion();
 
-        Collider2D[] collider = DashAttackCheckCollider();
+        DashAttackCheckCollider();
 
-        DamageAttackMonster(collider);
+        DamageAttackMonster();
     }
     #endregion
 }
