@@ -50,7 +50,8 @@ public class UIRoom : MonoBehaviour
 
     public void VisitRoom(Transform _playerTr, Direction _direction)
     {
-        _playerTr.position = GetDirectionTr(_direction).position;
+        var moveTransform = GetDirectionTr(_direction);
+        _playerTr.position = moveTransform.position;
     }
 
     public void LeaveRoom(Direction _inDirection)

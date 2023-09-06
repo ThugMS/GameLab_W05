@@ -40,9 +40,8 @@ public class RoomManager : MonoBehaviour
     /// <param name="leavedDirection">직전 방에서 들어간 문의 방향</param>
     public void MovePlayer(UIRoom leavedUIRoom, Direction leavedDirection)
     {
+        UIRoom nextUIRoom = GetVisitRoom(leavedUIRoom, leavedDirection);
         var nextDirection = GetOppositeDirection(leavedDirection);
-        UIRoom nextUIRoom = GetVisitRoom(leavedUIRoom, nextDirection);
-        
         nextUIRoom.VisitRoom(player, nextDirection);
     }
     
@@ -90,6 +89,8 @@ public class RoomManager : MonoBehaviour
     /// </summary>
     void GenerateRoom()
     {
+        m_uiRooms = new UIRoom[m_rooms.GetLength(0), m_rooms.GetLength(1)];
+        
         for (int y = 0, maxY = m_rooms.GetLength(0); y < maxY; y++)
         {
             for (int x = 0, maxX = m_rooms.GetLength(1); x < maxX; x++)
@@ -101,14 +102,16 @@ public class RoomManager : MonoBehaviour
                     obj.transform.position = new Vector3(x * m_roomWidthSize, y * m_roomHeightSize, 0);
                     
                     var uiRoom = obj.GetComponent<UIRoom>();
+                    m_uiRooms[y, x] = uiRoom;
                     uiRoom.m_grid = new Vector2Int(y, x);
                     uiRoom.Init(this, room, GetRoomType(y, x));
-
+                    
                     if (room.Type == RoomType.Start)
                     {
                         m_startUIRoom = uiRoom;
                     }
                 }
+                
             }
         }
     }
@@ -180,17 +183,19 @@ public class RoomManager : MonoBehaviour
         };
     }
 
-    UIRoom GetVisitRoom(UIRoom _currentUIRoom, Direction _visitDirection)
+    UIRoom GetVisitRoom(UIRoom _currentUIRoom, Direction _leaveDirection)
     {
         Vector2Int vec = _currentUIRoom.m_grid;
 
-        UIRoom visitUIRoom = _visitDirection switch
+        var nextVector =  _leaveDirection switch
         {
-            Direction.Up    => m_uiRooms[vec.y + 1, vec.x],
-            Direction.Down  => m_uiRooms[vec.y - 1, vec.x],
-            Direction.Left  => m_uiRooms[vec.y, vec.x - 1],
-            Direction.Right => m_uiRooms[vec.y, vec.x + 1],
+            Direction.Up    => new Vector2Int(vec.x + 1, vec.y),
+            Direction.Down  => new Vector2Int(vec.x - 1, vec.y),
+            Direction.Left  => new Vector2Int(vec.x, vec.y - 1),
+            Direction.Right => new Vector2Int(vec.x, vec.y + 1),
         };
+
+        UIRoom visitUIRoom = m_uiRooms[nextVector.x, nextVector.y];
 
         return visitUIRoom;
     }
