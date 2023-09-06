@@ -25,6 +25,7 @@ public abstract class Player : MonoBehaviour
     [SerializeField] protected Vector2 m_inputDirection = Vector2.zero;
     [SerializeField] protected Vector2 m_Direction = Vector2.down;
     [SerializeField] protected bool m_isMove = false;
+    [SerializeField] protected bool m_canMove = true;
 
     
     #endregion
@@ -45,7 +46,7 @@ public abstract class Player : MonoBehaviour
         }
     }
 
-    public void OnAttack(InputAction.CallbackContext _context)
+    public virtual void OnAttack(InputAction.CallbackContext _context)
     {
         if(_context.started == false)
         {
@@ -64,6 +65,22 @@ public abstract class Player : MonoBehaviour
 
         Ability();
     }
+
+    public void GetDamage(float _damage)
+    {
+        m_heart -= _damage;
+
+        if(m_heart <= 0)
+        {
+            Dead();
+        }
+    }
+
+    public void Dead()
+    {
+
+    }
+
     protected virtual void Awake()
     {
         TryGetComponent<Rigidbody2D>(out m_rigidbody);
@@ -77,7 +94,7 @@ public abstract class Player : MonoBehaviour
     protected virtual void FixedUpdate()
     {
         #region Move
-        if(m_isMove == true)
+        if(m_isMove == true && m_canMove == true)
         {
             Move(1);
         }
