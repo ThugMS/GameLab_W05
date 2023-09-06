@@ -1,0 +1,101 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class Player : MonoBehaviour
+{
+    #region PublicVariables
+    
+    #endregion
+
+    #region PrivateVariables
+    [SerializeField] protected Rigidbody2D m_rigidbody;
+
+    [Header("Move")]
+    [SerializeField] protected float m_maxSpeed = 5f;
+    [SerializeField] protected float m_accelSpeed = 0.5f;
+    [SerializeField] protected float m_decelSpeed = 1.0f;
+    [SerializeField] protected float m_curSpeed = 0f;
+    [SerializeField] protected Vector2 m_inputDirection = Vector2.zero;
+    [SerializeField] protected Vector2 m_Direction = Vector2.zero;
+    [SerializeField] protected bool m_isMove = false;
+    #endregion
+
+    #region PublicMethod
+    public void OnMovement(InputAction.CallbackContext _context)
+    {   
+        m_inputDirection = _context.ReadValue<Vector2>();
+
+        if(m_inputDirection == Vector2.zero)
+        {
+            SetIsMove(false);
+        }
+        else
+        {
+            SetIsMove(true);
+        }
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        #region Move
+        if(m_isMove == true)
+        {
+            Move(1);
+        }
+        else
+        {
+            Move(-1);
+        }
+        #endregion
+    }
+    #endregion
+
+    #region PrivateMethod
+    private void Move(int _arrow)
+    {
+        SetMoveSpeed(_arrow);
+
+        Vector2 moveAmount = m_inputDirection.normalized * m_curSpeed * Time.deltaTime;
+        Vector2 nextPosition = m_rigidbody.position + moveAmount;
+
+        m_rigidbody.MovePosition(nextPosition);
+    }
+
+    private void SetMoveSpeed(int _arrow)
+    {
+        if (m_curSpeed <= m_maxSpeed)
+        {
+            if (_arrow < 0)
+            {
+                m_curSpeed -= m_decelSpeed;
+            }
+            else
+            {
+                m_curSpeed += m_accelSpeed;
+            }
+        }
+
+        if (m_curSpeed < 0)
+        {
+            m_curSpeed = 0;
+        }
+
+        if (m_curSpeed > m_maxSpeed)
+        {
+            m_curSpeed = m_maxSpeed;
+        }
+    }
+
+    private void SetIsMove(bool _value)
+    {
+        m_isMove= _value;
+    }
+
+    private bool GetIsMove()
+    {
+        return m_isMove;
+    }
+    #endregion
+}
