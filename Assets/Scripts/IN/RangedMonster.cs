@@ -11,17 +11,17 @@ public class RangedMonster : BaseMonster
 
     #region PrivateVariables
     #endregion
-
+    [Header("RangedAttack")]
     [SerializeField] private float m_attackRange;
     [SerializeField] private GameObject m_bullet;
     [SerializeField] private float m_bulletSpeed;
     [SerializeField] private int m_bulletCount;
+    [SerializeField] private int m_attackTime;
+
     private bool isAttacking = false;
     #region PublicMethod
 
-
-
-    public override void Persuit()
+    public override void Pursuit()
     {
         Vector3 playerDetection = detectingPlayer().position - transform.position;
 
@@ -50,22 +50,21 @@ public class RangedMonster : BaseMonster
     {
         if (isAttacking == false)
         {
-            StartCoroutine(IEAttack());
+            StartCoroutine(IE_Attack());
+            print("shoot");
         }
     }
-
-
 
     #endregion
 
     #region PrivateMethod
 
-    private IEnumerator IEAttack()
+    private IEnumerator IE_Attack()
     {
         
 
         isAttacking = true;
-        yield return new WaitForSeconds(base.m_attackTime);
+        yield return new WaitForSeconds(m_attackTime);
         
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
