@@ -131,13 +131,16 @@ MonoBehaviour:
   m_inputDirection: {x: 0, y: 0}
   m_Direction: {x: 0, y: 0}
   m_isMove: 0
-  m_boxSize: {x: 1.5, y: 2}
+  m_attackBoxSize: {x: 1, y: 2}
   m_offset: 0.5
   m_range: 0
+  m_attackLayerMask: 0
+  m_dashAttackBoxSize: {x: 2, y: 3}
   m_dashDis: 5
   m_durationTime: 0.5
   m_coolTime: 3
   m_dashEase: 26
+  m_dashLayerMask: 0
 --- !u!114 &4138420507533337175
 MonoBehaviour:
   m_ObjectHideFlags: 0
