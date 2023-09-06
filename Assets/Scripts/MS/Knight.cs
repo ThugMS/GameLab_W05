@@ -60,6 +60,11 @@ public class Knight : Player
     //}
     #endregion
     #region PublicMethod
+    protected override void SetStatus()
+    {
+        m_power = 5f;
+    }
+
     protected override void Attack()
     {
         Collider2D[] collider = AttackCheckCollider();
@@ -68,11 +73,6 @@ public class Knight : Player
     protected override void Ability()
     {
         Dash();
-    }
-
-    protected override void SetStatus()
-    {
-        m_power = 5f;
     }
 
     protected override void Start()
