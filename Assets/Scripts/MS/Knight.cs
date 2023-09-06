@@ -87,6 +87,14 @@ public class Knight : Player
 
     protected override void Ability()
     {
+        if (m_canAct == false)
+        {
+            return;
+        }
+
+        m_canAct = false;
+        m_canMove = false;
+
         Dash();
     }
 
@@ -166,8 +174,7 @@ public class Knight : Player
         yield return _tween.WaitForCompletion();
 
         DashAttackCheckCollider();
-
-        DamageAttackMonster();
+        m_animator.SetTrigger("AbilityRight");
     }
     #endregion
 }
