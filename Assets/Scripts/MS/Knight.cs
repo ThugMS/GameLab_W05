@@ -9,7 +9,7 @@ public class Knight : Player
     #endregion
 
     #region PrivateVariables
-    private Collider2D[] m_colliders = null;
+    [SerializeField] private Collider2D[] m_colliders = null;
 
     [Header("Attack")]
     [SerializeField] private Vector2 m_attackBoxSize;
@@ -27,6 +27,7 @@ public class Knight : Player
     [SerializeField] private Vector2 m_startPos;
     [SerializeField] private Vector2 m_endPos;
     [SerializeField] private float m_moveDis;
+    [SerializeField] private Vector2 m_dashDir;
 
     [Header("Animator")]
     [SerializeField] private Animator m_animator;
@@ -98,6 +99,7 @@ public class Knight : Player
         m_canAct = false;
         m_canMove = false;
 
+        m_dashDir = m_Direction;
         Dash();
     }
 
@@ -138,7 +140,7 @@ public class Knight : Player
 
     private RaycastHit2D Dash()
     {
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.5f, m_Direction, m_dashDis, m_dashLayerMask);
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.5f, m_dashDir, m_dashDis, m_dashLayerMask);
         Tweener tween = null;
         m_startPos = transform.position;
 
@@ -150,7 +152,7 @@ public class Knight : Player
         }
         else
         {
-            Vector3 dis = m_Direction.normalized * m_dashDis;
+            Vector3 dis = m_dashDir.normalized * m_dashDis;
             Vector3 targetPos = transform.position + dis;
 
             tween = transform.DOMove(targetPos, m_durationTime).SetEase(m_dashEase);
@@ -169,10 +171,10 @@ public class Knight : Player
 
         m_dashAttackBoxSize = new Vector2(m_moveDis + 2f, m_dashAttackBoxSize.y);
 
-        Vector2 attackDir = m_Direction.normalized * (m_dashAttackBoxSize.x / 2);
+        Vector2 attackDir = m_dashDir.normalized * (m_dashAttackBoxSize.x / 2);
         Vector3 attackPos = transform.position - new Vector3(attackDir.x, attackDir.y, 0) + new Vector3(2f, 0, 0);
 
-        float angle = Vector2.Angle(Vector2.right, m_Direction.normalized);
+        float angle = Vector2.Angle(Vector2.right, m_dashDir.normalized);
 
         m_colliders = Physics2D.OverlapBoxAll(attackPos, m_dashAttackBoxSize, angle, m_attackLayerMask);
     }
