@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6785976041359516803}
   - component: {fileID: 6785976041359516812}
   - component: {fileID: 6785976041359516802}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: melee
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -100,11 +100,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b09407312536b4f47b417f09432a0539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monosterLevel: 0
+  m_detectingLayer:
+    serializedVersion: 2
+    m_Bits: 0
   m_speed: 3
   m_range: 4
   m_basicAttack: 0
-  m_knockBackTime: 1
   m_health: 10
+  m_knockBackTime: 1
   m_patrolTime: 2
 --- !u!50 &6785976041359516803
 Rigidbody2D:

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6857720738556830169}
   - component: {fileID: 6857720738556830168}
   - component: {fileID: 6857720738556830174}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ranged
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -100,11 +100,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d26f5937560cd498d187b82150a184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monosterLevel: 0
+  m_detectingLayer:
+    serializedVersion: 2
+    m_Bits: 0
   m_speed: 2
   m_range: 8
   m_basicAttack: 0
-  m_knockBackTime: 1
   m_health: 5
+  m_knockBackTime: 1
   m_patrolTime: 2
   m_attackRange: 5
   m_bullet: {fileID: 4096951867171842566, guid: b1e339cf285252c44b52e93426168a30, type: 3}
