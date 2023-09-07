@@ -71,6 +71,16 @@ public class BaseRoom : MonoBehaviour
         {
             _mUIRoomByType.Execute();
         }
+
+        UpdateCameraPosition();
+    }
+
+    void UpdateCameraPosition()
+    {
+        var cameraPos = transform.position;
+        cameraPos.z = -10;
+
+        Camera.main.transform.position = cameraPos;
     }
 
     public void LeaveRoom(Direction _inDirection)
