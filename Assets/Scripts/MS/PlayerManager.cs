@@ -11,6 +11,15 @@ public class PlayerManager : MonoBehaviour
     #endregion
 
     #region PublicMethod
+    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Monster"))
+        {
+            UIManager.Instance.DecreaseLife();
+        }
+    }
+    
     #endregion
 
     #region PrivateMethod
