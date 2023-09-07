@@ -3,7 +3,7 @@ guid: 6aab6028844b22441a7182830434ab85
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -63,6 +63,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -2982,142 +2983,142 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SI_Dark_Castle_Pool_72: -2062382208
+      SI_Dark_Castle_Pool_0: 137110463
+      SI_Dark_Castle_Pool_1: -1032607948
+      SI_Dark_Castle_Pool_10: 920283434
+      SI_Dark_Castle_Pool_100: 167735485
+      SI_Dark_Castle_Pool_101: 324312775
+      SI_Dark_Castle_Pool_102: 1491149171
+      SI_Dark_Castle_Pool_103: -1404839729
+      SI_Dark_Castle_Pool_104: -1790583724
+      SI_Dark_Castle_Pool_105: 1661378656
+      SI_Dark_Castle_Pool_106: 20871225
+      SI_Dark_Castle_Pool_107: -559935790
+      SI_Dark_Castle_Pool_108: -1545653567
+      SI_Dark_Castle_Pool_109: -1637086148
+      SI_Dark_Castle_Pool_11: -1675261348
+      SI_Dark_Castle_Pool_110: -1964299527
+      SI_Dark_Castle_Pool_111: -601373955
+      SI_Dark_Castle_Pool_112: -1381548406
+      SI_Dark_Castle_Pool_113: 1791517508
+      SI_Dark_Castle_Pool_114: -1269674508
+      SI_Dark_Castle_Pool_115: 146088867
+      SI_Dark_Castle_Pool_116: 1524523988
+      SI_Dark_Castle_Pool_117: -361530699
+      SI_Dark_Castle_Pool_118: -1355650355
+      SI_Dark_Castle_Pool_119: -1349222170
+      SI_Dark_Castle_Pool_12: -292596702
+      SI_Dark_Castle_Pool_120: 1226791678
+      SI_Dark_Castle_Pool_121: -569737516
+      SI_Dark_Castle_Pool_122: -622052471
+      SI_Dark_Castle_Pool_123: -549305098
+      SI_Dark_Castle_Pool_124: 359433741
+      SI_Dark_Castle_Pool_125: 1659683460
+      SI_Dark_Castle_Pool_126: 110721873
+      SI_Dark_Castle_Pool_127: -486148913
+      SI_Dark_Castle_Pool_128: -857823170
+      SI_Dark_Castle_Pool_129: -2050598695
+      SI_Dark_Castle_Pool_13: 382292572
+      SI_Dark_Castle_Pool_130: -1857602809
+      SI_Dark_Castle_Pool_131: 378410081
+      SI_Dark_Castle_Pool_132: -381971760
+      SI_Dark_Castle_Pool_133: -1309857983
+      SI_Dark_Castle_Pool_134: -691219672
+      SI_Dark_Castle_Pool_135: 1976692364
+      SI_Dark_Castle_Pool_14: -1177941063
+      SI_Dark_Castle_Pool_15: -560442055
+      SI_Dark_Castle_Pool_16: -1945105059
       SI_Dark_Castle_Pool_17: -1202227675
+      SI_Dark_Castle_Pool_18: -522935807
+      SI_Dark_Castle_Pool_19: 73050795
+      SI_Dark_Castle_Pool_2: -1717277374
+      SI_Dark_Castle_Pool_20: -1685194459
+      SI_Dark_Castle_Pool_21: -648779391
+      SI_Dark_Castle_Pool_22: 1691953935
+      SI_Dark_Castle_Pool_23: 714229765
+      SI_Dark_Castle_Pool_24: 721828491
+      SI_Dark_Castle_Pool_25: -433237507
+      SI_Dark_Castle_Pool_26: -1857731116
+      SI_Dark_Castle_Pool_27: 987832247
       SI_Dark_Castle_Pool_28: -1335000591
+      SI_Dark_Castle_Pool_29: -1375755284
+      SI_Dark_Castle_Pool_3: -11270322
+      SI_Dark_Castle_Pool_30: 311222883
+      SI_Dark_Castle_Pool_31: 1919624581
+      SI_Dark_Castle_Pool_32: 433428925
+      SI_Dark_Castle_Pool_33: 904386687
+      SI_Dark_Castle_Pool_34: -1102296352
+      SI_Dark_Castle_Pool_35: -459644160
+      SI_Dark_Castle_Pool_36: -1319319627
+      SI_Dark_Castle_Pool_37: 1267402432
+      SI_Dark_Castle_Pool_38: -1055686290
       SI_Dark_Castle_Pool_39: 2051068454
-      SI_Dark_Castle_Pool_65: 905876342
+      SI_Dark_Castle_Pool_4: 1720403079
+      SI_Dark_Castle_Pool_40: 1344094133
+      SI_Dark_Castle_Pool_41: -50767407
+      SI_Dark_Castle_Pool_42: 977764271
+      SI_Dark_Castle_Pool_43: -1953385645
+      SI_Dark_Castle_Pool_44: -1542677843
+      SI_Dark_Castle_Pool_45: 1636046215
+      SI_Dark_Castle_Pool_46: 1105843453
+      SI_Dark_Castle_Pool_47: -747433179
+      SI_Dark_Castle_Pool_48: 1428254931
+      SI_Dark_Castle_Pool_49: 2117061681
+      SI_Dark_Castle_Pool_5: 1151287616
+      SI_Dark_Castle_Pool_50: 214651395
       SI_Dark_Castle_Pool_51: -1404745432
       SI_Dark_Castle_Pool_52: -1551628068
-      SI_Dark_Castle_Pool_15: -560442055
-      SI_Dark_Castle_Pool_40: 1344094133
-      SI_Dark_Castle_Pool_63: -656869010
-      SI_Dark_Castle_Pool_68: -835816713
-      SI_Dark_Castle_Pool_84: 440107457
-      SI_Dark_Castle_Pool_78: 1165185529
-      SI_Dark_Castle_Pool_129: -2050598695
-      SI_Dark_Castle_Pool_60: -1746535336
-      SI_Dark_Castle_Pool_128: -857823170
-      SI_Dark_Castle_Pool_109: -1637086148
-      SI_Dark_Castle_Pool_105: 1661378656
-      SI_Dark_Castle_Pool_79: -1919053643
-      SI_Dark_Castle_Pool_95: -11078457
-      SI_Dark_Castle_Pool_113: 1791517508
-      SI_Dark_Castle_Pool_8: 1429689676
-      SI_Dark_Castle_Pool_46: 1105843453
-      SI_Dark_Castle_Pool_36: -1319319627
-      SI_Dark_Castle_Pool_29: -1375755284
-      SI_Dark_Castle_Pool_33: 904386687
-      SI_Dark_Castle_Pool_110: -1964299527
-      SI_Dark_Castle_Pool_131: 378410081
-      SI_Dark_Castle_Pool_73: 1260797107
-      SI_Dark_Castle_Pool_118: -1355650355
-      SI_Dark_Castle_Pool_31: 1919624581
-      SI_Dark_Castle_Pool_25: -433237507
-      SI_Dark_Castle_Pool_45: 1636046215
-      SI_Dark_Castle_Pool_127: -486148913
-      SI_Dark_Castle_Pool_91: -1867621520
-      SI_Dark_Castle_Pool_102: 1491149171
+      SI_Dark_Castle_Pool_53: 20222152
       SI_Dark_Castle_Pool_54: 1275610738
-      SI_Dark_Castle_Pool_115: 146088867
-      SI_Dark_Castle_Pool_34: -1102296352
-      SI_Dark_Castle_Pool_85: -959701670
       SI_Dark_Castle_Pool_55: 805243280
-      SI_Dark_Castle_Pool_106: 20871225
-      SI_Dark_Castle_Pool_93: -728374198
-      SI_Dark_Castle_Pool_74: 981229129
-      SI_Dark_Castle_Pool_83: -2069210020
-      SI_Dark_Castle_Pool_23: 714229765
-      SI_Dark_Castle_Pool_37: 1267402432
-      SI_Dark_Castle_Pool_121: -569737516
-      SI_Dark_Castle_Pool_126: 110721873
-      SI_Dark_Castle_Pool_61: 1137010084
-      SI_Dark_Castle_Pool_66: -1451629980
-      SI_Dark_Castle_Pool_16: -1945105059
-      SI_Dark_Castle_Pool_117: -361530699
-      SI_Dark_Castle_Pool_57: 398158764
-      SI_Dark_Castle_Pool_70: -2123300528
-      SI_Dark_Castle_Pool_119: -1349222170
-      SI_Dark_Castle_Pool_2: -1717277374
-      SI_Dark_Castle_Pool_100: 167735485
-      SI_Dark_Castle_Pool_71: 1540486850
-      SI_Dark_Castle_Pool_69: 1763240847
-      SI_Dark_Castle_Pool_86: -149164943
-      SI_Dark_Castle_Pool_50: 214651395
-      SI_Dark_Castle_Pool_48: 1428254931
-      SI_Dark_Castle_Pool_58: 1384852641
-      SI_Dark_Castle_Pool_82: -938353599
-      SI_Dark_Castle_Pool_112: -1381548406
-      SI_Dark_Castle_Pool_111: -601373955
-      SI_Dark_Castle_Pool_11: -1675261348
-      SI_Dark_Castle_Pool_59: -558270207
-      SI_Dark_Castle_Pool_9: -830613991
-      SI_Dark_Castle_Pool_107: -559935790
-      SI_Dark_Castle_Pool_7: -655177663
       SI_Dark_Castle_Pool_56: 721349714
-      SI_Dark_Castle_Pool_22: 1691953935
-      SI_Dark_Castle_Pool_41: -50767407
-      SI_Dark_Castle_Pool_120: 1226791678
-      SI_Dark_Castle_Pool_103: -1404839729
-      SI_Dark_Castle_Pool_47: -747433179
-      SI_Dark_Castle_Pool_133: -1309857983
-      SI_Dark_Castle_Pool_26: -1857731116
-      SI_Dark_Castle_Pool_49: 2117061681
-      SI_Dark_Castle_Pool_134: -691219672
-      SI_Dark_Castle_Pool_43: -1953385645
-      SI_Dark_Castle_Pool_30: 311222883
+      SI_Dark_Castle_Pool_57: 398158764
+      SI_Dark_Castle_Pool_58: 1384852641
+      SI_Dark_Castle_Pool_59: -558270207
+      SI_Dark_Castle_Pool_6: 380141442
+      SI_Dark_Castle_Pool_60: -1746535336
+      SI_Dark_Castle_Pool_61: 1137010084
+      SI_Dark_Castle_Pool_62: -1791698841
+      SI_Dark_Castle_Pool_63: -656869010
+      SI_Dark_Castle_Pool_64: -636050648
+      SI_Dark_Castle_Pool_65: 905876342
+      SI_Dark_Castle_Pool_66: -1451629980
+      SI_Dark_Castle_Pool_67: 299966949
+      SI_Dark_Castle_Pool_68: -835816713
+      SI_Dark_Castle_Pool_69: 1763240847
+      SI_Dark_Castle_Pool_7: -655177663
+      SI_Dark_Castle_Pool_70: -2123300528
+      SI_Dark_Castle_Pool_71: 1540486850
+      SI_Dark_Castle_Pool_72: -2062382208
+      SI_Dark_Castle_Pool_73: 1260797107
+      SI_Dark_Castle_Pool_74: 981229129
+      SI_Dark_Castle_Pool_75: 1011662156
+      SI_Dark_Castle_Pool_76: 231028599
       SI_Dark_Castle_Pool_77: -552664149
-      SI_Dark_Castle_Pool_99: 840983372
+      SI_Dark_Castle_Pool_78: 1165185529
+      SI_Dark_Castle_Pool_79: -1919053643
+      SI_Dark_Castle_Pool_8: 1429689676
+      SI_Dark_Castle_Pool_80: 4532736
+      SI_Dark_Castle_Pool_81: 1689413904
+      SI_Dark_Castle_Pool_82: -938353599
+      SI_Dark_Castle_Pool_83: -2069210020
+      SI_Dark_Castle_Pool_84: 440107457
+      SI_Dark_Castle_Pool_85: -959701670
+      SI_Dark_Castle_Pool_86: -149164943
+      SI_Dark_Castle_Pool_87: -580246182
+      SI_Dark_Castle_Pool_88: 590891768
       SI_Dark_Castle_Pool_89: -748275432
+      SI_Dark_Castle_Pool_9: -830613991
+      SI_Dark_Castle_Pool_90: -1255427659
+      SI_Dark_Castle_Pool_91: -1867621520
+      SI_Dark_Castle_Pool_92: 1943372108
+      SI_Dark_Castle_Pool_93: -728374198
+      SI_Dark_Castle_Pool_94: -684180532
+      SI_Dark_Castle_Pool_95: -11078457
       SI_Dark_Castle_Pool_96: 258425343
       SI_Dark_Castle_Pool_97: 1330789251
       SI_Dark_Castle_Pool_98: 545270795
-      SI_Dark_Castle_Pool_81: 1689413904
-      SI_Dark_Castle_Pool_18: -522935807
-      SI_Dark_Castle_Pool_27: 987832247
-      SI_Dark_Castle_Pool_90: -1255427659
-      SI_Dark_Castle_Pool_94: -684180532
-      SI_Dark_Castle_Pool_135: 1976692364
-      SI_Dark_Castle_Pool_42: 977764271
-      SI_Dark_Castle_Pool_32: 433428925
-      SI_Dark_Castle_Pool_80: 4532736
-      SI_Dark_Castle_Pool_6: 380141442
-      SI_Dark_Castle_Pool_88: 590891768
-      SI_Dark_Castle_Pool_13: 382292572
-      SI_Dark_Castle_Pool_62: -1791698841
-      SI_Dark_Castle_Pool_0: 137110463
-      SI_Dark_Castle_Pool_104: -1790583724
-      SI_Dark_Castle_Pool_114: -1269674508
-      SI_Dark_Castle_Pool_76: 231028599
-      SI_Dark_Castle_Pool_19: 73050795
-      SI_Dark_Castle_Pool_101: 324312775
-      SI_Dark_Castle_Pool_116: 1524523988
-      SI_Dark_Castle_Pool_124: 359433741
-      SI_Dark_Castle_Pool_3: -11270322
-      SI_Dark_Castle_Pool_67: 299966949
-      SI_Dark_Castle_Pool_125: 1659683460
-      SI_Dark_Castle_Pool_130: -1857602809
-      SI_Dark_Castle_Pool_10: 920283434
-      SI_Dark_Castle_Pool_24: 721828491
-      SI_Dark_Castle_Pool_92: 1943372108
-      SI_Dark_Castle_Pool_44: -1542677843
-      SI_Dark_Castle_Pool_21: -648779391
-      SI_Dark_Castle_Pool_64: -636050648
-      SI_Dark_Castle_Pool_75: 1011662156
-      SI_Dark_Castle_Pool_122: -622052471
-      SI_Dark_Castle_Pool_53: 20222152
-      SI_Dark_Castle_Pool_87: -580246182
-      SI_Dark_Castle_Pool_20: -1685194459
-      SI_Dark_Castle_Pool_35: -459644160
-      SI_Dark_Castle_Pool_1: -1032607948
-      SI_Dark_Castle_Pool_108: -1545653567
-      SI_Dark_Castle_Pool_12: -292596702
-      SI_Dark_Castle_Pool_14: -1177941063
-      SI_Dark_Castle_Pool_132: -381971760
-      SI_Dark_Castle_Pool_5: 1151287616
-      SI_Dark_Castle_Pool_123: -549305098
-      SI_Dark_Castle_Pool_4: 1720403079
-      SI_Dark_Castle_Pool_38: -1055686290
+      SI_Dark_Castle_Pool_99: 840983372
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

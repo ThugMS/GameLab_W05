@@ -2060,6 +2060,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3350617662354378925, guid: 7594296276745d5408f49196ed1034c4, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[3].m_Data
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350617662354378925, guid: 7594296276745d5408f49196ed1034c4, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[10].m_Data
+      value: 
+      objectReference: {fileID: 1476207779, guid: 47105d22361153e4eb8fe674714b7d9f, type: 3}
+    - target: {fileID: 3350617662354378925, guid: 7594296276745d5408f49196ed1034c4, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[11].m_Data
+      value: 
+      objectReference: {fileID: 1726207922, guid: 47105d22361153e4eb8fe674714b7d9f, type: 3}
+    - target: {fileID: 3350617662354378925, guid: 7594296276745d5408f49196ed1034c4, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[3].m_RefCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350617662354378925, guid: 7594296276745d5408f49196ed1034c4, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[11].m_RefCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350617662354378925, guid: 7594296276745d5408f49196ed1034c4, type: 3}
+      propertyPath: m_Tiles.Array.data[81].second.m_TileSpriteIndex
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350617662354378925, guid: 7594296276745d5408f49196ed1034c4, type: 3}
+      propertyPath: m_Tiles.Array.data[108].second.m_TileSpriteIndex
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4435971965117732216, guid: 7594296276745d5408f49196ed1034c4, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
