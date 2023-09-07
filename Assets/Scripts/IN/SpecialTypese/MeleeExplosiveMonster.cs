@@ -1,33 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class MeleeExplosiveMonster : RangedMonster
+public class MeleeExplosiveMonster : MeleeMonster
 {
     #region PublicVariables
 
     #endregion
 
     #region PrivateVariables
-
+    [SerializeField] private GameObject m_explosionPrefab;
+    [SerializeField] private float m_explosionWaitTime;
     #endregion
 
     #region PublicMethod
-    protected override IEnumerator IE_Attack()
+
+    public override void Update()
     {
-
-        base.isAttacking = true;
-        yield return new WaitForSeconds(base.m_attackTime);
-
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
+        switch (currentState)
         {
-            GameObject bullet = Instantiate(m_bullet, transform.position, Quaternion.identity);
-            yield return new WaitForEndOfFrame();
-            Destroy(gameObject);
+            case MonsterState.Patrol:
+                if (detectPlayer())
+                {
+                    TransitionToState(MonsterState.Pursuit);
+                }
+                Patrol();
+                break;
+            case MonsterState.Pursuit:
+                if (!detectPlayer())
+                {
+                    Patrol();
+                    
+                }
+                else
+                {
+                    if (Vector2.Distance(transform.position, base.m_playerObj.transform.position) < 1f)
+                    {
+                        
+                        StartCoroutine(IE_Attack());
+                        TransitionToState(MonsterState.Dead);
+                    }
+                    Pursuit();
+                }
+                break;
         }
+    }
 
-        base.isAttacking = false;
+    protected IEnumerator IE_Attack()
+    {
+        yield return new WaitForSeconds(m_explosionWaitTime);
+        GameObject bullet = Instantiate(m_explosionPrefab, transform.position, Quaternion.identity);
+        Destroy(gameObject);
         yield return null;
     }
 
