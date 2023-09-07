@@ -139,7 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_rigidbody: {fileID: 7802226756966478226}
   m_heart: 3
-  m_power: 0
+  m_power: 1
   m_maxSpeed: 5
   m_accelSpeed: 0.5
   m_decelSpeed: 1
@@ -168,7 +168,8 @@ MonoBehaviour:
   m_backStepLayerMask: 0
   m_backStepEase: 1
   m_colliders: []
-  m_backStopBoxSize: {x: 0, y: 0}
+  m_backStopBoxSize: {x: 5, y: 5}
+  m_backStepDir: {x: 0, y: 0}
 --- !u!114 &7802226756966478225
 MonoBehaviour:
   m_ObjectHideFlags: 0

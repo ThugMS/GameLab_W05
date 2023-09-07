@@ -37,20 +37,21 @@ public class Archer : Player
     [SerializeField] Ease m_backStepEase = Ease.Linear;
     [SerializeField] protected Collider2D[] m_colliders;
     [SerializeField] protected Vector2 m_backStopBoxSize;
+    [SerializeField] protected Vector2 m_backStepDir;
     #endregion
 
     #region Test
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
 
-        Vector2 attackDir = m_Direction.normalized * (m_offset + m_backStopBoxSize.x / 2);
-        Vector3 attackPos = transform.position + new Vector3(attackDir.x, attackDir.y, 0);
+    //    Vector2 attackDir = m_Direction.normalized * (m_offset + m_backStopBoxSize.x / 2);
+    //    Vector3 attackPos = transform.position + new Vector3(attackDir.x, attackDir.y, 0);
 
-        float angle = Vector2.Angle(Vector2.right, m_Direction.normalized);
+    //    float angle = Vector2.Angle(Vector2.right, m_Direction.normalized);
 
-        Gizmos.DrawWireCube(attackPos, m_backStopBoxSize);
-    }
+    //    Gizmos.DrawWireCube(attackPos, m_backStopBoxSize);
+    //}
     #endregion
 
     #region PublicMethod
@@ -98,6 +99,7 @@ public class Archer : Player
 
         m_canAct = false;
         m_canMove = false;
+        m_backStepDir = m_Direction;
 
         BackStep();
     }
@@ -140,7 +142,7 @@ public class Archer : Player
 
     private void BackStep()
     {
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.5f, -m_Direction, m_backStepDis, m_backStepLayerMask);
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.5f, -m_backStepDir, m_backStepDis, m_backStepLayerMask);
         Tweener tween = null;
 
         if (hit == true)
@@ -150,7 +152,7 @@ public class Archer : Player
         }
         else
         {
-            Vector3 dis = -m_Direction.normalized * m_backStepDis;
+            Vector3 dis = -m_backStepDir.normalized * m_backStepDis;
             Vector3 targetPos = transform.position + dis;
 
             tween = transform.DOMove(targetPos, m_durationTime).SetEase(m_backStepEase);
@@ -162,10 +164,10 @@ public class Archer : Player
     {
         m_colliders = null;
 
-        Vector2 attackDir = m_Direction.normalized * (m_offset + m_backStopBoxSize.x / 2);
+        Vector2 attackDir = m_backStepDir.normalized * (m_offset + m_backStopBoxSize.x / 2);
         Vector3 attackPos = transform.position + new Vector3(attackDir.x, attackDir.y, 0);
 
-        float angle = Vector2.Angle(Vector2.right, m_Direction.normalized);
+        float angle = Vector2.Angle(Vector2.right, m_backStepDir.normalized);
 
         m_colliders = Physics2D.OverlapBoxAll(attackPos, m_backStopBoxSize, angle, m_attackLayerMask);
 
