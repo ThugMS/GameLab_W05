@@ -1,9 +1,9 @@
-﻿public class BossRoom : Room
-{
-    public Boss m_boss;
-    
-    public BossRoom(Boss boss) : base(RoomType.Boss)
-    {
-        m_boss = boss;
-    }
-}
+﻿// public class BossRoom : Room
+// {
+//     public Boss m_boss;
+//     
+//     public BossRoom(Boss boss) : base(RoomType.Boss)
+//     {
+//         m_boss = boss;
+//     }
+// }

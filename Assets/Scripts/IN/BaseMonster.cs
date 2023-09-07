@@ -13,7 +13,7 @@ public abstract class BaseMonster : MonoBehaviour
     public int monosterLevel;
     
     public LayerMask m_detectingLayer;
-
+    public Action DeadListener;
     #endregion
 
     #region PrivateVariables
@@ -166,8 +166,8 @@ public abstract class BaseMonster : MonoBehaviour
     public void Dead()
     {
         Destroy(gameObject);
+        DeadListener?.Invoke();
     }
-
     #endregion
     #region PrivateMethod
 
