@@ -14,10 +14,10 @@ public class RoomManager : MonoBehaviour
     #region PrivateVariables
     [Header("Room-related Information")]
     [SerializeField] private Room[,] m_rooms;
-    [SerializeField] private UIRoom[,] m_uiRooms;
+    [SerializeField] private BaseRoom[,] m_uiRooms;
     [SerializeField] private GameObject m_roomPrefabs;
     [SerializeField] private Transform m_gridTr;
-    private UIRoom m_startUIRoom;
+    private BaseRoom _mStartBaseRoom;
     
     [Header("Room Prefab Tile Size")]
     [SerializeField] private int m_roomWidthSize;
@@ -36,14 +36,13 @@ public class RoomManager : MonoBehaviour
     /// <summary>
     /// 방 -> 방 이동
     /// </summary>
-    /// <param name="leavedUIRoom">직전 방</param>
+    /// <param name="leavedBaseRoom">직전 방</param>
     /// <param name="leavedDirection">직전 방에서 들어간 문의 방향</param>
-    public void MovePlayer(UIRoom leavedUIRoom, Direction leavedDirection)
+    public void MovePlayer(BaseRoom leavedBaseRoom, Direction leavedDirection)
     {
+        BaseRoom nextBaseRoom = GetVisitRoom(leavedBaseRoom, leavedDirection);
         var nextDirection = GetOppositeDirection(leavedDirection);
-        UIRoom nextUIRoom = GetVisitRoom(leavedUIRoom, nextDirection);
-        
-        nextUIRoom.VisitRoom(player, nextDirection);
+        nextBaseRoom.VisitRoom(player, nextDirection);
     }
     
     public void ClearMap()
@@ -70,9 +69,9 @@ public class RoomManager : MonoBehaviour
         m_rooms = new Room[1, 3]
         {
             {
-                new (RoomType.Start),
-                new (RoomType.Monster),
-                new (RoomType.Boss)
+                new NormalRoom(new()),
+                new StartRoom(),
+                new BossRoom(new())
             },
         }; 
     }
@@ -90,6 +89,8 @@ public class RoomManager : MonoBehaviour
     /// </summary>
     void GenerateRoom()
     {
+        m_uiRooms = new BaseRoom[m_rooms.GetLength(0), m_rooms.GetLength(1)];
+        
         for (int y = 0, maxY = m_rooms.GetLength(0); y < maxY; y++)
         {
             for (int x = 0, maxX = m_rooms.GetLength(1); x < maxX; x++)
@@ -99,21 +100,26 @@ public class RoomManager : MonoBehaviour
                 {
                     var obj = Instantiate(m_roomPrefabs, m_gridTr);
                     obj.transform.position = new Vector3(x * m_roomWidthSize, y * m_roomHeightSize, 0);
-                    
-                    var uiRoom = obj.GetComponent<UIRoom>();
-                    uiRoom.m_grid = new Vector2Int(y, x);
-                    uiRoom.Init(this, room, GetRoomType(y, x));
 
+                    var roomByType = CreateUIRoomByType(obj, room.Type);
+                    roomByType.Init(room);
+                    
+                    var uiRoom = obj.GetComponent<BaseRoom>();
+                    m_uiRooms[y, x] = uiRoom;
+                    uiRoom.m_grid = new Vector2Int(y, x);
+                    uiRoom.Init(this, roomByType, GetRoomTypes(y, x));
+                    
                     if (room.Type == RoomType.Start)
                     {
-                        m_startUIRoom = uiRoom;
+                        _mStartBaseRoom = uiRoom;
                     }
                 }
+                
             }
         }
     }
 
-    RoomType[] GetRoomType(int _y, int _x)
+    RoomType[] GetRoomTypes(int _y, int _x)
     {
         var types = new RoomType[4];
 
@@ -165,7 +171,7 @@ public class RoomManager : MonoBehaviour
     /// </summary>
     void InitPlayerPosition()
     {
-        
+        _mStartBaseRoom.VisitRoom(player);
     }
 
 
@@ -180,19 +186,35 @@ public class RoomManager : MonoBehaviour
         };
     }
 
-    UIRoom GetVisitRoom(UIRoom _currentUIRoom, Direction _visitDirection)
+    BaseRoom GetVisitRoom(BaseRoom currentBaseRoom, Direction _leaveDirection)
     {
-        Vector2Int vec = _currentUIRoom.m_grid;
+        Vector2Int vec = currentBaseRoom.m_grid;
 
-        UIRoom visitUIRoom = _visitDirection switch
+        var nextVector =  _leaveDirection switch
         {
-            Direction.Up    => m_uiRooms[vec.y + 1, vec.x],
-            Direction.Down  => m_uiRooms[vec.y - 1, vec.x],
-            Direction.Left  => m_uiRooms[vec.y, vec.x - 1],
-            Direction.Right => m_uiRooms[vec.y, vec.x + 1],
+            Direction.Up    => new Vector2Int(vec.x + 1, vec.y),
+            Direction.Down  => new Vector2Int(vec.x - 1, vec.y),
+            Direction.Left  => new Vector2Int(vec.x, vec.y - 1),
+            Direction.Right => new Vector2Int(vec.x, vec.y + 1),
         };
 
-        return visitUIRoom;
+        BaseRoom visitBaseRoom = m_uiRooms[nextVector.x, nextVector.y];
+
+        return visitBaseRoom;
     }
+
+    #region Factory
+
+    public IRoom CreateUIRoomByType(GameObject _obj, RoomType _type)
+    {
+        return _type switch
+        {
+            RoomType.Start   => _obj.AddComponent<UIStartRoom>(),
+            RoomType.Normal => _obj.AddComponent<UINormalRoom>(),
+            RoomType.Boss    => _obj.AddComponent<UIBossRoom>(),
+        };
+    }
+
+    #endregion
     #endregion
 }

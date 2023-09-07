@@ -128,6 +128,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6155208479889332732, guid: 58bc5ca641132bb4a8c00293d844fed5, type: 3}
   m_PrefabInstance: {fileID: 209128222}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &159828041 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4138420507533337177, guid: 6c7ec323b7662df40a021b79dbfe4e57, type: 3}
+  m_PrefabInstance: {fileID: 524869992}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &209128222
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -214,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2004c095a4f9058499c3e647ea84f79b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 299655575}
+  player: {fileID: 159828041}
   m_roomPrefabs: {fileID: 3350617661772655293, guid: f289b01fbcfed0e438ae5dd8c2bdb146, type: 3}
   m_gridTr: {fileID: 718954381}
   m_roomWidthSize: 26
@@ -388,10 +393,77 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 957700269}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &957700268
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 718954381}
+    m_Modifications:
+    - target: {fileID: 3350617661772655292, guid: f289b01fbcfed0e438ae5dd8c2bdb146, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350617661772655292, guid: f289b01fbcfed0e438ae5dd8c2bdb146, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350617661772655292, guid: f289b01fbcfed0e438ae5dd8c2bdb146, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350617661772655292, guid: f289b01fbcfed0e438ae5dd8c2bdb146, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350617661772655292, guid: f289b01fbcfed0e438ae5dd8c2bdb146, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350617661772655292, guid: f289b01fbcfed0e438ae5dd8c2bdb146, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350617661772655292, guid: f289b01fbcfed0e438ae5dd8c2bdb146, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350617661772655292, guid: f289b01fbcfed0e438ae5dd8c2bdb146, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350617661772655292, guid: f289b01fbcfed0e438ae5dd8c2bdb146, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350617661772655292, guid: f289b01fbcfed0e438ae5dd8c2bdb146, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350617661772655292, guid: f289b01fbcfed0e438ae5dd8c2bdb146, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350617661772655293, guid: f289b01fbcfed0e438ae5dd8c2bdb146, type: 3}
+      propertyPath: m_Name
+      value: Room
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350617661772655293, guid: f289b01fbcfed0e438ae5dd8c2bdb146, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f289b01fbcfed0e438ae5dd8c2bdb146, type: 3}
+--- !u!4 &957700269 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3350617661772655292, guid: f289b01fbcfed0e438ae5dd8c2bdb146, type: 3}
+  m_PrefabInstance: {fileID: 957700268}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &998538444
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,7 +517,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

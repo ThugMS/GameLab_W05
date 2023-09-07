@@ -6,7 +6,9 @@ public enum RoomType
 {
     Ignore,
     Start,
-    Monster,
+    Normal,
+    NormalGift,
+    Gift,
     Boss
     
 }
