@@ -14,10 +14,10 @@ public class RoomManager : MonoBehaviour
     #region PrivateVariables
     [Header("Room-related Information")]
     [SerializeField] private Room[,] m_rooms;
-    [SerializeField] private UIRoom[,] m_uiRooms;
+    [SerializeField] private BaseRoom[,] m_uiRooms;
     [SerializeField] private GameObject m_roomPrefabs;
     [SerializeField] private Transform m_gridTr;
-    private UIRoom m_startUIRoom;
+    private BaseRoom _mStartBaseRoom;
     
     [Header("Room Prefab Tile Size")]
     [SerializeField] private int m_roomWidthSize;
@@ -36,13 +36,13 @@ public class RoomManager : MonoBehaviour
     /// <summary>
     /// 방 -> 방 이동
     /// </summary>
-    /// <param name="leavedUIRoom">직전 방</param>
+    /// <param name="leavedBaseRoom">직전 방</param>
     /// <param name="leavedDirection">직전 방에서 들어간 문의 방향</param>
-    public void MovePlayer(UIRoom leavedUIRoom, Direction leavedDirection)
+    public void MovePlayer(BaseRoom leavedBaseRoom, Direction leavedDirection)
     {
-        UIRoom nextUIRoom = GetVisitRoom(leavedUIRoom, leavedDirection);
+        BaseRoom nextBaseRoom = GetVisitRoom(leavedBaseRoom, leavedDirection);
         var nextDirection = GetOppositeDirection(leavedDirection);
-        nextUIRoom.VisitRoom(player, nextDirection);
+        nextBaseRoom.VisitRoom(player, nextDirection);
     }
     
     public void ClearMap()
@@ -69,7 +69,7 @@ public class RoomManager : MonoBehaviour
         m_rooms = new Room[1, 3]
         {
             {
-                new MonsterRoom(new()),
+                new NormalRoom(new()),
                 new StartRoom(),
                 new BossRoom(new())
             },
@@ -89,7 +89,7 @@ public class RoomManager : MonoBehaviour
     /// </summary>
     void GenerateRoom()
     {
-        m_uiRooms = new UIRoom[m_rooms.GetLength(0), m_rooms.GetLength(1)];
+        m_uiRooms = new BaseRoom[m_rooms.GetLength(0), m_rooms.GetLength(1)];
         
         for (int y = 0, maxY = m_rooms.GetLength(0); y < maxY; y++)
         {
@@ -104,14 +104,14 @@ public class RoomManager : MonoBehaviour
                     var roomByType = CreateUIRoomByType(obj, room.Type);
                     roomByType.Init(room);
                     
-                    var uiRoom = obj.GetComponent<UIRoom>();
+                    var uiRoom = obj.GetComponent<BaseRoom>();
                     m_uiRooms[y, x] = uiRoom;
                     uiRoom.m_grid = new Vector2Int(y, x);
                     uiRoom.Init(this, roomByType, GetRoomTypes(y, x));
                     
                     if (room.Type == RoomType.Start)
                     {
-                        m_startUIRoom = uiRoom;
+                        _mStartBaseRoom = uiRoom;
                     }
                 }
                 
@@ -171,7 +171,7 @@ public class RoomManager : MonoBehaviour
     /// </summary>
     void InitPlayerPosition()
     {
-        m_startUIRoom.VisitRoom(player);
+        _mStartBaseRoom.VisitRoom(player);
     }
 
 
@@ -186,9 +186,9 @@ public class RoomManager : MonoBehaviour
         };
     }
 
-    UIRoom GetVisitRoom(UIRoom _currentUIRoom, Direction _leaveDirection)
+    BaseRoom GetVisitRoom(BaseRoom currentBaseRoom, Direction _leaveDirection)
     {
-        Vector2Int vec = _currentUIRoom.m_grid;
+        Vector2Int vec = currentBaseRoom.m_grid;
 
         var nextVector =  _leaveDirection switch
         {
@@ -198,9 +198,9 @@ public class RoomManager : MonoBehaviour
             Direction.Right => new Vector2Int(vec.x, vec.y + 1),
         };
 
-        UIRoom visitUIRoom = m_uiRooms[nextVector.x, nextVector.y];
+        BaseRoom visitBaseRoom = m_uiRooms[nextVector.x, nextVector.y];
 
-        return visitUIRoom;
+        return visitBaseRoom;
     }
 
     #region Factory
@@ -210,7 +210,7 @@ public class RoomManager : MonoBehaviour
         return _type switch
         {
             RoomType.Start   => _obj.AddComponent<UIStartRoom>(),
-            RoomType.Monster => _obj.AddComponent<UIMonsterRoom>(),
+            RoomType.Normal => _obj.AddComponent<UINormalRoom>(),
             RoomType.Boss    => _obj.AddComponent<UIBossRoom>(),
         };
     }

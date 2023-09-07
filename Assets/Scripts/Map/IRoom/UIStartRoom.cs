@@ -17,7 +17,7 @@ public class UIStartRoom : MonoBehaviour, IRoom
     IEnumerator TempWait()
     {
         yield return new WaitForSeconds(5f);
-        GetComponent<UIRoom>().IsClear = true;
+        GetComponent<BaseRoom>().IsClear = true;
     }
 
     public void End()

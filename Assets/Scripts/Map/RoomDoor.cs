@@ -9,14 +9,14 @@ public class RoomDoor : MonoBehaviour
 {
     public Transform m_spawnPosition;
     
-    private UIRoom m_UIRoom;
+    private BaseRoom _mBaseRoom;
     private RoomType m_roomType; // [TODO] 추후 문 타입에 따라, 문 모양 설정 필요
     [SerializeField] private GameObject m_desactiveObj;
     [SerializeField] private Direction m_direction;
     
-    public void Init(UIRoom _uiRoom, RoomType _type)
+    public void Init(BaseRoom baseRoom, RoomType _type)
     {
-        m_UIRoom = _uiRoom;
+        _mBaseRoom = baseRoom;
         m_roomType = _type;
 
         m_desactiveObj.SetActive(m_roomType == default);
@@ -26,7 +26,7 @@ public class RoomDoor : MonoBehaviour
     {
         if (_col.CompareTag("Player"))
         {
-            m_UIRoom.LeaveRoom(m_direction);
+            _mBaseRoom.LeaveRoom(m_direction);
         }
     }
 }

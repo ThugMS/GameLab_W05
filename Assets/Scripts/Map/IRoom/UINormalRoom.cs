@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class UIMonsterRoom : MonoBehaviour, IRoom
+public class UINormalRoom : MonoBehaviour, IRoom
 {
-    private MonsterRoom m_mRoom;
+    private NormalRoom m_mRoom;
     private List<Transform> m_spawnPositions;
     
     public void Init(Room _baseRoom)
     {
-        m_mRoom = _baseRoom as MonsterRoom;
+        m_mRoom = _baseRoom as NormalRoom;
 
-        var spawnPosParentTr = GetComponent<UIRoom>().m_monsterSpawnPositions;
+        var spawnPosParentTr = GetComponent<BaseRoom>().m_monsterSpawnPositions;
         m_spawnPositions = new();
         for (int i = 0, cnt = spawnPosParentTr.childCount; i < cnt; i++)
         {

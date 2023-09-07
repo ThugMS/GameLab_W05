@@ -2,9 +2,8 @@ using UnityEngine;
 
 /// <summary>
 /// 모든 방이 가지는 기본 설정
-/// [TODO] 추후, BaseRoom로 이름 변경 할 것 (인터페이스를 구현한 오브젝트와 차별)
 /// </summary>
-public class UIRoom : MonoBehaviour
+public class BaseRoom : MonoBehaviour
 {
     #region PublicVaraibles
     public Vector2Int m_grid { get; set; }

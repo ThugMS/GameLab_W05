@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 
-public class MonsterRoom : Room
+public class NormalRoom : Room
 {
     public List<Monster> m_monsters;
     
-    public MonsterRoom(List<Monster> _monsters) : base(RoomType.Monster)
+    public NormalRoom(List<Monster> _monsters) : base(RoomType.Normal)
     {
         m_monsters = _monsters;
     }
