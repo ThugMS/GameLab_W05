@@ -27,7 +27,8 @@ public abstract class Player : MonoBehaviour
     [SerializeField] protected bool m_isMove = false;
     [SerializeField] protected bool m_canMove = true;
 
-    
+    [Header("Action")]
+    [SerializeField] protected bool m_canAct = true;
     #endregion
 
     #region PublicMethod
@@ -70,6 +71,8 @@ public abstract class Player : MonoBehaviour
     {
         m_heart -= _damage;
 
+        UIManager.Instance.DecreaseLife();
+
         if(m_heart <= 0)
         {
             Dead();
@@ -79,6 +82,16 @@ public abstract class Player : MonoBehaviour
     public void Dead()
     {
 
+    }
+
+    public void SetCanMove(bool _value)
+    {
+        m_canMove = _value;
+    }
+
+    public void SetCanAct(bool _value)
+    {
+        m_canAct = _value;
     }
 
     protected virtual void Awake()

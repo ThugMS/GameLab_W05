@@ -1017,6 +1017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4c6cf02937c0441a78d5676ce7ee04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGameOver: 0
 --- !u!4 &380470871
 Transform:
   m_ObjectHideFlags: 0
@@ -1562,6 +1563,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3814634668259530181, guid: 7594296276745d5408f49196ed1034c4, type: 3}
+      propertyPath: m_basicAttack
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4435971965117732216, guid: 7594296276745d5408f49196ed1034c4, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
@@ -1585,6 +1590,10 @@ PrefabInstance:
     - target: {fileID: 4435971965117732216, guid: 7594296276745d5408f49196ed1034c4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5819789261942955619, guid: 7594296276745d5408f49196ed1034c4, type: 3}
+      propertyPath: m_basicAttack
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7594296276745d5408f49196ed1034c4, type: 3}
@@ -3711,9 +3720,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Knight
       objectReference: {fileID: 0}
-    - target: {fileID: 4138420507533337178, guid: 6c7ec323b7662df40a021b79dbfe4e57, type: 3}
-      propertyPath: m_TagString
-      value: Player
+    - target: {fileID: 4138420507533337179, guid: 6c7ec323b7662df40a021b79dbfe4e57, type: 3}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c7ec323b7662df40a021b79dbfe4e57, type: 3}
