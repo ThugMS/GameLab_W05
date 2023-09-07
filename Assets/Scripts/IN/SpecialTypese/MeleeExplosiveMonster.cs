@@ -15,7 +15,6 @@ public class MeleeExplosiveMonster : MeleeMonster
     #endregion
 
     #region PublicMethod
-
     public override void Update()
     {
         switch (currentState)
@@ -54,7 +53,6 @@ public class MeleeExplosiveMonster : MeleeMonster
         Destroy(gameObject);
         yield return null;
     }
-
     #endregion
 
     #region PrivateMethod
