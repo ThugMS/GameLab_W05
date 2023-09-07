@@ -10,8 +10,10 @@ using UnityEngine.AI;
 public abstract class BaseMonster : MonoBehaviour
 {
     #region PublicVariables
+    public int monosterLevel;
+    
     public LayerMask m_detectingLayer;
-
+    public Action DeadListener;
     #endregion
 
     #region PrivateVariables
@@ -26,11 +28,12 @@ public abstract class BaseMonster : MonoBehaviour
     }
     protected MonsterState currentState = MonsterState.Patrol;
 
+    
     //==References
     protected Rigidbody2D m_rb;
     protected GameObject m_playerObj;
     protected NavMeshAgent m_agent;
-    private bool isAttacked = false;
+    protected bool isAttacked = false;
     [Header("Value")]
     [SerializeField] protected int m_speed;
     [SerializeField] protected int m_range;
@@ -38,13 +41,13 @@ public abstract class BaseMonster : MonoBehaviour
     [SerializeField] private float m_health;
 
     [Header("Time")]
-    [SerializeField] private float m_knockBackTime;
-    [SerializeField] private float m_patrolTime;
+    [SerializeField] protected float m_knockBackTime;
+    [SerializeField] protected float m_patrolTime;
     //==Positions
-    private Vector3 m_initialPosition;
-    private Vector3 targetPatrolPos;
+    protected Vector3 m_initialPosition;
+    protected Vector3 targetPatrolPos;
     //==Timer
-    private float m_timer;
+    protected float m_timer;
 
     #endregion
 
@@ -66,12 +69,17 @@ public abstract class BaseMonster : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        DamagePlayer(collision.gameObject);
+    }
+
+    protected virtual void DamagePlayer(GameObject collidingObject)
+    {
+        if (collidingObject.CompareTag("Player"))
         {
             Player player;
-            collision.gameObject.TryGetComponent<Player>(out player);
+            collidingObject.TryGetComponent<Player>(out player);
 
             player.GetDamage(m_basicAttack);
         }
@@ -79,6 +87,7 @@ public abstract class BaseMonster : MonoBehaviour
 
     public virtual void Start()
     {
+        
         m_agent = GetComponent<NavMeshAgent>();
         m_agent.updateRotation = false;
         m_agent.updateUpAxis = false;
@@ -88,6 +97,7 @@ public abstract class BaseMonster : MonoBehaviour
         targetPatrolPos = transform.position;
         m_timer = m_patrolTime;
         targetPatrolPos = getPatrolPos();
+        m_agent.speed = m_speed;
     }
 
     public virtual void Update()
@@ -116,10 +126,16 @@ public abstract class BaseMonster : MonoBehaviour
 
     public virtual bool detectPlayer()
     {
-        Vector3 directionToPlayer = m_playerObj.transform.position - transform.position;
-        Ray ray = new Ray(transform.position, directionToPlayer);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position,  directionToPlayer);
-        Debug.Log(hit.collider.gameObject.name);
+        Vector2 directionToPlayer = m_playerObj.transform.position - transform.position;
+        Debug.DrawRay(transform.position, directionToPlayer, Color.red);
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position,  directionToPlayer, directionToPlayer.magnitude, m_detectingLayer);
+
+        if(hit.collider != null)
+        {
+            if (hit.collider.gameObject.tag == "Player")
+                return true;
+        }
 
         return false;
     }
@@ -151,15 +167,17 @@ public abstract class BaseMonster : MonoBehaviour
     public void Dead()
     {
         Destroy(gameObject);
+        DeadListener?.Invoke();
     }
-
     #endregion
     #region PrivateMethod
 
-    protected void TransitionToState(MonsterState newState)
+    protected virtual void TransitionToState(MonsterState newState)
     {
         currentState = newState;
-        m_agent.ResetPath();
+
+            m_agent.ResetPath();
+        
     }
 
     protected virtual Transform detectingPlayer()
@@ -167,14 +185,14 @@ public abstract class BaseMonster : MonoBehaviour
         return GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    private Vector3 getPatrolPos()
+    protected Vector3 getPatrolPos()
     {
         return new Vector2(UnityEngine.Random.Range(m_initialPosition.x - m_range, m_initialPosition.x + m_range),
             UnityEngine.Random.Range(m_initialPosition.y - m_range, m_initialPosition.y + m_range));
     }
 
 
-    private IEnumerator IE_KnockBack()
+    protected virtual IEnumerator IE_KnockBack()
     {
         yield return new WaitForSeconds(m_knockBackTime);
         m_agent.ResetPath();

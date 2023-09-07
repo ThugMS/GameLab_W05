@@ -201,6 +201,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: melee
       objectReference: {fileID: 0}
+    - target: {fileID: 6785976041359516808, guid: a53d544c5a3b5f3438e302dca136ed04, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6785976041359516813, guid: a53d544c5a3b5f3438e302dca136ed04, type: 3}
+      propertyPath: m_detectingLayer.m_Bits
+      value: 183
+      objectReference: {fileID: 0}
     - target: {fileID: 6785976041359516814, guid: a53d544c5a3b5f3438e302dca136ed04, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1176,6 +1184,14 @@ PrefabInstance:
     - target: {fileID: 6857720738556830180, guid: e8d883c780d9c1b4480a3ab965a934a1, type: 3}
       propertyPath: m_Name
       value: ranged
+      objectReference: {fileID: 0}
+    - target: {fileID: 6857720738556830180, guid: e8d883c780d9c1b4480a3ab965a934a1, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6857720738556830181, guid: e8d883c780d9c1b4480a3ab965a934a1, type: 3}
+      propertyPath: m_detectingLayer.m_Bits
+      value: 183
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8d883c780d9c1b4480a3ab965a934a1, type: 3}

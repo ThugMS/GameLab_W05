@@ -11,3 +11,8 @@ public class Boss
 {
     
 }
+
+public class Gift
+{
+    
+}
