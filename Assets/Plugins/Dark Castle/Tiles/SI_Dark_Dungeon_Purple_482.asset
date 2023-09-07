@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: SI_Dark_Dungeon_Purple_482
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 1695693088, guid: 47105d22361153e4eb8fe674714b7d9f, type: 3}
+  m_Sprite: {fileID: 1168656020, guid: 47105d22361153e4eb8fe674714b7d9f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

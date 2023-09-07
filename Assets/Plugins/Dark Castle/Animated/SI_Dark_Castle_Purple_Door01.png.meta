@@ -3,7 +3,7 @@ guid: 1f5e5ad7de3dea04cb6e1589ec3718f0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -63,6 +63,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -462,22 +463,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SI_Dark_Castle_Purple_Door01_4: -593992476
-      SI_Dark_Castle_Purple_Door01_6: -1532797598
-      SI_Dark_Castle_Purple_Door01_7: 1359821909
-      SI_Dark_Castle_Purple_Door01_14: 1137689070
-      SI_Dark_Castle_Purple_Door01_1: -536729966
-      SI_Dark_Castle_Purple_Door01_5: 1441125057
-      SI_Dark_Castle_Purple_Door01_15: 833543123
-      SI_Dark_Castle_Purple_Door01_11: -1881123173
-      SI_Dark_Castle_Purple_Door01_2: -1215454770
-      SI_Dark_Castle_Purple_Door01_9: -350343754
       SI_Dark_Castle_Purple_Door01_0: -731538955
+      SI_Dark_Castle_Purple_Door01_1: -536729966
+      SI_Dark_Castle_Purple_Door01_10: -716075092
+      SI_Dark_Castle_Purple_Door01_11: -1881123173
       SI_Dark_Castle_Purple_Door01_12: -1144777399
       SI_Dark_Castle_Purple_Door01_13: 286870700
-      SI_Dark_Castle_Purple_Door01_8: -977270350
-      SI_Dark_Castle_Purple_Door01_10: -716075092
+      SI_Dark_Castle_Purple_Door01_14: 1137689070
+      SI_Dark_Castle_Purple_Door01_15: 833543123
+      SI_Dark_Castle_Purple_Door01_2: -1215454770
       SI_Dark_Castle_Purple_Door01_3: -2047819977
+      SI_Dark_Castle_Purple_Door01_4: -593992476
+      SI_Dark_Castle_Purple_Door01_5: 1441125057
+      SI_Dark_Castle_Purple_Door01_6: -1532797598
+      SI_Dark_Castle_Purple_Door01_7: 1359821909
+      SI_Dark_Castle_Purple_Door01_8: -977270350
+      SI_Dark_Castle_Purple_Door01_9: -350343754
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
