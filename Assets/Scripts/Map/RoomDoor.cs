@@ -7,34 +7,26 @@ using UnityEngine.Serialization;
 
 public class RoomDoor : MonoBehaviour
 {
-    #region PublicVariables
     public Transform m_spawnPosition;
-    #endregion
     
-    #region PrivateVariables
-    private UIRoom m_UIRoom;
-    private RoomType m_roomType;
+    private BaseRoom _mBaseRoom;
+    private RoomType m_roomType; // [TODO] 추후 문 타입에 따라, 문 모양 설정 필요
     [SerializeField] private GameObject m_desactiveObj;
     [SerializeField] private Direction m_direction;
-    #endregion
-
-    #region PublicMethod
-    public void Init(UIRoom _uiRoom, RoomType _type)
+    
+    public void Init(BaseRoom baseRoom, RoomType _type)
     {
-        m_UIRoom = _uiRoom;
+        _mBaseRoom = baseRoom;
         m_roomType = _type;
 
         m_desactiveObj.SetActive(m_roomType == default);
     }
-    #endregion
 
-    #region PrivateMethod
-    void OnTriggerEnter2D(Collider2D _col)
+    void OnTriggerStay2D(Collider2D _col)
     {
         if (_col.CompareTag("Player"))
         {
-            m_UIRoom.LeaveRoom(m_direction);
+            _mBaseRoom.LeaveRoom(m_direction);
         }
     }
-    #endregion
 }
