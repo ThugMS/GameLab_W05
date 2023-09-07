@@ -3,7 +3,7 @@ guid: 77c3ca47335cbe14c8c654aa9255c645
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -63,6 +63,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -294,14 +295,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SI_Dark_Castle_Torch02_2: -1750561798
-      SI_Dark_Castle_Torch02_1: 1133842721
-      SI_Dark_Castle_Torch02_3: 916441895
-      SI_Dark_Castle_Torch02_7: -1940368142
-      SI_Dark_Castle_Torch02_4: 585669751
-      SI_Dark_Castle_Torch02_6: -1942984242
-      SI_Dark_Castle_Torch02_5: 1966402190
       SI_Dark_Castle_Torch02_0: 1267362898
+      SI_Dark_Castle_Torch02_1: 1133842721
+      SI_Dark_Castle_Torch02_2: -1750561798
+      SI_Dark_Castle_Torch02_3: 916441895
+      SI_Dark_Castle_Torch02_4: 585669751
+      SI_Dark_Castle_Torch02_5: 1966402190
+      SI_Dark_Castle_Torch02_6: -1942984242
+      SI_Dark_Castle_Torch02_7: -1940368142
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
