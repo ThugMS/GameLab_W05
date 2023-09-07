@@ -71,6 +71,8 @@ public abstract class Player : MonoBehaviour
     {
         m_heart -= _damage;
 
+        UIManager.Instance.DecreaseLife();
+
         if(m_heart <= 0)
         {
             Dead();
