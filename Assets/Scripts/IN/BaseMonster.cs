@@ -33,7 +33,7 @@ public abstract class BaseMonster : MonoBehaviour
     protected Rigidbody2D m_rb;
     protected GameObject m_playerObj;
     protected NavMeshAgent m_agent;
-    private bool isAttacked = false;
+    protected bool isAttacked = false;
     [Header("Value")]
     [SerializeField] protected int m_speed;
     [SerializeField] protected int m_range;
@@ -41,7 +41,7 @@ public abstract class BaseMonster : MonoBehaviour
     [SerializeField] private float m_health;
 
     [Header("Time")]
-    [SerializeField] private float m_knockBackTime;
+    [SerializeField] protected float m_knockBackTime;
     [SerializeField] protected float m_patrolTime;
     //==Positions
     protected Vector3 m_initialPosition;
@@ -171,10 +171,12 @@ public abstract class BaseMonster : MonoBehaviour
     #endregion
     #region PrivateMethod
 
-    protected void TransitionToState(MonsterState newState)
+    protected virtual void TransitionToState(MonsterState newState)
     {
         currentState = newState;
-        m_agent.ResetPath();
+
+            m_agent.ResetPath();
+        
     }
 
     protected virtual Transform detectingPlayer()
