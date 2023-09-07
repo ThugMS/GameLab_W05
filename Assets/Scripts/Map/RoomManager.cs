@@ -66,12 +66,17 @@ public class RoomManager : MonoBehaviour
 
     void Sample()
     {
-        m_rooms = new Room[1, 3]
+        m_rooms = new Room[2, 3]
         {
             {
-                new NormalRoom(new()),
-                new StartRoom(),
-                new BossRoom(new())
+                new (RoomType.Normal),
+                null,
+                new (RoomType.Normal),
+            },
+            {
+                new (RoomType.Gift),
+                new (RoomType.Start),
+                new (RoomType.Boss),
             },
         }; 
     }
@@ -205,13 +210,15 @@ public class RoomManager : MonoBehaviour
 
     #region Factory
 
-    public IRoom CreateUIRoomByType(GameObject _obj, RoomType _type)
+    public UIRoom CreateUIRoomByType(GameObject _obj, RoomType _type)
     {
         return _type switch
         {
-            RoomType.Start   => _obj.AddComponent<UIStartRoom>(),
-            RoomType.Normal => _obj.AddComponent<UINormalRoom>(),
-            RoomType.Boss    => _obj.AddComponent<UIBossRoom>(),
+            RoomType.Start       => _obj.AddComponent<UIStartRoom>(),
+            RoomType.Normal      => _obj.AddComponent<UINormalRoom>(),
+            RoomType.NormalGift  => _obj.AddComponent<UINormalRoom>(),
+            RoomType.Gift        => _obj.AddComponent<UIGiftRoom>(),
+            RoomType.Boss        => _obj.AddComponent<UIBossRoom>(),
         };
     }
 

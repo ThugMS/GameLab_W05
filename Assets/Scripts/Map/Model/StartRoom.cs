@@ -1,6 +1,6 @@
-﻿public class StartRoom : Room
-{
-    public StartRoom() : base(RoomType.Start)
-    {
-    }
-}
+﻿// public class StartRoom : Room
+// {
+//     public StartRoom() : base(RoomType.Start)
+//     {
+//     }
+// }
