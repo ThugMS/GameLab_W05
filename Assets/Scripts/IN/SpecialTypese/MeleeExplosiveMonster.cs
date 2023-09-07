@@ -13,6 +13,10 @@ public class MeleeExplosiveMonster : RangedMonster
     #endregion
 
     #region PublicMethod
+<<<<<<< HEAD
+   // protected override IEnumerator IE_Attack()
+
+=======
     protected override IEnumerator IE_Attack()
     {
 
@@ -31,6 +35,7 @@ public class MeleeExplosiveMonster : RangedMonster
         yield return null;
     }
 
+>>>>>>> 4bd7f058ecefc75352b4613e102956907db779a8
     #endregion
 
     #region PrivateMethod
