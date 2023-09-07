@@ -55,6 +55,7 @@ public class MeleeExplosiveMonster : MeleeMonster
         yield return null;
     }
 
+>>>>>>> 4bd7f058ecefc75352b4613e102956907db779a8
     #endregion
 
     #region PrivateMethod

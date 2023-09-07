@@ -11,12 +11,15 @@ public class Arrow : MonoBehaviour
     [SerializeField] private Rigidbody2D m_rigidbody;
     [SerializeField] private Vector2 m_dir;
 
+    private int m_enemyLayerMask;
+    private int m_stopLayerMask;
+
     [Header("Speed")]
     [SerializeField] private float m_speed;
     [SerializeField] private float m_decelSpeed = 0.01f;
 
     [Header("Damage")]
-    [SerializeField] private float m_power;
+    private float m_power = 0f;
     #endregion
 
     #region PublicMethod
@@ -29,6 +32,9 @@ public class Arrow : MonoBehaviour
     private void Start()
     {
         TryGetComponent<Rigidbody2D>(out m_rigidbody);
+
+        m_enemyLayerMask = LayerMask.GetMask("Monster", "Boss");
+        m_stopLayerMask = LayerMask.GetMask("Wall", "Monster", "Boss");
     }
 
     private void FixedUpdate()
@@ -36,7 +42,7 @@ public class Arrow : MonoBehaviour
         Vector2 moveAmount = transform.up * m_speed * Time.deltaTime;
         Vector2 nextPosition = m_rigidbody.position + moveAmount;
 
-        m_speed -= m_decelSpeed;
+        //m_speed -= m_decelSpeed;
 
         m_rigidbody.MovePosition(nextPosition);
         //m_rigidbody.velocity = m_dir * m_speed;
@@ -44,5 +50,23 @@ public class Arrow : MonoBehaviour
     #endregion
 
     #region PrivateMethod
+    private void OnCollisionEnter2D(Collision2D collision)
+    {   
+        if ((m_stopLayerMask & (1<<collision.gameObject.layer)) != 0)
+        {
+            m_speed = 0;
+            
+            if((m_enemyLayerMask & (1 << collision.gameObject.layer)) != 0){
+                BaseMonster monster;
+
+                collision.transform.TryGetComponent<BaseMonster>(out monster);
+                transform.GetComponent<Collider2D>().enabled = false;   
+
+                monster.getDamage(m_power);
+
+                transform.SetParent(monster.transform);
+            }
+        }
+    }
     #endregion
 }
