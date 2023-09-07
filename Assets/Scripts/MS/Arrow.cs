@@ -19,7 +19,7 @@ public class Arrow : MonoBehaviour
     [SerializeField] private float m_decelSpeed = 0.01f;
 
     [Header("Damage")]
-    private float m_power = 5f;
+    private float m_power = 0f;
     #endregion
 
     #region PublicMethod
@@ -42,7 +42,7 @@ public class Arrow : MonoBehaviour
         Vector2 moveAmount = transform.up * m_speed * Time.deltaTime;
         Vector2 nextPosition = m_rigidbody.position + moveAmount;
 
-        m_speed -= m_decelSpeed;
+        //m_speed -= m_decelSpeed;
 
         m_rigidbody.MovePosition(nextPosition);
         //m_rigidbody.velocity = m_dir * m_speed;
@@ -60,8 +60,11 @@ public class Arrow : MonoBehaviour
                 BaseMonster monster;
 
                 collision.transform.TryGetComponent<BaseMonster>(out monster);
+                transform.GetComponent<Collider2D>().enabled = false;   
 
                 monster.getDamage(m_power);
+
+                transform.SetParent(monster.transform);
             }
         }
     }
