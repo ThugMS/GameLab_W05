@@ -17,7 +17,9 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private BaseRoom[,] m_uiRooms;
     [SerializeField] private GameObject m_roomPrefabs;
     [SerializeField] private Transform m_gridTr;
-    private BaseRoom _mStartBaseRoom;
+    private BaseRoom m_StartBaseRoom;
+    private bakeRuntime m_bakeRuntime;
+    
     
     [Header("Room Prefab Tile Size")]
     [SerializeField] private int m_roomWidthSize;
@@ -31,6 +33,7 @@ public class RoomManager : MonoBehaviour
         Sample();
         GenerateRoom();
         InitPlayerPosition();
+        m_bakeRuntime.updateMesh();
     }
     
     /// <summary>
@@ -61,6 +64,7 @@ public class RoomManager : MonoBehaviour
     #region PrivateMethod
     private void Start()
     {
+        m_bakeRuntime = GetComponentInChildren<bakeRuntime>();
         Init(); // [TODO] 이후 외부에서 호출되도록 수정
     }
 
@@ -116,7 +120,7 @@ public class RoomManager : MonoBehaviour
                     
                     if (room.Type == RoomType.Start)
                     {
-                        _mStartBaseRoom = uiRoom;
+                        m_StartBaseRoom = uiRoom;
                     }
                 }
                 
@@ -176,7 +180,7 @@ public class RoomManager : MonoBehaviour
     /// </summary>
     void InitPlayerPosition()
     {
-        _mStartBaseRoom.VisitRoom(player);
+        m_StartBaseRoom.VisitRoom(player);
     }
 
 
