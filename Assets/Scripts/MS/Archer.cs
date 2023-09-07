@@ -11,6 +11,9 @@ public class Archer : Player
     #endregion
 
     #region PrivateVariables
+    [SerializeField] protected float m_offset = 0.5f;
+    [SerializeField] protected int m_attackLayerMask;
+
     [Header("Arrow")]
     [SerializeField] protected GameObject m_arrow;
 
@@ -27,9 +30,38 @@ public class Archer : Player
     [SerializeField] protected float m_arrowAddPower = 0.1f;
     [SerializeField] protected float m_arrowMaxPower = 5f;
 
+    [Header("Ability")]
+    [SerializeField] protected float m_backStepDis = 3f;
+    [SerializeField] protected float m_durationTime = 0.2f;
+    [SerializeField] protected int m_backStepLayerMask;
+    [SerializeField] Ease m_backStepEase = Ease.Linear;
+    [SerializeField] protected Collider2D[] m_colliders;
+    [SerializeField] protected Vector2 m_backStopBoxSize;
     #endregion
 
-    #region 
+    #region Test
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        Vector2 attackDir = m_Direction.normalized * (m_offset + m_backStopBoxSize.x / 2);
+        Vector3 attackPos = transform.position + new Vector3(attackDir.x, attackDir.y, 0);
+
+        float angle = Vector2.Angle(Vector2.right, m_Direction.normalized);
+
+        Gizmos.DrawWireCube(attackPos, m_backStopBoxSize);
+    }
+    #endregion
+
+    #region PublicMethod
+    protected override void Start()
+    {
+        base.Start();
+        
+        m_backStepLayerMask = LayerMask.GetMask("Wall", "Monster", "Boss");
+        m_attackLayerMask = LayerMask.GetMask("Monster", "Boss");
+    }
+
     public override void OnAttack(InputAction.CallbackContext _context)
     {
         if (_context.started == true)
@@ -59,7 +91,21 @@ public class Archer : Player
 
     protected override void Ability()
     {
+        if (m_canAct == false)
+        {
+            return;
+        }
 
+        m_canAct = false;
+        m_canMove = false;
+
+        BackStep();
+    }
+
+    public void EndAttack()
+    {
+        SetCanMove(true);
+        SetCanAct(true);
     }
     #endregion
 
@@ -92,6 +138,60 @@ public class Archer : Player
         m_canArrow = false;
     }
 
+    private void BackStep()
+    {
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.5f, -m_Direction, m_backStepDis, m_backStepLayerMask);
+        Tweener tween = null;
+
+        if (hit == true)
+        {
+            tween = transform.DOMove(hit.point, m_durationTime).SetEase(m_backStepEase);
+            StartCoroutine(nameof(IE_BackStepAttack), tween);
+        }
+        else
+        {
+            Vector3 dis = -m_Direction.normalized * m_backStepDis;
+            Vector3 targetPos = transform.position + dis;
+
+            tween = transform.DOMove(targetPos, m_durationTime).SetEase(m_backStepEase);
+            StartCoroutine(nameof(IE_BackStepAttack), tween);
+        }
+    }
+
+    private void AttackCheckCollider()
+    {
+        m_colliders = null;
+
+        Vector2 attackDir = m_Direction.normalized * (m_offset + m_backStopBoxSize.x / 2);
+        Vector3 attackPos = transform.position + new Vector3(attackDir.x, attackDir.y, 0);
+
+        float angle = Vector2.Angle(Vector2.right, m_Direction.normalized);
+
+        m_colliders = Physics2D.OverlapBoxAll(attackPos, m_backStopBoxSize, angle, m_attackLayerMask);
+
+        DamageAttackMonster();
+    }
+
+    public void DamageAttackMonster()
+    {
+        int cnt = 0;
+
+        foreach (var iter in m_colliders)
+        {
+            BaseMonster monster;
+            Debug.Log("1");
+            iter.TryGetComponent<BaseMonster>(out monster);
+
+            monster.getDamage(m_power);
+            cnt++;
+
+            if (cnt >= 3)
+            {
+                break;
+            }
+        }
+    }
+
     private IEnumerator IE_ReadyArrowTime()
     {
         yield return new WaitForSeconds(m_minReadyTime);
@@ -114,6 +214,14 @@ public class Archer : Player
 
             yield return null;
         }
+    }
+
+    private IEnumerator IE_BackStepAttack(Tweener _tween)
+    {
+        yield return _tween.WaitForCompletion();
+
+        EndAttack();
+        AttackCheckCollider();
     }
     #endregion
 
