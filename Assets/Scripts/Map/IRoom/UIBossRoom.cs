@@ -22,7 +22,6 @@ public class UIBossRoom : UIRoom
     protected override void End()
     {
         base.End();
-        
-        // [TODO] 게임 클리어 로직 작성
+        GameManager.Instance.GameClear();
     }
 }
