@@ -97,6 +97,7 @@ public abstract class BaseMonster : MonoBehaviour
         targetPatrolPos = transform.position;
         m_timer = m_patrolTime;
         targetPatrolPos = getPatrolPos();
+        m_agent.speed = m_speed;
     }
 
     public virtual void Update()
