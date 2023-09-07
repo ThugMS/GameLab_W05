@@ -12,13 +12,13 @@ public class RangedMonster : BaseMonster
     #region PrivateVariables
     #endregion
     [Header("RangedAttack")]
-    [SerializeField] private float m_attackRange;
-    [SerializeField] private GameObject m_bullet;
+    [SerializeField] protected float m_attackRange;
+    [SerializeField] protected GameObject m_bullet;
     [SerializeField] private float m_bulletSpeed;
     [SerializeField] private int m_bulletCount;
-    [SerializeField] private int m_attackTime;
+    [SerializeField] protected int m_attackTime;
 
-    private bool isAttacking = false;
+    protected bool isAttacking = false;
     #region PublicMethod
 
     public override void Pursuit()
