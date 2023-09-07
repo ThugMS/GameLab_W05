@@ -10,6 +10,7 @@ using UnityEngine.AI;
 public abstract class BaseMonster : MonoBehaviour
 {
     #region PublicVariables
+    public LayerMask m_detectingLayer;
 
     #endregion
 
@@ -34,9 +35,10 @@ public abstract class BaseMonster : MonoBehaviour
     [SerializeField] protected int m_speed;
     [SerializeField] protected int m_range;
     [SerializeField] protected float m_basicAttack;
+    [SerializeField] private float m_health;
+
     [Header("Time")]
     [SerializeField] private float m_knockBackTime;
-    [SerializeField] private float m_health;
     [SerializeField] private float m_patrolTime;
     //==Positions
     private Vector3 m_initialPosition;
@@ -93,14 +95,14 @@ public abstract class BaseMonster : MonoBehaviour
         switch (currentState)
         {
             case MonsterState.Patrol:
-                if (Vector3.Distance(transform.position, m_playerObj.transform.position) < m_range)
+                if (detectPlayer())
                 {
                     TransitionToState(MonsterState.Pursuit);
                 }
                 Patrol();
                 break;
             case MonsterState.Pursuit:
-                if (Vector3.Distance(transform.position, m_playerObj.transform.position) >= m_range)
+                if (!detectPlayer())
                 {
                     Patrol();
                 }
@@ -111,6 +113,17 @@ public abstract class BaseMonster : MonoBehaviour
                 break;
         }
     }
+
+    public virtual bool detectPlayer()
+    {
+        Vector3 directionToPlayer = m_playerObj.transform.position - transform.position;
+        Ray ray = new Ray(transform.position, directionToPlayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position,  directionToPlayer);
+        Debug.Log(hit.collider.gameObject.name);
+
+        return false;
+    }
+
 
     public virtual void Patrol()
     {
