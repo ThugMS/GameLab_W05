@@ -103,7 +103,7 @@ MonoBehaviour:
   monosterLevel: 0
   m_detectingLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 65
   m_speed: 2
   m_range: 8
   m_basicAttack: 0
