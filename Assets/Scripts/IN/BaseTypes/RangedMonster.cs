@@ -51,7 +51,6 @@ public class RangedMonster : BaseMonster
         if (isAttacking == false)
         {
             StartCoroutine(IE_Attack());
-            print("shoot");
         }
     }
 
@@ -59,7 +58,7 @@ public class RangedMonster : BaseMonster
 
     #region PrivateMethod
 
-    private IEnumerator IE_Attack()
+    protected virtual IEnumerator IE_Attack()
     {
         
 
