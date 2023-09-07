@@ -22,8 +22,11 @@ public class Knight : Player
     [SerializeField] private float m_dashDis;
     [SerializeField] private float m_durationTime = 0.5f;
     [SerializeField] private float m_coolTime = 3f;
-    [SerializeField] private Ease m_dashEase = Ease.Linear;
+    [SerializeField] private AnimationCurve m_dashEase;
     [SerializeField] private int m_dashLayerMask;
+    [SerializeField] private Vector2 m_startPos;
+    [SerializeField] private Vector2 m_endPos;
+    [SerializeField] private float m_moveDis;
 
     [Header("Animator")]
     [SerializeField] private Animator m_animator;
@@ -103,7 +106,7 @@ public class Knight : Player
         base.Start();
 
         m_attackLayerMask = LayerMask.GetMask("Monster", "Boss");
-        m_dashLayerMask = LayerMask.GetMask("Wall", "Monster", "Boss");
+        m_dashLayerMask = LayerMask.GetMask("Wall");
     }
 
 
@@ -137,11 +140,13 @@ public class Knight : Player
     {
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.5f, m_Direction, m_dashDis, m_dashLayerMask);
         Tweener tween = null;
+        m_startPos = transform.position;
 
         if (hit == true)
         {
             tween = transform.DOMove(hit.point, m_durationTime).SetEase(m_dashEase);
-
+            m_moveDis = hit.distance;
+            m_endPos = hit.point;
         }
         else
         {
@@ -149,7 +154,8 @@ public class Knight : Player
             Vector3 targetPos = transform.position + dis;
 
             tween = transform.DOMove(targetPos, m_durationTime).SetEase(m_dashEase);
-
+            m_moveDis = m_dashDis;
+            m_endPos = targetPos;
         }
         StartCoroutine(nameof(IE_DashAttack), tween);
 
@@ -161,8 +167,10 @@ public class Knight : Player
     {
         m_colliders = null;
 
+        m_dashAttackBoxSize = new Vector2(m_moveDis + 2f, m_dashAttackBoxSize.y);
+
         Vector2 attackDir = m_Direction.normalized * (m_dashAttackBoxSize.x / 2);
-        Vector3 attackPos = transform.position + new Vector3(attackDir.x, attackDir.y, 0);
+        Vector3 attackPos = transform.position - new Vector3(attackDir.x, attackDir.y, 0) + new Vector3(2f, 0, 0);
 
         float angle = Vector2.Angle(Vector2.right, m_Direction.normalized);
 
