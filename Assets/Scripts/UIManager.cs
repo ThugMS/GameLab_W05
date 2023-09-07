@@ -176,10 +176,10 @@ public class UIManager : MonoBehaviour
             }
         }
         
-        if (!isAnyMonsterInView)
-        {
-            GameManager.Instance.GameClear();
-        }
+        // if (!isAnyMonsterInView)
+        // {
+        //     GameManager.Instance.GameClear();
+        // }
     }
     #endregion
 }

@@ -2,14 +2,14 @@
 using System.Collections;
 using UnityEngine;
 
-public class UIStartRoom : MonoBehaviour, IRoom
+public class UIStartRoom : UIRoom
 {
-    public void Init(Room _baseRoom)
-    {        
-        var start = _baseRoom as StartRoom;
+    public override void Init(Room _baseRoom)
+    {
+        base.Init(_baseRoom);
     }
 
-    public void Execute()
+    public override void Execute()
     {
         StartCoroutine(TempWait());
     }
@@ -17,11 +17,11 @@ public class UIStartRoom : MonoBehaviour, IRoom
     IEnumerator TempWait()
     {
         yield return new WaitForSeconds(5f);
-        GetComponent<BaseRoom>().IsClear = true;
+        End();
     }
 
-    public void End()
+    protected override void End()
     {
-        
+        base.End();
     }
 }

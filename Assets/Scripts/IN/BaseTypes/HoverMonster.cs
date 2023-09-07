@@ -38,9 +38,16 @@ public class HoverMonster : BaseMonster
 
     protected override IEnumerator IE_KnockBack()
     {
-        return base.IE_KnockBack();
+        yield return new WaitForSeconds(base.m_knockBackTime);
+        base.isAttacked = false;
+        TransitionToState(MonsterState.Patrol);
+        yield return null;
     }
 
+    protected override void TransitionToState(MonsterState newState)
+    {
+        currentState = newState;
+    }
 
 
     protected void OnTriggerEnter2D(Collider2D collision)

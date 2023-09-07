@@ -17,7 +17,9 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private BaseRoom[,] m_uiRooms;
     [SerializeField] private GameObject m_roomPrefabs;
     [SerializeField] private Transform m_gridTr;
-    private BaseRoom _mStartBaseRoom;
+    private BaseRoom m_StartBaseRoom;
+    private bakeRuntime m_bakeRuntime;
+    
     
     [Header("Room Prefab Tile Size")]
     [SerializeField] private int m_roomWidthSize;
@@ -31,6 +33,7 @@ public class RoomManager : MonoBehaviour
         Sample();
         GenerateRoom();
         InitPlayerPosition();
+        m_bakeRuntime.updateMesh();
     }
     
     /// <summary>
@@ -61,17 +64,23 @@ public class RoomManager : MonoBehaviour
     #region PrivateMethod
     private void Start()
     {
+        m_bakeRuntime = GetComponentInChildren<bakeRuntime>();
         Init(); // [TODO] 이후 외부에서 호출되도록 수정
     }
 
     void Sample()
     {
-        m_rooms = new Room[1, 3]
+        m_rooms = new Room[2, 3]
         {
             {
-                new NormalRoom(new()),
-                new StartRoom(),
-                new BossRoom(new())
+                new (RoomType.Normal),
+                null,
+                new (RoomType.Normal),
+            },
+            {
+                new (RoomType.Gift),
+                new (RoomType.Start),
+                new (RoomType.Boss),
             },
         }; 
     }
@@ -111,7 +120,7 @@ public class RoomManager : MonoBehaviour
                     
                     if (room.Type == RoomType.Start)
                     {
-                        _mStartBaseRoom = uiRoom;
+                        m_StartBaseRoom = uiRoom;
                     }
                 }
                 
@@ -171,7 +180,7 @@ public class RoomManager : MonoBehaviour
     /// </summary>
     void InitPlayerPosition()
     {
-        _mStartBaseRoom.VisitRoom(player);
+        m_StartBaseRoom.VisitRoom(player);
     }
 
 
@@ -205,13 +214,15 @@ public class RoomManager : MonoBehaviour
 
     #region Factory
 
-    public IRoom CreateUIRoomByType(GameObject _obj, RoomType _type)
+    public UIRoom CreateUIRoomByType(GameObject _obj, RoomType _type)
     {
         return _type switch
         {
-            RoomType.Start   => _obj.AddComponent<UIStartRoom>(),
-            RoomType.Normal => _obj.AddComponent<UINormalRoom>(),
-            RoomType.Boss    => _obj.AddComponent<UIBossRoom>(),
+            RoomType.Start       => _obj.AddComponent<UIStartRoom>(),
+            RoomType.Normal      => _obj.AddComponent<UINormalRoom>(),
+            RoomType.NormalGift  => _obj.AddComponent<UINormalRoom>(),
+            RoomType.Gift        => _obj.AddComponent<UIGiftRoom>(),
+            RoomType.Boss        => _obj.AddComponent<UIBossRoom>(),
         };
     }
 
