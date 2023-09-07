@@ -1,8 +1,7 @@
-﻿
-using System.Collections;
+﻿using Unity.Mathematics;
 using UnityEngine;
 
-public class UIStartRoom : UIRoom
+public class UIGiftRoom : UIRoom
 {
     public override void Init(Room _baseRoom)
     {
@@ -11,12 +10,8 @@ public class UIStartRoom : UIRoom
 
     public override void Execute()
     {
-        StartCoroutine(TempWait());
-    }
-    
-    IEnumerator TempWait()
-    {
-        yield return new WaitForSeconds(5f);
+        var gift = TestSample.Instance.m_reward;
+        Instantiate(gift, transform.position, quaternion.identity);
         End();
     }
 

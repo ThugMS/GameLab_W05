@@ -11,7 +11,7 @@ public class BaseRoom : MonoBehaviour
     
     #region PrivateVaraibles
     private RoomManager m_roomManager;
-    private IRoom m_roomByType;
+    private UIRoom _mUIRoomByType;
 
     [Header("방 구성")]
     [SerializeField] private RoomDoor[] m_doors;
@@ -36,10 +36,10 @@ public class BaseRoom : MonoBehaviour
     /// 방 정보를 초기화
     /// 지정된 정보에 맞게 문 및 생성
     /// </summary>
-    public void Init(RoomManager _roomManager, IRoom _roomByType, RoomType[] _types)
+    public void Init(RoomManager _roomManager, UIRoom uiRoomByType, RoomType[] _types)
     {
         m_roomManager = _roomManager;
-        m_roomByType = _roomByType;
+        _mUIRoomByType = uiRoomByType;
 
         for (int i = 0; i < 4; i++)
         {
@@ -69,8 +69,18 @@ public class BaseRoom : MonoBehaviour
         // 클리어가 되지 않은 맵의 경우, 맵 특성에 맞게 동작 수행
         if (IsClear == false)
         {
-            m_roomByType.Execute();
+            _mUIRoomByType.Execute();
         }
+
+        UpdateCameraPosition();
+    }
+
+    void UpdateCameraPosition()
+    {
+        var cameraPos = transform.position;
+        cameraPos.z = -10;
+
+        Camera.main.transform.position = cameraPos;
     }
 
     public void LeaveRoom(Direction _inDirection)
