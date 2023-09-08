@@ -46,7 +46,7 @@ public class BaseRoom : MonoBehaviour
             m_doors[i].Init(this, _types[i]);
         }
 
-        IsClear = false;
+        IsClear = false ;
     }
 
     /// <summary>

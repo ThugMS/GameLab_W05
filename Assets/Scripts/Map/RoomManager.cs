@@ -42,7 +42,8 @@ public class RoomManager : MonoBehaviour
     {
         // Sample();
         
-        GenerateRandomMapTree(_roomCount, RoomType.Gift);
+        GenerateRandomMapTree(_roomCount,
+                              GameManager.Instance.m_keywordRoomType);
         
         GenerateRoom();
         InitPlayerPosition();
@@ -76,30 +77,11 @@ public class RoomManager : MonoBehaviour
 
     #region PrivateMethod
     private void Start()
-    {
+    { 
         m_bakeRuntime = GetComponentInChildren<bakeRuntime>();
         Init(m_roomCount); // [TODO] 이후 외부에서 호출되도록 수정
     }
-
-    void Sample() 
-    {
-        // GenerateRandomMap;
-        m_rooms = new Room[2, 3]
-        {
-            {
-                new (RoomType.Normal),
-                null,
-                new (RoomType.Normal),
-            },
-            {
-                new (RoomType.Gift),
-                new (RoomType.Start),
-                new (RoomType.Boss),
-            },
-        }; 
-    }
     
-
     #region Create Random Map
 
     private int mm_roomCount;
@@ -108,7 +90,7 @@ public class RoomManager : MonoBehaviour
     /// </summary>
     Room GenerateRandomMapTree(int _roomCount, RoomType _specialRoomType)
     {
-        Room startRoom = new Room(RoomType.Start);
+        Room startRoom = new() {Type = RoomType.Start};
         startRoom.Depth = 0;
         
         int startRoomChildCount = Random.Range(2, 4);
@@ -127,7 +109,7 @@ public class RoomManager : MonoBehaviour
         // 현재 방과 연결할 방들 설정
         for (int i = 0; i < _childRoomCount; i++)
         {
-            var room = new Room(_parentRoom);
+            var room = new Room();
             room.Depth = _parentRoom.Depth + 1;
             
             _list.Add(room);
