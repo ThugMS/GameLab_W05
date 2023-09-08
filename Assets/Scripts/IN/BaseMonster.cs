@@ -57,7 +57,6 @@ public abstract class BaseMonster : MonoBehaviour
         Vector2 moveDirection = (transform.position - m_playerObj.transform.position).normalized;
         m_agent.SetDestination((Vector2)transform.position + moveDirection);
         StartCoroutine(IE_KnockBack());
-
         if (Health <= 0)
         {
             TransitionToState(MonsterState.Dead);

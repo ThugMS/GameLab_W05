@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class LaserMonster : RangedMonster
@@ -29,28 +30,29 @@ public class LaserMonster : RangedMonster
         laserLine.positionCount = 2;
         laserLine.enabled = true;
         laserLine.SetPosition(0, transform.position);
-        laserLine.SetPosition(1, transform.position + playerLastDirection * 1);
-
+        laserLine.SetPosition(1, transform.position + playerLastDirection * 20);
         hasHitPlayer = false;
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, playerLastDirection, m_attackRange, base.m_detectingLayer);
+        
+        base.TransitionToState(MonsterState.Stop);
 
         while (timer > 0)
         {
-            float lineLength = Mathf.Lerp(1, 25, 1 - (timer / laserTime)); 
-            laserLine.SetPosition(1, transform.position + playerLastDirection * lineLength);
+            float t = 1f - (timer / laserWaitTime); 
+            float laserWidth = Mathf.Lerp(0f, 1f, t); 
+            laserLine.startWidth = laserWidth;
+            laserLine.endWidth = laserWidth;
+            laserLine.SetPosition(0, transform.position);
+            laserLine.SetPosition(1, transform.position + playerLastDirection * 20);
             timer -= Time.deltaTime;
+            yield return null;
         }
-
-        laserLine.SetPosition(1, transform.position + playerLastDirection * 20);
         timer = laserTime;
-
-        base.TransitionToState(MonsterState.Stop);
-
         if (base.m_playerObj != null)
         {
             while (timer > 0)
             {
                 laserLine.SetPosition(0, transform.position);
+                RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, playerLastDirection, m_attackRange, base.m_detectingLayer);
                 if (!hasHitPlayer)
                 {
                     if (hitInfo.collider != null)
@@ -67,10 +69,27 @@ public class LaserMonster : RangedMonster
                 yield return new WaitForEndOfFrame();
             }
         }
-        laserLine.enabled = false;
+        print("end");
+        laserLine.SetPosition(1, transform.position);
         base.TransitionToState(MonsterState.Patrol);
         isAttacking = false;
+
+        yield return new WaitForSeconds(laserTime);
         yield return null;
+    }
+
+    protected void laserWait(Vector3 playerLastDirection)
+    {
+        while (timer > 0)
+        {
+            float t = 1f - (timer / laserWaitTime);
+            float laserWidth = Mathf.Lerp(0f, 1f, t);
+            laserLine.startWidth = laserWidth;
+            laserLine.endWidth = laserWidth;
+            laserLine.SetPosition(0, transform.position);
+            laserLine.SetPosition(1, transform.position + playerLastDirection * 20);
+            timer -= Time.deltaTime;
+        }
     }
 
     #endregion
