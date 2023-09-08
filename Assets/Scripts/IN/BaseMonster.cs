@@ -23,6 +23,7 @@ public abstract class BaseMonster : MonoBehaviour
         Pursuit,
         Attack,
         Knockback,
+        Stop,
         Dead
     }
     [Header("State")]
