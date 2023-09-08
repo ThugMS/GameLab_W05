@@ -27,7 +27,6 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private int m_roomHeightSize;
     
     [Header("Room Setting")] 
-    [Min(5)]
     [SerializeField] private int m_roomCount;
 
     [Header("Normal Map Setting")]
@@ -310,7 +309,7 @@ public class RoomManager : MonoBehaviour
                     var uiRoom = obj.GetComponent<BaseRoom>();
                     m_uiRooms[y, x] = uiRoom;
                     uiRoom.m_grid = new Vector2Int(y, x);
-                    uiRoom.Init(this, roomByType, GetRoomTypes(y, x));
+                    uiRoom.Init(this, roomByType, GetRoomTypes(room));
 
                     if (room.Type == RoomType.Start)
                     {
@@ -334,6 +333,28 @@ public class RoomManager : MonoBehaviour
             if (room != null)
             {
                 types[i] = room.Type;
+            }
+        }
+
+        return types;
+    }
+    
+    
+    RoomType[] GetRoomTypes(Room _room)
+    {
+        var types = new RoomType[4];
+
+        int[] wayX = new[] { 0, 0, -1, 1 };
+        int[] wayY = new[] { 1, -1, 0, 0 };
+
+        for (int i = 0; i < 4; i++)
+        {
+            Direction direction = (Direction) i + 1;
+            
+            if (_room.HasDirectionList.Contains(direction))
+            {
+                var nextRoom = m_rooms[_room.m_grid.y + wayY[i], _room.m_grid.x + wayX[i]];
+                types[i] = nextRoom.Type;
             }
         }
 
