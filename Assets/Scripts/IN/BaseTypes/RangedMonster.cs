@@ -23,7 +23,7 @@ public class RangedMonster : BaseMonster
 
     public override void Pursuit()
     {
-        Vector3 playerDetection = detectingPlayer().position - transform.position;
+        Vector3 playerDetection = base.m_playerObj.transform.position - transform.position;
 
         if (playerDetection.magnitude > m_attackRange * .8f)
         {
@@ -57,7 +57,34 @@ public class RangedMonster : BaseMonster
     #endregion
 
     #region PrivateMethod
+    protected virtual void Start()
+    {
+        base.init();
+    }
 
+    protected override void stateUpdate()
+    {
+        switch (m_currentState)
+        {
+            case MonsterState.Patrol:
+                if (canSeePlayer() && playerWithinRange())
+                {
+                    TransitionToState(MonsterState.Pursuit);
+                }
+                Patrol();
+                break;
+            case MonsterState.Pursuit:
+                if (!canSeePlayer() && playerWithinRange())
+                {
+                    Patrol();
+                }
+                else
+                {
+                    Pursuit();
+                }
+                break;
+        }
+    }
     protected virtual IEnumerator IE_Attack()
     {
         
@@ -81,6 +108,21 @@ public class RangedMonster : BaseMonster
         isAttacking = false;
         yield return null;
 
+    }
+
+    public override void Patrol()
+    {
+        m_agent.ResetPath();
+        m_agent.SetDestination(targetPatrolPos);
+        if (Vector2.Distance(transform.position, targetPatrolPos) < 0.2f)
+        {
+            m_timer -= Time.deltaTime;
+            if (m_timer < 0)
+            {
+                m_timer = m_patrolTime;
+                targetPatrolPos = getPatrolPos();
+            }
+        }
     }
 
     #endregion
