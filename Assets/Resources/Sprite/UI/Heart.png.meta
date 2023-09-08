@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Life_0
+      name: Heart_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 09590f8e7ca77814889df07713dcae69
-      internalID: -939335434
+      spriteID: a5f322db27a14e745a96b506e3e243bf
+      internalID: -1671720513
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Life_1
+      name: Heart_1
       rect:
         serializedVersion: 2
         x: 19
@@ -140,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca062726adc6c6e47b62b9425f012fbf
-      internalID: -11681872
+      spriteID: 1a4ad7fa034e2f94c96f38bb26ea51db
+      internalID: 2000217923
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Life_2
+      name: Heart_2
       rect:
         serializedVersion: 2
         x: 38
@@ -161,14 +161,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e3791f00818d0e64a888de468f977524
-      internalID: 1617159236
+      spriteID: 40fd74df7e281a94aace601f242aa444
+      internalID: -82749637
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Life_3
+      name: Heart_3
       rect:
         serializedVersion: 2
         x: 57
@@ -182,14 +182,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 37fbce681ae02524aaf993a3985bce43
-      internalID: 1748052557
+      spriteID: 6c8fcc53a719b8d40be518c8d5550cba
+      internalID: 1306080281
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Life_4
+      name: Heart_4
       rect:
         serializedVersion: 2
         x: 76
@@ -203,8 +203,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d49749c95c4c39345aa74045497d418b
-      internalID: -1326061231
+      spriteID: b7ed527473e846f49bf34dd39f89f572
+      internalID: -221547420
       vertices: []
       indices: 
       edges: []
@@ -220,11 +220,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Life_0: -939335434
-      Life_1: -11681872
-      Life_2: 1617159236
-      Life_3: 1748052557
-      Life_4: -1326061231
+      Heart_0: -1671720513
+      Heart_1: 2000217923
+      Heart_2: -82749637
+      Heart_3: 1306080281
+      Heart_4: -221547420
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

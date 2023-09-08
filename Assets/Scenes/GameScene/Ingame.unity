@@ -659,6 +659,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Exit
       objectReference: {fileID: 0}
+    - target: {fileID: 7902247606718848930, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8139589849011570555, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8139589849011570555, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8139589849011570555, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
 --- !u!1 &1568583385 stripped
@@ -683,7 +699,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1568583389 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 2695062877702970122, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7902247606718848930, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
   m_PrefabInstance: {fileID: 1568583384}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1669372533
@@ -843,9 +859,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1568583386}
     - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
+      propertyPath: m_heartPanel
+      value: 
+      objectReference: {fileID: 1568583388}
+    - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
       propertyPath: m_lifePrefab
       value: 
       objectReference: {fileID: 1568583389}
+    - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
+      propertyPath: m_heartPrefab
+      value: 
+      objectReference: {fileID: 7926765508556418659, guid: 67271840728b7994bac53dc1e4a9f0fe, type: 3}
     - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
       propertyPath: m_gameOverPanel
       value: 

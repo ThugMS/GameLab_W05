@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1f;
-        UIManager.Instance.SetLifeUI();
+        UIManager.Instance.SetHeartUI();
     }
 
     #region PrivateVariables
