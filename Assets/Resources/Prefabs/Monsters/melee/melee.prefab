@@ -100,10 +100,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b09407312536b4f47b417f09432a0539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monosterLevel: 0
+  stage: 0
+  isOn: 0
   m_detectingLayer:
     serializedVersion: 2
-    m_Bits: 129
+    m_Bits: 136
+  m_currentState: 0
   m_speed: 3
   m_range: 4
   m_basicAttack: 1
