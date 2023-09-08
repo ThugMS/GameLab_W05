@@ -12,6 +12,35 @@ public class HoverMonster : BaseMonster
     #endregion
 
     #region PublicMethod
+    protected virtual void Start()
+    {
+        base.init();
+    }
+
+    protected virtual void Update()
+    {
+        switch (m_currentState)
+        {
+            case MonsterState.Patrol:
+                if (canSeePlayer() && playerWithinRange())
+                {
+                    TransitionToState(MonsterState.Pursuit);
+                }
+                Patrol();
+                break;
+            case MonsterState.Pursuit:
+                if (!canSeePlayer() && playerWithinRange())
+                {
+                    Patrol();
+                }
+                else
+                {
+                    Pursuit();
+                }
+                break;
+        }
+    }
+
     public override void Patrol()
     {
 
@@ -24,11 +53,8 @@ public class HoverMonster : BaseMonster
                 targetPatrolPos = base.getPatrolPos();
             }
         }
-
-
-        m_targetPos = new Vector2(UnityEngine.Random.Range(m_initialPosition.x - base.m_range/2, m_initialPosition.x + base.m_range / 2),
-                UnityEngine.Random.Range(m_initialPosition.y - base.m_range/2, m_initialPosition.y + base.m_range/2));
-
+        m_targetPos = new Vector2(UnityEngine.Random.Range(m_initialPosition.x - base.m_range / 2, m_initialPosition.x + base.m_range / 2),
+                UnityEngine.Random.Range(m_initialPosition.y - base.m_range / 2, m_initialPosition.y + base.m_range / 2));
     }
 
     public override void Pursuit()
@@ -46,13 +72,17 @@ public class HoverMonster : BaseMonster
 
     protected override void TransitionToState(MonsterState newState)
     {
-        currentState = newState;
+        base.m_currentState = newState;
     }
 
 
     protected void OnTriggerEnter2D(Collider2D collision)
     {
         base.DamagePlayer(collision.gameObject);
+    }
+
+    public override void Attack()
+    {
     }
 
     #endregion

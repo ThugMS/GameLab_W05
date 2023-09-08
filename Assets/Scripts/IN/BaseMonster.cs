@@ -9,15 +9,11 @@ using UnityEngine.AI;
 
 public abstract class BaseMonster : MonoBehaviour
 {
-    #region PublicVariables
-    public int monosterLevel;
-    
+    #region 
     public LayerMask m_detectingLayer;
     public Action DeadListener;
     #endregion
-
     #region PrivateVariables
-    //States
     protected enum MonsterState
     {
         Patrol,
@@ -26,10 +22,8 @@ public abstract class BaseMonster : MonoBehaviour
         Knockback,
         Dead
     }
-    protected MonsterState currentState = MonsterState.Patrol;
-
-    
-    //==References
+    [Header("State")]
+    [SerializeField] protected MonsterState m_currentState = MonsterState.Patrol;
     protected Rigidbody2D m_rb;
     protected GameObject m_playerObj;
     protected NavMeshAgent m_agent;
@@ -48,11 +42,9 @@ public abstract class BaseMonster : MonoBehaviour
     protected Vector3 targetPatrolPos;
     //==Timer
     protected float m_timer;
-
     #endregion
-
     #region PublicMethod
-    //=GetSet
+    //====================================InteractionWithPlayer========================
     public float Health { get => m_health; set => m_health = value; }
     public void getDamage(float _damage)
     {
@@ -68,12 +60,10 @@ public abstract class BaseMonster : MonoBehaviour
             Dead();
         }
     }
-
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         DamagePlayer(collision.gameObject);
     }
-
     protected virtual void DamagePlayer(GameObject collidingObject)
     {
         if (collidingObject.CompareTag("Player"))
@@ -84,10 +74,9 @@ public abstract class BaseMonster : MonoBehaviour
             player.GetDamage(m_basicAttack);
         }
     }
-
-    public virtual void Start()
+    //===============================InitFunc=================================
+    public void init()
     {
-        
         m_agent = GetComponent<NavMeshAgent>();
         m_agent.updateRotation = false;
         m_agent.updateUpAxis = false;
@@ -99,71 +88,12 @@ public abstract class BaseMonster : MonoBehaviour
         targetPatrolPos = getPatrolPos();
         m_agent.speed = m_speed;
     }
-
-    public virtual void Update()
-    {
-        switch (currentState)
-        {
-            case MonsterState.Patrol:
-                if (detectPlayer())
-                {
-                    TransitionToState(MonsterState.Pursuit);
-                }
-                Patrol();
-                break;
-            case MonsterState.Pursuit:
-                if (!detectPlayer())
-                {
-                    Patrol();
-                }
-                else
-                {
-                    Pursuit();
-                }
-                break;
-        }
-    }
-
-    public virtual bool detectPlayer()
-    {
-        Vector2 directionToPlayer = m_playerObj.transform.position - transform.position;
-        Debug.DrawRay(transform.position, directionToPlayer, Color.red);
-
-        RaycastHit2D hit = Physics2D.Raycast(transform.position,  directionToPlayer, directionToPlayer.magnitude, m_detectingLayer);
-
-        if(hit.collider != null)
-        {
-            if (hit.collider.gameObject.tag == "Player")
-                return true;
-        }
-
-        return false;
-    }
-
-
-    public virtual void Patrol()
-    {
-        m_agent.ResetPath();
-        m_agent.SetDestination(targetPatrolPos);
-        if (Vector2.Distance(transform.position, targetPatrolPos) < 0.2f)
-        {
-            m_timer -= Time.deltaTime;
-            if (m_timer < 0)
-            {
-                m_timer = m_patrolTime;
-                targetPatrolPos = getPatrolPos();
-            }
-        }
-    }
-    public virtual void Pursuit()
-    {
-        m_agent.SetDestination(m_playerObj.transform.position);
-    }
-
-    public virtual void Attack() { }
-
-
-
+    //======================Abstract Behavior according to State===============
+    public abstract void Patrol();
+    /*
+      dn우와신기하다 손가락이 ㅎㅍ편하다 굴곡대로 칠수있네네 */
+    public abstract void Pursuit(); //[TODO] 추후 야나매아션넣기
+    public abstract void Attack();
     public void Dead()
     {
         Destroy(gameObject);
@@ -171,27 +101,39 @@ public abstract class BaseMonster : MonoBehaviour
     }
     #endregion
     #region PrivateMethod
-
+    //===================Funcs for Behavior=====================================
     protected virtual void TransitionToState(MonsterState newState)
     {
-        currentState = newState;
-
-            m_agent.ResetPath();
-        
+        m_currentState = newState;
+        m_agent.ResetPath();
     }
-
-    protected virtual Transform detectingPlayer()
+    public virtual bool canSeePlayer()
     {
-        return GameObject.FindGameObjectWithTag("Player").transform;
-    }
+        Vector2 directionToPlayer = m_playerObj.transform.position - transform.position;
+        Debug.DrawRay(transform.position, directionToPlayer, Color.red);
 
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, directionToPlayer.magnitude, m_detectingLayer);
+
+        if (hit.collider != null)
+        {
+            if (hit.collider.gameObject.tag == "Player")
+                return true;
+        }
+        return false;
+    }
+    public virtual bool playerWithinRange()
+    {
+        if (Vector2.Distance(transform.position, m_playerObj.transform.position) < m_range)
+        {
+            return true;
+        }
+        return false;
+    }
     protected Vector3 getPatrolPos()
     {
         return new Vector2(UnityEngine.Random.Range(m_initialPosition.x - m_range, m_initialPosition.x + m_range),
             UnityEngine.Random.Range(m_initialPosition.y - m_range, m_initialPosition.y + m_range));
     }
-
-
     protected virtual IEnumerator IE_KnockBack()
     {
         yield return new WaitForSeconds(m_knockBackTime);
@@ -200,9 +142,6 @@ public abstract class BaseMonster : MonoBehaviour
         TransitionToState(MonsterState.Patrol);
         yield return null;
     }
-
-
-
     #endregion
 
 }

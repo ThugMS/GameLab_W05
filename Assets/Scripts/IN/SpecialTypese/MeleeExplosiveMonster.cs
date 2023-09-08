@@ -15,19 +15,19 @@ public class MeleeExplosiveMonster : MeleeMonster
     #endregion
 
     #region PublicMethod
-    public override void Update()
+    protected override void Update()
     {
-        switch (currentState)
+        switch (base.m_currentState)
         {
             case MonsterState.Patrol:
-                if (detectPlayer())
+                if (canSeePlayer() && playerWithinRange())
                 {
                     TransitionToState(MonsterState.Pursuit);
                 }
                 Patrol();
                 break;
             case MonsterState.Pursuit:
-                if (!detectPlayer())
+                if (!canSeePlayer() && playerWithinRange())
                 {
                     Patrol();
                     

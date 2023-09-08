@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UINormalRoom : UIRoom
@@ -20,6 +22,17 @@ public class UINormalRoom : UIRoom
 
     public override void Execute()
     {
+        var existingMonsters = GameObject.FindGameObjectsWithTag("Monsters");
+        
+        foreach (var monster in existingMonsters)
+        {
+            monster.GetComponent<BaseMonster>().DeadListener = KillMonsterCount;
+            
+        }
+
+        m_monsterCount = existingMonsters.Length;
+
+        /*
         var spawnMonsters = m_baseRoom.m_monsters;
         int spawnPosIdx = 0;
         for (int i = 0, cnt = 4; i < cnt; i++)// m_mRoom.m_monsters.Count; i < cnt; i++) //  [TODO] 지정된 몬스터 수로 수정 필요
@@ -34,7 +47,7 @@ public class UINormalRoom : UIRoom
         }
 
         m_monsterCount = 4; // [TODO] m_mRoom.monsters.Count;
-
+        */
     }
     
     /// <summary>
