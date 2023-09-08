@@ -13,7 +13,6 @@ public class Knight : Player
 
     [Header("Attack")]
     [SerializeField] private Vector2 m_attackBoxSize;
-    [SerializeField] private float m_offset = 0.5f;
     [SerializeField] private float m_range = 2f;
     [SerializeField] private int m_attackLayerMask;
 
