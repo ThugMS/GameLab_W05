@@ -16,6 +16,7 @@ public abstract class Player : MonoBehaviour
     [Header("Status")]
     [SerializeField] protected float m_heart = 3f;
     [SerializeField] protected float m_power;
+    [SerializeField] protected float m_offset = 0.5f;
 
     [Header("Move")]
     [SerializeField] protected float m_maxSpeed = 5f;
