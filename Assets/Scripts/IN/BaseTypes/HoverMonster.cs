@@ -17,7 +17,7 @@ public class HoverMonster : BaseMonster
         base.init();
     }
 
-    protected virtual void Update()
+    protected override void stateUpdate()
     {
         switch (m_currentState)
         {

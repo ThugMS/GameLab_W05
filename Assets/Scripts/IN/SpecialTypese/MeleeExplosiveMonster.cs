@@ -15,7 +15,7 @@ public class MeleeExplosiveMonster : MeleeMonster
     #endregion
 
     #region PublicMethod
-    protected override void Update()
+    protected override void stateUpdate()
     {
         switch (base.m_currentState)
         {

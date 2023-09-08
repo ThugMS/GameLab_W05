@@ -11,6 +11,7 @@ using UnityEngine;
 /// </summary>
 public class ResourceManager : MonoBehaviour
 {
+
     public static ResourceManager Instance { get; private set; }
 
     private void Awake()
@@ -18,6 +19,7 @@ public class ResourceManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            Init();
         }
         else
         {

@@ -22,33 +22,43 @@ public class UINormalRoom : UIRoom
 
     public override void Execute()
     {
-        var existingMonsters = GameObject.FindGameObjectsWithTag("Monsters");
-        
-        foreach (var monster in existingMonsters)
+        MonsterType monsterType = MonsterType.melee;
+
+        ResourceManager.Instance.MonsterPrefabDict.TryGetValue(monsterType, out List<GameObject> targetMonsters);
+
+        if(targetMonsters == null)
         {
-            monster.GetComponent<BaseMonster>().DeadListener = KillMonsterCount;
-            
+            Debug.Log(monsterType + "has no prefab/Failed to gete ResourceManager's list");
         }
 
-        m_monsterCount = existingMonsters.Length;
-
-        /*
-        var spawnMonsters = m_baseRoom.m_monsters;
         int spawnPosIdx = 0;
         for (int i = 0, cnt = 4; i < cnt; i++)// m_mRoom.m_monsters.Count; i < cnt; i++) //  [TODO] 지정된 몬스터 수로 수정 필요
         {
-            GameObject monsterPrefab = TestSample.Instance.m_monsterPrefab[0]; //  [TODO] spawnMonsters[i]:Monster 정보를 기반으로 프리팹 생성
-            var obj = Instantiate(monsterPrefab, m_spawnPositions[spawnPosIdx].position, Quaternion.identity);
+            var obj = Instantiate(getRandomMonster(targetMonsters), m_spawnPositions[spawnPosIdx].position, Quaternion.identity);
             obj.GetComponent<BaseMonster>().DeadListener = KillMonsterCount;
-            
             // 다음 위치에 생성
             spawnPosIdx++;
             spawnPosIdx %= m_spawnPositions.Count;
         }
 
         m_monsterCount = 4; // [TODO] m_mRoom.monsters.Count;
-        */
+        
     }
+
+    public GameObject getRandomMonster(List<GameObject> monsterList)
+    {
+        while(true)
+        {
+            int index = Random.Range(0, monsterList.Count);
+            GameObject tempMonster = monsterList[index];
+            /*
+            if(tempMonster의 level이 원하는 만큼) TODO : maxLevel 변수 주세용
+            */
+
+            return tempMonster;
+        }
+    }
+
     
     /// <summary>
     /// 몬스터 쪽에서 죽을 때, 해당 함수를 호출해주어야 함
@@ -73,3 +83,12 @@ public class UINormalRoom : UIRoom
         }
     }
 }
+
+/*
+       foreach (var monster in existingMonsters)
+        {
+            BaseMonster monsterComponent = monster.GetComponent<BaseMonster>();
+            monsterComponent.DeadListener = KillMonsterCount;
+            monsterComponent.init();
+        }
+ */

@@ -4,12 +4,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public abstract class BaseMonster : MonoBehaviour
 {
     #region 
+    public int stage;
+    public bool isOn = false;
     public LayerMask m_detectingLayer;
     public Action DeadListener;
     #endregion
@@ -75,6 +78,14 @@ public abstract class BaseMonster : MonoBehaviour
         }
     }
     //===============================InitFunc=================================
+    protected void Update ()
+    {
+        if(isOn == true)
+        {
+            stateUpdate();
+        }
+    }
+    protected abstract void stateUpdate();
     public void init()
     {
         m_agent = GetComponent<NavMeshAgent>();
@@ -87,12 +98,11 @@ public abstract class BaseMonster : MonoBehaviour
         m_timer = m_patrolTime;
         targetPatrolPos = getPatrolPos();
         m_agent.speed = m_speed;
+        isOn = true;
     }
     //======================Abstract Behavior according to State===============
     public abstract void Patrol();
-    /*
-      dn우와신기하다 손가락이 ㅎㅍ편하다 굴곡대로 칠수있네네 */
-    public abstract void Pursuit(); //[TODO] 추후 야나매아션넣기
+    public abstract void Pursuit(); 
     public abstract void Attack();
     public void Dead()
     {
