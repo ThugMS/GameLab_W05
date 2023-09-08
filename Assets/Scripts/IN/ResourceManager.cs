@@ -11,17 +11,15 @@ using UnityEngine;
 /// </summary>
 public class ResourceManager : MonoBehaviour
 {
+
     public static ResourceManager Instance { get; private set; }
-
-
-
-
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+            Init();
         }
         else
         {
@@ -29,42 +27,41 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
-    public Dictionary<MonsterType, GameObject> MeleeMonsterList { get; private set; } = new();
-    public Dictionary<MonsterType, GameObject> RangedMonsterList { get; private set; } = new();
-    public Dictionary<MonsterType, GameObject> HoverMonsterList { get; private set; } = new();
+    public Dictionary<MonsterType, List<GameObject>> MonsterPrefabDict { get; private set; }
 
-    public Dictionary<MonsterType, GameObject> MonsterPrefabDict { get; private set; }
-
-    /// <summary>
-    /// 각종 리소스들을 로드
-    /// </summary>
     public void Init()
     {
-        // Load Monster Prefabs 
-        MonsterPrefabDict = new();
-        for (int index = 0, cnt = Enum.GetNames(typeof(MonsterType)).Length; index < cnt; index++)
+        MonsterPrefabDict = new Dictionary<MonsterType, List<GameObject>>();
+
+        int cnt = Enum.GetNames(typeof(MonsterType)).Length;
+
+        for (int index = 0; index < cnt; index++)
         {
             var type = (MonsterType)index;
-            var objList = Resources.LoadAll("Prefabs/Monsters/" + type.ToString(), typeof(GameObject));
+            var objList = Resources.LoadAll("Prefabs/Monsters/" + type.ToString(), typeof(GameObject))
+                .Where(obj => obj is GameObject && ((GameObject)obj).tag == "Monster")
+                .Select(obj => (GameObject)obj)
+                .ToList();
 
-            foreach (var obj in objList)
+            if (objList.Count > 0)
             {
-                if (obj as GameObject != null && (obj as GameObject).tag == "Monster")
-                {
-                    
-                        MonsterPrefabDict.Add(type, (obj as GameObject));
-                        switch (type)
-                        {
-                            case MonsterType.melee: MeleeMonsterList.Add(type, obj as GameObject); break;
-                            case MonsterType.ranged: MeleeMonsterList.Add(type, obj as GameObject); break;
-                            case MonsterType.hover: MeleeMonsterList.Add(type, obj as GameObject); break;
-                        }
-                }
+                print(objList[0].name);
+                MonsterPrefabDict.Add(type, objList);
             }
         }
-
-
     }
 
+    public void DisplayMonsterPrefabHierarchy()
+    {
+        foreach (var kvp in MonsterPrefabDict)
+        {
+            Debug.Log("Monster Type: " + kvp.Key);
+
+            foreach (var prefab in kvp.Value)
+            {
+                Debug.Log("Prefab Name: " + prefab.name);
+            }
+        }
+    }
 
 }

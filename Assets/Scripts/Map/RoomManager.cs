@@ -24,9 +24,19 @@ public class RoomManager : MonoBehaviour
     [Header("Room Prefab Tile Size")]
     [SerializeField] private int m_roomWidthSize;
     [SerializeField] private int m_roomHeightSize;
+
+    [Header("Normal Map Setting")]
+    [SerializeField] public int minMonsterLevel;
+    [SerializeField] public int maxMonsterLevel;
+    [SerializeField] public int minMonsterCount;
+    [SerializeField] public int maxMonsterCount;
+
+
+
+
     #endregion
-    
-    
+
+
     #region PublicMethod
     public void Init()
     {
