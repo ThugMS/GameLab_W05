@@ -202,6 +202,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4c6cf02937c0441a78d5676ce7ee04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_keywordMonsterType: 0
+  m_keywordRoomType: 0
+  m_keywordReword: 0
   isGameOver: 0
 --- !u!4 &380470871
 Transform:
@@ -511,6 +514,7 @@ MonoBehaviour:
   m_gridTr: {fileID: 46587034}
   m_roomWidthSize: 26
   m_roomHeightSize: 18
+  m_roomCount: 6
   minMonsterLevel: 0
   maxMonsterLevel: 0
   minMonsterCount: 3

@@ -51,6 +51,7 @@ public class UIManager : MonoBehaviour
     public void LoadIngameScene()
     {
         SceneManager.LoadScene("Ingame");
+        GameManager.Instance.GameStart();
     }
     
     public void LoadTitleScene()
