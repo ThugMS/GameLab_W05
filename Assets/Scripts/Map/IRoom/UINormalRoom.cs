@@ -22,12 +22,10 @@ public class UINormalRoom : UIRoom
 
     public override void Execute()
     {
-        MonsterType monsterType = MonsterType.melee;
-
+        MonsterType monsterType = GameManager.Instance.m_keywordMonsterType;
         ResourceManager.Instance.MonsterPrefabDict.TryGetValue(monsterType, out List<GameObject> targetMonsters);
 
         RoomManager roomManager = GameObject.FindGameObjectWithTag("RoomManager").GetComponent<RoomManager>();
-
         int monsterCount = Random.Range(roomManager.minMonsterCount, roomManager.maxMonsterCount);
 
         if(targetMonsters == null)
