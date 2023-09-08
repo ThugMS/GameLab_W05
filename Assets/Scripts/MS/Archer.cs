@@ -11,7 +11,6 @@ public class Archer : Player
     #endregion
 
     #region PrivateVariables
-    [SerializeField] protected float m_offset = 0.5f;
     [SerializeField] protected int m_attackLayerMask;
 
     [Header("Arrow")]
