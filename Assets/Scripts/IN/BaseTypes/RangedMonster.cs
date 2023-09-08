@@ -50,7 +50,7 @@ public class RangedMonster : BaseMonster
     {
         if (isAttacking == false)
         {
-            StartCoroutine(IE_Attack());
+            StartCoroutine(nameof(IE_Attack));
         }
     }
 
