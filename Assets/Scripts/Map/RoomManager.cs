@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class RoomManager : MonoBehaviour
 {
@@ -20,27 +22,29 @@ public class RoomManager : MonoBehaviour
     private BaseRoom m_StartBaseRoom;
     private bakeRuntime m_bakeRuntime;
     
-    
     [Header("Room Prefab Tile Size")]
     [SerializeField] private int m_roomWidthSize;
     [SerializeField] private int m_roomHeightSize;
+    
+    [Header("Room Setting")] 
+    [Min(5)]
+    [SerializeField] private int m_roomCount;
 
     [Header("Normal Map Setting")]
     [SerializeField] public int minMonsterLevel;
     [SerializeField] public int maxMonsterLevel;
     [SerializeField] public int minMonsterCount;
     [SerializeField] public int maxMonsterCount;
-
-
-
-
     #endregion
 
 
     #region PublicMethod
-    public void Init()
+    public void Init(int _roomCount)
     {
-        Sample();
+        // Sample();
+        
+        GenerateRandomMapTree(_roomCount, RoomType.Gift);
+        
         GenerateRoom();
         InitPlayerPosition();
         m_bakeRuntime.updateMesh();
@@ -75,11 +79,12 @@ public class RoomManager : MonoBehaviour
     private void Start()
     {
         m_bakeRuntime = GetComponentInChildren<bakeRuntime>();
-        Init(); // [TODO] 이후 외부에서 호출되도록 수정
+        Init(m_roomCount); // [TODO] 이후 외부에서 호출되도록 수정
     }
 
-    void Sample()
+    void Sample() 
     {
+        // GenerateRandomMap;
         m_rooms = new Room[2, 3]
         {
             {
@@ -95,13 +100,192 @@ public class RoomManager : MonoBehaviour
         }; 
     }
     
+
+    #region Create Random Map
+
+    private int mm_roomCount;
     /// <summary>
     /// 랜덤 맵 생성
     /// </summary>
-    void GenerateRandomMap() //[TODO] 추후 맵 타입 입력 받기
+    Room GenerateRandomMapTree(int _roomCount, RoomType _specialRoomType)
     {
-            
+        Room startRoom = new Room(RoomType.Start);
+        startRoom.Depth = 0;
+        
+        int startRoomChildCount = Random.Range(2, 4);
+        mm_roomCount = _roomCount - ( 1 + startRoomChildCount);
+        
+        List<Room> list = new(){ startRoom }; 
+        MakeRoom(startRoom, startRoomChildCount, list);
+        SetRoomType(list, _specialRoomType);
+        GenerateRandomMapArray(list);
+        
+        return startRoom;
     }
+    
+    void MakeRoom(Room _parentRoom, int _childRoomCount, List<Room> _list)
+    {
+        // 현재 방과 연결할 방들 설정
+        for (int i = 0; i < _childRoomCount; i++)
+        {
+            var room = new Room(_parentRoom);
+            room.Depth = _parentRoom.Depth + 1;
+            
+            _list.Add(room);
+            _parentRoom.ChildRoom.Add(room);
+        }
+
+        // 자식 방과 연결할 방을 생성 및 연결
+        for (int i = 0; i < _childRoomCount; i++)
+        {
+            if (mm_roomCount > 0)
+            {
+                int cnt;
+                if (i == _childRoomCount - 1)
+                {
+                    cnt = Mathf.Min(mm_roomCount, 3);
+                }
+                else
+                {
+                    cnt = Mathf.Min(Random.Range(1, mm_roomCount), 3);
+                }
+
+                if (cnt > 0)
+                {
+                    mm_roomCount -= cnt;
+                    MakeRoom(_parentRoom.ChildRoom[i], cnt, _list);
+                }
+            }
+        }
+    }
+
+    void SetRoomType(List<Room> _rooms, RoomType _specialRoomType)
+    {
+        // 룸 배치
+        int maxDepth = _rooms.Max(x => x.Depth);
+
+        // 보스 룸 설정
+        var maxDepthRooms = _rooms.Where(x => x.Depth == maxDepth).ToList();
+        int bossIdx = Random.Range(0, maxDepthRooms.Count());
+        maxDepthRooms[bossIdx].Type = RoomType.Boss;
+        
+        // 특수 맵 설정
+        var ignoreRooms = _rooms.Where(x => x.Type == RoomType.Ignore).ToList();
+        int specialRoomCount =  _rooms.Count / 5; // [TODO] 5개 방당 1개 꼴로 설정. RoomManager 머지 후 해당 값 수정 필요
+        for (int i = 0; i < specialRoomCount; i++)
+        {
+            int idx = Random.Range(0, ignoreRooms.Count);
+            ignoreRooms[idx].Type = _specialRoomType;
+            ignoreRooms.RemoveAt(idx);
+        }
+        
+        // 기본 맵 설정
+        foreach (var room in _rooms.Where(x=> x.Type == RoomType.Ignore))
+        {
+            room.Type = RoomType.Normal;
+        }
+    }
+
+    void GenerateRandomMapArray(List<Room> _rooms)
+    {
+        int maxDepth = _rooms.Max(x => x.Depth);
+        int size = _rooms.Count();
+        
+        var way = new(int x, int y)[4] {(0, 1), (0, -1), (-1, 0), (1, 0)};
+        int pivot = size / 2;
+        int depth = 1;
+        
+        m_rooms = new Room[size, size];
+        
+        // 첫 방 설정
+        var startRoom = _rooms.First();
+        startRoom.m_grid = new(pivot, pivot);
+        m_rooms[pivot, pivot] = startRoom;
+
+        // 큐 준비
+        var parents = new List<Room>() { startRoom };
+        var nextParents = new List<Room>();
+        var q = new Queue<Room>(_rooms.Where(x => x.Depth == 1).ToList());
+        while (q.Count > 0)
+        {
+            var item = q.Dequeue();
+            nextParents.Add(item);
+
+            bool canExit;
+            do
+            {
+                // 랜덤 부모
+                int parentIdx = Random.Range(0, parents.Count);
+                var curParent = parents[parentIdx];
+                List<int> canDirIdxs = new();
+                for (int i = 0; i < 4; i++)
+                {
+                    var vec =  curParent.m_grid;
+                    var targetPos = new Vector2Int(vec.x+ way[i].x,  vec.y + way[i].y);
+
+                    if (targetPos.x >= 0 && targetPos.x < size && targetPos.y >= 0 && targetPos.y < size
+                        && m_rooms[targetPos.y, targetPos.x] == null)
+                    {
+                        canDirIdxs.Add(i);
+                    }
+                }
+
+                if (canDirIdxs.Count > 0)
+                {
+                    //랜덤 방향
+                    var randomDiridx = Random.Range(0, canDirIdxs.Count);
+                    int dirIdx = canDirIdxs[randomDiridx];
+                    Direction direction = (Direction)(dirIdx+1);
+                    
+                    // 부모에 자식 방향 지정
+                    curParent.HasDirectionList.Add(direction);
+                    
+                    // 자식에서 부모 방향 지정
+                    var opos = GetOppositeDirection(direction);
+                    item.HasDirectionList.Add(opos);
+
+                    // 배열에 차지
+                    var vec =  curParent.m_grid + new Vector2Int(way[dirIdx].x, way[dirIdx].y);
+                    m_rooms[vec.y, vec.x] = item;
+                    item.m_grid = vec;
+                    
+                    canExit = false;
+                }
+                else
+                {
+                    canExit = true;
+                }
+            } while (canExit);
+
+            
+            if (q.Count == 0)
+            {
+                if (depth <= maxDepth)
+                {
+                    depth++;
+                    q = new Queue<Room>(_rooms.Where(x => x.Depth == depth).ToList());
+
+                    parents = new(nextParents);
+                    nextParents = new();
+                }
+            }
+        }
+    }
+
+    List<(int y, int x)> GetCanDirection()
+    {
+        var list = new List<(int y, int x)>();
+        var res = new List<(int y, int x)>();
+        
+        
+        foreach (var item in list)
+        {
+        }
+        
+
+        return list;
+    }
+    #endregion
 
     /// <summary>
     /// 지정된 배열 정보로 맵을 생성
@@ -127,13 +311,12 @@ public class RoomManager : MonoBehaviour
                     m_uiRooms[y, x] = uiRoom;
                     uiRoom.m_grid = new Vector2Int(y, x);
                     uiRoom.Init(this, roomByType, GetRoomTypes(y, x));
-                    
+
                     if (room.Type == RoomType.Start)
                     {
                         m_StartBaseRoom = uiRoom;
                     }
                 }
-                
             }
         }
     }

@@ -1,7 +1,7 @@
-public enum Direction
+public enum Direction : int
 {
-    Ignore,
-    Up = 1,
+    Ignore = 0,
+    Up,
     Down,
     Left,
     Right
