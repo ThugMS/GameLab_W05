@@ -7,8 +7,15 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
+    
     #region PublicVariables
+
+    private int m_currentStage;
+    
+    public MonsterType m_keywordMonsterType;
+    public RoomType m_keywordRoomType;
+    public bool m_keywordReword;
+    
     public bool isGameOver = false;
     #endregion
 
@@ -17,6 +24,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            m_currentStage = 1;
         }
     }
     
@@ -31,6 +39,14 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region PublicMethod
+
+    public void GameStart()
+    {
+        m_currentStage++;
+         
+        
+        // [TODO] 키워드에 따른 화면 출력
+    }
     public void GameOver()
     {
         isGameOver = true;
@@ -39,6 +55,8 @@ public class GameManager : MonoBehaviour
     }
     public void GameClear()
     {
+        m_currentStage++;
+        
         isGameOver = true;
         UIManager.Instance.ShowClearPanel();
         Time.timeScale = 0f;

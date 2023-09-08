@@ -224,6 +224,11 @@ MonoBehaviour:
   m_gridTr: {fileID: 718954381}
   m_roomWidthSize: 26
   m_roomHeightSize: 18
+  m_roomCount: 5
+  minMonsterLevel: 0
+  maxMonsterLevel: 0
+  minMonsterCount: 0
+  maxMonsterCount: 0
 --- !u!4 &299655575
 Transform:
   m_ObjectHideFlags: 0
