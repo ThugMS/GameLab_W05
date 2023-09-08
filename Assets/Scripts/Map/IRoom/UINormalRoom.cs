@@ -26,22 +26,25 @@ public class UINormalRoom : UIRoom
 
         ResourceManager.Instance.MonsterPrefabDict.TryGetValue(monsterType, out List<GameObject> targetMonsters);
 
+        RoomManager roomManager = GameObject.FindGameObjectWithTag("RoomManager").GetComponent<RoomManager>();
+
+        int monsterCount = Random.Range(roomManager.minMonsterCount, roomManager.maxMonsterCount);
+
         if(targetMonsters == null)
         {
             Debug.Log(monsterType + "has no prefab/Failed to gete ResourceManager's list");
         }
 
         int spawnPosIdx = 0;
-        for (int i = 0, cnt = 4; i < cnt; i++)// m_mRoom.m_monsters.Count; i < cnt; i++) //  [TODO] 지정된 몬스터 수로 수정 필요
+        for (int i = 0, cnt = monsterCount; i < cnt; i++)
         {
             var obj = Instantiate(getRandomMonster(targetMonsters), m_spawnPositions[spawnPosIdx].position, Quaternion.identity);
             obj.GetComponent<BaseMonster>().DeadListener = KillMonsterCount;
-            // 다음 위치에 생성
             spawnPosIdx++;
             spawnPosIdx %= m_spawnPositions.Count;
         }
 
-        m_monsterCount = 4; // [TODO] m_mRoom.monsters.Count;
+        m_monsterCount = monsterCount;
         
     }
 
