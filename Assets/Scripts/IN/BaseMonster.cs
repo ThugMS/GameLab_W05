@@ -56,8 +56,7 @@ public abstract class BaseMonster : MonoBehaviour
         Health -= _damage;
         Vector2 moveDirection = (transform.position - m_playerObj.transform.position).normalized;
         m_agent.SetDestination((Vector2)transform.position + moveDirection);
-        StartCoroutine(IE_KnockBack());
-
+        StartCoroutine(nameof(IE_KnockBack));
         if (Health <= 0)
         {
             TransitionToState(MonsterState.Dead);
@@ -153,6 +152,16 @@ public abstract class BaseMonster : MonoBehaviour
         TransitionToState(MonsterState.Patrol);
         yield return null;
     }
+    //=====================================================GIZMO GUI
+    protected virtual void OnDrawGizmos()
+    {
+        if (!Application.isPlaying)
+        {
+            Gizmos.color = Color.yellow; 
+            Gizmos.DrawWireSphere(transform.position, m_range);
+        }
+    }
+
     #endregion
 
 }
