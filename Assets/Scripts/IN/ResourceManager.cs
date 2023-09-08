@@ -7,11 +7,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
-/// [MJ] ÇÁ¸®ÆÕÀ» µé°í ÀÖ±â À§ÇÚ ¸®¼Ò½º ¸Å´ÏÀú ½ºÅ©¸³Æ®
+/// [MJ] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®
 /// </summary>
 public class ResourceManager : MonoBehaviour
 {
-
     public static ResourceManager Instance { get; private set; }
 
     private void Awake()
