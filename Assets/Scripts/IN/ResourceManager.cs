@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// [MJ] �������� ��� �ֱ� ���� ���ҽ� �Ŵ��� ��ũ��Ʈ
@@ -27,8 +28,15 @@ public class ResourceManager : MonoBehaviour
     }
 
     public Dictionary<MonsterType, List<GameObject>> MonsterPrefabDict { get; private set; }
-
+    public Dictionary<RoomType, List<GameObject>> LandscapeByRoomTypePrefabDict { get; private set; }
+    
     public void Init()
+    {
+        InitMonster();
+        InitLandscapeInRoom();
+    }
+
+    void InitMonster()
     {
         MonsterPrefabDict = new Dictionary<MonsterType, List<GameObject>>();
 
@@ -48,6 +56,29 @@ public class ResourceManager : MonoBehaviour
                 MonsterPrefabDict.Add(type, objList);
             }
         }
+    }
+
+    void InitLandscapeInRoom()
+    {
+        LandscapeByRoomTypePrefabDict = new();
+        
+        for (int i = 0, cnt = Enum.GetNames(typeof(RoomType)).Length; i < cnt; i++ )
+        {
+            var type = (RoomType)i;
+            var list = Resources.LoadAll($"Prefabs/Landscape/{type.ToString()}/", typeof(GameObject))
+                        .Select(obj => (GameObject)obj)
+                        .ToList();
+            
+            LandscapeByRoomTypePrefabDict.Add(type, list);
+        }
+    }
+
+    public GameObject GetRandomLandscapeByType(RoomType roomType)
+    {
+        if (roomType == RoomType.NormalGift) roomType = RoomType.Gift;
+        var values = LandscapeByRoomTypePrefabDict[roomType];
+        int idx = Random.RandomRange(0, values.Count);
+        return values[idx];
     }
 
     public void DisplayMonsterPrefabHierarchy()
