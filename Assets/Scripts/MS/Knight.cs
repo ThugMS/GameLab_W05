@@ -27,9 +27,6 @@ public class Knight : Player
     [SerializeField] private Vector2 m_endPos;
     [SerializeField] private float m_moveDis;
     [SerializeField] private Vector2 m_dashDir;
-
-    [Header("Animator")]
-    [SerializeField] private Animator m_animator;
     #endregion
 
     #region Test
