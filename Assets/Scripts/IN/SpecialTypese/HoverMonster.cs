@@ -41,7 +41,8 @@ public class HoverMonster : BaseMonster
         }
     }
 
-    public override void Patrol()
+    //==========================NavMesh를 사용하지 않으므로, 관련 부분 오버라이딩======================
+    protected override void Patrol()
     {
 
         if (Vector2.Distance(transform.position, base.targetPatrolPos) < 0.2f)
@@ -57,7 +58,7 @@ public class HoverMonster : BaseMonster
                 UnityEngine.Random.Range(m_initialPosition.y - base.m_range / 2, m_initialPosition.y + base.m_range / 2));
     }
 
-    public override void Pursuit()
+    protected override void Pursuit()
     {
         transform.position = Vector2.MoveTowards(transform.position, m_playerObj.transform.position, m_speed * Time.deltaTime);
     }
@@ -70,6 +71,7 @@ public class HoverMonster : BaseMonster
         yield return null;
     }
 
+
     protected override void TransitionToState(MonsterState newState)
     {
         base.m_currentState = newState;
@@ -81,7 +83,7 @@ public class HoverMonster : BaseMonster
         base.DamagePlayer(collision.gameObject);
     }
 
-    public override void Attack()
+    protected override void Attack()
     {
     }
 

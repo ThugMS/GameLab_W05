@@ -101,10 +101,10 @@ public abstract class BaseMonster : MonoBehaviour
         isOn = true;
     }
     //======================Abstract Behavior according to State===============
-    public abstract void Patrol();
-    public abstract void Pursuit(); 
-    public abstract void Attack();
-    public void Dead()
+    protected abstract void Patrol();
+    protected abstract void Pursuit(); 
+    protected abstract void Attack();
+    protected void Dead()
     {
         Destroy(gameObject);
         DeadListener?.Invoke();
@@ -117,7 +117,7 @@ public abstract class BaseMonster : MonoBehaviour
         m_currentState = newState;
         m_agent.ResetPath();
     }
-    public virtual bool canSeePlayer()
+    protected virtual bool canSeePlayer()
     {
         Vector2 directionToPlayer = m_playerObj.transform.position - transform.position;
         Debug.DrawRay(transform.position, directionToPlayer, Color.red);
@@ -131,7 +131,7 @@ public abstract class BaseMonster : MonoBehaviour
         }
         return false;
     }
-    public virtual bool playerWithinRange()
+    protected virtual bool playerWithinRange()
     {
         if (Vector2.Distance(transform.position, m_playerObj.transform.position) < m_range)
         {
