@@ -47,6 +47,12 @@ public abstract class BaseMonster : MonoBehaviour
     protected Animator m_animator;
     //==Timer
     protected float m_timer;
+    [Header("KnockBack")]
+
+    [SerializeField] private float knockbackSpeed;
+    [SerializeField] private float knockbackTime;
+    [SerializeField] private float knockbackDistance;
+    private float knockbackTimer;
     #endregion
     #region PublicMethod
     //====================================InteractionWithPlayer========================
@@ -102,6 +108,7 @@ public abstract class BaseMonster : MonoBehaviour
         m_animator = GetComponent<Animator>();
         isOn = true;
     }
+
     //======================Abstract Behavior according to State===============
     protected abstract void Patrol();
     protected abstract void Pursuit(); 
@@ -113,6 +120,34 @@ public abstract class BaseMonster : MonoBehaviour
     }
     #endregion
     #region PrivateMethod
+    //======================KnockBack=============================
+    protected virtual IEnumerator IE_KnockBack()
+    {
+        TransitionToState(MonsterState.Knockback);
+
+        Vector2 moveDirection = (transform.position - m_playerObj.transform.position).normalized;
+        Vector2 knockbackEndPosition = (Vector2)transform.position + moveDirection * knockbackDistance;
+
+        knockbackTimer = knockbackTime;
+
+        //====Later TriggerHurtAnimation
+        while (knockbackTimer > 0)
+        {
+            knockbackTimer -= Time.time;
+            m_agent.SetDestination(knockbackEndPosition);
+            yield return null;
+        }
+
+        m_agent.isStopped = true;
+        yield return new WaitForSeconds(1f);
+
+        transform.position = knockbackEndPosition;
+        TransitionToState(MonsterState.Patrol);
+        isAttacked = false;
+    }
+
+
+
     //===================Funcs for Behavior=====================================
     protected virtual void TransitionToState(MonsterState newState)
     {
@@ -145,14 +180,6 @@ public abstract class BaseMonster : MonoBehaviour
     {
         return new Vector2(UnityEngine.Random.Range(m_initialPosition.x - m_range, m_initialPosition.x + m_range),
             UnityEngine.Random.Range(m_initialPosition.y - m_range, m_initialPosition.y + m_range));
-    }
-    protected virtual IEnumerator IE_KnockBack()
-    {
-        yield return new WaitForSeconds(m_knockBackTime);
-        m_agent.ResetPath();
-        isAttacked = false;
-        TransitionToState(MonsterState.Patrol);
-        yield return null;
     }
     //=====================================================GIZMO GUI
     protected virtual void OnDrawGizmos()

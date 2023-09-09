@@ -41,7 +41,7 @@ public class HoverMonster : BaseMonster
         }
     }
 
-    //==========================NavMesh를 사용하지 않으므로, 관련 부분 오버라이딩======================
+    //==========================NavMesh를 사용하지 않으므로, 관련 부분 오버라이딩========추후 논의 후 그냥 근접을 Wall  2개로 교체해도 될듯==========
     protected override void Patrol()
     {
 
