@@ -76,11 +76,25 @@ public class ResourceManager : MonoBehaviour
     public GameObject GetRandomLandscapeByType(RoomType roomType)
     {
         if (roomType == RoomType.NormalGift) roomType = RoomType.Gift;
-        var values = LandscapeByRoomTypePrefabDict[roomType];
-        int idx = Random.RandomRange(0, values.Count);
-        return values[idx];
+        if (LandscapeByRoomTypePrefabDict.ContainsKey(roomType))
+        {
+            var values = LandscapeByRoomTypePrefabDict[roomType];
+            if (values.Count > 0)
+            {
+                int idx = Random.Range(0, values.Count);
+                return values[idx];
+            }
+            else
+            {
+                return null; 
+            }
+        }
+        else
+        {
+            Debug.LogError("RoomType not found in LandscapeByRoomTypePrefabDict: " + roomType);
+            return null; // Return null or handle the error in an appropriate way
+        }
     }
-
     public void DisplayMonsterPrefabHierarchy()
     {
         foreach (var kvp in MonsterPrefabDict)
