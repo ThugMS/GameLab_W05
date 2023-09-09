@@ -1,14 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
+    
     #region PublicVariables
+
+    private int m_currentStage;
+    
+    public MonsterType m_keywordMonsterType = MonsterType.melee;
+    public RoomType m_keywordRoomType = RoomType.Gift;
+    public bool m_keywordReword;
+    
     public bool isGameOver = false;
     #endregion
 
@@ -17,13 +26,14 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            m_currentStage = 1;
         }
     }
     
     void Start()
     {
         Time.timeScale = 1f;
-        UIManager.Instance.SetLifeUI();
+        UIManager.Instance.SetHeartUI();
     }
 
     #region PrivateVariables
@@ -31,6 +41,16 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region PublicMethod
+
+    public void GameStart()
+    {
+        m_currentStage++;
+         
+        // [TODO] 키워드에 따른 화면 출력
+        m_keywordMonsterType = (MonsterType)Random.Range(0, Enum.GetNames(typeof(MonsterType)).Length);
+        List<RoomType> roomTypes = new() { RoomType.Gift, RoomType.NormalGift };
+        m_keywordRoomType = roomTypes[Random.Range(0, roomTypes.Count)];
+    }
     public void GameOver()
     {
         isGameOver = true;
@@ -39,6 +59,8 @@ public class GameManager : MonoBehaviour
     }
     public void GameClear()
     {
+        m_currentStage++;
+        
         isGameOver = true;
         UIManager.Instance.ShowClearPanel();
         Time.timeScale = 0f;
