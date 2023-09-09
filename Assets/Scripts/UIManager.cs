@@ -18,15 +18,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject m_hitPanel; 
     
     
-    [Header("Life")]
-    [SerializeField] private Transform m_lifePanel;
-    [SerializeField] private GameObject m_lifePrefab;
+    [Header("Heart")]
+    [SerializeField] private Transform m_heartPanel;
+    [SerializeField] private GameObject m_heartPrefab;
+    [SerializeField] private List<Heart> hearts = new List<Heart>();
     
-    public int maxLife = 3;
-    public int currentActiveLife = 3;
-    public int currentActiveIcon = 3;
-    public float decreaseAmount = 0.5f;
-    
+    public int maxHeart = 5;
+    public int currentActiveHeart = 3;
+
     #endregion
 
     #region PrivateVariables
@@ -93,73 +92,56 @@ public class UIManager : MonoBehaviour
     }
     #endregion
     
-    #region life
-     public void SetLifeUI()
+    #region Heart
+    public void SetHeartUI()
     {
-        foreach (Transform child in m_lifePanel)
+        ClearHeartUI();
+        CreateHeartUI();
+    }
+    public void DecreaseHeart(int decreaseAmount)
+    {
+        StartCoroutine(IE_HitEffect());
+
+        HeartStatus decreaseBy = (HeartStatus)decreaseAmount;
+        Heart lastActiveHeart = hearts.FindLast(heart => heart.GetHeartStatus() != HeartStatus.Empty);
+
+        HeartStatus newStatus = lastActiveHeart.GetHeartStatus() - (int)decreaseBy;
+        lastActiveHeart.SetHeartImage(newStatus < HeartStatus.Empty ? HeartStatus.Empty : newStatus);
+
+        if (hearts.All(heart => heart.GetHeartStatus() == HeartStatus.Empty))
         {
-            Destroy(child.gameObject);
-        }
-        
-        for (int i = 0; i < maxLife; i++)
-        {
-            GameObject newLife = Instantiate(m_lifePrefab, m_lifePanel);
-            newLife.SetActive(i < currentActiveLife);
-            
-            //Bg가 계속 사라져서 임시
-            Transform lifeBgTransform = newLife.transform.Find("LifeBg");
-            Image lifeBgImage = lifeBgTransform?.GetComponent<Image>();
-            lifeBgImage.enabled = true;
+            StartCoroutine(IE_GameOverEffect());
         }
     }
-     public void DecreaseLife()
-     {
-         StartCoroutine(IE_HitEffect());
-         Transform lastActiveLife = m_lifePanel.Cast<Transform>()
-             .LastOrDefault(life => life.GetComponentsInChildren<Image>()
-                 .Any(img => img.gameObject.name == "LifeIcon" && img.gameObject.activeSelf));
-
-         if (lastActiveLife == null) return;
-
-         Image lifeImage = lastActiveLife.GetComponentsInChildren<Image>()
-             .FirstOrDefault(img => img.gameObject.name == "LifeIcon");
-
-         if (lifeImage == null) return;
-
-         lifeImage.fillAmount -= decreaseAmount;
-
-         if (lifeImage.fillAmount > 0) return;
-
-         lifeImage.gameObject.SetActive(false);
-
-         if (--currentActiveIcon > 0) return;
-
-         StartCoroutine(IE_GameOverEffect());
-     }
-    
-     private IEnumerator IE_GameOverEffect()
-     {
-         m_hitPanel.SetActive(true);
-         yield return new WaitForSeconds(0.5f);
-         m_hitPanel.SetActive(false);
-         GameManager.Instance.GameOver();
-     }
-     
-     private IEnumerator IE_HitEffect()
-     {
-         for (int i = 0; i < 1; i++)
-         {
-             m_hitPanel.SetActive(true);
-             yield return new WaitForSeconds(0.05f);
-             m_hitPanel.SetActive(false);
-             yield return new WaitForSeconds(0.05f);
-         }
-     }
     #endregion
     
     #endregion
     
     #region PrivateMethod
+    #region SetHeartUI
+    private void ClearHeartUI()
+    {
+        foreach (Transform child in m_heartPanel)
+        {
+            Destroy(child.gameObject);
+        }
+        hearts.Clear();
+    }
+    
+    private void CreateHeartUI()
+    {
+        for (int i = 0; i < maxHeart; i++)
+        {
+            GameObject newHeart = Instantiate(m_heartPrefab, m_heartPanel);
+            Heart heart = newHeart.GetComponent<Heart>();
+            hearts.Add(heart);
+    
+            heart.SetHeartImage(i < currentActiveHeart ? HeartStatus.Full : HeartStatus.Empty);
+            newHeart.SetActive(true);
+        }
+    }
+    #endregion
+    
     private void CheckMonster()
     {
         GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
@@ -176,11 +158,31 @@ public class UIManager : MonoBehaviour
                 break;
             }
         }
-        
+
         // if (!isAnyMonsterInView)
         // {
         //     GameManager.Instance.GameClear();
         // }
     }
+    
+    #region IE_Effect
+    private IEnumerator IE_GameOverEffect()
+    {
+        m_hitPanel.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        m_hitPanel.SetActive(false);
+        GameManager.Instance.GameOver();
+    }
+    private IEnumerator IE_HitEffect()
+    {
+        for (int i = 0; i < 1; i++)
+        {
+            m_hitPanel.SetActive(true);
+            yield return new WaitForSeconds(0.05f);
+            m_hitPanel.SetActive(false);
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+    #endregion
     #endregion
 }
