@@ -67,6 +67,8 @@ public class RangedMonster : BaseMonster
         switch (m_currentState)
         {
             case MonsterState.Patrol:
+                base.m_animator.SetFloat("X", (targetPatrolPos - (Vector3)transform.position).x);
+                base.m_animator.SetFloat("Y", (targetPatrolPos - (Vector3)transform.position).y);
                 if (canSeePlayer() && playerWithinRange())
                 {
                     TransitionToState(MonsterState.Pursuit);
@@ -74,6 +76,8 @@ public class RangedMonster : BaseMonster
                 Patrol();
                 break;
             case MonsterState.Pursuit:
+                base.m_animator.SetFloat("X", (base.m_playerObj.transform.position - (Vector3)transform.position).x);
+                base.m_animator.SetFloat("Y", (base.m_playerObj.transform.position - (Vector3)transform.position).y);
                 if (!canSeePlayer() && playerWithinRange())
                 {
                     Patrol();
@@ -84,11 +88,10 @@ public class RangedMonster : BaseMonster
                 }
                 break;
         }
+
     }
     protected virtual IEnumerator IE_Attack()
     {
-        
-
         isAttacking = true;
         yield return new WaitForSeconds(m_attackTime);
         
@@ -98,10 +101,18 @@ public class RangedMonster : BaseMonster
             Vector2 direction = (player.transform.position - transform.position).normalized;
             for (int i = 0; i < m_bulletCount; i++)
             {
+                base.TransitionToState(MonsterState.Stop);
+                base.m_animator.SetBool("isAttacking", true);
                 GameObject bullet = Instantiate(m_bullet, transform.position, Quaternion.identity);
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+                bullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
                 Rigidbody2D bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
                 bulletRigidbody.velocity = direction * m_bulletSpeed;
                 yield return new WaitForSeconds(.25f);
+                base.m_animator.SetBool("isAttacking", false);
+                base.TransitionToState(MonsterState.Pursuit);
+
             }
         }
 
@@ -124,6 +135,8 @@ public class RangedMonster : BaseMonster
             }
         }
     }
+
+   
 
     #endregion
 }

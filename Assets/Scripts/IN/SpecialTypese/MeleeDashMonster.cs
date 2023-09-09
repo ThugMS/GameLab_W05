@@ -36,6 +36,8 @@ public class MeleeDashMonster : MeleeMonster
         m_originalSpeed = base.m_agent.speed;
         m_isDashing = true;
 
+        base.m_animator.SetBool("isDashing", true);
+
         base.m_agent.speed = m_dashSpeed;
 
         RaycastHit hit;
@@ -54,10 +56,11 @@ public class MeleeDashMonster : MeleeMonster
 
         base.m_agent.speed = m_originalSpeed;
         base.m_agent.isStopped = true;
+        base.m_animator.SetBool("isDashing", false);
+
         yield return new WaitForSeconds(m_dashCoolTime);
         base.m_agent.isStopped = false;
         m_isDashing = false;
-
 
     }
     #endregion

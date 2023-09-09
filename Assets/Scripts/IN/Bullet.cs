@@ -40,9 +40,11 @@ public class Bullet : MonoBehaviour
             collision.gameObject.TryGetComponent<Player>(out player);
 
             player.GetDamage(m_damage);
-
             Destroy(gameObject);
+            print("arrowDeleted");
         }
+
+
     }
 
     #endregion
