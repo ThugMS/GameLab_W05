@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +11,10 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
     
     #region PublicVariables
+    [Header("Keybinding Images")]
+    [SerializeField] private KeyHint keyHint;
+
+    private InputType currentInputType;
     
     [Header("Panel")]
     [SerializeField] private List<GameObject> m_panel;
@@ -39,12 +44,47 @@ public class UIManager : MonoBehaviour
         }
     }
     
+    private void Start()
+    {
+        currentInputType = DetectInputType();
+        UpdateUI(currentInputType);
+    }
     private void Update()
     {
+        InputType newInputType = DetectInputType();
+        if (newInputType != currentInputType)
+        {
+            UpdateUI(newInputType);
+            currentInputType = newInputType;
+        }
         CheckMonster();
     }
     
     #region PublicMethod
+    #region HintImage
+
+    private void UpdateUI(InputType inputType)
+    {
+        foreach (ActionType actionType in Enum.GetValues(typeof(ActionType)))
+        {
+            keyHint.UpdateKeyImage(actionType, inputType);
+        }
+    }
+
+    private InputType DetectInputType()
+    {
+        if (Input.anyKey)
+        {
+            return InputType.Keyboard;
+        }
+        else if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        {
+            return InputType.Pad;
+        }
+        return currentInputType;
+    }
+    
+    #endregion
     
     #region Scene
     public void LoadIngameScene()
@@ -118,6 +158,7 @@ public class UIManager : MonoBehaviour
     #endregion
     
     #region PrivateMethod
+    
     #region SetHeartUI
     private void ClearHeartUI()
     {
