@@ -42,12 +42,12 @@ public class MeleeMonster : BaseMonster
     #endregion
 
     #region PublicMethod
-    public override void Pursuit()
+    protected override void Pursuit()
     {
         m_agent.SetDestination(m_playerObj.transform.position);
     }
 
-    public override void Patrol()
+    protected override void Patrol()
     {
         m_agent.ResetPath();
         m_agent.SetDestination(targetPatrolPos);
@@ -62,7 +62,7 @@ public class MeleeMonster : BaseMonster
         }
     }
 
-    public override void Attack()
+    protected override void Attack()
     {
     }
     #endregion

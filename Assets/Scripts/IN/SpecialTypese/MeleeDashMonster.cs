@@ -18,7 +18,7 @@ public class MeleeDashMonster : MeleeMonster
     #endregion
 
     #region PublicMethod
-    public override void Pursuit()
+    protected override void Pursuit()
     {
         if (m_isDashing == false)
         {
