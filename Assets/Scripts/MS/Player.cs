@@ -7,11 +7,13 @@ using UnityEngine.InputSystem;
 public abstract class Player : MonoBehaviour
 {
     #region PublicVariables
-    
+    public enum ANIMATION_DIRECTION
+    { Up, Right, Down, Left}
     #endregion
 
     #region PrivateVariables
     [SerializeField] protected Rigidbody2D m_rigidbody;
+    
 
     [Header("Status")]
     [SerializeField] protected float m_heart = 3f;
@@ -30,6 +32,11 @@ public abstract class Player : MonoBehaviour
 
     [Header("Action")]
     [SerializeField] protected bool m_canAct = true;
+    [SerializeField] protected bool m_isAct = false;
+
+    [Header("Animation")]
+    [SerializeField] protected Animator m_animator;
+    [SerializeField] ANIMATION_DIRECTION m_aniDir = ANIMATION_DIRECTION.Down;
     #endregion
 
     #region PublicMethod
@@ -107,8 +114,17 @@ public abstract class Player : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
+        #region Animation
+        if(m_isMove == true)
+        {
+            m_animator.SetBool("IsMove", true);
+            m_animator.SetFloat("XDir", m_Direction.x);
+            m_animator.SetFloat("YDir", m_Direction.y);
+        }
+        #endregion
+
         #region Move
-        if(m_isMove == true && m_canMove == true)
+        if (m_isMove == true && m_canMove == true)
         {
             Move(1);
         }
