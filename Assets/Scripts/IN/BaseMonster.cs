@@ -165,55 +165,7 @@ public abstract class BaseMonster : MonoBehaviour
     }
 
     //================================================Animation
-    protected Vector2 Animation(Vector2 direction)
-    {
-        direction = direction - (Vector2)transform.position;
-
-        //m_animator.SetBool("isMoving", true);
-
-        string animationState;
-
-        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
-        {
-            animationState = (direction.x > 0) ? "Right" : "Left";
-        }
-        else
-        {
-            animationState = (direction.y > 0) ? "Up" : "Down";
-        }
-        m_animator.SetBool("isFacingLeft", false);
-        m_animator.SetBool("isFacingRight", false);
-        m_animator.SetBool("isFacingUp", false);
-        m_animator.SetBool("isFacingDown", false);
-
-        switch (animationState)
-        {
-            case "Right":
-                direction = Vector2.right;
-                gameObject.GetComponent<SpriteRenderer>().flipX = false;
-                m_animator.SetBool("isFacingRight", true);
-
-                break;
-            case "Left":
-                direction = Vector2.left;
-                gameObject.GetComponent<SpriteRenderer>().flipX = true;
-                m_animator.SetBool("isFacingRight", true);
-                break;
-            case "Up":
-                direction = Vector2.up;
-                m_animator.SetBool("isFacingUp", true);
-                break;
-            case "Down":
-                direction = Vector2.down;
-                m_animator.SetBool("isFacingDown", true);
-                break;
-            default:
-                break;
-        }
-
-        return direction;
-
-    }
+   
 
 
 
