@@ -340,6 +340,8 @@ MonoBehaviour:
   m_isMove: 0
   m_canMove: 1
   m_canAct: 1
+  m_isAct: 0
+  m_animator: {fileID: 1975195299}
   m_colliders: []
   m_attackBoxSize: {x: 1, y: 2}
   m_range: 0
@@ -395,7 +397,6 @@ MonoBehaviour:
   m_endPos: {x: 0, y: 0}
   m_moveDis: 0
   m_dashDir: {x: 0, y: 0}
-  m_animator: {fileID: 1975195299}
 --- !u!114 &4138420507533337175
 MonoBehaviour:
   m_ObjectHideFlags: 0
