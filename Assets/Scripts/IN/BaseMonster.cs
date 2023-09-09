@@ -47,6 +47,12 @@ public abstract class BaseMonster : MonoBehaviour
     protected Animator m_animator;
     //==Timer
     protected float m_timer;
+    [Header("KnockBack")]
+
+    [SerializeField] private float knockbackSpeed;
+    [SerializeField] private float knockbackTime;
+    [SerializeField] private float knockbackDistance;
+    private float knockbackTimer;
     #endregion
     #region PublicMethod
     //====================================InteractionWithPlayer========================
@@ -148,12 +154,25 @@ public abstract class BaseMonster : MonoBehaviour
     }
     protected virtual IEnumerator IE_KnockBack()
     {
-        yield return new WaitForSeconds(m_knockBackTime);
-        m_agent.ResetPath();
-        isAttacked = false;
+        TransitionToState(MonsterState.Knockback);
+
+        Vector2 moveDirection = (transform.position - m_playerObj.transform.position).normalized;
+        Vector2 knockbackEndPosition = (Vector2)transform.position + moveDirection * knockbackDistance;
+
+        knockbackTimer = knockbackTime;
+        while (knockbackTimer > 0)
+        {
+            knockbackTimer -= Time.time;
+            m_agent.SetDestination(knockbackEndPosition);
+            yield return null;
+        }
+        transform.position = knockbackEndPosition;
         TransitionToState(MonsterState.Patrol);
-        yield return null;
+        isAttacked = false;
     }
+
+
+
     //=====================================================GIZMO GUI
     protected virtual void OnDrawGizmos()
     {

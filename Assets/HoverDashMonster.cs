@@ -1,62 +1,63 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class HoverDashMonster : HoverMonster
 {
     [SerializeField] private float m_dashStartDistance;
     private float m_originalSpeed;
-    [SerializeField] private bool m_isDashing;
-    [SerializeField] private float m_dashSpeed;
-    [SerializeField] private float m_maxDashDistance;
-    [SerializeField] private float m_dashDuration;
+    [SerializeField]private float m_maxDashForce;
+    private bool m_isDashing = false;
+    [SerializeField]private float m_dashDuration;
     [SerializeField] private float m_dashCoolTime;
+    Vector2 dashDirection;
     #region PublicVariables
     #endregion
 
     #region PrivateVariables
+
+    protected override void stateUpdate()
+    {
+        switch (m_currentState)
+        {
+            case MonsterState.Patrol:
+                    TransitionToState(MonsterState.Pursuit);
+                break;
+            case MonsterState.Pursuit:
+                if (!canSeePlayer() && playerWithinRange())
+                {
+                    Patrol();
+                }
+                else
+                {
+                    Pursuit();
+                }
+                break;
+        }
+    }
+
     protected override void Pursuit()
     {
-        if (Vector2.Distance(transform.position, m_playerObj.transform.position) > m_dashStartDistance)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, m_playerObj.transform.position, m_speed * Time.deltaTime);
-        }
-        else
-        {
-            StartCoroutine(nameof(IE_Dash));
-        }
+            if (m_isDashing == false)
+            {
+                dashDirection = (base.m_playerObj.transform.position - transform.position).normalized;
+
+                StartCoroutine(nameof(IE_Dash));
+            }
     }
 
     private IEnumerator IE_Dash()
     {
         m_originalSpeed = base.m_agent.speed;
         m_isDashing = true;
+        base.m_rb.AddForce(dashDirection * m_maxDashForce);
+        m_isDashing = false;
 
-        base.m_animator.SetBool("isDashing", true);
-
-        base.m_agent.speed = m_dashSpeed;
-
-        RaycastHit hit;
-        Vector3 dashDirection = (base.m_playerObj.transform.position - transform.position).normalized;
-
-        if (Physics.Raycast(transform.position, dashDirection, out hit, m_maxDashDistance))
-        {
-            m_maxDashDistance = hit.distance;
-        }
-
-        Vector3 dashDestination = transform.position + dashDirection * m_maxDashDistance;
-
-        base.m_agent.SetDestination(dashDestination);
-
-        yield return new WaitForSeconds(m_dashDuration);
-
-        base.m_agent.speed = m_originalSpeed;
-        base.m_agent.isStopped = true;
-        base.m_animator.SetBool("isDashing", false);
 
         yield return new WaitForSeconds(m_dashCoolTime);
-        base.m_agent.isStopped = false;
-        m_isDashing = false;
+        base.m_rb.velocity = Vector2.zero;
+        yield return new WaitForSeconds(1f);
 
     }
 
