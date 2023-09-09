@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Unity.VisualScripting;
 
 public class Knight : Player
 {
@@ -78,10 +79,8 @@ public class Knight : Player
             return;
         }
 
-        m_animator.SetTrigger("AttackRight");
-        m_canAct = false;
-        m_canMove = false;
-
+        StartAttackState();
+        
         AttackCheckCollider();
     }
 
@@ -107,7 +106,6 @@ public class Knight : Player
         m_dashLayerMask = LayerMask.GetMask("Wall");
     }
 
-
     public void DamageAttackMonster()
     {
         foreach (var iter in m_colliders)
@@ -119,9 +117,29 @@ public class Knight : Player
             monster.getDamage(m_power);
         }
     }
+
+    public void EndAttackAnimation()
+    {
+        m_animator.ResetTrigger("Attack");
+        m_isAct = false;
+        
+        if(m_inputDirection != Vector2.zero)
+        {
+            m_isMove = true;
+        }
+    }
     #endregion
 
     #region PrivateMethod
+    private void StartAttackState()
+    {
+        m_animator.SetTrigger("Attack");
+        m_canAct = false;
+        m_canMove = false;
+        m_isMove = false;
+        m_isAct = true;
+    }
+
     private void AttackCheckCollider()
     {
         m_colliders = null;

@@ -14,7 +14,6 @@ public abstract class Player : MonoBehaviour
     #region PrivateVariables
     [SerializeField] protected Rigidbody2D m_rigidbody;
     
-
     [Header("Status")]
     [SerializeField] protected float m_heart = 3f;
     [SerializeField] protected float m_power;
@@ -36,12 +35,11 @@ public abstract class Player : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] protected Animator m_animator;
-    [SerializeField] ANIMATION_DIRECTION m_aniDir = ANIMATION_DIRECTION.Down;
     #endregion
 
     #region PublicMethod
     public void OnMovement(InputAction.CallbackContext _context)
-    {
+    {   
         m_inputDirection = _context.ReadValue<Vector2>();
 
         if (m_inputDirection == Vector2.zero)
@@ -50,7 +48,11 @@ public abstract class Player : MonoBehaviour
         }
         else
         {
-            SetIsMove(true);
+            if (m_isAct == false)
+            {
+                SetIsMove(true);
+            }
+        
             m_Direction = m_inputDirection;
         }
     }
@@ -120,6 +122,14 @@ public abstract class Player : MonoBehaviour
             m_animator.SetBool("IsMove", true);
             m_animator.SetFloat("XDir", m_Direction.x);
             m_animator.SetFloat("YDir", m_Direction.y);
+        }
+        else
+        {   if(m_canMove == true)
+            {
+                m_animator.SetBool("IsMove", false);
+                m_animator.SetFloat("XDir", m_Direction.x);
+                m_animator.SetFloat("YDir", m_Direction.y);
+            }
         }
         #endregion
 
