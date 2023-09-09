@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 4138420507533337179}
   - component: {fileID: 4138420507533337174}
   - component: {fileID: 4138420507533337175}
-  - component: {fileID: 1230473402}
+  - component: {fileID: 8038130946570761046}
   m_Layer: 3
   m_Name: Knight
   m_TagString: Player
@@ -474,8 +474,8 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!58 &1230473402
-CircleCollider2D:
+--- !u!70 &8038130946570761046
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -488,5 +488,5 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 0.6218889, y: 0.8565786}
+  m_Direction: 0
