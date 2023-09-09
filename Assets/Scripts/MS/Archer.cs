@@ -258,5 +258,4 @@ public class Archer : Player
         AttackCheckCollider();
     }
     #endregion
-
 }
