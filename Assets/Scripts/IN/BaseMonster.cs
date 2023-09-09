@@ -44,6 +44,7 @@ public abstract class BaseMonster : MonoBehaviour
     //==Positions
     protected Vector3 m_initialPosition;
     protected Vector3 targetPatrolPos;
+    protected Animator m_animator;
     //==Timer
     protected float m_timer;
     #endregion
@@ -98,6 +99,7 @@ public abstract class BaseMonster : MonoBehaviour
         m_timer = m_patrolTime;
         targetPatrolPos = getPatrolPos();
         m_agent.speed = m_speed;
+        m_animator = GetComponent<Animator>();
         isOn = true;
     }
     //======================Abstract Behavior according to State===============
@@ -161,6 +163,11 @@ public abstract class BaseMonster : MonoBehaviour
             Gizmos.DrawWireSphere(transform.position, m_range);
         }
     }
+
+    //================================================Animation
+   
+
+
 
     #endregion
 
