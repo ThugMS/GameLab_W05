@@ -37,6 +37,7 @@ public class Wizard : Player
     protected override void Attack()
     {
         CreateAttack();
+        StartAttackState();
     }
 
     protected override void Ability()
@@ -47,6 +48,16 @@ public class Wizard : Player
     #endregion
 
     #region PrivateMethod
+    private void StartAttackState()
+    {
+        m_animator.SetBool("IsAttack", true);
+        SetCanMove(false);
+        SetCanAct(false);
+
+        m_isMove = false;
+        m_isAct = true;
+    }
+
     private void CreateAttack()
     {
         Vector3 offsetPositon = (m_offset + m_attackRadius) * m_Direction.normalized;
