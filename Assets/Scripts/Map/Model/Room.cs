@@ -11,6 +11,8 @@ public class Room
     #endregion
     public RoomType Type { get; set; }
 
+    public GameObject m_landspace;
+
     public List<GameObject> m_monsters;
     
     public Boss m_boss;
