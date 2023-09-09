@@ -106,7 +106,6 @@ public class Knight : Player
         m_dashLayerMask = LayerMask.GetMask("Wall");
     }
 
-
     public void DamageAttackMonster()
     {
         foreach (var iter in m_colliders)
@@ -140,6 +139,7 @@ public class Knight : Player
         m_isMove = false;
         m_isAct = true;
     }
+
     private void AttackCheckCollider()
     {
         m_colliders = null;
