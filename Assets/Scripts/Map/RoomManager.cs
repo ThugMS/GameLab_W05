@@ -145,10 +145,15 @@ public class RoomManager : MonoBehaviour
         // 룸 배치
         int maxDepth = _rooms.Max(x => x.Depth);
 
+        // 시작 룸 설정
+        var startRoom =_rooms.First(x => x.Type == RoomType.Start);
+        startRoom.m_landspace = ResourceManager.Instance.GetRandomLandscapeByType(RoomType.Start);
+        
         // 보스 룸 설정
         var maxDepthRooms = _rooms.Where(x => x.Depth == maxDepth).ToList();
         int bossIdx = Random.Range(0, maxDepthRooms.Count());
         maxDepthRooms[bossIdx].Type = RoomType.Boss;
+        maxDepthRooms[bossIdx].m_landspace = ResourceManager.Instance.GetRandomLandscapeByType(RoomType.Boss);
         
         // 특수 맵 설정
         var ignoreRooms = _rooms.Where(x => x.Type == RoomType.Ignore).ToList();
@@ -157,6 +162,7 @@ public class RoomManager : MonoBehaviour
         {
             int idx = Random.Range(0, ignoreRooms.Count);
             ignoreRooms[idx].Type = _specialRoomType;
+            ignoreRooms[idx].m_landspace = ResourceManager.Instance.GetRandomLandscapeByType(_specialRoomType);
             ignoreRooms.RemoveAt(idx);
         }
         
@@ -164,6 +170,7 @@ public class RoomManager : MonoBehaviour
         foreach (var room in _rooms.Where(x=> x.Type == RoomType.Ignore))
         {
             room.Type = RoomType.Normal;
+            room.m_landspace = ResourceManager.Instance.GetRandomLandscapeByType(RoomType.Normal);
         }
     }
 
@@ -291,7 +298,7 @@ public class RoomManager : MonoBehaviour
                     var uiRoom = obj.GetComponent<BaseRoom>();
                     m_uiRooms[y, x] = uiRoom;
                     uiRoom.m_grid = new Vector2Int(y, x);
-                    uiRoom.Init(this, roomByType, GetRoomTypes(room));
+                    uiRoom.Init(this, roomByType, room, GetRoomTypes(room));
 
                     if (room.Type == RoomType.Start)
                     {

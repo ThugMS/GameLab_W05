@@ -21,7 +21,7 @@ public class RangedMonster : BaseMonster
     protected bool isAttacking = false;
     #region PublicMethod
 
-    public override void Pursuit()
+    protected override void Pursuit()
     {
         Vector3 playerDetection = base.m_playerObj.transform.position - transform.position;
 
@@ -46,7 +46,7 @@ public class RangedMonster : BaseMonster
 
     }
 
-    public override void Attack()
+    protected override void Attack()
     {
         if (isAttacking == false)
         {
@@ -110,7 +110,7 @@ public class RangedMonster : BaseMonster
 
     }
 
-    public override void Patrol()
+    protected override void Patrol()
     {
         m_agent.ResetPath();
         m_agent.SetDestination(targetPatrolPos);
