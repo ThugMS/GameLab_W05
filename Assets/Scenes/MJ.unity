@@ -694,6 +694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae05908d8cbebd547a40eb9876856196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_player: {fileID: 0}
 --- !u!1 &1136689770
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,7 +821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_keywordMonsterType: 0
-  m_keywordRoomType: 4
+  m_keywordRoomType: 3
   m_keywordReword: 0
   isGameOver: 0
 --- !u!4 &1984650968
