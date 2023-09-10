@@ -31,7 +31,10 @@ public class UINormalRoom : UIRoom
         for (int i = 0, cnt = monsterCount; i < cnt; i++)
         {
             var obj = Instantiate(getRandomMonster(targetMonsters), m_spawnPositions[spawnPosIdx].position, Quaternion.identity);
-            obj.GetComponent<BaseMonster>().DeadListener = KillMonsterCount;
+            var monster = obj.GetComponent<BaseMonster>();
+            monster.DeadListener = KillMonsterCount;
+            monster.init();
+            
             spawnPosIdx++;
             spawnPosIdx %= m_spawnPositions.Count;
         }
