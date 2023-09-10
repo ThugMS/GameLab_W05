@@ -6,10 +6,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingleTone<GameManager>
 {
-    public static GameManager Instance;
-    
     #region PublicVariables
 
     private int m_currentStage;
@@ -21,19 +19,10 @@ public class GameManager : MonoBehaviour
     public bool isGameOver = false;
     #endregion
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            m_currentStage = 1;
-        }
-    }
     
     void Start()
     {
         Time.timeScale = 1f;
-        UIManager.Instance.SetHeartUI();
     }
 
     #region PrivateVariables

@@ -42,7 +42,8 @@ public class BaseRoom : MonoBehaviour
         m_roomManager = _roomManager;
         m_UIRoomByType = _uiRoomByType;
 
-        Instantiate(_room.m_landspace, m_floor);
+        if(_room.m_landspace != null)
+            Instantiate(_room.m_landspace, m_floor);
 
         for (int i = 0; i < 4; i++)
         {

@@ -1,15 +1,21 @@
+using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
-public class UIManager : MonoBehaviour
+public class UIManager : SingleTone<UIManager>
 {
-    public static UIManager Instance;
-    
     #region PublicVariables
+    [Header("Keybinding Images")]
+    [SerializeField] private KeyHint[] m_keyHints;
+
+    private PlayerInput m_playerInput;
     
     [Header("Panel")]
     [SerializeField] private List<GameObject> m_panel;
@@ -22,29 +28,50 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform m_heartPanel;
     [SerializeField] private GameObject m_heartPrefab;
     [SerializeField] private List<Heart> hearts = new List<Heart>();
-    
-    public int maxHeart = 5;
-    public int currentActiveHeart = 3;
 
+    [Header("SkillSlot")]
+    [SerializeField] private GameObject m_skillPaenl;
+    [SerializeField] private Image m_attackSlot;
+    [SerializeField] private Image m_abilitySlot;
+    
+    
     #endregion
 
     #region PrivateVariables
     #endregion
     
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-    }
-    
+
     private void Update()
     {
         CheckMonster();
     }
+
+    public void SetPlayerInput(PlayerInput input)
+    {
+        FieldInfo fieldInfo = typeof(PlayerInput).GetField("m_ControlsChangedEvent", BindingFlags.NonPublic | BindingFlags.Instance);
+        if (fieldInfo != null)
+        {
+            PlayerInput.ControlsChangedEvent controlsChangedAction = (PlayerInput.ControlsChangedEvent)fieldInfo.GetValue(input);
+
+            controlsChangedAction.RemoveListener(OnControlsChanged);
+            controlsChangedAction.AddListener(OnControlsChanged);
+
+            fieldInfo.SetValue(input, controlsChangedAction);
+        }
+    }
+    
     
     #region PublicMethod
+    #region KeyHint
+    public void OnControlsChanged(PlayerInput input)
+    {
+        foreach (var keyHint in m_keyHints)
+        {
+            keyHint.OnControlsChanged(input);
+        }
+    }
+    
+    #endregion
     
     #region Scene
     public void LoadIngameScene()
@@ -91,33 +118,85 @@ public class UIManager : MonoBehaviour
         }
     }
     #endregion
+
+    #region SkillSlot
+
+    public void SetSKillSlot(Player.PlayerClassType playerClassType)
+    {
+        m_skillPaenl.SetActive(true);
+        
+        var attackIcon = ResourceManager.Instance.GetSkillSlotAttackIcon(playerClassType);
+        var abilityIcon = ResourceManager.Instance.GetSkillSlotAbilityIcon(playerClassType);
+        
+        m_attackSlot.sprite = attackIcon;
+        m_abilitySlot.sprite = abilityIcon;
+    }
+
+    #endregion
     
     #region Heart
-    public void SetHeartUI()
+    public void SetHeartUI(float currentHP, float maxHP)
     {
         ClearHeartUI();
-        CreateHeartUI();
+        SetCurrentHpUI(currentHP, maxHP);
     }
-    public void DecreaseHeart(int decreaseAmount)
+    public void DecreaseHeart(float currentHP, float maxHP)
     {
         StartCoroutine(IE_HitEffect());
+        SetCurrentHpUI(currentHP, maxHP);
+    }
 
-        HeartStatus decreaseBy = (HeartStatus)decreaseAmount;
-        Heart lastActiveHeart = hearts.FindLast(heart => heart.GetHeartStatus() != HeartStatus.Empty);
+    public void PlayGameOverEffect()
+    {
+        StartCoroutine(IE_GameOverEffect());
+    }
 
-        HeartStatus newStatus = lastActiveHeart.GetHeartStatus() - (int)decreaseBy;
-        lastActiveHeart.SetHeartImage(newStatus < HeartStatus.Empty ? HeartStatus.Empty : newStatus);
-
-        if (hearts.All(heart => heart.GetHeartStatus() == HeartStatus.Empty))
+    private void SetCurrentHpUI(float currentHP, float maxHP)
+    {
+        int maxHeart = (int)System.Math.Truncate(maxHP / 4);
+        
+        for (int i = 1; i <= maxHeart; i++)
         {
-            StartCoroutine(IE_GameOverEffect());
+            Heart heart = GetOrCreateHeart(i - 1);
+            HeartStatus status = DetermineHeartStatus(currentHP, i);
+            heart.SetHeartImage(status);
+            heart.gameObject.SetActive(true);
         }
     }
+
+    private Heart GetOrCreateHeart(int idx)
+    {
+        if (hearts.Count > idx)
+        {
+            return hearts[idx];
+        }
+        GameObject newHeart = Instantiate(m_heartPrefab, m_heartPanel);
+        Heart heart = newHeart.GetComponent<Heart>();
+        hearts.Add(heart);
+        return heart;
+    }
+    
+    private HeartStatus DetermineHeartStatus(float currentHP, int heartIndex)
+    {
+        int heartHealth = heartIndex * 4;
+
+        if (currentHP >= heartHealth)
+        {
+            return HeartStatus.Full;
+        }
+        else
+        {
+            int remain = heartHealth - (int)currentHP;
+            return remain < 4 ? (HeartStatus)(4 - remain) : HeartStatus.Empty;
+        }
+    }
+
     #endregion
     
     #endregion
     
     #region PrivateMethod
+    
     #region SetHeartUI
     private void ClearHeartUI()
     {
@@ -128,18 +207,6 @@ public class UIManager : MonoBehaviour
         hearts.Clear();
     }
     
-    private void CreateHeartUI()
-    {
-        for (int i = 0; i < maxHeart; i++)
-        {
-            GameObject newHeart = Instantiate(m_heartPrefab, m_heartPanel);
-            Heart heart = newHeart.GetComponent<Heart>();
-            hearts.Add(heart);
-    
-            heart.SetHeartImage(i < currentActiveHeart ? HeartStatus.Full : HeartStatus.Empty);
-            newHeart.SetActive(true);
-        }
-    }
     #endregion
     
     private void CheckMonster()

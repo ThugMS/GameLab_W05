@@ -23,10 +23,8 @@ public class bakeRuntime : MonoBehaviour
 
     public void updateMesh()
     {
-        if (Surface2D != null)
-        {
+        if(Surface2D != null)
             Surface2D.UpdateNavMesh(Surface2D.navMeshData);
-        }
     }
 
     #endregion
