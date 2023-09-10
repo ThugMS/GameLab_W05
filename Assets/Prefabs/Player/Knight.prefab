@@ -243,9 +243,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_rigidbody: {fileID: 4138420507533337179}
-  m_heart: 3
+  m_currentHP: 12
   m_power: 0
   m_offset: 0.5
+  m_maxHP: 20
   m_maxSpeed: 5
   m_accelSpeed: 0.5
   m_decelSpeed: 1
@@ -313,6 +314,7 @@ MonoBehaviour:
   m_moveDis: 0
   m_dashDir: {x: 0, y: 0}
   m_dashEffect: {fileID: 5758234511293376770, guid: 1a6fc708c20b1bb40aeaae6d9aa0aed2, type: 3}
+  m_dashPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &4138420507533337175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,6 +388,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 66af42d6-ff49-4891-9ebe-dc04e23cd296
     m_ActionName: Player/Attack1[/Keyboard/a]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0d4928cc-7fd1-40fd-bad2-05515bf670ba
+    m_ActionName: Player/ChangeClass[/Keyboard/a,/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5ea368e7-28d0-45b7-a9ee-4c66be5f30af
+    m_ActionName: UI/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
