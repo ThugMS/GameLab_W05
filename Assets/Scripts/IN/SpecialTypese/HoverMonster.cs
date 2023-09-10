@@ -47,10 +47,10 @@ public class HoverMonster : BaseMonster
 
         if (Vector2.Distance(transform.position, base.targetPatrolPos) < 0.2f)
         {
-            base.m_timer -= Time.deltaTime;
-            if (m_timer < 0)
+            base.m_patrolTimer -= Time.deltaTime;
+            if (m_patrolTimer < 0)
             {
-                m_timer = m_patrolTime;
+                m_patrolTimer = m_patrolTime;
                 targetPatrolPos = base.getPatrolPos();
             }
         }

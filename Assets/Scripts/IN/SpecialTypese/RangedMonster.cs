@@ -78,7 +78,7 @@ public class RangedMonster : BaseMonster
             case MonsterState.Pursuit:
                 base.m_animator.SetFloat("X", (base.m_playerObj.transform.position - (Vector3)transform.position).x);
                 base.m_animator.SetFloat("Y", (base.m_playerObj.transform.position - (Vector3)transform.position).y);
-                if (!canSeePlayer() && playerWithinRange())
+                if (!canSeePlayer() || !playerWithinRange())
                 {
                     Patrol();
                 }
@@ -127,10 +127,10 @@ public class RangedMonster : BaseMonster
         m_agent.SetDestination(targetPatrolPos);
         if (Vector2.Distance(transform.position, targetPatrolPos) < 0.2f)
         {
-            m_timer -= Time.deltaTime;
-            if (m_timer < 0)
+            base.m_patrolTimer -= Time.deltaTime;
+            if (base.m_patrolTimer < 0)
             {
-                m_timer = m_patrolTime;
+                base.m_patrolTimer = m_patrolTime;
                 targetPatrolPos = getPatrolPos();
             }
         }
