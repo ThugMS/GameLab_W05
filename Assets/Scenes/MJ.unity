@@ -222,8 +222,8 @@ MonoBehaviour:
   player: {fileID: 159828041}
   m_roomPrefabs: {fileID: 3350617661772655293, guid: f289b01fbcfed0e438ae5dd8c2bdb146, type: 3}
   m_gridTr: {fileID: 718954381}
-  m_roomWidthSize: 26
-  m_roomHeightSize: 18
+  m_roomWidthSize: 30
+  m_roomHeightSize: 20
   m_roomCount: 5
   minMonsterLevel: 1
   maxMonsterLevel: 1
@@ -821,7 +821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_keywordMonsterType: 0
-  m_keywordRoomType: 3
+  m_keywordRoomType: 4
   m_keywordReword: 0
   isGameOver: 0
 --- !u!4 &1984650968
