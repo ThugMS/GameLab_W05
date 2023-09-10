@@ -120,10 +120,10 @@ public class UIManager : SingleTone<UIManager>
 
     #region SkillSlot
 
-    public void SetSKillSlot(Player.CharType charType)
+    public void SetSKillSlot(Player.PlayerClassType playerClassType)
     {
-        var attackIcon = ResourceManager.Instance.GetSkillSlotAttackIcon(charType);
-        var abilityIcon = ResourceManager.Instance.GetSkillSlotAbilityIcon(charType);
+        var attackIcon = ResourceManager.Instance.GetSkillSlotAttackIcon(playerClassType);
+        var abilityIcon = ResourceManager.Instance.GetSkillSlotAbilityIcon(playerClassType);
         
         m_attackSlot.sprite = attackIcon;
         m_abilitySlot.sprite = abilityIcon;

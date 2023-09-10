@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 
 public abstract class Player : MonoBehaviour
 {
-    public enum CharType
+    public enum PlayerClassType
     {
         Knight,
         Archer,
@@ -48,7 +48,7 @@ public abstract class Player : MonoBehaviour
     [SerializeField] protected Animator m_animator;
     
     [Header("Type")]
-    protected CharType m_charType;
+    protected PlayerClassType MPlayerClassType;
     #endregion
 
     #region PublicMethod
@@ -228,11 +228,11 @@ public abstract class Player : MonoBehaviour
          }
     }
 
-    protected void SetCharType(CharType charType)
+    protected void SetCharType(PlayerClassType playerClassType)
     {
-        m_charType = charType;
+        MPlayerClassType = playerClassType;
         
-        UIManager.Instance.SetSKillSlot(m_charType);
+        UIManager.Instance.SetSKillSlot(MPlayerClassType);
     }
 
     #endregion

@@ -66,7 +66,7 @@ public class Archer : Player
         m_backStepLayerMask = LayerMask.GetMask("Wall", "Monster", "Boss");
         m_attackLayerMask = LayerMask.GetMask("Monster", "Boss");
         
-        SetCharType(CharType.Archer);
+        SetCharType(PlayerClassType.Archer);
     }
 
     public override void OnAttack(InputAction.CallbackContext _context)

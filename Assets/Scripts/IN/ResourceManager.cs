@@ -112,22 +112,22 @@ public class ResourceManager : MonoBehaviour
     private const string m_attackIconPath = "Sprite/UI/Skill/Icon_Attack_";
     private const string m_abilityIconPath = "Sprite/UI/Skill/Icon_Ability_";
     
-    public Sprite GetSkillSlotAttackIcon(Player.CharType charType)
+    public Sprite GetSkillSlotAttackIcon(Player.PlayerClassType playerClassType)
     {
         StringBuilder sb = new StringBuilder();
         sb.Append(m_attackIconPath);
-        sb.Append(charType.ToString());
+        sb.Append(playerClassType.ToString());
         
         Sprite attackSprite = Resources.Load<Sprite>(sb.ToString());
 
         return attackSprite;
     }
     
-    public Sprite GetSkillSlotAbilityIcon(Player.CharType charType)
+    public Sprite GetSkillSlotAbilityIcon(Player.PlayerClassType playerClassType)
     {
         StringBuilder sb = new StringBuilder();
         sb.Append(m_abilityIconPath);
-        sb.Append(charType.ToString());
+        sb.Append(playerClassType.ToString());
         
         Sprite abilityIcon = Resources.Load<Sprite>(sb.ToString());
 
