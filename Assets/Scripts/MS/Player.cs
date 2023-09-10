@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public abstract class Player : MonoBehaviour
 {
@@ -15,10 +16,12 @@ public abstract class Player : MonoBehaviour
     #region PrivateVariables
     [SerializeField] protected Rigidbody2D m_rigidbody;
     
+    [FormerlySerializedAs("m_heart")]
     [Header("Status")]
-    [SerializeField] protected float m_heart = 3f;
+    [SerializeField] protected float m_currentHP = 12f;
     [SerializeField] protected float m_power;
     [SerializeField] protected float m_offset = 0.5f;
+    [SerializeField] protected float m_maxHP = 20f;
 
     [Header("Move")]
     [SerializeField] protected float m_maxSpeed = 5f;
@@ -77,14 +80,19 @@ public abstract class Player : MonoBehaviour
 
         Ability();
     }
-
+    
     public void GetDamage(float _damage)
     {
-        m_heart -= _damage;
+        m_currentHP -= _damage;
+        
+        if(m_currentHP > m_maxHP)
+        {
+            m_currentHP = m_maxHP;
+        }
 
-        UIManager.Instance.DecreaseHeart(2);
+        UIManager.Instance.DecreaseHeart(m_currentHP, m_maxHP);
 
-        if(m_heart <= 0)
+        if(m_currentHP <= 0)
         {
             Dead();
         }
@@ -92,7 +100,7 @@ public abstract class Player : MonoBehaviour
 
     public void Dead()
     {
-
+        UIManager.Instance.PlayGameOverEffect();
     }
 
     public void SetCanMove(bool _value)
@@ -113,6 +121,7 @@ public abstract class Player : MonoBehaviour
     protected virtual void Start()
     {
         SetStatus();
+        UIManager.Instance.SetHeartUI(m_currentHP, m_maxHP);
     }
 
     protected virtual void FixedUpdate()
