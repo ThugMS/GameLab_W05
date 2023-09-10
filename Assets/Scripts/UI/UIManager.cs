@@ -29,7 +29,8 @@ public class UIManager : SingleTone<UIManager>
     [SerializeField] private GameObject m_heartPrefab;
     [SerializeField] private List<Heart> hearts = new List<Heart>();
 
-    [Header("SkillSlot")] 
+    [Header("SkillSlot")]
+    [SerializeField] private GameObject m_skillPaenl;
     [SerializeField] private Image m_attackSlot;
     [SerializeField] private Image m_abilitySlot;
     
@@ -122,6 +123,8 @@ public class UIManager : SingleTone<UIManager>
 
     public void SetSKillSlot(Player.PlayerClassType playerClassType)
     {
+        m_skillPaenl.SetActive(true);
+        
         var attackIcon = ResourceManager.Instance.GetSkillSlotAttackIcon(playerClassType);
         var abilityIcon = ResourceManager.Instance.GetSkillSlotAbilityIcon(playerClassType);
         
