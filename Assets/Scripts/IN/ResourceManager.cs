@@ -176,4 +176,26 @@ public class ResourceManager : MonoBehaviour
 
         return abilityIcon;
     }
+    
+    public Sprite GetGemImage(GemType gemType)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append("Sprite/Gem/Gem_");
+        sb.Append(gemType.ToString());
+        
+        Sprite gemSprite = Resources.Load<Sprite>(sb.ToString());
+
+        return gemSprite;
+    }
+
+    public Sprite GetGemIconImage(GemType gemType)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append("Sprite/Gem/GemIcon_");
+        sb.Append(gemType.ToString());
+        
+        Sprite gemSprite = Resources.Load<Sprite>(sb.ToString());
+
+        return gemSprite;
+    }
 }
