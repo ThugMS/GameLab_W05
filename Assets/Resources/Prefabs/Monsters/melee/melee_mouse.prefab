@@ -111,9 +111,10 @@ MonoBehaviour:
   m_range: 4
   m_health: 10
   m_basicAttack: 1
-  m_damageRefreshTime: 0
-  m_knockbackTime: 0
+  m_damageRefreshTime: 2
+  m_knockbackTime: 2
   m_patrolTime: 2
+  m_isHovering: 0
 --- !u!50 &6785976041359516803
 Rigidbody2D:
   serializedVersion: 4
