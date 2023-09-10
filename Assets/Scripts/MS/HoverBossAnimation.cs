@@ -9,6 +9,9 @@ public class HoverBossAnimation : MonoBehaviour
 
     #region PrivateVariables
     [SerializeField] private HoverBoss m_boss;
+
+    [Header("Skill")]
+    [SerializeField] private GameObject m_skill;
     #endregion
 
     #region PublicMethod
@@ -20,6 +23,13 @@ public class HoverBossAnimation : MonoBehaviour
     public void Attack()
     {
         m_boss.AttackPlayer();
+    }
+
+    public void Skill()
+    {
+        GameObject player = PlayerManager.instance.GetPlayer();
+
+        Instantiate(m_skill, player.transform.position, Quaternion.identity);
     }
 
     public void EndAttack()
