@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_keywordMonsterType: 0
-  m_keywordRoomType: 0
+  m_keywordRoomType: 4
   m_keywordReword: 0
   isGameOver: 0
 --- !u!4 &380470871
