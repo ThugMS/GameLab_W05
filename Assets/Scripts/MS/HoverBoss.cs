@@ -30,6 +30,8 @@ public class HoverBoss : BaseMonster
     [SerializeField] private float m_fadeInCoolTime = 2f;
     [SerializeField] private Vector2 m_attackBoxSize;
     [SerializeField] private Collider2D m_playerCol;
+
+
     #endregion
 
     #region Test
@@ -70,7 +72,7 @@ public class HoverBoss : BaseMonster
     #region PrivateMethod
     private void ChoicePattern()
     {
-        int value = Random.Range(0, 0);
+        int value = Random.Range(1, 2);
 
         switch(value)
         {
@@ -79,6 +81,7 @@ public class HoverBoss : BaseMonster
                 break;
 
             case 1:
+                Skill();
                 break;
 
             case 2:
@@ -110,6 +113,11 @@ public class HoverBoss : BaseMonster
                 StartCoroutine(nameof(WaitAttackCoolTime));
             }
         }
+    }
+
+    private void Skill()
+    {
+        m_bossAnimator.SetTrigger("Skill"); 
     }
 
     private void CheckCollider()
