@@ -594,8 +594,8 @@ MonoBehaviour:
   player: {fileID: 548498328}
   m_roomPrefabs: {fileID: 3350617661772655293, guid: f289b01fbcfed0e438ae5dd8c2bdb146, type: 3}
   m_gridTr: {fileID: 46587034}
-  m_roomWidthSize: 26
-  m_roomHeightSize: 18
+  m_roomWidthSize: 30
+  m_roomHeightSize: 20
   m_roomCount: 6
   minMonsterLevel: 0
   maxMonsterLevel: 0
