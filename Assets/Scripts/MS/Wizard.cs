@@ -45,12 +45,24 @@ public class Wizard : Player
         m_portDir = m_Direction;
         Port();
     }
+
+    public void EndAttackState()
+    {
+        SetCanMove(true);
+        SetCanAct(true);
+        m_isAct = false;
+
+        if (m_inputDirection != Vector2.zero)
+        {
+            m_isMove = true;
+        }
+    }
     #endregion
 
     #region PrivateMethod
     private void StartAttackState()
     {
-        m_animator.SetBool("IsAttack", true);
+        m_animator.SetTrigger("Attack");
         SetCanMove(false);
         SetCanAct(false);
 
@@ -58,10 +70,14 @@ public class Wizard : Player
         m_isAct = true;
     }
 
+    
+
     private void CreateAttack()
     {
+        float angle = Vector2.SignedAngle(Vector2.right, m_Direction.normalized);
+
         Vector3 offsetPositon = (m_offset + m_attackRadius) * m_Direction.normalized;
-        GameObject obj = Instantiate(m_attackPrefab, transform.position + offsetPositon, Quaternion.identity, transform);
+        GameObject obj = Instantiate(m_attackPrefab, transform.position + offsetPositon, Quaternion.Euler(0, 0, angle), transform);
         obj.GetComponent<WizardAttack>().InitSetting(m_Direction);
     }
 
