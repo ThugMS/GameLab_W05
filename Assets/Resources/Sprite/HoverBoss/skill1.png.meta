@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 25bf661c028a9b84eb0a9a84a4a2ba64
+guid: c12313ae7509a1544a5c9489b03f13b5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -105,13 +105,139 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DASH SMOKE 2_0
+      name: skill1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 100
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcf36489ae6404844b2280012b423dbf
+      internalID: -512434849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill1_1
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 100
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32aa77e1276e56645a7ce73c7fa11f03
+      internalID: 1816855155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill1_2
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 100
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2de007ec8de580b49bf23db4ad89fae2
+      internalID: 1185398925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill1_3
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 100
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aeeb116e803e69d45acc4b1bbedd2387
+      internalID: -1964061968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill1_4
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 100
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46c0311380aecdf49a3c376ac39eedef
+      internalID: 252069309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill1_5
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 100
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23876d5692792674dbac9a1f431f4e15
+      internalID: -68933626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill1_6
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 59
-        height: 42
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,20 +245,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11d5d007d551b604887c5a038532fd59
-      internalID: -841603920
+      spriteID: 4b1a42da90f98474e910718b431f6cf9
+      internalID: 1002428127
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DASH SMOKE 2_1
+      name: skill1_7
       rect:
         serializedVersion: 2
-        x: 59
+        x: 100
         y: 0
-        width: 59
-        height: 42
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,20 +266,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c0afdeb45330e2c4f83648c14df8e43d
-      internalID: -1018018042
+      spriteID: 424c574dad917d045b35bca8b60576f8
+      internalID: -2116341556
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DASH SMOKE 2_2
+      name: skill1_8
       rect:
         serializedVersion: 2
-        x: 118
+        x: 200
         y: 0
-        width: 59
-        height: 42
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,20 +287,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e1ed687fac6bb924ba8e7433347d47f2
-      internalID: 988046536
+      spriteID: 2930600a4a3d5814c96d0aeb37f03e2d
+      internalID: -1985131887
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DASH SMOKE 2_3
+      name: skill1_9
       rect:
         serializedVersion: 2
-        x: 177
+        x: 300
         y: 0
-        width: 59
-        height: 42
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,20 +308,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 70c81b3e4d5e1614897347b7f4e7db05
-      internalID: -1708722480
+      spriteID: eeed114100d4bf8468f4f26e1052de5c
+      internalID: -1246400583
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DASH SMOKE 2_4
+      name: skill1_10
       rect:
         serializedVersion: 2
-        x: 236
+        x: 400
         y: 0
-        width: 59
-        height: 42
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,20 +329,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2be5dd439ddad6943917d3579d16f328
-      internalID: -571431795
+      spriteID: fdd6d46010d3d734c864906163052023
+      internalID: -610414376
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DASH SMOKE 2_5
+      name: skill1_11
       rect:
         serializedVersion: 2
-        x: 295
+        x: 500
         y: 0
-        width: 59
-        height: 42
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,29 +350,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed548b8f08071034f9ff32d129b2df4b
-      internalID: -601030577
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DASH SMOKE 2_6
-      rect:
-        serializedVersion: 2
-        x: 354
-        y: 0
-        width: 59
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4f5bc2281b11ab24fa5ba7c99105968f
-      internalID: -34099457
+      spriteID: 52f92fdc256fc284993b02d85098fad8
+      internalID: 1985589043
       vertices: []
       indices: 
       edges: []
@@ -262,13 +367,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      DASH SMOKE 2_0: -841603920
-      DASH SMOKE 2_1: -1018018042
-      DASH SMOKE 2_2: 988046536
-      DASH SMOKE 2_3: -1708722480
-      DASH SMOKE 2_4: -571431795
-      DASH SMOKE 2_5: -601030577
-      DASH SMOKE 2_6: -34099457
+      skill1_0: -512434849
+      skill1_1: 1816855155
+      skill1_10: -610414376
+      skill1_11: 1985589043
+      skill1_2: 1185398925
+      skill1_3: -1964061968
+      skill1_4: 252069309
+      skill1_5: -68933626
+      skill1_6: 1002428127
+      skill1_7: -2116341556
+      skill1_8: -1985131887
+      skill1_9: -1246400583
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

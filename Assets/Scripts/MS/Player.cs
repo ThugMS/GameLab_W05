@@ -130,6 +130,7 @@ public abstract class Player : MonoBehaviour
 
     protected virtual void Start()
     {
+        PlayerManager.instance.SetPlayer(gameObject);
         SetStatus();
         UIManager.Instance.SetHeartUI(m_currentHP, m_maxHP);
     }
