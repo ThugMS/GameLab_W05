@@ -74,6 +74,8 @@ public class Knight : Player
     protected override void SetStatus()
     {
         m_power = 5f;
+        
+        OnStatusChanged();
     }
 
     protected override void Attack()
@@ -108,6 +110,7 @@ public class Knight : Player
 
         m_attackLayerMask = LayerMask.GetMask("Monster", "Boss");
         m_dashLayerMask = LayerMask.GetMask("Wall");
+        SetPlayerClassType(PlayerClassType.Knight);
     }
 
     public void DamageAttackMonster()

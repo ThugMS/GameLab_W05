@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -28,10 +29,23 @@ public class UIManager : SingleTone<UIManager>
     [SerializeField] private Transform m_heartPanel;
     [SerializeField] private GameObject m_heartPrefab;
     [SerializeField] private List<Heart> hearts = new List<Heart>();
-    
-    public int maxHeart = 5;
-    public int currentActiveHeart = 3;
 
+    [Header("SkillSlot")]
+    [SerializeField] private GameObject m_skillPaenl;
+    [SerializeField] private Image m_attackSlot;
+    [SerializeField] private Image m_abilitySlot;
+    
+    [Header("Profile")]
+    [SerializeField] private Image m_profileImage;
+    [SerializeField] private TextMeshProUGUI m_heartText;
+    [SerializeField] private TextMeshProUGUI m_powerText;
+    [SerializeField] private TextMeshProUGUI m_speedText;
+    
+    [SerializeField] private TextMeshProUGUI m_plusHeartText;
+    [SerializeField] private TextMeshProUGUI m_plusPowerText;
+    [SerializeField] private TextMeshProUGUI m_plusSpeedText;
+
+    
     #endregion
 
     #region PrivateVariables
@@ -115,28 +129,105 @@ public class UIManager : SingleTone<UIManager>
         }
     }
     #endregion
+
+    #region SkillSlot
+
+    public void SetSKillSlot(Player.PlayerClassType playerClassType)
+    {
+        m_skillPaenl.SetActive(true);
+        
+        var attackIcon = ResourceManager.Instance.GetSkillSlotAttackIcon(playerClassType);
+        var abilityIcon = ResourceManager.Instance.GetSkillSlotAbilityIcon(playerClassType);
+        
+        m_attackSlot.sprite = attackIcon;
+        m_abilitySlot.sprite = abilityIcon;
+    }
+
+    #endregion
+
+    #region Status
+
+    public void SetProfileStatus(float baseHP, float basePower, float baseSpeed, float plusHP, float plusPower, float plusSpeed)
+    {
+        m_heartText.text = CalcHeartNum(baseHP).ToString();
+        m_powerText.text = String.Format("{0:0.#}", basePower);
+        m_speedText.text = String.Format("{0:0.#}", baseSpeed);
+        
+        m_plusHeartText.text = "+" + CalcHeartNum(plusHP).ToString();
+        m_plusPowerText.text = String.Format("+{0:0.#}", plusPower);
+        m_plusSpeedText.text = String.Format("+{0:0.#}", plusSpeed);
+    }
+
+    public void SetProfileImage(Player.PlayerClassType playerClassType)
+    {
+        var profileImage = ResourceManager.Instance.GetPlayerClassProfileIcon(playerClassType);
+        m_profileImage.sprite = profileImage;
+    }
+
+    #endregion
     
     #region Heart
-    public void SetHeartUI()
+    public void SetHeartUI(float currentHP, float maxHP)
     {
         ClearHeartUI();
-        CreateHeartUI();
+        SetCurrentHpUI(currentHP, maxHP);
     }
-    public void DecreaseHeart(int decreaseAmount)
+    public void DecreaseHeart(float currentHP, float maxHP)
     {
         StartCoroutine(IE_HitEffect());
+        SetCurrentHpUI(currentHP, maxHP);
+    }
 
-        HeartStatus decreaseBy = (HeartStatus)decreaseAmount;
-        Heart lastActiveHeart = hearts.FindLast(heart => heart.GetHeartStatus() != HeartStatus.Empty);
+    public void PlayGameOverEffect()
+    {
+        StartCoroutine(IE_GameOverEffect());
+    }
 
-        HeartStatus newStatus = lastActiveHeart.GetHeartStatus() - (int)decreaseBy;
-        lastActiveHeart.SetHeartImage(newStatus < HeartStatus.Empty ? HeartStatus.Empty : newStatus);
-
-        if (hearts.All(heart => heart.GetHeartStatus() == HeartStatus.Empty))
+    private void SetCurrentHpUI(float currentHP, float maxHP)
+    {
+        int maxHeart = CalcHeartNum(maxHP);
+        
+        for (int i = 1; i <= maxHeart; i++)
         {
-            StartCoroutine(IE_GameOverEffect());
+            Heart heart = GetOrCreateHeart(i - 1);
+            HeartStatus status = DetermineHeartStatus(currentHP, i);
+            heart.SetHeartImage(status);
+            heart.gameObject.SetActive(true);
         }
     }
+
+    private int CalcHeartNum(float hp)
+    {
+        return (int)System.Math.Truncate(hp / 4);
+    }
+
+    private Heart GetOrCreateHeart(int idx)
+    {
+        if (hearts.Count > idx)
+        {
+            return hearts[idx];
+        }
+        GameObject newHeart = Instantiate(m_heartPrefab, m_heartPanel);
+        Heart heart = newHeart.GetComponent<Heart>();
+        hearts.Add(heart);
+        return heart;
+    }
+    
+    private HeartStatus DetermineHeartStatus(float currentHP, int heartIndex)
+    {
+        int heartHealth = heartIndex * 4;
+
+        if (currentHP >= heartHealth)
+        {
+            return HeartStatus.Full;
+        }
+        else
+        {
+            int remain = heartHealth - (int)currentHP;
+            return remain < 4 ? (HeartStatus)(4 - remain) : HeartStatus.Empty;
+        }
+    }
+
     #endregion
     
     #endregion
@@ -153,18 +244,6 @@ public class UIManager : SingleTone<UIManager>
         hearts.Clear();
     }
     
-    private void CreateHeartUI()
-    {
-        for (int i = 0; i < maxHeart; i++)
-        {
-            GameObject newHeart = Instantiate(m_heartPrefab, m_heartPanel);
-            Heart heart = newHeart.GetComponent<Heart>();
-            hearts.Add(heart);
-    
-            heart.SetHeartImage(i < currentActiveHeart ? HeartStatus.Full : HeartStatus.Empty);
-            newHeart.SetActive(true);
-        }
-    }
     #endregion
     
     private void CheckMonster()

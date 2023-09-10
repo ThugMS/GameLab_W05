@@ -4,9 +4,18 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public abstract class Player : MonoBehaviour
 {
+    public enum PlayerClassType
+    {
+        Knight,
+        Archer,
+        Wizard,
+        None
+    }
+    
     #region PublicVariables
     public enum ANIMATION_DIRECTION
     { Up, Right, Down, Left}
@@ -15,10 +24,12 @@ public abstract class Player : MonoBehaviour
     #region PrivateVariables
     [SerializeField] protected Rigidbody2D m_rigidbody;
     
+    [FormerlySerializedAs("m_heart")]
     [Header("Status")]
-    [SerializeField] protected float m_heart = 3f;
+    [SerializeField] protected float m_currentHP = 12f;
     [SerializeField] protected float m_power;
     [SerializeField] protected float m_offset = 0.5f;
+    [SerializeField] protected float m_maxHP = 20f;
 
     [Header("Move")]
     [SerializeField] protected float m_maxSpeed = 5f;
@@ -36,6 +47,15 @@ public abstract class Player : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] protected Animator m_animator;
+
+    [Header("PlusStatus")] 
+    protected float m_plusHP;
+    protected float m_plusPower;
+    protected float m_plusSpeed;
+    
+    
+    [Header("Type")]
+    protected PlayerClassType m_PlayerClassType;
     #endregion
 
     #region PublicMethod
@@ -77,14 +97,19 @@ public abstract class Player : MonoBehaviour
 
         Ability();
     }
-
+    
     public void GetDamage(float _damage)
     {
-        m_heart -= _damage;
+        m_currentHP -= _damage;
+        
+        if(m_currentHP > m_maxHP)
+        {
+            m_currentHP = m_maxHP;
+        }
 
-        UIManager.Instance.DecreaseHeart(2);
+        UIManager.Instance.DecreaseHeart(m_currentHP, m_maxHP);
 
-        if(m_heart <= 0)
+        if(m_currentHP <= 0)
         {
             Dead();
         }
@@ -92,7 +117,7 @@ public abstract class Player : MonoBehaviour
 
     public void Dead()
     {
-
+        UIManager.Instance.PlayGameOverEffect();
     }
 
     public void SetCanMove(bool _value)
@@ -112,7 +137,9 @@ public abstract class Player : MonoBehaviour
 
     protected virtual void Start()
     {
+        PlayerManager.instance.SetPlayer(gameObject);
         SetStatus();
+        UIManager.Instance.SetHeartUI(m_currentHP, m_maxHP);
     }
 
     protected virtual void FixedUpdate()
@@ -158,7 +185,7 @@ public abstract class Player : MonoBehaviour
     {
         SetMoveSpeed(_arrow);
 
-        Vector2 moveAmount = m_inputDirection.normalized * m_curSpeed * Time.deltaTime;
+        Vector2 moveAmount = m_inputDirection.normalized * (m_curSpeed * Time.deltaTime);
         Vector2 nextPosition = m_rigidbody.position + moveAmount;
 
         m_rigidbody.MovePosition(nextPosition);
@@ -201,12 +228,33 @@ public abstract class Player : MonoBehaviour
 
     private void OnEnable()
     {
-         var input = GetComponent<PlayerInput>();
+         SetPlayerInput();
+         OnStatusChanged();
+    }
+
+    private void SetPlayerInput()
+    {
+        var input = GetComponent<PlayerInput>();
          
-         if(input != null)
-         {
-             UIManager.Instance.SetPlayerInput(input);
-         }
+        if(input != null)
+        {
+            UIManager.Instance.SetPlayerInput(input);
+        }
+    }
+
+    protected void SetPlayerClassType(PlayerClassType playerClassType)
+    {
+        m_PlayerClassType = playerClassType;
+        
+        UIManager.Instance.SetSKillSlot(m_PlayerClassType);
+        UIManager.Instance.SetProfileImage(m_PlayerClassType);
+        
+    }
+
+    // TODO : 스탯 변할 때 마다 호출
+    protected void OnStatusChanged()
+    {
+        UIManager.Instance.SetProfileStatus(m_maxHP, m_power, m_maxSpeed, m_plusHP, m_plusPower, m_plusSpeed);
     }
 
     #endregion

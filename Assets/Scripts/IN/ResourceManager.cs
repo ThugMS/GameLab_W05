@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -139,4 +140,40 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
+    private const string m_attackIconPath = "Sprite/UI/Skill/Icon_Attack_";
+    private const string m_abilityIconPath = "Sprite/UI/Skill/Icon_Ability_";
+    private const string m_classIconPath = "Sprite/UI/Profile/PlayerClassImage_";
+    
+    public Sprite GetSkillSlotAttackIcon(Player.PlayerClassType playerClassType)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append(m_attackIconPath);
+        sb.Append(playerClassType.ToString());
+        
+        Sprite attackSprite = Resources.Load<Sprite>(sb.ToString());
+
+        return attackSprite;
+    }
+    
+    public Sprite GetSkillSlotAbilityIcon(Player.PlayerClassType playerClassType)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append(m_abilityIconPath);
+        sb.Append(playerClassType.ToString());
+        
+        Sprite abilityIcon = Resources.Load<Sprite>(sb.ToString());
+
+        return abilityIcon;
+    }
+
+    public Sprite GetPlayerClassProfileIcon(Player.PlayerClassType playerClassType)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append(m_classIconPath);
+        sb.Append(playerClassType.ToString());
+        
+        Sprite abilityIcon = Resources.Load<Sprite>(sb.ToString());
+
+        return abilityIcon;
+    }
 }

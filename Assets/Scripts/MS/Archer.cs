@@ -65,6 +65,8 @@ public class Archer : Player
         
         m_backStepLayerMask = LayerMask.GetMask("Wall", "Monster", "Boss");
         m_attackLayerMask = LayerMask.GetMask("Monster", "Boss");
+        
+        SetPlayerClassType(PlayerClassType.Archer);
     }
 
     public override void OnAttack(InputAction.CallbackContext _context)
@@ -88,6 +90,8 @@ public class Archer : Player
     protected override void SetStatus()
     {
         m_power = 3;
+        
+        OnStatusChanged();
     }
     
 
