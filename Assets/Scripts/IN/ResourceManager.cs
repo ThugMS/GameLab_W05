@@ -30,10 +30,14 @@ public class ResourceManager : MonoBehaviour
     public Dictionary<MonsterType, List<GameObject>> MonsterPrefabDict { get; private set; }
     public Dictionary<RoomType, List<GameObject>> LandscapeByRoomTypePrefabDict { get; private set; }
     
+    public Dictionary<(RoomType, Direction), GameObject> DoorPrefabDict { get; private set; }
+    
+    
     public void Init()
     {
         InitMonster();
         InitLandscapeInRoom();
+        InitDoor();
     }
 
     void InitMonster()
@@ -95,6 +99,33 @@ public class ResourceManager : MonoBehaviour
             return null; // Return null or handle the error in an appropriate way
         }
     }
+
+    void InitDoor()
+    {
+        DoorPrefabDict = new();
+        var dict = new Dictionary<string, GameObject>();
+
+        foreach (var obj in Resources.LoadAll<GameObject>("Prefabs/Door/"))
+        {
+            if (!dict.ContainsKey(obj.name))
+            {
+                dict.Add(obj.name, obj);
+            }
+        }
+        
+        for (int rt = 0, cnt = Enum.GetNames(typeof(RoomType)).Length; rt < cnt; rt++)
+        {
+            for(int direc = 1; direc <= 4; direc++)
+            {
+                var key = $"Door_{(RoomType)rt}_{(Direction)direc}";
+                if (dict.ContainsKey(key))
+                {
+                    DoorPrefabDict.Add(((RoomType)rt, (Direction)direc), dict[key]);
+                }
+            }
+        }
+    }
+    
     public void DisplayMonsterPrefabHierarchy()
     {
         foreach (var kvp in MonsterPrefabDict)

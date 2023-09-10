@@ -10,16 +10,15 @@ public class RoomDoor : MonoBehaviour
     public Transform m_spawnPosition;
     
     private BaseRoom _mBaseRoom;
-    private RoomType m_roomType; // [TODO] 추후 문 타입에 따라, 문 모양 설정 필요
+    private Direction m_direction;
     [SerializeField] private GameObject m_desactiveObj;
-    [SerializeField] private Direction m_direction;
     
-    public void Init(BaseRoom baseRoom, RoomType _type)
+    public void Init(BaseRoom baseRoom, Direction _direction)
     {
         _mBaseRoom = baseRoom;
-        m_roomType = _type;
-
-        m_desactiveObj.SetActive(m_roomType == default);
+        m_direction = _direction;
+        
+        //m_desactiveObj.SetActive(m_roomType == default);
     }
 
     void OnTriggerStay2D(Collider2D _col)

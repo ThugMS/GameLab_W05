@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum RoomType 
 {
-    Ignore,
+    None,
     Start,
     Normal,
     NormalGift,

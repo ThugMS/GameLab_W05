@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -42,17 +44,37 @@ public class BaseRoom : MonoBehaviour
         m_roomManager = _roomManager;
         m_UIRoomByType = _uiRoomByType;
 
-        if(_room.m_landspace != null)
+        if (_room.m_landspace != null)
+        {
             Instantiate(_room.m_landspace, m_floor);
+        }
+        else throw new Exception($"{_room.Type}타입에 해당하는 landscape가 존재하지 않음");
 
+        m_doors = new RoomDoor[4];
         for (int i = 0; i < 4; i++)
         {
-            m_doors[i].Init(this, _types[i]);
+            var direction = (Direction)(i+1);
+            var roomType = _types[i];
+
+            if (roomType == RoomType.Start) roomType = RoomType.Normal;
+            
+            if (ResourceManager.Instance.DoorPrefabDict.ContainsKey((roomType, direction)))
+            {
+                var door =  ResourceManager.Instance.DoorPrefabDict[(roomType, direction)];
+                var obj = Instantiate(door, m_floor);
+                m_doors[i] = obj.GetComponent<RoomDoor>();
+                m_doors[i].Init(this, direction);
+            }
+            else
+            {
+                Debug.Log($"{_types[i]} 타입의 {direction} 방향 프리팹 정보를 찾을 수 없음");
+            }
         }
 
         IsClear = false ;
     }
-
+    
+    
     /// <summary>
     /// 해당 방으로 이동
     /// 만약, 방향이 입력되지 않았다면 중앙에서 생성
@@ -109,8 +131,8 @@ public class BaseRoom : MonoBehaviour
     {
         return direction switch
         {
-            Direction.Up    => m_doors[0].m_spawnPosition,
-            Direction.Down  => m_doors[1].m_spawnPosition,
+            Direction.Top    => m_doors[0].m_spawnPosition,
+            Direction.Bottom  => m_doors[1].m_spawnPosition,
             Direction.Left  => m_doors[2].m_spawnPosition,
             Direction.Right => m_doors[3].m_spawnPosition,
         };
