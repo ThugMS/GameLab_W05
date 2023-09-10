@@ -236,7 +236,7 @@ public class Archer : Player
         foreach (var iter in m_colliders)
         {
             BaseMonster monster;
-            Debug.Log("1");
+
             iter.TryGetComponent<BaseMonster>(out monster);
 
             monster.getDamage(m_power);

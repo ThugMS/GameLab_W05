@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9170705225452690178, guid: a0261a4cb0af642459b0029113d84164, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9170705225452690181, guid: a0261a4cb0af642459b0029113d84164, type: 3}
       propertyPath: m_RootOrder
@@ -404,7 +404,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9170705225452690178, guid: a0261a4cb0af642459b0029113d84164, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9170705225452690181, guid: a0261a4cb0af642459b0029113d84164, type: 3}
       propertyPath: m_RootOrder
@@ -521,6 +521,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 926554520, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
+      propertyPath: m_attackTerm
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 926554520, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
+      propertyPath: m_bossAnimator
+      value: 
+      objectReference: {fileID: 926554518}
+    - target: {fileID: 926554520, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
       propertyPath: m_attackBoxSize.x
       value: 5
       objectReference: {fileID: 0}
@@ -531,6 +539,10 @@ PrefabInstance:
     - target: {fileID: 6887085735099513768, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
       propertyPath: m_Name
       value: HoverBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 6887085735099513768, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6887085735099513771, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
       propertyPath: m_RootOrder
@@ -581,6 +593,11 @@ PrefabInstance:
 --- !u!1 &926554517 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6887085736123857872, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
+  m_PrefabInstance: {fileID: 926554516}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &926554518 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 926554518, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
   m_PrefabInstance: {fileID: 926554516}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &926554524
@@ -678,7 +695,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9170705225452690178, guid: a0261a4cb0af642459b0029113d84164, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9170705225452690181, guid: a0261a4cb0af642459b0029113d84164, type: 3}
       propertyPath: m_RootOrder

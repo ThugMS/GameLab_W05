@@ -21,6 +21,11 @@ public class HoverBossAnimation : MonoBehaviour
     {
         m_boss.AttackPlayer();
     }
+
+    public void EndAttack()
+    {
+        m_boss.EndAttack();
+    }
     #endregion
 
     #region PrivateMethod
