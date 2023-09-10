@@ -29,9 +29,6 @@ public class UIManager : SingleTone<UIManager>
     [SerializeField] private GameObject m_heartPrefab;
     [SerializeField] private List<Heart> hearts = new List<Heart>();
     
-    public int maxHeart = 5;
-    public int currentActiveHeart = 3;
-
     #endregion
 
     #region PrivateVariables
@@ -117,26 +114,62 @@ public class UIManager : SingleTone<UIManager>
     #endregion
     
     #region Heart
-    public void SetHeartUI()
+    public void SetHeartUI(float currentHP, float maxHP)
     {
         ClearHeartUI();
-        CreateHeartUI();
+        SetCurrentHpUI(currentHP, maxHP);
     }
-    public void DecreaseHeart(int decreaseAmount)
+    public void DecreaseHeart(float currentHP, float maxHP)
     {
         StartCoroutine(IE_HitEffect());
+        SetCurrentHpUI(currentHP, maxHP);
+    }
 
-        HeartStatus decreaseBy = (HeartStatus)decreaseAmount;
-        Heart lastActiveHeart = hearts.FindLast(heart => heart.GetHeartStatus() != HeartStatus.Empty);
+    public void PlayGameOverEffect()
+    {
+        StartCoroutine(IE_GameOverEffect());
+    }
 
-        HeartStatus newStatus = lastActiveHeart.GetHeartStatus() - (int)decreaseBy;
-        lastActiveHeart.SetHeartImage(newStatus < HeartStatus.Empty ? HeartStatus.Empty : newStatus);
-
-        if (hearts.All(heart => heart.GetHeartStatus() == HeartStatus.Empty))
+    private void SetCurrentHpUI(float currentHP, float maxHP)
+    {
+        int maxHeart = (int)System.Math.Truncate(maxHP / 4);
+        
+        for (int i = 1; i <= maxHeart; i++)
         {
-            StartCoroutine(IE_GameOverEffect());
+            Heart heart = GetOrCreateHeart(i - 1);
+            HeartStatus status = DetermineHeartStatus(currentHP, i);
+            heart.SetHeartImage(status);
+            heart.gameObject.SetActive(true);
         }
     }
+
+    private Heart GetOrCreateHeart(int idx)
+    {
+        if (hearts.Count > idx)
+        {
+            return hearts[idx];
+        }
+        GameObject newHeart = Instantiate(m_heartPrefab, m_heartPanel);
+        Heart heart = newHeart.GetComponent<Heart>();
+        hearts.Add(heart);
+        return heart;
+    }
+    
+    private HeartStatus DetermineHeartStatus(float currentHP, int heartIndex)
+    {
+        int heartHealth = heartIndex * 4;
+
+        if (currentHP >= heartHealth)
+        {
+            return HeartStatus.Full;
+        }
+        else
+        {
+            int remain = heartHealth - (int)currentHP;
+            return remain < 4 ? (HeartStatus)(4 - remain) : HeartStatus.Empty;
+        }
+    }
+
     #endregion
     
     #endregion
@@ -153,18 +186,6 @@ public class UIManager : SingleTone<UIManager>
         hearts.Clear();
     }
     
-    private void CreateHeartUI()
-    {
-        for (int i = 0; i < maxHeart; i++)
-        {
-            GameObject newHeart = Instantiate(m_heartPrefab, m_heartPanel);
-            Heart heart = newHeart.GetComponent<Heart>();
-            hearts.Add(heart);
-    
-            heart.SetHeartImage(i < currentActiveHeart ? HeartStatus.Full : HeartStatus.Empty);
-            newHeart.SetActive(true);
-        }
-    }
     #endregion
     
     private void CheckMonster()

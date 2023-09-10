@@ -23,7 +23,6 @@ public class GameManager : SingleTone<GameManager>
     void Start()
     {
         Time.timeScale = 1f;
-        UIManager.Instance.SetHeartUI();
     }
 
     #region PrivateVariables
