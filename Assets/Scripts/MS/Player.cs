@@ -228,7 +228,7 @@ public abstract class Player : MonoBehaviour
          }
     }
 
-    protected void SetCharType(PlayerClassType playerClassType)
+    protected void SetPlayerClassType(PlayerClassType playerClassType)
     {
         MPlayerClassType = playerClassType;
         
