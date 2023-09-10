@@ -21,6 +21,7 @@ public class KnightAttackAnimation : MonoBehaviour
     {
         m_knight.SetCanMove(true);
         m_knight.SetCanAct(true);
+        m_knight.EndAttackAnimation();
     }
     #endregion
 

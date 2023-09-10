@@ -69,11 +69,13 @@ public class Archer : Player
             m_isReadyArrow = true;
             m_canMove = false;
             ReadyArrow();
+            StartAttackState();
         }
 
         if(_context.canceled == true)
         {
             m_canMove = true;
+            EndAttack();
             ShootArrow();
             ResetArrowStat();
         }
@@ -85,7 +87,7 @@ public class Archer : Player
     
 
     protected override void Attack()
-    {
+    {   
         ReadyArrow();
     }
 
@@ -105,28 +107,59 @@ public class Archer : Player
 
     public void EndAttack()
     {
+        m_animator.SetBool("IsAttack", false);
         SetCanMove(true);
         SetCanAct(true);
+        m_isAct = false;
+        m_isReadyArrow = false;
+
+        if (m_inputDirection != Vector2.zero)
+        {
+            m_isMove = true;
+        }
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        if(m_isReadyArrow == true)
+        {
+            m_animator.SetFloat("XDir", m_Direction.x);
+            m_animator.SetFloat("YDir", m_Direction.y);
+        }
     }
     #endregion
 
     #region PrivateMethod
+    private void StartAttackState()
+    {
+        m_animator.SetBool("IsAttack", true);
+        SetCanMove(false);
+        SetCanAct(false);
+
+        m_isMove = false;
+        m_isAct = true;
+    }
+    
     private void ReadyArrow()
     {
         StartCoroutine(nameof(IE_ReadyArrowTime));
     }
 
     private void ShootArrow()
-    {   
-        if(m_canArrow == false)
-        {
+    {
+        StopCoroutine(nameof(IE_ReadyArrowTime));
+
+        if (m_canArrow == false)
+        {   
             return;
         }
             
-        StopCoroutine(nameof(IE_ReadyArrowTime));
+        
+        EndAttack();
 
         float angle = Vector2.SignedAngle(Vector2.up, m_Direction.normalized);
-        Debug.Log(angle);
 
         GameObject arrow = Instantiate(m_arrow, transform.position, Quaternion.Euler(0, 0, angle), transform);
         arrow.GetComponent<Arrow>().InitSetting(m_arrowCurSpeed, m_Direction.normalized);
@@ -225,5 +258,4 @@ public class Archer : Player
         AttackCheckCollider();
     }
     #endregion
-
 }

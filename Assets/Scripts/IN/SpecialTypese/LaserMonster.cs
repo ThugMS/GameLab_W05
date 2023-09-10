@@ -24,7 +24,7 @@ public class LaserMonster : RangedMonster
     protected override IEnumerator IE_Attack()
     {
         InitializeLaser();
-
+        base.m_animator.SetBool("isAttacking", true);
         base.TransitionToState(MonsterState.Stop);
 
         while (timer > 0)
@@ -42,15 +42,13 @@ public class LaserMonster : RangedMonster
             {
                 CheckForPlayerHit();
                 timer -= Time.deltaTime;
-                yield return new WaitForEndOfFrame();
             }
         }
 
         EndLaserAttack();
-        print("endCheck1");
         yield return new WaitForSeconds (laserTime);
         base.TransitionToState(MonsterState.Patrol);
-        print("endCheck2");
+        base.m_animator.SetBool("isAttacking", false);
         yield return null;
     }
 
