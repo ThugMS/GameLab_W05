@@ -15,6 +15,7 @@ public class BaseRoom : MonoBehaviour
     #region PrivateVaraibles
     private RoomManager m_roomManager;
     private UIRoom m_UIRoomByType;
+    private Room m_baseRoom;
 
     [Header("방 구성")]
     [SerializeField] private Transform m_floor;
@@ -48,6 +49,7 @@ public class BaseRoom : MonoBehaviour
     {
         m_roomManager = _roomManager;
         m_UIRoomByType = _uiRoomByType;
+        m_baseRoom = _room;
 
         if (_room.m_landspace != null)
         {
@@ -100,9 +102,12 @@ public class BaseRoom : MonoBehaviour
         if (IsClear == false)
         {
             m_UIRoomByType.Execute();
-            foreach (var door in m_doors)
+            if (m_baseRoom.Type != RoomType.Gift)
             {
-                door.CloseDoorAnime();
+                foreach (var door in m_doors)
+                {
+                    door.CloseDoorAnime();
+                }
             }
         }
 

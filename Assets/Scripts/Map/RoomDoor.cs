@@ -53,7 +53,7 @@ public class RoomDoor : MonoBehaviour
             m_animator.Play($"{openRoom}_Door_Open");
         }
     }
-
+    
     public void OpenDoorAfterAnime()
     {
         m_desactiveObj.SetActive(false);
