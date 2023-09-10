@@ -37,6 +37,11 @@ public class Archer : Player
     [SerializeField] protected Collider2D[] m_colliders;
     [SerializeField] protected Vector2 m_backStopBoxSize;
     [SerializeField] protected Vector2 m_backStepDir;
+
+    [Header("Effect")]
+    [SerializeField] private GameObject m_dashEffect;
+    [SerializeField] private GameObject m_abilityEffect;
+    [SerializeField] private GameObject m_abilityDamageEffect;
     #endregion
 
     #region Test
@@ -161,7 +166,7 @@ public class Archer : Player
 
         float angle = Vector2.SignedAngle(Vector2.up, m_Direction.normalized);
 
-        GameObject arrow = Instantiate(m_arrow, transform.position, Quaternion.Euler(0, 0, angle), transform);
+        GameObject arrow = Instantiate(m_arrow, transform.position, Quaternion.Euler(0, 0, angle));
         arrow.GetComponent<Arrow>().InitSetting(m_arrowCurSpeed, m_Direction.normalized);
     }
 
@@ -172,8 +177,26 @@ public class Archer : Player
         m_canArrow = false;
     }
 
+    private void SpawnEffect()
+    {
+        GameObject obj = Instantiate(m_dashEffect, transform.position, Quaternion.identity);
+        Animator animator = obj.GetComponent<Animator>();
+
+        float angle = Vector2.Angle(Vector2.right, m_backStepDir.normalized);
+        m_abilityEffect.SetActive(true);
+        m_abilityEffect.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        Vector3 pos = m_Direction.normalized * m_offset * 3;
+        m_abilityEffect.transform.position = transform.position + pos;
+
+        animator.SetFloat("Xdir", m_Direction.x);
+        animator.SetFloat("Ydir", m_Direction.y);
+
+    }
     private void BackStep()
     {
+        SpawnEffect();
+
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.5f, -m_backStepDir, m_backStepDis, m_backStepLayerMask);
         Tweener tween = null;
 
@@ -202,8 +225,6 @@ public class Archer : Player
         float angle = Vector2.Angle(Vector2.right, m_backStepDir.normalized);
 
         m_colliders = Physics2D.OverlapBoxAll(attackPos, m_backStopBoxSize, angle, m_attackLayerMask);
-
-        DamageAttackMonster();
     }
 
     public void DamageAttackMonster()
@@ -217,7 +238,10 @@ public class Archer : Player
             iter.TryGetComponent<BaseMonster>(out monster);
 
             monster.getDamage(m_power);
+
             cnt++;
+
+            Instantiate(m_abilityDamageEffect, monster.transform.position, Quaternion.identity);
 
             if (cnt >= 3)
             {
