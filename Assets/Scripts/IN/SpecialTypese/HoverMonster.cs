@@ -47,10 +47,10 @@ public class HoverMonster : BaseMonster
 
         if (Vector2.Distance(transform.position, base.targetPatrolPos) < 0.2f)
         {
-            base.m_timer -= Time.deltaTime;
-            if (m_timer < 0)
+            base.m_patrolTimer -= Time.deltaTime;
+            if (m_patrolTimer < 0)
             {
-                m_timer = m_patrolTime;
+                m_patrolTimer = m_patrolTime;
                 targetPatrolPos = base.getPatrolPos();
             }
         }
@@ -63,12 +63,18 @@ public class HoverMonster : BaseMonster
         transform.position = Vector2.MoveTowards(transform.position, m_playerObj.transform.position, m_speed * Time.deltaTime);
     }
 
-    protected override IEnumerator IE_KnockBack()
+    protected override IEnumerator IE_KnockBack(float knockbackPower)
     {
-        yield return new WaitForSeconds(base.m_knockBackTime);
-        base.isAttacked = false;
+        TransitionToState(MonsterState.Knockback);
+
+        Vector2 moveDirection = (transform.position - m_playerObj.transform.position).normalized;
+        Vector2 knockbackEndPosition = (Vector2)transform.position + moveDirection * knockbackPower;
+        m_knockbackTimer = m_knockbackTime;
+        m_rb.velocity = moveDirection * knockbackPower;
+        yield return new WaitForSeconds(m_knockbackTime);
+        m_rb.velocity = Vector2.zero;
         TransitionToState(MonsterState.Patrol);
-        yield return null;
+        isAttacked = false;
     }
 
 
