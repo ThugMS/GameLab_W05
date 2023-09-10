@@ -69,7 +69,7 @@ public class LaserMonster : RangedMonster
     {
         float t = 1f - (timer / laserWaitTime);
         float laserWidth = Mathf.Lerp(0f, 1f, t);
-        laserLine.startWidth = laserWidth;
+        laserLine.startWidth = 0.01f;
         laserLine.endWidth = laserWidth;
         laserLine.SetPosition(0, transform.position);
         laserLine.SetPosition(1, transform.position + playerLastDirection * 20);
