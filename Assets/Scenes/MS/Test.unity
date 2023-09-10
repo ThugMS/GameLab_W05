@@ -123,64 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &213331
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 213332}
-  - component: {fileID: 213333}
-  m_Layer: 0
-  m_Name: AttackCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &213332
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213331}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 926554524}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &213333
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213331}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.18533206, y: -0.52510726}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 4.912564, y: 2.6679876}
-  m_EdgeRadius: 0
 --- !u!1001 &190527100
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -191,6 +133,10 @@ PrefabInstance:
     - target: {fileID: 9170705225452690178, guid: a0261a4cb0af642459b0029113d84164, type: 3}
       propertyPath: m_Name
       value: hover (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9170705225452690178, guid: a0261a4cb0af642459b0029113d84164, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9170705225452690181, guid: a0261a4cb0af642459b0029113d84164, type: 3}
       propertyPath: m_RootOrder
@@ -456,6 +402,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: hover (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 9170705225452690178, guid: a0261a4cb0af642459b0029113d84164, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9170705225452690181, guid: a0261a4cb0af642459b0029113d84164, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -513,6 +463,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: hover (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 9170705225452690178, guid: a0261a4cb0af642459b0029113d84164, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9170705225452690181, guid: a0261a4cb0af642459b0029113d84164, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -567,9 +521,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 926554520, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
-      propertyPath: m_collider
-      value: 
-      objectReference: {fileID: 926554521}
+      propertyPath: m_attackBoxSize.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 926554520, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
+      propertyPath: m_attackBoxSize.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6887085735099513768, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
       propertyPath: m_Name
       value: HoverBoss
@@ -620,16 +578,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
---- !u!70 &926554521 stripped
-CapsuleCollider2D:
-  m_CorrespondingSourceObject: {fileID: 926554521, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
+--- !u!1 &926554517 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6887085736123857872, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
   m_PrefabInstance: {fileID: 926554516}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &926554524 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6887085735099513771, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
-  m_PrefabInstance: {fileID: 926554516}
+--- !u!114 &926554524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926554517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1607717e43ca8b40bd9ac5569493882, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_boss: {fileID: 0}
 --- !u!1001 &1163573406
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -709,6 +675,10 @@ PrefabInstance:
     - target: {fileID: 9170705225452690178, guid: a0261a4cb0af642459b0029113d84164, type: 3}
       propertyPath: m_Name
       value: hover (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9170705225452690178, guid: a0261a4cb0af642459b0029113d84164, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9170705225452690181, guid: a0261a4cb0af642459b0029113d84164, type: 3}
       propertyPath: m_RootOrder
@@ -872,6 +842,10 @@ PrefabInstance:
     - target: {fileID: 9170705225452690178, guid: a0261a4cb0af642459b0029113d84164, type: 3}
       propertyPath: m_Name
       value: hover
+      objectReference: {fileID: 0}
+    - target: {fileID: 9170705225452690178, guid: a0261a4cb0af642459b0029113d84164, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9170705225452690181, guid: a0261a4cb0af642459b0029113d84164, type: 3}
       propertyPath: m_RootOrder

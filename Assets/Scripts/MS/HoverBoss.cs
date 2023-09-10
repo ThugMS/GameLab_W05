@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class HoverBoss : MonoBehaviour
@@ -14,6 +15,7 @@ public class HoverBoss : MonoBehaviour
     #region PrivateVariables
     [SerializeField] private float m_attackTerm = 5f;
     [SerializeField] private Collider2D m_collider;
+    private int m_playerLayerMask;
 
     [Header("Status")]
     [SerializeField] private float m_health = 100f;
@@ -27,10 +29,25 @@ public class HoverBoss : MonoBehaviour
 
     [Header("Attack")]
     [SerializeField] private float m_fadeInCoolTime = 2f;
+    [SerializeField] private Vector2 m_attackBoxSize;
+    [SerializeField] private Collider2D m_playerCol;
+    #endregion
 
+    #region Test
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+
+        Gizmos.DrawWireCube(transform.position, m_attackBoxSize);
+    }
     #endregion
 
     #region PublicMethod
+    private void Start()
+    {
+        m_playerLayerMask = LayerMask.GetMask("Player");
+    }
+
     private void Update()
     {
         if (m_canAttack)
@@ -47,6 +64,19 @@ public class HoverBoss : MonoBehaviour
                 StartCoroutine(nameof(WaitAttackCoolTime));
             }
         }
+    }
+
+    public void AttackPlayer()
+    {
+        CheckCollider();
+
+        if (m_playerCol == null)
+            return;
+
+        Player player;
+        m_playerCol.TryGetComponent<Player>(out player);
+
+        player.GetDamage(m_power);
     }
 
     public void EndAttack()
@@ -76,6 +106,15 @@ public class HoverBoss : MonoBehaviour
             default:
                 break;
         }
+    }
+
+
+
+    private void CheckCollider()
+    {
+        m_playerCol = null;
+
+        m_playerCol = Physics2D.OverlapBox(transform.position, m_attackBoxSize, 0, m_playerLayerMask);
     }
 
     private void Attack()
