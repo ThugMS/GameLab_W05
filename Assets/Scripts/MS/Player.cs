@@ -8,6 +8,13 @@ using UnityEngine.Serialization;
 
 public abstract class Player : MonoBehaviour
 {
+    public enum CharType
+    {
+        Knight,
+        Archer,
+        Wizard
+    }
+    
     #region PublicVariables
     public enum ANIMATION_DIRECTION
     { Up, Right, Down, Left}
@@ -39,6 +46,9 @@ public abstract class Player : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] protected Animator m_animator;
+    
+    [Header("Type")]
+    protected CharType m_charType;
     #endregion
 
     #region PublicMethod
@@ -216,6 +226,13 @@ public abstract class Player : MonoBehaviour
          {
              UIManager.Instance.SetPlayerInput(input);
          }
+    }
+
+    protected void SetCharType(CharType charType)
+    {
+        m_charType = charType;
+        
+        UIManager.Instance.SetSKillSlot(m_charType);
     }
 
     #endregion

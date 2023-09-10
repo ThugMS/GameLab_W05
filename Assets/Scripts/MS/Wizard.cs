@@ -29,6 +29,7 @@ public class Wizard : Player
         base.Start();
 
         m_portLayerMask = LayerMask.GetMask("Wall", "Monster", "Boss");
+        SetCharType(CharType.Wizard);
     }
     protected override void SetStatus()
     {
