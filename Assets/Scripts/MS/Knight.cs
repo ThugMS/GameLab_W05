@@ -74,6 +74,8 @@ public class Knight : Player
     protected override void SetStatus()
     {
         m_power = 5f;
+        
+        OnStatusChanged();
     }
 
     protected override void Attack()
