@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5703694db15ce514189160b48ecfe5d5
+guid: 2bac3950f3a5f2d4e8e4896e9cea7d9f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -105,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WizardAttack1_0
+      name: death_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 256
-        width: 64
-        height: 64
+        y: 100
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e4cc44b25a99ee549b6972dc060641e6
-      internalID: 1845717206
+      spriteID: bdcbf38fd1ec46d4297147bee003992f
+      internalID: -1329383066
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WizardAttack1_1
+      name: death_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 256
-        width: 64
-        height: 64
+        x: 100
+        y: 100
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,20 +140,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6441b9783d48e9847ba9e930d15af369
-      internalID: -64956629
+      spriteID: de6d3ca43bfab8b4093902f549438815
+      internalID: 535356270
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WizardAttack1_2
+      name: death_2
       rect:
         serializedVersion: 2
-        x: 128
-        y: 256
-        width: 64
-        height: 64
+        x: 200
+        y: 100
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,20 +161,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5e2e3ded8ecc5934fac6ef25adaf8789
-      internalID: 167000712
+      spriteID: a53d425ff15036f47b228c39c3fb9c25
+      internalID: -2097043782
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WizardAttack1_3
+      name: death_3
       rect:
         serializedVersion: 2
-        x: 192
-        y: 256
-        width: 64
-        height: 64
+        x: 300
+        y: 100
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,20 +182,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 044a8574d4f0da54d925333e16728589
-      internalID: -2139350459
+      spriteID: ce288dd8918ad274e926bea3db16fba0
+      internalID: -615047794
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WizardAttack1_4
+      name: death_4
       rect:
         serializedVersion: 2
-        x: 256
-        y: 256
-        width: 64
-        height: 64
+        x: 400
+        y: 100
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,20 +203,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ed42a36913246b4398e075555177033
-      internalID: 264785502
+      spriteID: 0b3c9621525d85b4a8ed39a556c9a8db
+      internalID: -1551795718
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WizardAttack1_5
+      name: death_5
       rect:
         serializedVersion: 2
-        x: 0
-        y: 192
-        width: 64
-        height: 64
+        x: 500
+        y: 100
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,20 +224,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 667f6e684b6972045a15302cae49fb9b
-      internalID: -586122143
+      spriteID: 7c31d501594d76d489ef9a2aa675642f
+      internalID: -1020292548
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WizardAttack1_6
+      name: death_6
       rect:
         serializedVersion: 2
-        x: 64
-        y: 192
-        width: 64
-        height: 64
+        x: 600
+        y: 100
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -245,20 +245,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c825be74849bf904dab2567ca3587360
-      internalID: 1446754671
+      spriteID: 4f08ff385e53d204aa02de676862b188
+      internalID: 601970557
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WizardAttack1_7
+      name: death_7
       rect:
         serializedVersion: 2
-        x: 128
-        y: 192
-        width: 64
-        height: 64
+        x: 700
+        y: 100
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -266,20 +266,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d321c452b8b174c41a28e9e63f3663d3
-      internalID: -143398980
+      spriteID: d3f8bd71ec88a574986cd4fc1ea6a6f1
+      internalID: -779699685
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WizardAttack1_8
+      name: death_8
       rect:
         serializedVersion: 2
-        x: 192
-        y: 192
-        width: 64
-        height: 64
+        x: 800
+        y: 100
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -287,20 +287,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d5094fd40d9512a4893ce198d2f9a95f
-      internalID: 1083537860
+      spriteID: 6d3a61a2f29520b468d58cc54fd11d4d
+      internalID: 2094382475
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WizardAttack1_9
+      name: death_9
       rect:
         serializedVersion: 2
-        x: 256
-        y: 192
-        width: 64
-        height: 64
+        x: 900
+        y: 100
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -308,230 +308,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8cc212a99af0e7c4cba9822ba55b3386
-      internalID: 23667751
+      spriteID: 6bff3508c486dc64d99559595fd58194
+      internalID: 1316434718
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WizardAttack1_10
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2d756f1db2be1884e8608dbcab37c622
-      internalID: -1320268899
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WizardAttack1_11
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0ed856d8aa53a2e4ba0afb9b2978260f
-      internalID: -1071152953
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WizardAttack1_12
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2113940359151f849ab36a7b938dc203
-      internalID: -2036023893
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WizardAttack1_13
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2c24d7703ebcf894ebbc58f91009cb53
-      internalID: 1748977054
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WizardAttack1_14
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5a4bfd6c48875c44cb75b56dda265d27
-      internalID: -1659680172
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WizardAttack1_15
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2cfa1fa367449b04380d746b8112c1ca
-      internalID: 999978923
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WizardAttack1_16
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 45551615900752647bd123ab0c0c0c7a
-      internalID: 2045173638
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WizardAttack1_17
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2a9fa996f2c5c2f4391a5aac4f08817e
-      internalID: -370840338
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WizardAttack1_18
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f771dc10ddcbd1249af3d1d5d58a806f
-      internalID: 1340141614
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WizardAttack1_19
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b6f1c6a466de9324eb6c47cfd12363cd
-      internalID: 1672606674
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WizardAttack1_20
+      name: death_10
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -539,8 +329,155 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5e20906a342b3f640af89725dc7d64bb
-      internalID: -455750817
+      spriteID: 502876853fdbe8d499a8d18069dbeba9
+      internalID: 1132562913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: death_11
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 0
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5982d86231ef1949b69d2dbf091546c
+      internalID: -14134212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: death_12
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 0
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64544bd0d7df45b4e8b8c04e7bda814c
+      internalID: -911745870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: death_13
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 0
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a98bf66101b6d740a2f590da291f523
+      internalID: 215115498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: death_14
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 0
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1bd78377859b6543bbfcc6fa38ca20b
+      internalID: 442511900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: death_15
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 0
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5e7f9f745490ba42a75d07d1a64852e
+      internalID: 2000296585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: death_16
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 0
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0e01ec886943cb48819c4228dad7c0f
+      internalID: -511828818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: death_17
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 0
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9023d600d932fbf49a39829e3c1c2f56
+      internalID: 1124629294
       vertices: []
       indices: 
       edges: []
@@ -556,27 +493,24 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WizardAttack1_0: 1845717206
-      WizardAttack1_1: -64956629
-      WizardAttack1_10: -1320268899
-      WizardAttack1_11: -1071152953
-      WizardAttack1_12: -2036023893
-      WizardAttack1_13: 1748977054
-      WizardAttack1_14: -1659680172
-      WizardAttack1_15: 999978923
-      WizardAttack1_16: 2045173638
-      WizardAttack1_17: -370840338
-      WizardAttack1_18: 1340141614
-      WizardAttack1_19: 1672606674
-      WizardAttack1_2: 167000712
-      WizardAttack1_20: -455750817
-      WizardAttack1_3: -2139350459
-      WizardAttack1_4: 264785502
-      WizardAttack1_5: -586122143
-      WizardAttack1_6: 1446754671
-      WizardAttack1_7: -143398980
-      WizardAttack1_8: 1083537860
-      WizardAttack1_9: 23667751
+      death_0: -1329383066
+      death_1: 535356270
+      death_10: 1132562913
+      death_11: -14134212
+      death_12: -911745870
+      death_13: 215115498
+      death_14: 442511900
+      death_15: 2000296585
+      death_16: -511828818
+      death_17: 1124629294
+      death_2: -2097043782
+      death_3: -615047794
+      death_4: -1551795718
+      death_5: -1020292548
+      death_6: 601970557
+      death_7: -779699685
+      death_8: 2094382475
+      death_9: 1316434718
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

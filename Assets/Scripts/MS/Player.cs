@@ -111,6 +111,7 @@ public abstract class Player : MonoBehaviour
 
     protected virtual void Start()
     {
+        PlayerManager.instance.SetPlayer(gameObject);
         SetStatus();
     }
 
