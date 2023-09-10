@@ -1,8 +1,8 @@
 public enum Direction : int
 {
     Ignore = 0,
-    Up,
-    Down,
+    Top,
+    Bottom,
     Left,
     Right
 }

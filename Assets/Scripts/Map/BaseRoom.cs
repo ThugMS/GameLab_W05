@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -12,12 +15,12 @@ public class BaseRoom : MonoBehaviour
     #region PrivateVaraibles
     private RoomManager m_roomManager;
     private UIRoom m_UIRoomByType;
+    private Room m_baseRoom;
 
     [Header("방 구성")]
     [SerializeField] private Transform m_floor;
-    [SerializeField] private RoomDoor[] m_doors;
-    [SerializeField] private GameObject m_desactiveAllDoorObj;
-    public Transform m_monsterSpawnPositions;
+    [SerializeField] private Transform[] m_spawnPositons;
+    private RoomDoor[] m_doors;
 
     private bool m_isClear;
     public bool IsClear
@@ -26,8 +29,13 @@ public class BaseRoom : MonoBehaviour
         set
         {
             m_isClear = value;
-            if (m_isClear) OpenDoor();
-            else CloseDoor();
+            if (m_isClear == true)
+            {
+                foreach (var door in m_doors)
+                {
+                    door.OpenDoorAnime();
+                }
+            }
         }
     }
     #endregion
@@ -41,18 +49,38 @@ public class BaseRoom : MonoBehaviour
     {
         m_roomManager = _roomManager;
         m_UIRoomByType = _uiRoomByType;
+        m_baseRoom = _room;
 
-        if(_room.m_landspace != null)
+        if (_room.m_landspace != null)
+        {
             Instantiate(_room.m_landspace, m_floor);
+        }
+        else throw new Exception($"{_room.Type}타입에 해당하는 landscape가 존재하지 않음");
 
+        m_doors = new RoomDoor[4];
         for (int i = 0; i < 4; i++)
         {
-            m_doors[i].Init(this, _types[i]);
+            var direction = (Direction)( i + 1 );
+            var resourceRoomType = _types[i]; // Door tile of start type is same to normal door 
+            if (resourceRoomType == RoomType.Start) resourceRoomType = RoomType.Normal;
+            
+            if (ResourceManager.Instance.DoorPrefabDict.ContainsKey((resourceRoomType, direction)))
+            {
+                var door =  ResourceManager.Instance.DoorPrefabDict[(resourceRoomType, direction)];
+                var obj = Instantiate(door, m_floor);
+                m_doors[i] = obj.GetComponent<RoomDoor>();
+                m_doors[i].Init(this, _types[i], direction);
+            }
+            else
+            {
+                Debug.Log($"{_types[i]} 타입의 {direction} 방향 프리팹 정보를 찾을 수 없음");
+            }
         }
 
         IsClear = false ;
     }
-
+    
+    
     /// <summary>
     /// 해당 방으로 이동
     /// 만약, 방향이 입력되지 않았다면 중앙에서 생성
@@ -61,7 +89,7 @@ public class BaseRoom : MonoBehaviour
     {
         if (_direction != Direction.Ignore)
         {
-            var moveTransform = GetDirectionTr(_direction);
+            var moveTransform = m_spawnPositons[((int)_direction) - 1];
             _playerTr.position = moveTransform.position;
             
         }
@@ -74,6 +102,13 @@ public class BaseRoom : MonoBehaviour
         if (IsClear == false)
         {
             m_UIRoomByType.Execute();
+            if (m_baseRoom.Type != RoomType.Gift)
+            {
+                foreach (var door in m_doors)
+                {
+                    door.CloseDoorAnime();
+                }
+            }
         }
 
         UpdateCameraPosition();
@@ -94,26 +129,19 @@ public class BaseRoom : MonoBehaviour
     #endregion
 
     #region PrivateMethod
-    void OpenDoor()
-    {
-        m_desactiveAllDoorObj.SetActive(false);
-    }
-    
-    void CloseDoor()
-    {
-        m_desactiveAllDoorObj.SetActive(true);
-    }
 
-
-    Transform GetDirectionTr(Direction direction)
+    public List<Transform> GetMonsterSpawnPosition()
     {
-        return direction switch
+        List<Transform> trs = new();
+        var spawnPos = m_floor.transform.Find($"../SpawnPositions");
+        int childCnt = spawnPos.childCount;
+        
+        for (int i = 0; i < childCnt; i++)
         {
-            Direction.Up    => m_doors[0].m_spawnPosition,
-            Direction.Down  => m_doors[1].m_spawnPosition,
-            Direction.Left  => m_doors[2].m_spawnPosition,
-            Direction.Right => m_doors[3].m_spawnPosition,
-        };
+            trs.Add(spawnPos.GetChild(i));
+        }
+
+        return trs;
     }
     #endregion
 }

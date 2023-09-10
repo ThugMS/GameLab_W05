@@ -147,8 +147,8 @@ public abstract class BaseMonster : MonoBehaviour
     protected abstract void Attack();
     protected virtual void Dead()
     {
-        Destroy(gameObject);
         DeadListener?.Invoke();
+        Destroy(gameObject);
     }
     #endregion
     #region PrivateMethod

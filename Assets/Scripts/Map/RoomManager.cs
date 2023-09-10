@@ -156,7 +156,7 @@ public class RoomManager : MonoBehaviour
         maxDepthRooms[bossIdx].m_landspace = ResourceManager.Instance.GetRandomLandscapeByType(RoomType.Boss);
         
         // 특수 맵 설정
-        var ignoreRooms = _rooms.Where(x => x.Type == RoomType.Ignore).ToList();
+        var ignoreRooms = _rooms.Where(x => x.Type == RoomType.None).ToList();
         int specialRoomCount =  _rooms.Count / 5; // [TODO] 5개 방당 1개 꼴로 설정. RoomManager 머지 후 해당 값 수정 필요
         for (int i = 0; i < specialRoomCount; i++)
         {
@@ -167,7 +167,7 @@ public class RoomManager : MonoBehaviour
         }
         
         // 기본 맵 설정
-        foreach (var room in _rooms.Where(x=> x.Type == RoomType.Ignore))
+        foreach (var room in _rooms.Where(x=> x.Type == RoomType.None))
         {
             room.Type = RoomType.Normal;
             room.m_landspace = ResourceManager.Instance.GetRandomLandscapeByType(RoomType.Normal);
@@ -391,8 +391,8 @@ public class RoomManager : MonoBehaviour
     {
         return _direction switch
         {
-            Direction.Up => Direction.Down,
-            Direction.Down => Direction.Up,
+            Direction.Top => Direction.Bottom,
+            Direction.Bottom => Direction.Top,
             Direction.Left => Direction.Right,
             Direction.Right => Direction.Left,
         };
@@ -404,8 +404,8 @@ public class RoomManager : MonoBehaviour
 
         var nextVector =  _leaveDirection switch
         {
-            Direction.Up    => new Vector2Int(vec.x + 1, vec.y),
-            Direction.Down  => new Vector2Int(vec.x - 1, vec.y),
+            Direction.Top    => new Vector2Int(vec.x + 1, vec.y),
+            Direction.Bottom  => new Vector2Int(vec.x - 1, vec.y),
             Direction.Left  => new Vector2Int(vec.x, vec.y - 1),
             Direction.Right => new Vector2Int(vec.x, vec.y + 1),
         };

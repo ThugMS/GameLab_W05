@@ -6,18 +6,12 @@ using UnityEngine;
 public class UINormalRoom : UIRoom
 {
     private List<Transform> m_spawnPositions;
-    private int m_monsterCount;
+    [SerializeField] private int m_monsterCount;
     
     public override void Init(Room _baseRoom)
     {
         base.Init(_baseRoom);
-        
-        var spawnPosParentTr = GetComponent<BaseRoom>().m_monsterSpawnPositions;
-        m_spawnPositions = new();
-        for (int i = 0, cnt = spawnPosParentTr.childCount; i < cnt; i++)
-        {
-            m_spawnPositions.Add(spawnPosParentTr.GetChild(i));
-        }
+        m_spawnPositions = GetComponent<BaseRoom>().GetMonsterSpawnPosition();
     }
 
     public override void Execute()
