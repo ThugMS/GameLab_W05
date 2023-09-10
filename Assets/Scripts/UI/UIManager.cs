@@ -29,9 +29,6 @@ public class UIManager : SingleTone<UIManager>
     [SerializeField] private GameObject m_heartPrefab;
     [SerializeField] private List<Heart> hearts = new List<Heart>();
     
-    public int maxHeart = 5;
-    public int currentActiveHeart = 3;
-    private int m_currentHP;
     #endregion
 
     #region PrivateVariables
