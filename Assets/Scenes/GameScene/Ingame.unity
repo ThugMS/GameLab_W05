@@ -480,6 +480,17 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
+--- !u!114 &1233011093 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4580370397122515382, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+  m_PrefabInstance: {fileID: 1568583384}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 389bd8378c38c964085d86d61063125d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1438675049
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,6 +554,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1452594993538551103, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1452594993538551103, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1452594993538551103, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2261700495631768977, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2695062877702970123, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -659,9 +686,25 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Exit
       objectReference: {fileID: 0}
-    - target: {fileID: 7902247606718848930, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 4580370397122515382, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+      propertyPath: m_gamePadImagePrefab
+      value: 
+      objectReference: {fileID: 5442466841203709634, guid: 11b4445f7908a8742a3f2da70c67b21a, type: 3}
+    - target: {fileID: 4580370397122515382, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+      propertyPath: m_keyBoardImagePrefab
+      value: 
+      objectReference: {fileID: 5442466841203709634, guid: 12fa14efd777dab48a2e6a2f9e594e55, type: 3}
+    - target: {fileID: 5948893787769011997, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+      propertyPath: padImage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948893787769011997, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+      propertyPath: playerInput
+      value: 
+      objectReference: {fileID: 1736723173}
+    - target: {fileID: 5948893787769011997, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+      propertyPath: keyboardImgae
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8139589849011570555, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
       propertyPath: m_AnchorMax.y
@@ -675,7 +718,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5948893787769011997, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
 --- !u!1 &1568583385 stripped
 GameObject:
@@ -795,6 +839,17 @@ MonoBehaviour:
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &1736723173 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4138420507533337175, guid: 6c7ec323b7662df40a021b79dbfe4e57, type: 3}
+  m_PrefabInstance: {fileID: 1974107273}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1758589753
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,6 +945,14 @@ PrefabInstance:
       propertyPath: panel.Array.data[3]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
+      propertyPath: m_keyHints.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
+      propertyPath: m_keyHints.Array.data[0]
+      value: 
+      objectReference: {fileID: 1233011093}
     - target: {fileID: 7155325743458241430, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
       propertyPath: m_RootOrder
       value: 1

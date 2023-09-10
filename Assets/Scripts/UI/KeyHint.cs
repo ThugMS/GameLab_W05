@@ -1,71 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class KeyHint : MonoBehaviour
 {
-    #region PublicVariables
-    #endregion
-
-    #region PrivateVariables
-    [SerializeField] private Image keyImage;
-    [SerializeField] private GameObject keyArrowImagePrefab, keyAImagePrefab, keySImagePrefab;
-    [SerializeField] private GameObject padArrowImagePrefab, padAImagePrefab, padSImagePrefab;
-
-    private Dictionary<ActionType, GameObject> keyboardActionPrefabDict;
-    private Dictionary<ActionType, GameObject> padActionPrefabDict;
-
-    #endregion
-
-    private void Awake()
-    {
-        keyboardActionPrefabDict = new Dictionary<ActionType, GameObject>
-        {
-            { ActionType.Move, keyArrowImagePrefab },
-            { ActionType.Attack, keyAImagePrefab },
-            { ActionType.Ability, keySImagePrefab },
-        };
-
-        padActionPrefabDict = new Dictionary<ActionType, GameObject>
-        {
-            { ActionType.Move, padArrowImagePrefab },
-            { ActionType.Attack, padAImagePrefab },
-            { ActionType.Ability, padSImagePrefab },
-        };
-    }
-    
-    #region PublicMethod
-    public void UpdateKeyImage(ActionType actionType, InputType inputType)
-    {
-        if (keyImage.transform.childCount > 0)
-        {
-            Destroy(keyImage.transform.GetChild(0).gameObject);
-        }
-
-        GameObject newPrefab = inputType == InputType.Keyboard ? 
-            keyboardActionPrefabDict[actionType] : 
-            padActionPrefabDict[actionType];
-
-        Instantiate(newPrefab, keyImage.transform);
-    }
-    
-    #endregion
-
-    #region PrivateMethod
+   #region PrivateVariables
+   [SerializeField] private GameObject m_keyBoardImagePrefab;
+   [SerializeField] private GameObject m_gamePadImagePrefab;
+   private GameObject m_keyBoardImage;
+   private GameObject m_gamePadImage;
    
-    #endregion
-}
-
-public enum ActionType
-{
-    Move,
-    Attack,
-    Ability,
-}
-
-public enum InputType
-{
-    Keyboard,
-    Pad,
+   private bool m_isGamePad;
+   #endregion
+   
+   #region PublicMethod
+   
+   private void Awake()
+   {
+      m_keyBoardImage = Instantiate(m_keyBoardImagePrefab, transform);
+      m_gamePadImage = Instantiate(m_gamePadImagePrefab, transform);
+      
+      m_keyBoardImage.SetActive(true);
+      m_gamePadImage.SetActive(false);
+   }
+   
+   public void OnControlsChanged(PlayerInput input)
+   {
+      if (input == null || m_keyBoardImage == null )
+         return;
+      m_isGamePad = input.currentControlScheme.Equals("Gamepad");
+      m_keyBoardImage.SetActive(!m_isGamePad);
+      m_gamePadImage.SetActive(m_isGamePad);
+   }
+   #endregion
 }

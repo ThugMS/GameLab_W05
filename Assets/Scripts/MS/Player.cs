@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -197,5 +198,16 @@ public abstract class Player : MonoBehaviour
     {
         return m_isMove;
     }
+
+    private void OnEnable()
+    {
+         var input = GetComponent<PlayerInput>();
+         
+         if(input != null)
+         {
+             UIManager.Instance.SetPlayerInput(input);
+         }
+    }
+
     #endregion
 }

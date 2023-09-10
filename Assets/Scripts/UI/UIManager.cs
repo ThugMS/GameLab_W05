@@ -2,19 +2,20 @@ using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
-public class UIManager : MonoBehaviour
+public class UIManager : SingleTone<UIManager>
 {
-    public static UIManager Instance;
-    
     #region PublicVariables
     [Header("Keybinding Images")]
-    [SerializeField] private KeyHint keyHint;
+    [SerializeField] private KeyHint[] m_keyHints;
 
-    private InputType currentInputType;
+    private PlayerInput m_playerInput;
     
     [Header("Panel")]
     [SerializeField] private List<GameObject> m_panel;
@@ -36,52 +37,35 @@ public class UIManager : MonoBehaviour
     #region PrivateVariables
     #endregion
     
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-    }
-    
-    private void Start()
-    {
-        currentInputType = DetectInputType();
-        UpdateUI(currentInputType);
-    }
+
     private void Update()
     {
-        InputType newInputType = DetectInputType();
-        if (newInputType != currentInputType)
-        {
-            UpdateUI(newInputType);
-            currentInputType = newInputType;
-        }
         CheckMonster();
     }
-    
-    #region PublicMethod
-    #region HintImage
 
-    private void UpdateUI(InputType inputType)
+    public void SetPlayerInput(PlayerInput input)
     {
-        foreach (ActionType actionType in Enum.GetValues(typeof(ActionType)))
+        FieldInfo fieldInfo = typeof(PlayerInput).GetField("m_ControlsChangedEvent", BindingFlags.NonPublic | BindingFlags.Instance);
+        if (fieldInfo != null)
         {
-            keyHint.UpdateKeyImage(actionType, inputType);
+            PlayerInput.ControlsChangedEvent controlsChangedAction = (PlayerInput.ControlsChangedEvent)fieldInfo.GetValue(input);
+
+            controlsChangedAction.RemoveListener(OnControlsChanged);
+            controlsChangedAction.AddListener(OnControlsChanged);
+
+            fieldInfo.SetValue(input, controlsChangedAction);
         }
     }
-
-    private InputType DetectInputType()
+    
+    
+    #region PublicMethod
+    #region KeyHint
+    public void OnControlsChanged(PlayerInput input)
     {
-        if (Input.anyKey)
+        foreach (var keyHint in m_keyHints)
         {
-            return InputType.Keyboard;
+            keyHint.OnControlsChanged(input);
         }
-        else if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-        {
-            return InputType.Pad;
-        }
-        return currentInputType;
     }
     
     #endregion
