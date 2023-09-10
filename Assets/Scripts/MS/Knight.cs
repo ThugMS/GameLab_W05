@@ -108,6 +108,7 @@ public class Knight : Player
 
         m_attackLayerMask = LayerMask.GetMask("Monster", "Boss");
         m_dashLayerMask = LayerMask.GetMask("Wall");
+        SetPlayerClassType(PlayerClassType.Knight);
     }
 
     public void DamageAttackMonster()

@@ -28,6 +28,11 @@ public class UIManager : SingleTone<UIManager>
     [SerializeField] private Transform m_heartPanel;
     [SerializeField] private GameObject m_heartPrefab;
     [SerializeField] private List<Heart> hearts = new List<Heart>();
+
+    [Header("SkillSlot")] 
+    [SerializeField] private Image m_attackSlot;
+    [SerializeField] private Image m_abilitySlot;
+    
     
     #endregion
 
@@ -111,6 +116,19 @@ public class UIManager : SingleTone<UIManager>
             }
         }
     }
+    #endregion
+
+    #region SkillSlot
+
+    public void SetSKillSlot(Player.PlayerClassType playerClassType)
+    {
+        var attackIcon = ResourceManager.Instance.GetSkillSlotAttackIcon(playerClassType);
+        var abilityIcon = ResourceManager.Instance.GetSkillSlotAbilityIcon(playerClassType);
+        
+        m_attackSlot.sprite = attackIcon;
+        m_abilitySlot.sprite = abilityIcon;
+    }
+
     #endregion
     
     #region Heart
