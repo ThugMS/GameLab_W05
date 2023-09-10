@@ -1,15 +1,21 @@
+using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
-public class UIManager : MonoBehaviour
+public class UIManager : SingleTone<UIManager>
 {
-    public static UIManager Instance;
-    
     #region PublicVariables
+    [Header("Keybinding Images")]
+    [SerializeField] private KeyHint[] m_keyHints;
+
+    private PlayerInput m_playerInput;
     
     [Header("Panel")]
     [SerializeField] private List<GameObject> m_panel;
@@ -31,20 +37,38 @@ public class UIManager : MonoBehaviour
     #region PrivateVariables
     #endregion
     
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-    }
-    
+
     private void Update()
     {
         CheckMonster();
     }
+
+    public void SetPlayerInput(PlayerInput input)
+    {
+        FieldInfo fieldInfo = typeof(PlayerInput).GetField("m_ControlsChangedEvent", BindingFlags.NonPublic | BindingFlags.Instance);
+        if (fieldInfo != null)
+        {
+            PlayerInput.ControlsChangedEvent controlsChangedAction = (PlayerInput.ControlsChangedEvent)fieldInfo.GetValue(input);
+
+            controlsChangedAction.RemoveListener(OnControlsChanged);
+            controlsChangedAction.AddListener(OnControlsChanged);
+
+            fieldInfo.SetValue(input, controlsChangedAction);
+        }
+    }
+    
     
     #region PublicMethod
+    #region KeyHint
+    public void OnControlsChanged(PlayerInput input)
+    {
+        foreach (var keyHint in m_keyHints)
+        {
+            keyHint.OnControlsChanged(input);
+        }
+    }
+    
+    #endregion
     
     #region Scene
     public void LoadIngameScene()
@@ -118,6 +142,7 @@ public class UIManager : MonoBehaviour
     #endregion
     
     #region PrivateMethod
+    
     #region SetHeartUI
     private void ClearHeartUI()
     {
