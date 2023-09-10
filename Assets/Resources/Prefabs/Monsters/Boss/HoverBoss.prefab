@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6887085735099513771}
   - component: {fileID: 926554520}
   - component: {fileID: 926554521}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HoverBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,17 +46,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b2ff2446159b67429c01ef506b130b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stage: 0
+  isOn: 0
+  m_detectingLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  m_currentState: 0
+  m_speed: 0
+  m_range: 0
+  m_health: 100
+  m_basicAttack: 0
+  m_damageRefreshTime: 0
+  m_knockbackTime: 0
+  m_patrolTime: 0
   m_isAttack: 0
   m_canAttack: 1
   m_isDead: 0
   m_isStartAttackIE: 0
   m_attackTerm: 5
   m_collider: {fileID: 926554521}
-  m_health: 100
   m_power: 0.5
   m_curSpeed: 5
-  m_animator: {fileID: 926554518}
+  m_bossAnimator: {fileID: 926554518}
   m_fadeInCoolTime: 2
+  m_attackBoxSize: {x: 5, y: 2}
+  m_playerCol: {fileID: 0}
 --- !u!70 &926554521
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -84,6 +98,7 @@ GameObject:
   - component: {fileID: 6887085736123857875}
   - component: {fileID: 6887085736123857874}
   - component: {fileID: 926554518}
+  - component: {fileID: 926554524}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -179,3 +194,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &926554524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6887085736123857872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1607717e43ca8b40bd9ac5569493882, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_boss: {fileID: 0}

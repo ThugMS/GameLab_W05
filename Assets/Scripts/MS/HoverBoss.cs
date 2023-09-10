@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class HoverBoss : MonoBehaviour
+public class HoverBoss : BaseMonster
 {
     #region PublicVariables
     public bool m_isAttack = false;
@@ -14,45 +15,55 @@ public class HoverBoss : MonoBehaviour
     #region PrivateVariables
     [SerializeField] private float m_attackTerm = 5f;
     [SerializeField] private Collider2D m_collider;
+    private int m_playerLayerMask;
 
     [Header("Status")]
-    [SerializeField] private float m_health = 100f;
     [SerializeField] private float m_power = 0.5f;
 
     [Header("Move")]
     [SerializeField] private float m_curSpeed = 5f;
 
     [Header("Animation")]
-    [SerializeField] private Animator m_animator;
+    [SerializeField] private Animator m_bossAnimator;
 
     [Header("Attack")]
     [SerializeField] private float m_fadeInCoolTime = 2f;
+    [SerializeField] private Vector2 m_attackBoxSize;
+    [SerializeField] private Collider2D m_playerCol;
+    #endregion
 
+    #region Test
     #endregion
 
     #region PublicMethod
-    private void Update()
+    private void Start()
     {
-        if (m_canAttack)
-        {
-            m_canAttack = false;
-            m_isAttack = true;
-            ChoicePattern();
-        }
-        else
-        {
-            if (m_isStartAttackIE == false)
-            {
-                m_isStartAttackIE = true;
-                StartCoroutine(nameof(WaitAttackCoolTime));
-            }
-        }
+        m_playerLayerMask = LayerMask.GetMask("Player");
+        init();
+    }
+
+    public void AttackPlayer()
+    {
+        CheckCollider();
+
+        if (m_playerCol == null)
+            return;
+
+        Player player;
+        m_playerCol.TryGetComponent<Player>(out player);
+
+        player.GetDamage(m_power);
     }
 
     public void EndAttack()
     {
         m_isAttack = false;
         m_isStartAttackIE = false;
+    }
+
+    public override void init()
+    {
+        isOn = true;
     }
     #endregion
 
@@ -78,12 +89,40 @@ public class HoverBoss : MonoBehaviour
         }
     }
 
-    private void Attack()
+    private void AttackCheck()
     {
-        m_animator.SetTrigger("FadeAttack");
-        m_collider.enabled = false;
-        StartCoroutine(nameof(FadeInCoolTime));
+        if(m_isAttack == true)
+        {
+            return;
+        }
+
+        if (m_canAttack)
+        {
+            m_canAttack = false;
+            m_isAttack = true;
+            ChoicePattern();
+        }
+        else
+        {
+            if (m_isStartAttackIE == false)
+            {
+                m_isStartAttackIE = true;
+                StartCoroutine(nameof(WaitAttackCoolTime));
+            }
+        }
     }
+
+    private void CheckCollider()
+    {
+        m_playerCol = null;
+
+        m_playerCol = Physics2D.OverlapBox(transform.position, m_attackBoxSize, 0, m_playerLayerMask);
+    }
+
+    //private void Attack()
+    //{
+        
+    //}
 
     private void AttackTranslate()
     {
@@ -95,6 +134,8 @@ public class HoverBoss : MonoBehaviour
     private IEnumerator WaitAttackCoolTime()
     {
         yield return new WaitForSeconds(m_attackTerm);
+
+        m_canAttack = true;
     }
 
     private IEnumerator FadeInCoolTime()
@@ -102,7 +143,29 @@ public class HoverBoss : MonoBehaviour
         yield return new WaitForSeconds(m_fadeInCoolTime);
 
         AttackTranslate();
-        m_animator.SetTrigger("FadeIn");
+        m_bossAnimator.SetTrigger("FadeIn");
+    }
+
+    protected override void stateUpdate()
+    {
+        AttackCheck();
+    }
+
+    protected override void Patrol()
+    {
+        
+    }
+
+    protected override void Pursuit()
+    {
+        
+    }
+
+    protected override void Attack()
+    {
+        m_bossAnimator.SetTrigger("FadeAttack");
+        m_collider.enabled = false;
+        StartCoroutine(nameof(FadeInCoolTime));
     }
     #endregion
 }

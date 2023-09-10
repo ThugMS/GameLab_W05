@@ -78,17 +78,12 @@ public abstract class BaseMonster : MonoBehaviour
 
     public void getDamage(float _damage)
     {
-        TransitionToState(MonsterState.Knockback);
+        //TransitionToState(MonsterState.Knockback);
         Health -= _damage;
-        Vector2 moveDirection = (transform.position - m_playerObj.transform.position).normalized;
-        if (m_agent.isActiveAndEnabled == true)
-        {
-            m_agent.SetDestination((Vector2)transform.position + moveDirection);
-        }
-        StartCoroutine(IE_KnockBack(2f));
+
         if (Health <= 0)
         {
-            TransitionToState(MonsterState.Dead);
+            //TransitionToState(MonsterState.Dead);
             Dead();
         }
     }
@@ -128,7 +123,7 @@ public abstract class BaseMonster : MonoBehaviour
         }
     }
     protected abstract void stateUpdate();
-    public void init()
+    public virtual void init()
     {
         m_agent = GetComponent<NavMeshAgent>();
         m_agent.updateRotation = false;
@@ -150,7 +145,7 @@ public abstract class BaseMonster : MonoBehaviour
     protected abstract void Patrol();
     protected abstract void Pursuit(); 
     protected abstract void Attack();
-    protected void Dead()
+    protected virtual void Dead()
     {
         DeadListener?.Invoke();
         Destroy(gameObject);
