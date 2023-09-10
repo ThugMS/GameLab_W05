@@ -12,10 +12,6 @@ public class HoverMonster : BaseMonster
     #endregion
 
     #region PublicMethod
-    protected virtual void Start()
-    {
-        base.init();
-    }
 
     protected override void stateUpdate()
     {

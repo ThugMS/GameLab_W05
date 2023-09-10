@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class HoverDashMonster : HoverMonster
+public class HoverDashMonster : MeleeDashMonster
 {
     [SerializeField] private float m_dashStartDistance;
     private float m_originalSpeed;
@@ -22,10 +22,18 @@ public class HoverDashMonster : HoverMonster
         switch (m_currentState)
         {
             case MonsterState.Patrol:
+                base.m_animator.SetFloat("X", (targetPatrolPos - (Vector3)transform.position).x);
+                base.m_animator.SetFloat("Y", (targetPatrolPos - (Vector3)transform.position).y);
+                if (playerWithinRange())
+                {
                     TransitionToState(MonsterState.Pursuit);
+                }
+                Patrol();
                 break;
             case MonsterState.Pursuit:
-                if (!canSeePlayer() && playerWithinRange())
+                base.m_animator.SetFloat("X", (base.m_playerObj.transform.position - (Vector3)transform.position).x);
+                base.m_animator.SetFloat("Y", (base.m_playerObj.transform.position - (Vector3)transform.position).y);
+                if (!playerWithinRange())
                 {
                     Patrol();
                 }
@@ -34,31 +42,12 @@ public class HoverDashMonster : HoverMonster
                     Pursuit();
                 }
                 break;
+            case MonsterState.Knockback:
+                base.m_animator.SetFloat("X", (base.m_playerObj.transform.position - (Vector3)transform.position).x);
+                base.m_animator.SetFloat("Y", (base.m_playerObj.transform.position - (Vector3)transform.position).y);
+                print("Knockback");
+                break;
         }
-    }
-
-    protected override void Pursuit()
-    {
-            if (m_isDashing == false)
-            {
-                dashDirection = (base.m_playerObj.transform.position - transform.position).normalized;
-
-                StartCoroutine(nameof(IE_Dash));
-            }
-    }
-
-    private IEnumerator IE_Dash()
-    {
-        m_originalSpeed = base.m_agent.speed;
-        m_isDashing = true;
-        base.m_rb.AddForce(dashDirection * m_maxDashForce);
-        m_isDashing = false;
-
-
-        yield return new WaitForSeconds(m_dashCoolTime);
-        base.m_rb.velocity = Vector2.zero;
-        yield return new WaitForSeconds(1f);
-
     }
 
     #endregion

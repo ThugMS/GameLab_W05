@@ -11,10 +11,6 @@ public class MeleeMonster : BaseMonster
     #endregion
 
     #region PrivateVariables
-    protected virtual void Start()
-    {
-        init();
-    }
 
     protected override void stateUpdate()
     {
