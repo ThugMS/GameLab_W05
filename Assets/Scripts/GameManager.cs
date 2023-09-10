@@ -41,6 +41,7 @@ public class GameManager : SingleTone<GameManager>
         List<RoomType> roomTypes = new() { RoomType.Gift, RoomType.NormalGift };
         m_keywordRoomType = roomTypes[Random.Range(0, roomTypes.Count)];
     }
+    
     public void GameOver()
     {
         isGameOver = true;
