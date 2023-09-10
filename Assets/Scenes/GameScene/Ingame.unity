@@ -322,6 +322,11 @@ MonoBehaviour:
   - {fileID: 6857720738556830180, guid: e8d883c780d9c1b4480a3ab965a934a1, type: 3}
   m_reward: {fileID: 5894662077695566755, guid: 3db9e5c8efd0dbf4e8d0da74627e750a, type: 3}
   m_boss: {fileID: 6785976041359516808, guid: 66455a3ae37770f44b8fa907948cdc95, type: 3}
+--- !u!1 &868692626 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6743297401910781974, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+  m_PrefabInstance: {fileID: 1568583384}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1072962336
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -706,6 +711,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6743297401910781974, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8139589849011570555, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -908,6 +917,10 @@ PrefabInstance:
       propertyPath: m_lifePrefab
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
+      propertyPath: m_skillPaenl
+      value: 
+      objectReference: {fileID: 868692626}
     - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
       propertyPath: m_abilitySlot
       value: 
