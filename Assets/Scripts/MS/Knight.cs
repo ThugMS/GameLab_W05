@@ -28,6 +28,10 @@ public class Knight : Player
     [SerializeField] private Vector2 m_endPos;
     [SerializeField] private float m_moveDis;
     [SerializeField] private Vector2 m_dashDir;
+
+    [Header("Effect")]
+    [SerializeField] private GameObject m_dashEffect;
+    [SerializeField] private Vector3 m_dashPosition;
     #endregion
 
     #region Test
@@ -122,8 +126,10 @@ public class Knight : Player
     {
         m_animator.ResetTrigger("Attack");
         m_isAct = false;
-        
-        if(m_inputDirection != Vector2.zero)
+        SetCanAct(true);
+        SetCanMove(true);
+
+        if (m_inputDirection != Vector2.zero)
         {
             m_isMove = true;
         }
@@ -154,6 +160,9 @@ public class Knight : Player
 
     private RaycastHit2D Dash()
     {
+
+        m_dashPosition = transform.position;
+
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.5f, m_dashDir, m_dashDis, m_dashLayerMask);
         Tweener tween = null;
         m_startPos = transform.position;
@@ -178,6 +187,15 @@ public class Knight : Player
         return hit;
     }
 
+    private void SpawnEffect()
+    {
+        GameObject obj = Instantiate(m_dashEffect, m_dashPosition, Quaternion.identity);
+        Animator animator = obj.GetComponent<Animator>();
+
+        animator.SetFloat("Xdir", m_dashDir.x);
+        animator.SetFloat("Ydir", m_dashDir.y);
+    }
+
     private void DashAttackCheckCollider()
     {
         m_colliders = null;
@@ -196,7 +214,9 @@ public class Knight : Player
     {
         yield return _tween.WaitForCompletion();
 
+        SpawnEffect();
         DashAttackCheckCollider();
+        EndAttackAnimation();
         m_animator.SetTrigger("AbilityRight");
     }
     #endregion
