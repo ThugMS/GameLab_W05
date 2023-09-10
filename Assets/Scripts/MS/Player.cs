@@ -12,7 +12,8 @@ public abstract class Player : MonoBehaviour
     {
         Knight,
         Archer,
-        Wizard
+        Wizard,
+        None
     }
     
     #region PublicVariables
@@ -46,9 +47,15 @@ public abstract class Player : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] protected Animator m_animator;
+
+    [Header("PlusStatus")] 
+    protected float m_plusHP;
+    protected float m_plusPower;
+    protected float m_plusSpeed;
+    
     
     [Header("Type")]
-    protected PlayerClassType MPlayerClassType;
+    protected PlayerClassType m_PlayerClassType;
     #endregion
 
     #region PublicMethod
@@ -177,7 +184,7 @@ public abstract class Player : MonoBehaviour
     {
         SetMoveSpeed(_arrow);
 
-        Vector2 moveAmount = m_inputDirection.normalized * m_curSpeed * Time.deltaTime;
+        Vector2 moveAmount = m_inputDirection.normalized * (m_curSpeed * Time.deltaTime);
         Vector2 nextPosition = m_rigidbody.position + moveAmount;
 
         m_rigidbody.MovePosition(nextPosition);
@@ -220,19 +227,33 @@ public abstract class Player : MonoBehaviour
 
     private void OnEnable()
     {
-         var input = GetComponent<PlayerInput>();
+         SetPlayerInput();
+         OnStatusChanged();
+    }
+
+    private void SetPlayerInput()
+    {
+        var input = GetComponent<PlayerInput>();
          
-         if(input != null)
-         {
-             UIManager.Instance.SetPlayerInput(input);
-         }
+        if(input != null)
+        {
+            UIManager.Instance.SetPlayerInput(input);
+        }
     }
 
     protected void SetPlayerClassType(PlayerClassType playerClassType)
     {
-        MPlayerClassType = playerClassType;
+        m_PlayerClassType = playerClassType;
         
-        UIManager.Instance.SetSKillSlot(MPlayerClassType);
+        UIManager.Instance.SetSKillSlot(m_PlayerClassType);
+        UIManager.Instance.SetProfileImage(m_PlayerClassType);
+        
+    }
+
+    // TODO : 스탯 변할 때 마다 호출
+    protected void OnStatusChanged()
+    {
+        UIManager.Instance.SetProfileStatus(m_maxHP, m_power, m_maxSpeed, m_plusHP, m_plusPower, m_plusSpeed);
     }
 
     #endregion

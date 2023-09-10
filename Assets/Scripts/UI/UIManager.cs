@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -34,6 +35,16 @@ public class UIManager : SingleTone<UIManager>
     [SerializeField] private Image m_attackSlot;
     [SerializeField] private Image m_abilitySlot;
     
+    [Header("Profile")]
+    [SerializeField] private Image m_profileImage;
+    [SerializeField] private TextMeshProUGUI m_heartText;
+    [SerializeField] private TextMeshProUGUI m_powerText;
+    [SerializeField] private TextMeshProUGUI m_speedText;
+    
+    [SerializeField] private TextMeshProUGUI m_plusHeartText;
+    [SerializeField] private TextMeshProUGUI m_plusPowerText;
+    [SerializeField] private TextMeshProUGUI m_plusSpeedText;
+
     
     #endregion
 
@@ -133,6 +144,27 @@ public class UIManager : SingleTone<UIManager>
     }
 
     #endregion
+
+    #region Status
+
+    public void SetProfileStatus(float baseHP, float basePower, float baseSpeed, float plusHP, float plusPower, float plusSpeed)
+    {
+        m_heartText.text = CalcHeartNum(baseHP).ToString();
+        m_powerText.text = String.Format("{0:0.#}", basePower);
+        m_speedText.text = String.Format("{0:0.#}", baseSpeed);
+        
+        m_plusHeartText.text = "+" + CalcHeartNum(plusHP).ToString();
+        m_plusPowerText.text = String.Format("+{0:0.#}", plusPower);
+        m_plusSpeedText.text = String.Format("+{0:0.#}", plusSpeed);
+    }
+
+    public void SetProfileImage(Player.PlayerClassType playerClassType)
+    {
+        var profileImage = ResourceManager.Instance.GetPlayerClassProfileIcon(playerClassType);
+        m_profileImage.sprite = profileImage;
+    }
+
+    #endregion
     
     #region Heart
     public void SetHeartUI(float currentHP, float maxHP)
@@ -153,7 +185,7 @@ public class UIManager : SingleTone<UIManager>
 
     private void SetCurrentHpUI(float currentHP, float maxHP)
     {
-        int maxHeart = (int)System.Math.Truncate(maxHP / 4);
+        int maxHeart = CalcHeartNum(maxHP);
         
         for (int i = 1; i <= maxHeart; i++)
         {
@@ -162,6 +194,11 @@ public class UIManager : SingleTone<UIManager>
             heart.SetHeartImage(status);
             heart.gameObject.SetActive(true);
         }
+    }
+
+    private int CalcHeartNum(float hp)
+    {
+        return (int)System.Math.Truncate(hp / 4);
     }
 
     private Heart GetOrCreateHeart(int idx)

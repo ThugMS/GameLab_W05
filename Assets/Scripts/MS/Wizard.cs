@@ -33,7 +33,8 @@ public class Wizard : Player
     }
     protected override void SetStatus()
     {
-
+        
+        OnStatusChanged();
     }
 
     protected override void Attack()
