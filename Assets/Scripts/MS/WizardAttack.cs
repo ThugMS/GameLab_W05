@@ -14,11 +14,16 @@ public class WizardAttack : MonoBehaviour
     private int m_stopLayerMask;
 
     [Header("Status")]
+    [SerializeField] private bool m_isReady = false;
+    [SerializeField] private float m_readyTime = 0.5f;
     [SerializeField] private float m_curSpeed = 0f;
-    [SerializeField] private float m_addSpeed = 0.1f;
+    [SerializeField] private float m_addSpeed = 0.3f;
     [SerializeField] private float m_maxSpeed = 20f;
     [SerializeField] private float m_power = 5f;
     [SerializeField] private Vector2 m_direction;
+
+    [Header("Animation")]
+    [SerializeField] private Animator m_animator;
     #endregion
 
     #region PublicMethod
@@ -28,6 +33,8 @@ public class WizardAttack : MonoBehaviour
 
         m_enemyLayerMask = LayerMask.GetMask("Monster", "Boss");
         m_stopLayerMask = LayerMask.GetMask("Wall", "Monster", "Boss");
+
+        StartCoroutine(nameof(IE_SetReady));
     }
 
     public void InitSetting(Vector2 _dir)
@@ -37,8 +44,11 @@ public class WizardAttack : MonoBehaviour
 
     private void FixedUpdate()
     {
-        SetSpeed();
-
+        if (m_isReady == true)
+        {
+            SetSpeed();
+        }
+        
         Vector2 moveAmount = m_direction * m_curSpeed * Time.deltaTime;
         Vector2 nextPosition = m_rigidbody.position + moveAmount;
 
@@ -51,6 +61,10 @@ public class WizardAttack : MonoBehaviour
     {
         if ((m_stopLayerMask & (1 << collision.gameObject.layer)) != 0)
         {
+            m_animator.SetTrigger("Hit");
+            m_curSpeed = 0;
+            m_isReady = false;
+
             if ((m_enemyLayerMask & (1 << collision.gameObject.layer)) != 0)
             {
                 BaseMonster monster;
@@ -59,11 +73,7 @@ public class WizardAttack : MonoBehaviour
                 transform.GetComponent<Collider2D>().enabled = false;
 
                 monster.getDamage(m_power);
-
-                transform.SetParent(monster.transform);
             }
-
-            Destroy(gameObject);
         }
     }
 
@@ -75,6 +85,12 @@ public class WizardAttack : MonoBehaviour
         {
             m_curSpeed = m_maxSpeed;
         }
+    }
+
+    private IEnumerator IE_SetReady()
+    {
+        yield return new WaitForSeconds(m_readyTime);
+        m_isReady = true;
     }
     #endregion
 }
