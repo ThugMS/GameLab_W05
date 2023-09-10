@@ -44,7 +44,7 @@ public abstract class BaseMonster : MonoBehaviour
     protected float damageRefreshTimer;
 
     [Header("Time")]
-    [SerializeField] protected float m_knockBackTime;
+    [SerializeField] protected float m_knockbackTime;
     [SerializeField] protected float m_patrolTime;
     //==Positions
     protected Vector3 m_initialPosition;
@@ -54,16 +54,28 @@ public abstract class BaseMonster : MonoBehaviour
     protected float m_knockbackTimer;
     protected float m_patrolTimer;
 
-    [Header("KnockBack")]
-
-    [SerializeField] private float knockbackSpeed;
-    [SerializeField] private float knockbackTime;
-    [SerializeField] private float knockbackDistance;
     
     #endregion
     #region PublicMethod
     //====================================InteractionWithPlayer========================
     public float Health { get => m_health; set => m_health = value; }
+    public void getDamage(float _damage, float knockbackPower)
+    {
+        TransitionToState(MonsterState.Knockback);
+        Health -= _damage;
+        Vector2 moveDirection = (transform.position - m_playerObj.transform.position).normalized;
+        if (m_agent.isActiveAndEnabled == true)
+        {
+            m_agent.SetDestination((Vector2)transform.position + moveDirection);
+        }
+        StartCoroutine(IE_KnockBack(knockbackPower));
+        if (Health <= 0)
+        {
+            TransitionToState(MonsterState.Dead);
+            Dead();
+        }
+    }
+
     public void getDamage(float _damage)
     {
         TransitionToState(MonsterState.Knockback);
@@ -73,7 +85,7 @@ public abstract class BaseMonster : MonoBehaviour
         {
             m_agent.SetDestination((Vector2)transform.position + moveDirection);
         }
-        StartCoroutine(nameof(IE_KnockBack));
+        StartCoroutine(IE_KnockBack(2f));
         if (Health <= 0)
         {
             TransitionToState(MonsterState.Dead);
@@ -125,7 +137,7 @@ public abstract class BaseMonster : MonoBehaviour
         m_playerObj = GameObject.FindGameObjectWithTag("Player");
         m_rb = GetComponent<Rigidbody2D>();
         targetPatrolPos = transform.position;
-        m_knockbackTimer = m_knockBackTime;
+        m_knockbackTimer = m_knockbackTime;
         damageRefreshTimer = 0.1f;
         m_patrolTimer = m_patrolTime;
         targetPatrolPos = getPatrolPos();
@@ -146,17 +158,17 @@ public abstract class BaseMonster : MonoBehaviour
     #endregion
     #region PrivateMethod
     //======================KnockBack=============================
-    protected virtual IEnumerator IE_KnockBack()
+    protected virtual IEnumerator IE_KnockBack(float knockbackDistance)
     {
         TransitionToState(MonsterState.Knockback);
 
         Vector2 moveDirection = (transform.position - m_playerObj.transform.position).normalized;
         Vector2 knockbackEndPosition = (Vector2)transform.position + moveDirection * knockbackDistance;
         m_agent.enabled = false;
-        m_knockbackTimer = knockbackTime;
+        m_knockbackTimer = m_knockbackTime;
 
         m_rb.velocity = moveDirection * knockbackDistance;
-        yield return new WaitForSeconds(knockbackTime);
+        yield return new WaitForSeconds(m_knockbackTime);
         m_rb.velocity = Vector2.zero;
         //      transform.position = knockbackEndPosition;
         m_agent.enabled = true;

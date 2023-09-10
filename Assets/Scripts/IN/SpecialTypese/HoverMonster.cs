@@ -63,12 +63,18 @@ public class HoverMonster : BaseMonster
         transform.position = Vector2.MoveTowards(transform.position, m_playerObj.transform.position, m_speed * Time.deltaTime);
     }
 
-    protected override IEnumerator IE_KnockBack()
+    protected override IEnumerator IE_KnockBack(float knockbackPower)
     {
-        yield return new WaitForSeconds(base.m_knockBackTime);
-        base.isAttacked = false;
+        TransitionToState(MonsterState.Knockback);
+
+        Vector2 moveDirection = (transform.position - m_playerObj.transform.position).normalized;
+        Vector2 knockbackEndPosition = (Vector2)transform.position + moveDirection * knockbackPower;
+        m_knockbackTimer = m_knockbackTime;
+        m_rb.velocity = moveDirection * knockbackPower;
+        yield return new WaitForSeconds(m_knockbackTime);
+        m_rb.velocity = Vector2.zero;
         TransitionToState(MonsterState.Patrol);
-        yield return null;
+        isAttacked = false;
     }
 
 

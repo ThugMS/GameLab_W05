@@ -2272,6 +2272,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3814634668259530181, guid: 7594296276745d5408f49196ed1034c4, type: 3}
+      propertyPath: m_knockbackTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814634668259530181, guid: 7594296276745d5408f49196ed1034c4, type: 3}
       propertyPath: knockbackDistance
       value: 5
       objectReference: {fileID: 0}
@@ -3984,11 +3988,8 @@ MonoBehaviour:
   m_health: 1
   m_basicAttack: 2
   m_damageRefreshTime: 0
-  m_knockBackTime: 2
+  m_knockbackTime: 0
   m_patrolTime: 2
-  knockbackSpeed: 0
-  knockbackTime: 0
-  knockbackDistance: 0
   m_dashStartDistance: 5
   m_maxDashForce: 10
   m_dashDuration: 1
