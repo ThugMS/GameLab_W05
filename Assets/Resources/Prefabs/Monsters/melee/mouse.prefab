@@ -113,6 +113,9 @@ MonoBehaviour:
   m_health: 10
   m_knockBackTime: 1
   m_patrolTime: 2
+  knockbackSpeed: 0
+  knockbackTime: 0
+  knockbackDistance: 0
 --- !u!50 &6785976041359516803
 Rigidbody2D:
   serializedVersion: 4
@@ -121,7 +124,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6785976041359516808}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

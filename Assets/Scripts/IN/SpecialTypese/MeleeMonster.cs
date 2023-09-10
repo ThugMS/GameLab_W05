@@ -18,8 +18,7 @@ public class MeleeMonster : BaseMonster
 
     protected override void stateUpdate()
     {
-
-
+        print(canSeePlayer() + "/" + playerWithinRange());
         switch (m_currentState)
         {
             case MonsterState.Patrol:
@@ -34,7 +33,7 @@ public class MeleeMonster : BaseMonster
             case MonsterState.Pursuit:
                 base.m_animator.SetFloat("X", (base.m_playerObj.transform.position - (Vector3)transform.position).x);
                 base.m_animator.SetFloat("Y", (base.m_playerObj.transform.position - (Vector3)transform.position).y);
-                if (!canSeePlayer() && playerWithinRange())
+                if (!canSeePlayer() || !playerWithinRange())
                 {
                     Patrol();
                 }
@@ -42,6 +41,9 @@ public class MeleeMonster : BaseMonster
                 {
                     Pursuit();
                 }
+                break;
+            case MonsterState.Knockback:
+                print("Knockback");
                 break;
         }
     }
@@ -67,9 +69,6 @@ public class MeleeMonster : BaseMonster
             }
         }
     }
-
-
-
 
     protected override void Attack()
     {

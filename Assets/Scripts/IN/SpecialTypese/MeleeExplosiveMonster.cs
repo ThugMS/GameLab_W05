@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class MeleeExplosiveMonster : MeleeMonster
@@ -20,6 +21,7 @@ public class MeleeExplosiveMonster : MeleeMonster
         switch (base.m_currentState)
         {
             case MonsterState.Patrol:
+
                 if (canSeePlayer() && playerWithinRange())
                 {
                     TransitionToState(MonsterState.Pursuit);
@@ -27,6 +29,7 @@ public class MeleeExplosiveMonster : MeleeMonster
                 Patrol();
                 break;
             case MonsterState.Pursuit:
+
                 if (!canSeePlayer() && playerWithinRange())
                 {
                     Patrol();
@@ -45,6 +48,8 @@ public class MeleeExplosiveMonster : MeleeMonster
                 break;
         }
     }
+
+
 
     protected IEnumerator IE_Attack()
     {
