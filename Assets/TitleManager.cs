@@ -10,7 +10,7 @@ public class TitleManager : MonoBehaviour
     public void LoadIngameScene()
     {
         SceneManager.LoadScene("Ingame");
-        GameManager.Instance.GameStart();
+        //GameManager.Instance.GameStart();
     }
     #region PrivateVariables
     #endregion
