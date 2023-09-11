@@ -3,14 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class RoomManager : MonoBehaviour
 {
     #region PublicVariables
-    [Header("External Connection")]
-    public Transform player;// 샘플
+
+    public static RoomManager Instance;
+    public GameObject player => PlayerManager.instance.GetPlayer();
     #endregion
     
     #region PrivateVariables
@@ -38,6 +40,19 @@ public class RoomManager : MonoBehaviour
 
 
     #region PublicMethod
+
+    public void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void Init(int _roomCount)
     {
         // Sample();
@@ -59,7 +74,7 @@ public class RoomManager : MonoBehaviour
     {
         BaseRoom nextBaseRoom = GetVisitRoom(leavedBaseRoom, leavedDirection);
         var nextDirection = GetOppositeDirection(leavedDirection);
-        nextBaseRoom.VisitRoom(player, nextDirection);
+        nextBaseRoom.VisitRoom(player.transform, nextDirection);
     }
     
     public void ClearMap()
@@ -71,6 +86,11 @@ public class RoomManager : MonoBehaviour
                 Destroy(room.gameObject);
             } 
         }
+    }
+
+    public void RemoveSelectedClassObject()
+    {
+        m_StartBaseRoom.GetComponent<UIStartRoom>().CompleteSelect();
     }
     #endregion
 
@@ -383,7 +403,7 @@ public class RoomManager : MonoBehaviour
     /// </summary>
     void InitPlayerPosition()
     {
-        m_StartBaseRoom.VisitRoom(player);
+        m_StartBaseRoom.VisitRoom(player.transform);
     }
 
 

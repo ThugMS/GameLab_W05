@@ -91,8 +91,8 @@ public class PlayerManager : MonoBehaviour
                 Instantiate(m_wizard, spawnPos, Quaternion.identity);
                 break;
         }
-        //ToDo : Bae - delete class choide panel;
-
+        
+        RoomManager.Instance.RemoveSelectedClassObject();
     }
     #endregion
 
