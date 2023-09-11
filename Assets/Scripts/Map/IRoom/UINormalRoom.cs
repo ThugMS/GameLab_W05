@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.Resources;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,6 +16,9 @@ public class UINormalRoom : UIRoom
 
     public override void Execute()
     {
+        //GetStageInfo
+        GameManager gameManager = GameManager.Instance;
+        int currenetStage = gameManager.m_currentStage;
         // 몬스터 스폰 위치 지정
         m_spawnPositions = new();
         var mTr = transform.GetComponentInChildren<MonsterSpawnPosition>().transform;
@@ -22,11 +26,11 @@ public class UINormalRoom : UIRoom
         {
             m_spawnPositions.Add(mTr.GetChild(i));
         }
-        
-        
         // 몬스터  
         MonsterType monsterType = GameManager.Instance.m_keywordMonsterType;
-        ResourceManager.Instance.MonsterPrefabDict.TryGetValue(monsterType, out List<GameObject> targetMonsters);
+        var temp = ResourceManager.Instance.MonsterPrefabDict;
+
+        temp[currenetStage].TryGetValue(monsterType, out List<GameObject> targetMonsters);
 
         RoomManager roomManager = GameObject.FindGameObjectWithTag("RoomManager").GetComponent<RoomManager>();
         int monsterCount = Random.Range(roomManager.minMonsterCount, roomManager.maxMonsterCount);
