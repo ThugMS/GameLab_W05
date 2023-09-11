@@ -37,8 +37,6 @@ public class MeleeExplosiveMonster : MeleeMonster
         TransitionToState(MonsterState.Dead);
         Dead();
         yield return new WaitForFixedUpdate();
-        Destroy(gameObject);
-        yield return null;
     }
     #endregion
 
