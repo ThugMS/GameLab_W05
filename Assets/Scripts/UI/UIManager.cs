@@ -238,6 +238,11 @@ public class UIManager : SingleTone<UIManager>
         StartCoroutine(IE_HitEffect());
         SetCurrentHpUI(currentHP, maxHP);
     }
+    public void IncreaseHeart(float currentHP, float maxHP)
+    {
+        //TODO : 뭔가 이펙트
+        SetCurrentHpUI(currentHP, maxHP);
+    }
 
     public void PlayGameOverEffect()
     {

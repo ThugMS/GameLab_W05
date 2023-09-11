@@ -11,11 +11,20 @@ public class UINormalRoom : UIRoom
     public override void Init(Room _baseRoom)
     {
         base.Init(_baseRoom);
-        m_spawnPositions = GetComponent<BaseRoom>().GetMonsterSpawnPosition();
     }
 
     public override void Execute()
     {
+        // 몬스터 스폰 위치 지정
+        m_spawnPositions = new();
+        var mTr = transform.GetComponentInChildren<MonsterSpawnPosition>().transform;
+        for (int i = 0; i < mTr.childCount; i++)
+        {
+            m_spawnPositions.Add(mTr.GetChild(i));
+        }
+        
+        
+        // 몬스터  
         MonsterType monsterType = GameManager.Instance.m_keywordMonsterType;
         ResourceManager.Instance.MonsterPrefabDict.TryGetValue(monsterType, out List<GameObject> targetMonsters);
 
@@ -76,7 +85,7 @@ public class UINormalRoom : UIRoom
 
         if (m_baseRoom.Type == RoomType.NormalGift)
         {
-            var gift = TestSample.Instance.m_reward;
+            var gift = RoomManager.Instance.m_giftPrefab;
             Instantiate(gift, transform.position, Quaternion.identity);
         }
     }
