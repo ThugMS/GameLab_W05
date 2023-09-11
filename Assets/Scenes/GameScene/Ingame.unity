@@ -842,6 +842,7 @@ MonoBehaviour:
   maxMonsterLevel: 0
   minMonsterCount: 3
   maxMonsterCount: 5
+  m_giftPrefab: {fileID: 3981137732339922436, guid: 9aa5f64f2d9f3d4488061aa510455103, type: 3}
 --- !u!4 &1438675051
 Transform:
   m_ObjectHideFlags: 0
@@ -1336,6 +1337,10 @@ MonoBehaviour:
   m_meleeBossPrefab: {fileID: 5960275969316563203, guid: d23c3ddd0f96a3048911e071294cd43a, type: 3}
   m_rangedBossPrefab: {fileID: 5960275969316563203, guid: d23c3ddd0f96a3048911e071294cd43a, type: 3}
   m_hoverBossPrefab: {fileID: 6887085735099513768, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
+  m_jamPrefabs:
+  - {fileID: 6731045985857082654, guid: 176fe52257539754daaa58661be584fc, type: 3}
+  - {fileID: 1436218789933595590, guid: 7aa104a9a43aa5745803291cd9605257, type: 3}
+  - {fileID: 2403370471375016803, guid: a1fb5c8a3389e4a4b95f9743b65a1f3d, type: 3}
 --- !u!4 &1758589755
 Transform:
   m_ObjectHideFlags: 0

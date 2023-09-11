@@ -129,21 +129,4 @@ public class BaseRoom : MonoBehaviour
         m_roomManager.MovePlayer(this, _inDirection);
     }
     #endregion
-
-    #region PrivateMethod
-
-    public List<Transform> GetMonsterSpawnPosition()
-    {
-        List<Transform> trs = new();
-        var spawnPos = m_floor.transform.Find($"../SpawnPositions");
-        int childCnt = spawnPos.childCount;
-        
-        for (int i = 0; i < childCnt; i++)
-        {
-            trs.Add(spawnPos.GetChild(i));
-        }
-
-        return trs;
-    }
-    #endregion
 }

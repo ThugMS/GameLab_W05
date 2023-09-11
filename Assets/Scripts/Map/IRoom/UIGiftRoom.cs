@@ -10,7 +10,7 @@ public class UIGiftRoom : UIRoom
 
     public override void Execute()
     {
-        var gift = TestSample.Instance.m_reward;
+        var gift = RoomManager.Instance.m_giftPrefab;
         Instantiate(gift, transform.position, quaternion.identity);
         End();
     }
