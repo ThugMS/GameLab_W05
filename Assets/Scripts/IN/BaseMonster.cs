@@ -109,7 +109,7 @@ public abstract class BaseMonster : MonoBehaviour
         }
     }
 
-    private IEnumerator IE_TweenDamage()
+    protected IEnumerator IE_TweenDamage()
     {
         transform.DOPunchScale(new Vector3(-0.05f, -0.05f, 0f), 0.2f);
 
@@ -209,7 +209,6 @@ public abstract class BaseMonster : MonoBehaviour
         m_rb.velocity = moveDirection * knockbackDistance;
         yield return new WaitForSeconds(m_knockbackTime);
         m_rb.velocity = Vector2.zero;
-        //      transform.position = knockbackEndPosition;
         m_agent.enabled = true;
         TransitionToState(MonsterState.Patrol);
         isAttacked = false;
