@@ -47,7 +47,7 @@ public class Wizard : Player
 
         CreateAttack();
         StartAttackState();
-        StartCoroutine(nameof(IE_DashCoolTime));
+
     }
 
     protected override void Ability()
@@ -67,6 +67,7 @@ public class Wizard : Player
 
         Port();
         UIManager.Instance.GetSkillCoolTime(m_coolTime);
+        StartCoroutine(nameof(IE_DashCoolTime));
     }
 
     public void EndAttackState()
