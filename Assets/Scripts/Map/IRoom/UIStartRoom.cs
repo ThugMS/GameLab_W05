@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class UIStartRoom : UIRoom
 {
+    [SerializeField] private GameObject m_selectedClassObject;
+    
     public override void Init(Room _baseRoom)
     {
         base.Init(_baseRoom);
@@ -11,12 +13,12 @@ public class UIStartRoom : UIRoom
 
     public override void Execute()
     {
-        StartCoroutine(TempWait());
+        m_selectedClassObject = transform.Find("../Room(Clone)/Floor/Floor(Clone)/ChoosePlayerClass").gameObject;
     }
-    
-    IEnumerator TempWait()
+
+    public void CompleteSelect()
     {
-        yield return new WaitForSeconds(5f);
+        m_selectedClassObject.SetActive(false);
         End();
     }
 
