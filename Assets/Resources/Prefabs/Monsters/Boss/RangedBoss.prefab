@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5960275969316563207}
   - component: {fileID: 2763522638975108569}
   - component: {fileID: 7101488909159803836}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RangedBoss
   m_TagString: Monster
   m_Icon: {fileID: 0}

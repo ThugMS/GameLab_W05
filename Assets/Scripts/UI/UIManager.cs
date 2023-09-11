@@ -56,11 +56,13 @@ public class UIManager : SingleTone<UIManager>
     [Header("KeywordPanel")]
     [SerializeField] private GameObject m_keywordPanel;
     [SerializeField] private TextMeshProUGUI m_monsterTypeText;
+    [SerializeField] private TextMeshProUGUI m_roomTypeText;
+    [SerializeField] private TextMeshProUGUI m_rewardTypeText;
     #endregion
 
     #region PrivateVariables
     #endregion
-    
+
 
     private void Update()
     {
@@ -143,7 +145,26 @@ public class UIManager : SingleTone<UIManager>
                 break;
         }
     }
-    
+
+    public void UpdateRoomTypeText(RoomType _roomType)
+    {
+        switch (_roomType)
+        {
+            case RoomType.Normal:
+                m_roomTypeText.text = "고난";
+                break;
+            case RoomType.Gift:
+                m_roomTypeText.text = "축복";
+                break;
+            case RoomType.NormalGift:
+                m_roomTypeText.text = "쟁취";
+                break;
+            default:
+                m_roomTypeText.text = "Unknown";
+                break;
+        }
+    }
+
     #region Panel
     public void ShowGameOverPanel()
     {
