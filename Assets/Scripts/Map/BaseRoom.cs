@@ -97,7 +97,7 @@ public class BaseRoom : MonoBehaviour
         }
         else
         {
-            _playerTr.position = transform.position;
+            _playerTr.position = transform.position + new Vector3(0, -2.5f, 0);
         }
 
         // 클리어가 되지 않은 맵의 경우, 맵 특성에 맞게 동작 수행
