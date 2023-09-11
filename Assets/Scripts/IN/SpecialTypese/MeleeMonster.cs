@@ -84,15 +84,20 @@ public class MeleeMonster : BaseMonster
 
     protected override bool playerWithinRange()
     {
-        if(m_isHovering == true)
-        {
-            return true;
-        }
         if (Vector2.Distance(transform.position, m_playerObj.transform.position) < m_range)
         {
             return true;
+        } else { return false; }
+    }
+
+    protected override bool canSeePlayer()
+    {
+        if (m_isHovering == false)
+        {
+            return (raycastPlayer().CompareTag("Player")) ? true : false;
         }
-        return false;
+        else
+            return true;
     }
 
 

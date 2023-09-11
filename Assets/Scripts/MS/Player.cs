@@ -298,13 +298,13 @@ public abstract class Player : MonoBehaviour
     protected virtual void Awake()
     {
         TryGetComponent<Rigidbody2D>(out m_rigidbody);
+        PlayerManager.instance.SetPlayer(gameObject);
+        SetStatus();
+        UIManager.Instance.SetHeartUI(m_currentHP, FinalHP);
     }
 
     protected virtual void Start()
     {
-        PlayerManager.instance.SetPlayer(gameObject);
-        SetStatus();
-        UIManager.Instance.SetHeartUI(m_currentHP, FinalHP);
     }
 
     protected virtual void FixedUpdate()
