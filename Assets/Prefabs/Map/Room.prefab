@@ -928,6 +928,37 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!1 &3177442054410587458
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8024936572178119406}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8024936572178119406
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3177442054410587458}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3350617661772655292}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3350617661772655293
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,6 +988,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8024936572178119406}
   - {fileID: 3350617662354378920}
   - {fileID: 768524289188879407}
   - {fileID: 5917342092714859960}
@@ -976,7 +1008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c7b12194bb27254f91a98e696d0818a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_floor: {fileID: 0}
+  m_floor: {fileID: 8024936572178119406}
   m_spawnPositons:
   - {fileID: 6540459588893550825}
   - {fileID: 4998490479710659874}
@@ -1019,7 +1051,7 @@ Transform:
   - {fileID: 6610447347680807642}
   - {fileID: 5734513360897054674}
   m_Father: {fileID: 3350617661772655292}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &3350617662354378925
 Tilemap:
@@ -2751,7 +2783,7 @@ Transform:
   - {fileID: 8256689104384585869}
   - {fileID: 1733229861389585162}
   m_Father: {fileID: 3350617661772655292}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5077038338241809962
 GameObject:
@@ -6882,7 +6914,7 @@ Transform:
   - {fileID: 7840246490464203882}
   - {fileID: 6120290887546149919}
   m_Father: {fileID: 3350617661772655292}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8359085850323834292
 GameObject:
@@ -6978,7 +7010,7 @@ Transform:
   - {fileID: 6164791368085397335}
   - {fileID: 2888828591181415265}
   m_Father: {fileID: 3350617661772655292}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1269312464745368610
 MonoBehaviour:
