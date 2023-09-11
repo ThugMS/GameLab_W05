@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -16,6 +17,11 @@ public class GemButton : MonoBehaviour
     private const string Speed_Explain_Text = "이동속도 3 증가";
 
     private Player m_player;
+
+    public void Start()
+    {
+        GetComponent<Button>().onClick.AddListener(OnClick);
+    }
 
     public void Init(Player player, GemType gemType)
     {
@@ -41,7 +47,6 @@ public class GemButton : MonoBehaviour
     public void OnClick()
     {
         m_player.ChangeGem(m_gemType);
-        
         UIManager.Instance.CloseGemPanel();
     }
     

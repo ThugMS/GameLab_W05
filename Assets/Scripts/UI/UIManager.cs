@@ -67,7 +67,7 @@ public class UIManager : SingleTone<UIManager>
 
     [Header("Reward")]
     [SerializeField] private GameObject m_rewardPanel;
-    [SerializeField] private List<UIClearReward> m_clearReward;
+    [FormerlySerializedAs("m_clearReward")] [SerializeField] private List<UIClearReward> m_clearRewards;
     #endregion
 
     #region PrivateVariables
@@ -139,7 +139,15 @@ public class UIManager : SingleTone<UIManager>
     public void ShowKeywordPanel()
     {
         m_keywordPanel.SetActive(true);
+        m_keywordPanel.GetComponent<Button>().Select();
+        m_keywordPanel.GetComponent<Button>().onClick.AddListener(PressAOnKeywordPanel);
     }
+
+    public void PressAOnKeywordPanel()
+    {
+        GameManager.Instance.PressAOnKeywordPanel();
+    }
+    
     public void HideKeywordPanel()
     {
         m_keywordPanel.SetActive(false);
@@ -356,6 +364,7 @@ public class UIManager : SingleTone<UIManager>
     public void ShowRewardPanel()
     {
         m_rewardPanel.SetActive(true);
+        m_clearRewards.First().GetComponent<Button>().Select();
         // 리워드 지정 필요
     }
     

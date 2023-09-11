@@ -43,18 +43,19 @@ public class GameManager : MonoBehaviour
 
     public void GameStart()
     {
-        PlayerManager.instance.SetPlayer(GameObject.FindWithTag("Player"));;
+        //PlayerManager.instance.SetPlayer(GameObject.FindWithTag("Player"));;
         PlayerManager.instance.GetPlayer().SetActive(false);
         
         m_keywordMonsterType = (MonsterType)Random.Range(0, Enum.GetNames(typeof(MonsterType)).Length);
-        List<RoomType> roomTypes= new() { RoomType.Gift, RoomType.NormalGift } ;
+        List<RoomType> roomTypes = new() { RoomType.Gift, RoomType.NormalGift } ;
         m_keywordRoomType = roomTypes[Random.Range(0, roomTypes.Count)];
         UIManager.Instance.UpdateMonsterTypeText(m_keywordMonsterType);
         UIManager.Instance.UpdateRoomTypeText(m_keywordRoomType);
         UIManager.Instance.ShowKeywordPanel();
-        
-        
-        //TODO : A 입력 시 패널 끄기, 패널 켜져있는 동안 다른 입력 못받도록
+    }
+
+    public void PressAOnKeywordPanel()
+    {
         UIManager.Instance.HideKeywordPanel();
         PlayerManager.instance.GetPlayer().SetActive(true);
     }
@@ -85,7 +86,7 @@ public class GameManager : MonoBehaviour
     {
         m_currentStage++;
         SceneManager.LoadScene("Ingame");
-        GameStart();
+        Invoke(nameof(GameStart), .005f);
     }
 
     public void SelectClearReward(ClearReward reward)
