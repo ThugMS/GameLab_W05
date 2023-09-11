@@ -81,11 +81,6 @@ public class MeleeBoss : BaseMonster
         if (!m_onAction)
         {
             print(m_currentPattern);
-            if (Vector2.Distance(m_playerObj.transform.position, transform.position) < attackRange)
-            {
-                m_currentPattern = Pattern.Attack;
-
-            }
             switch (m_currentPattern)
             {
                 case Pattern.Attack:
@@ -98,7 +93,7 @@ public class MeleeBoss : BaseMonster
                     break;
                 case Pattern.Generate:
                     m_onAction = true;
-                    makeMinions(2);
+                    makeMinions(3);
                     break;
                 case Pattern.Rest:
                     m_onAction = true;
@@ -239,17 +234,31 @@ public class MeleeBoss : BaseMonster
 
     public void makeMinions(int num)
     {
-        m_animator.SetTrigger("generateSkill");
-        for (int i = 0; i < num; i++)
+        if (HasChildWithMeleeDashMonster() == false)
         {
-            GameObject temp = Instantiate(minions, transform);
-            temp.GetComponent<BaseMonster>().init();
-            temp.GetComponent<BaseMonster>().m_range = 100;
+            m_animator.SetTrigger("generateSkill");
+            for (int i = 0; i < num; i++)
+            {
+                GameObject temp = Instantiate(minions, transform);
+                temp.GetComponent<BaseMonster>().init();
+                temp.GetComponent<BaseMonster>().m_range = 100;
+            }
         }
         StartCoroutine(Rest());
     }
 
-
+    bool HasChildWithMeleeDashMonster()
+    {
+        foreach (Transform child in transform)
+        {
+            MeleeDashMonster meleeDashMonster = child.GetComponent<MeleeDashMonster>();
+            if (meleeDashMonster != null)
+            {print("already Instantiated");
+                return true; 
+            }
+        }
+        return false; 
+    }
 
 
     protected override void Patrol()
