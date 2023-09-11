@@ -134,7 +134,7 @@ public abstract class BaseMonster : MonoBehaviour
         }
     }
 
-    private IEnumerator IE_PlayDyingEffect()
+    protected virtual IEnumerator IE_PlayDyingEffect()
     {
         TransitionToState(MonsterState.Stop);
         if (m_agent.isActiveAndEnabled)

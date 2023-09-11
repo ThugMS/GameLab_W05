@@ -9,9 +9,10 @@ public class MeleeBoss : BaseMonster
     enum Pattern
     {
         Dash,
-        Shield
+        Shield,
+        Rest
     }
-
+    public GameObject Bullet;
     protected Vector3 m_targetPos;
     private bool m_onSkill;
     private bool m_restMode;
@@ -19,10 +20,13 @@ public class MeleeBoss : BaseMonster
     private Pattern m_currentPattern;
     private SpriteRenderer m_renderer;
     private int m_rushSpeed;
+    public float attackRange;
     [Header("Ranged Boss Skill")]
-    private static readonly int DashSkill = Animator.StringToHash("dashSkill");
+    private static readonly int Walking = Animator.StringToHash("isWalking");
     private static readonly int AttackSkill = Animator.StringToHash("attackSkill");
     private static readonly int ShieldSkill = Animator.StringToHash("shieldSkill");
+
+    public bool isInvincible = false;
 
     public void Start()
     {
@@ -40,74 +44,125 @@ public class MeleeBoss : BaseMonster
 
     protected override void stateUpdate()
     {
-
-        if (!m_onSkill)
+        if (m_onSkill == false)
         {
-            m_onSkill = true;
-            if (m_restMode)
+
+            if (Vector2.Distance(m_playerObj.transform.position, transform.position) < attackRange)
             {
-                StartCoroutine(nameof(IERest));
+                m_animator.SetBool(AttackSkill, true);
             }
-            else
+            Debug.Log(m_currentPattern.ToString());
+            print(m_currentPattern);
+            switch (m_currentPattern)
             {
-                Debug.Log(m_currentPattern.ToString());
-                switch (m_currentPattern)
+                case Pattern.Dash:
+                    StartCoroutine(RushToPlayer(5, m_playerObj.transform.position));
+                    break;
+                case Pattern.Shield:
+                    StartCoroutine(IEInvincible(5));
+                    //                    m_animator.SetBool(ShieldSkill, true);
+                    break;
+                case Pattern.Rest:
+                    StartCoroutine(IEEnd(5));
+                    break;
+            }
+        }
+    }
+
+    protected override void OnCollisionStay2D(Collision2D collision)
+    {
+        if (isInvincible)
+        {
+            Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                Vector2 normal = collision.contacts[0].normal;
+                Vector2 reflection = Vector2.Reflect(rb.velocity, normal).normalized;
+                Destroy(rb.gameObject);
+
+                GameObject newBullet = Instantiate(Bullet, transform.position, Quaternion.identity);
+                Rigidbody2D bulletRb = newBullet.GetComponent<Rigidbody2D>();
+
+                if (bulletRb != null)
                 {
-                    case Pattern.Dash:
-                        StartCoroutine(RushToPlayer(5));
-                        break;
-                    case Pattern.Shield:
-                        m_animator.SetBool(ShieldSkill, true);
-                        break;
+                    bulletRb.velocity = reflection * 5;
                 }
             }
         }
 
-        TowardPlayer();
-        if (m_isMove == true)
+        if (collision.gameObject.CompareTag("Player"))
         {
-            transform.position = Vector2.MoveTowards(transform.position, m_playerObj.transform.position, m_speed * Time.deltaTime);
+            DamagePlayer(collision.gameObject);
         }
     }
 
-    IEnumerator IERest()
+    public override void getDamage(float _damage)
     {
-        m_animator.Play("RangedBossIdle");
+        if (isInvincible == false)
+        {
+            Health -= _damage;
+            if (Health <= 0)
+            {
+                if (isBoss)
+                {
+                    Dead();
+                }
+                else
+                {
+                    StartCoroutine(nameof(IE_PlayDyingEffect));
+                }
+            }
+        }
+    }
 
-        m_currentPattern = (Pattern)UnityEngine.Random.Range(0, Enum.GetNames(typeof(Pattern)).Length);
-        yield return new WaitForSeconds(1f);
 
-        // 1초간 추적
-        m_animator.SetBool(DashSkill, true);
-        yield return IEPatrol(1);
-        m_animator.SetBool(DashSkill, false);
 
+    IEnumerator IEEnd(float second)
+    {
+        m_currentPattern = (Pattern)UnityEngine.Random.Range(0, 1);
         m_onSkill = false;
         m_restMode = false;
-    }
-
-    IEnumerator IEPatrol(int second, bool isRush = false)
-    {
-        float timer = second;
-        m_isMove = true;
         yield return new WaitForSeconds(second);
-        m_isMove = false;
-        yield return null;
     }
 
-    IEnumerator RushToPlayer(int second)
+    IEnumerator IEInvincible(float second)
     {
-        Debug.Log("Rush Start");
-        int backup_Speed = m_speed;
-        m_speed = m_rushSpeed;
-
-        m_animator.SetBool(DashSkill, true);
-        yield return IEPatrol(second);
-        m_speed = backup_Speed;
+        m_onSkill = true;
+        TowardPlayer();
+        m_renderer.color = Color.blue;
+        isInvincible = true;
+        yield return new WaitForSeconds(second);
+        isInvincible = false;
+        yield return IEEnd(second);
+        m_renderer.color = Color.white;
         EndAttackAnimation();
-
-        Debug.Log("Rush End");
+        m_onSkill = false;
     }
+
+
+
+    IEnumerator RushToPlayer(int second, Vector2 lastPlayerPosition)
+    {
+        m_onSkill = true;
+        TowardPlayer();
+        m_animator.SetBool(Walking, true);
+
+        float timer = 0f;
+
+        while (Vector2.Distance(transform.position, lastPlayerPosition) >= 3f && timer < second)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, lastPlayerPosition, m_speed * Time.deltaTime);
+            timer = Time.deltaTime;
+            yield return null;
+        }
+        yield return IEEnd(second);
+        m_currentPattern = Pattern.Rest;
+        EndAttackAnimation();
+        m_onSkill = false;
+    }
+
+
+
 
     protected override void Patrol()
     {
@@ -124,25 +179,14 @@ public class MeleeBoss : BaseMonster
 
     public void EndAttackAnimation()
     {
-        m_animator.SetBool(DashSkill, false);
+        m_animator.SetBool(Walking, false);
         m_animator.SetBool(AttackSkill, false);
         m_animator.SetBool(ShieldSkill, false);
         m_onSkill = false;
         m_restMode = true;
     }
 
-    public override void getDamage(float _damage)
-    {
-        m_animator.Play("RangedBossGetHit");
-        Health -= _damage;
 
-        if (Health <= 0)
-        {
-            // [TODO] 공격 추가?
-            m_animator.Play("RangedBossDead");
-            //이 후 죽음은 애니메이션 재생 후, OnStateExit()에서 ExecuteDeadAfterAnimation() 호출하여 종료
-        }
-    }
 
     public void ExecuteDeadAfterAnimation()
     {
@@ -151,7 +195,7 @@ public class MeleeBoss : BaseMonster
 
     void TowardPlayer()
     {
-        m_renderer.flipX = (m_playerObj.transform.position.x - transform.position.x) < 0;
+        m_renderer.flipX = (m_playerObj.transform.position.x - transform.position.x) > 0;
     }
 
 }
