@@ -18,7 +18,7 @@ public class HoverBoss : BaseMonster
     private int m_playerLayerMask;
 
     [Header("Status")]
-    [SerializeField] private float m_power = 0.5f;
+    [SerializeField] private float m_power = 2f;
 
     [Header("Move")]
     [SerializeField] private float m_curSpeed = 5f;
