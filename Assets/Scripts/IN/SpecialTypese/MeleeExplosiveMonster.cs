@@ -23,7 +23,8 @@ public class MeleeExplosiveMonster : MeleeMonster
         if (Vector2.Distance(transform.position, base.m_playerObj.transform.position) < 2f)
         {
             StartCoroutine(IE_Attack());
-        } else
+        }
+        else
         {
             m_agent.SetDestination(m_playerObj.transform.position);
 
@@ -34,7 +35,7 @@ public class MeleeExplosiveMonster : MeleeMonster
     {
         yield return new WaitForSeconds(m_explosionWaitTime);
         GameObject bullet = Instantiate(m_explosionPrefab, transform.position, Quaternion.identity);
-        bullet.transform.localScale = new Vector3(m_explosionSize, m_explosionSize,m_explosionSize);
+        bullet.transform.localScale = new Vector3(m_explosionSize, m_explosionSize, m_explosionSize);
         TransitionToState(MonsterState.Dead);
         if (!isDeadOn)
         {
@@ -51,13 +52,13 @@ public class MeleeExplosiveMonster : MeleeMonster
         StartCoroutine(nameof(IE_TweenDamage));
         if (Health <= 0)
         {
-  
-                if (isDeadOn)
-                {
+
+            if (!isDeadOn)
+            {
                 isDeadOn = true;
                 StartCoroutine(nameof(IE_PlayDyingEffect));
-                }
-            
+            }
+
         }
     }
     #endregion
