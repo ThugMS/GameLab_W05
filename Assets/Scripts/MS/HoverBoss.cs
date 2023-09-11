@@ -39,6 +39,7 @@ public class HoverBoss : BaseMonster
     private void Start()
     {
         m_playerLayerMask = LayerMask.GetMask("Player");
+        isBoss = true;
         init();
     }
 
