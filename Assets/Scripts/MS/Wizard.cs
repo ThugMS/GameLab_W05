@@ -93,8 +93,17 @@ public class Wizard : Player
 
         if (hit == true)
         {
-            Vector2 offsetPos = m_portDir.normalized * m_offset;
-            Vector3 pos = hit.point + offsetPos;
+            Vector3 pos;
+            if (hit.distance < m_offset)
+            {
+                pos = transform.position;
+            }
+            else
+            {
+                Vector2 offsetPos = m_portDir.normalized * m_offset;
+                pos = hit.point + offsetPos;
+            }
+
             transform.position = pos;
         }
         else
