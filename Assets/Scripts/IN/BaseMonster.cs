@@ -67,6 +67,14 @@ public abstract class BaseMonster : MonoBehaviour
     public virtual void getDamage(float _damage, float knockbackPower)
     {
         Health -= _damage;
+        if (Health <= 0 && isBoss)
+        {
+            Dead();
+        } else
+        {
+            StartCoroutine(nameof(IE_PlayDyingEffect));
+
+        }
         if (!isBoss)
         {
             TransitionToState(MonsterState.Knockback);
@@ -78,11 +86,7 @@ public abstract class BaseMonster : MonoBehaviour
             StartCoroutine(nameof(IE_TweenDamage));
             StartCoroutine(IE_KnockBack(knockbackPower));
         }
-        if (Health <= 0)
-        {
-            TransitionToState(MonsterState.Dead);
-            Dead();
-        }
+        
     }
 
     public virtual void getDamage(float _damage)
