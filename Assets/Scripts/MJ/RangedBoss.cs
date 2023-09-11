@@ -70,7 +70,7 @@ public class RangedBoss : BaseMonster
                 switch (m_currentPattern)
                 {
                     case Pattern.RushToPlayer:
-                        StartCoroutine(RushToPlayer(5));
+                        StartCoroutine(RushToPlayer(3));
                         break;
                     case Pattern.SingleFireball:
                         m_animator.SetBool(ShortAttack, true);
@@ -96,7 +96,7 @@ public class RangedBoss : BaseMonster
         
         // 다음 공격 패턴 지정
         m_currentPattern =  patterns[Random.Range(0, patterns.Count)];
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.5f);
         
         // 1초간 추적
         m_animator.SetBool(Move, true);
@@ -195,6 +195,7 @@ public class RangedBoss : BaseMonster
         if (Health <= 0)
         {
             // [TODO] 공격 추가?
+            m_isMove = false;
             m_animator.Play("RangedBossDead");
             //이 후 죽음은 애니메이션 재생 후, OnStateExit()에서 ExecuteDeadAfterAnimation() 호출하여 종료
         }

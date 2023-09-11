@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +14,20 @@ public class GameManager : MonoBehaviour
     public MonsterType m_keywordMonsterType = MonsterType.melee;
     public RoomType m_keywordRoomType = RoomType.Gift;
     public bool m_keywordReword;
+
+    private List<MonsterType> _appearMonsterTypes = new()
+    {
+        MonsterType.ranged,
+        MonsterType.melee,
+        MonsterType.hover,
+    };
+    
+    private List<RoomType> _appearRoomTypes = new()
+    {
+        RoomType.Gift,
+        RoomType.NormalGift,
+        RoomType.Normal,
+    };
     
     public bool isGameOver = false;
     #endregion
@@ -43,12 +56,16 @@ public class GameManager : MonoBehaviour
 
     public void GameStart()
     {
-        //PlayerManager.instance.SetPlayer(GameObject.FindWithTag("Player"));;
+
+        PlayerManager.instance.SetPlayer(GameObject.FindWithTag("Player"));;
         PlayerManager.instance.GetPlayer().SetActive(false);
+
+        // 랜덤 타입 설정 및 제거
+        m_keywordMonsterType = _appearMonsterTypes[ Random.Range(0, DateTime.Now.Second + 5) % _appearMonsterTypes.Count];
+        _appearMonsterTypes.Remove(m_keywordMonsterType);
+        m_keywordRoomType = _appearRoomTypes[Random.Range(0, DateTime.Now.Second + 10) % _appearRoomTypes.Count];
+        _appearRoomTypes.Remove(m_keywordRoomType);
         
-        m_keywordMonsterType = (MonsterType)Random.Range(0, Enum.GetNames(typeof(MonsterType)).Length);
-        List<RoomType> roomTypes = new() { RoomType.Gift, RoomType.NormalGift } ;
-        m_keywordRoomType = roomTypes[Random.Range(0, roomTypes.Count)];
         UIManager.Instance.UpdateMonsterTypeText(m_keywordMonsterType);
         UIManager.Instance.UpdateRoomTypeText(m_keywordRoomType);
         UIManager.Instance.ShowKeywordPanel();
@@ -85,8 +102,9 @@ public class GameManager : MonoBehaviour
     void NextStage()
     {
         m_currentStage++;
+        PlayerManager.instance.SavePlusStat();
         SceneManager.LoadScene("Ingame");
-        Invoke(nameof(GameStart), .005f);
+        Invoke(nameof(GameStart), .05f);
     }
 
     public void SelectClearReward(ClearReward reward)
