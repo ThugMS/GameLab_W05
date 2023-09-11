@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: Fire Tile_Circle_Bot
+  m_EditorClassIdentifier: 
+  m_AnimatedSprites:
+  - {fileID: 536899234, guid: 47105d22361153e4eb8fe674714b7d9f, type: 3}
+  - {fileID: -769096429, guid: 47105d22361153e4eb8fe674714b7d9f, type: 3}
+  - {fileID: 1434390735, guid: 47105d22361153e4eb8fe674714b7d9f, type: 3}
+  - {fileID: -1699613454, guid: 47105d22361153e4eb8fe674714b7d9f, type: 3}
+  - {fileID: 1524899269, guid: 47105d22361153e4eb8fe674714b7d9f, type: 3}
+  - {fileID: -105030964, guid: 47105d22361153e4eb8fe674714b7d9f, type: 3}
+  - {fileID: 29685204, guid: 47105d22361153e4eb8fe674714b7d9f, type: 3}
+  - {fileID: 741629103, guid: 47105d22361153e4eb8fe674714b7d9f, type: 3}
+  m_MinSpeed: 1
+  m_MaxSpeed: 1
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 0
