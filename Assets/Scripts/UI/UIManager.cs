@@ -10,10 +10,13 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
+using UnityEngine.EventSystems;
 
 public class UIManager : SingleTone<UIManager>
 {
     #region PublicVariables
+    [SerializeField] private EventSystem m_eventSystem;
+
     [Header("Keybinding Images")]
     [SerializeField] private KeyHint[] m_keyHints;
 
@@ -138,7 +141,7 @@ public class UIManager : SingleTone<UIManager>
     public void HideKeywordPanel()
     {
         m_keywordPanel.SetActive(false);
-        PlayerManager.instance.m_player.SetActive(true);
+        //PlayerManager.instance.m_player.SetActive(true);
     }
     public void UpdateMonsterTypeText(MonsterType monsterType)
     {
@@ -201,6 +204,19 @@ public class UIManager : SingleTone<UIManager>
         
         m_gemPanelButtons.Add(m_gemButtonCurrent);
         m_gemPanelButtons.Add(m_gemButtonGetted);
+
+        m_eventSystem.firstSelectedGameObject = m_gemButtonCurrent.gameObject;
+        m_gemButtonCurrent.GetComponent<Button>().Select();
+    }
+
+    public void Pressed()
+    {
+        Debug.Log("눌림");
+    }
+
+    public void Pressed2()
+    {
+        Debug.Log("눌림오른쪽");
     }
 
     public void CloseGemPanel()
