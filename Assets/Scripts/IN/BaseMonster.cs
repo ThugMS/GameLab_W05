@@ -56,7 +56,7 @@ public abstract class BaseMonster : MonoBehaviour
     //==Timer
     protected float m_knockbackTimer;
     protected float m_patrolTimer;
-    private SpriteRenderer m_spriteRenderer;
+    protected SpriteRenderer m_spriteRenderer;
     private Color m_originalColor;
 
 
@@ -172,7 +172,7 @@ public abstract class BaseMonster : MonoBehaviour
         m_agent = GetComponent<NavMeshAgent>();
         m_agent.updateRotation = false;
         m_agent.updateUpAxis = false;
-        m_spriteRenderer = GetComponent<SpriteRenderer>();
+        m_spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         m_originalColor = m_spriteRenderer.color;
 
         m_playerObj = GameObject.FindGameObjectWithTag("Player");
