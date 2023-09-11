@@ -203,7 +203,7 @@ MonoBehaviour:
   m_health: 10
   m_basicAttack: 1
   m_patrolTime: 2
-  m_isHovering: 0
+  m_isHovering: 1
   m_isDashing: 0
   m_originalSpeed: 2
   m_dashSpeed: 7
