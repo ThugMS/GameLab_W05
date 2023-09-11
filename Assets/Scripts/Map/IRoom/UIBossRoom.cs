@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UIBossRoom : UIRoom
@@ -14,6 +15,8 @@ public class UIBossRoom : UIRoom
             transform.position,
             Quaternion.identity);
         var boss =  obj.GetComponent<BaseMonster>();
+        var hpList = new List<int>() { 50, 70, 100 }; 
+        boss.Health = hpList[GameManager.Instance.m_currentStage - 1];
         boss.DeadListener = End;
     }
 
