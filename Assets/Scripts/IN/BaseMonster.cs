@@ -66,14 +66,18 @@ public abstract class BaseMonster : MonoBehaviour
     public float Health { get => m_health; set => m_health = value; }
     public virtual void getDamage(float _damage, float knockbackPower)
     {
-        TransitionToState(MonsterState.Knockback);
         Health -= _damage;
-        Vector2 moveDirection = (transform.position - m_playerObj.transform.position).normalized;
-        if (m_agent.isActiveAndEnabled == true)
+        if (!isBoss)
         {
-            m_agent.SetDestination((Vector2)transform.position + moveDirection);
+            TransitionToState(MonsterState.Knockback);
+
+            Vector2 moveDirection = (transform.position - m_playerObj.transform.position).normalized;
+            if (m_agent.isActiveAndEnabled == true)
+            {
+                m_agent.SetDestination((Vector2)transform.position + moveDirection);
+            }
+            StartCoroutine(IE_KnockBack(knockbackPower));
         }
-        StartCoroutine(IE_KnockBack(knockbackPower));
         if (Health <= 0)
         {
             TransitionToState(MonsterState.Dead);
@@ -106,6 +110,9 @@ public abstract class BaseMonster : MonoBehaviour
            
              DamagePlayer(collision.gameObject);
            
+        } else if (collision.gameObject.CompareTag("Walls"))
+        {
+            m_rb.velocity = Vector2.zero;
         }
     }
 
@@ -202,11 +209,10 @@ public abstract class BaseMonster : MonoBehaviour
         TransitionToState(MonsterState.Knockback);
 
         Vector2 moveDirection = (transform.position - m_playerObj.transform.position).normalized;
-        Vector2 knockbackEndPosition = (Vector2)transform.position + moveDirection * knockbackDistance;
         m_agent.enabled = false;
         m_knockbackTimer = m_knockbackTime;
 
-        m_rb.velocity = moveDirection * knockbackDistance;
+        m_rb.velocity = moveDirection * 1.5f;
         yield return new WaitForSeconds(m_knockbackTime);
         m_rb.velocity = Vector2.zero;
         m_agent.enabled = true;
@@ -216,13 +222,17 @@ public abstract class BaseMonster : MonoBehaviour
 
 
 
+
     //===================Funcs for Behavior=====================================
     protected virtual void TransitionToState(MonsterState newState)
     {
-        m_currentState = newState;
-        if (m_agent.isActiveAndEnabled == true)
+        if (!isBoss)
         {
-            m_agent.ResetPath();
+            m_currentState = newState;
+            if (m_agent.isActiveAndEnabled == true)
+            {
+                m_agent.ResetPath();
+            }
         }
     }
 

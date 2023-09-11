@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 2129505713214893772}
   - component: {fileID: 2129505713214893771}
   - component: {fileID: 4641036319461608675}
+  - component: {fileID: 4661984644882856218}
   m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
@@ -163,3 +164,19 @@ MonoBehaviour:
   m_health: 1
   m_basicAttack: 1
   m_patrolTime: 3
+--- !u!58 &4661984644882856218
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129505713214893774}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

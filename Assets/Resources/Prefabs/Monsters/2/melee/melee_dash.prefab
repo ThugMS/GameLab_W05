@@ -64,7 +64,7 @@ MonoBehaviour:
   m_isHovering: 0
   m_isDashing: 0
   m_originalSpeed: 4
-  m_dashSpeed: 9
+  m_dashSpeed: 3
   m_dashDuration: 2
   m_maxDashDistance: 8
   m_dashCoolTime: 2
