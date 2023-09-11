@@ -10,7 +10,7 @@ public class GameManager : SingleTone<GameManager>
 {
     #region PublicVariables
 
-    private int m_currentStage;
+    public int m_currentStage;
     
     public MonsterType m_keywordMonsterType = MonsterType.melee;
     public RoomType m_keywordRoomType = RoomType.Gift;
