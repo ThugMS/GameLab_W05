@@ -37,6 +37,8 @@ public class ResourceManager : MonoBehaviour
     public GameObject m_hoverBossPrefab;
 
     public List<GameObject> m_jamPrefabs;
+
+    public GameObject m_HpPotionPrefab;
     
     public void Init()
     {
