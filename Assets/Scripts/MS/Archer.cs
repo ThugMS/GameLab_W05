@@ -178,7 +178,7 @@ public class Archer : Player
         float angle = Vector2.SignedAngle(Vector2.up, m_Direction.normalized);
 
         GameObject arrow = Instantiate(m_arrow, transform.position, Quaternion.Euler(0, 0, angle));
-        arrow.GetComponent<Arrow>().InitSetting(m_arrowCurSpeed, m_Direction.normalized);
+        arrow.GetComponent<Arrow>().InitSetting(m_arrowCurSpeed, m_Direction.normalized, m_power);
     }
 
     private void ResetArrowStat()
@@ -248,7 +248,7 @@ public class Archer : Player
 
             iter.TryGetComponent<BaseMonster>(out monster);
 
-            monster.getDamage(m_power);
+            monster.getDamage(m_power * 2);
 
             cnt++;
 
