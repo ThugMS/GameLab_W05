@@ -236,6 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01122ab292165a242b3f7a7a5f35248b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_isGod: 0
   m_rigidbody: {fileID: 305968484456112002}
   m_currentHP: 12
   m_power: 0
@@ -255,6 +256,7 @@ MonoBehaviour:
   m_knight: {fileID: 4138420507533337178, guid: 6c7ec323b7662df40a021b79dbfe4e57, type: 3}
   m_wizard: {fileID: 7073605362985958941, guid: 2bf459e8a4c88704c953de0d05969cae, type: 3}
   m_archer: {fileID: 7802226756966478229, guid: bca096ba93024db4395bbd99500a873d, type: 3}
+  m_chooseBoxs: {fileID: 0}
 --- !u!1 &4418483344777735032
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,7 +301,7 @@ Animator:
   m_GameObject: {fileID: 4418483344777735032}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 956ec58617fe72b4391060eddb38bd8e, type: 2}
+  m_Controller: {fileID: 9100000, guid: c63b2ae3516f60d44ba5c94a8ca76b31, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

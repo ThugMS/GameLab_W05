@@ -243,6 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb2d6cd44e56044a8f00c147cbedd6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_isGod: 0
   m_rigidbody: {fileID: 4138420507533337179}
   m_currentHP: 12
   m_power: 0
@@ -259,7 +260,6 @@ MonoBehaviour:
   m_canAct: 1
   m_isAct: 0
   m_animator: {fileID: 1975195299}
-  m_isGod: 0
   m_colliders: []
   m_attackBoxSize: {x: 1, y: 2}
   m_range: 0
@@ -437,7 +437,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6469339758110668480
 Transform:
   m_ObjectHideFlags: 0

@@ -48,4 +48,4 @@ MonoBehaviour:
   m_knight: {fileID: 4138420507533337178, guid: 6c7ec323b7662df40a021b79dbfe4e57, type: 3}
   m_archer: {fileID: 7802226756966478229, guid: bca096ba93024db4395bbd99500a873d, type: 3}
   m_wizard: {fileID: 7073605362985958941, guid: 2bf459e8a4c88704c953de0d05969cae, type: 3}
-  m_none: {fileID: 0}
+  m_none: {fileID: 305968484456112003, guid: 04f9391fe7c0c1b43b7f152763bd9f8f, type: 3}
