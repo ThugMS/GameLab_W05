@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -41,6 +42,20 @@ public class HoverBoss : BaseMonster
         m_playerLayerMask = LayerMask.GetMask("Player");
         isBoss = true;
         init();
+    }
+
+    public override void getDamage(float _damage)
+    {
+        base.getDamage(_damage);
+
+        transform.DOShakePosition(0.2f, 0.1f);
+    }
+
+    public override void getDamage(float _damage, float knockbackPower)
+    {
+        base.getDamage(_damage);
+
+        transform.DOShakePosition(0.2f, 0.1f);
     }
 
     public void AttackPlayer()
