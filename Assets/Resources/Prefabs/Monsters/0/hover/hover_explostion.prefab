@@ -198,11 +198,10 @@ MonoBehaviour:
   m_health: 5
   m_basicAttack: 1
   m_damageRefreshTime: 2
-  m_knockbackTime: 1
   m_patrolTime: 2
   m_isHovering: 1
   m_explosionPrefab: {fileID: 4096951867171842566, guid: 31cc8f82da8fecb4597ccd0e9ba16ec4, type: 3}
-  m_explosionSize: 5
+  m_explosionSize: 2
   m_explosionWaitTime: 2
 --- !u!50 &4345761120803983613
 Rigidbody2D:

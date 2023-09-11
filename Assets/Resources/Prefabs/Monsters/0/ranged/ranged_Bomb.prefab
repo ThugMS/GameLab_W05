@@ -120,6 +120,7 @@ MonoBehaviour:
   m_bulletCount: 3
   m_attackTime: 3
   m_BombCount: 1
+  m_BombSize: 2
 --- !u!50 &6857720738556830169
 Rigidbody2D:
   serializedVersion: 4
