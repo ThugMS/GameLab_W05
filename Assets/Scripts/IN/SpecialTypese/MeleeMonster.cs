@@ -49,10 +49,9 @@ public class MeleeMonster : BaseMonster
     #region PublicMethod
     protected override void Pursuit()
     {
-        while (Vector2.Distance(base.m_playerObj.transform.position, transform.position) > .5f)
-        {
+
             m_agent.SetDestination(m_playerObj.transform.position);
-        }
+        
     }
 
     protected override void Patrol()
@@ -81,7 +80,6 @@ public class MeleeMonster : BaseMonster
         {
             return true;
         }
-
         if (Vector2.Distance(transform.position, m_playerObj.transform.position) < m_range)
         {
             return true;
