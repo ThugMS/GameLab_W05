@@ -72,7 +72,7 @@ public class HoverBoss : BaseMonster
     #region PrivateMethod
     private void ChoicePattern()
     {
-        int value = Random.Range(1, 2);
+        int value = Random.Range(0, 2);
 
         switch(value)
         {
