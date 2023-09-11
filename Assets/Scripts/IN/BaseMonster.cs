@@ -56,8 +56,8 @@ public abstract class BaseMonster : MonoBehaviour
     //==Timer
     protected float m_knockbackTimer;
     protected float m_patrolTimer;
-    private SpriteRenderer m_spriteRenderer;
-    private Color m_originalColor;
+    protected SpriteRenderer m_spriteRenderer;
+    protected Color m_originalColor;
 
 
     #endregion
@@ -158,7 +158,7 @@ public abstract class BaseMonster : MonoBehaviour
     }
 
     //===============================InitFunc=================================
-    protected void Update ()
+    protected virtual void Update ()
     {
         if(isOn == true)
         {
