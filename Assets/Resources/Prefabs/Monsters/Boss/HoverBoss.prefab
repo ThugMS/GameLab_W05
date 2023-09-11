@@ -51,6 +51,7 @@ MonoBehaviour:
   m_detectingLayer:
     serializedVersion: 2
     m_Bits: 0
+  isBoss: 0
   m_currentState: 0
   m_speed: 0
   m_range: 0
@@ -60,12 +61,12 @@ MonoBehaviour:
   m_knockbackTime: 0
   m_patrolTime: 0
   m_isAttack: 0
-  m_canAttack: 1
+  m_canAttack: 0
   m_isDead: 0
   m_isStartAttackIE: 0
   m_attackTerm: 5
   m_collider: {fileID: 926554521}
-  m_power: 0.5
+  m_power: 1
   m_curSpeed: 5
   m_bossAnimator: {fileID: 926554518}
   m_fadeInCoolTime: 2
@@ -206,4 +207,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1607717e43ca8b40bd9ac5569493882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_boss: {fileID: 0}
+  m_boss: {fileID: 926554520}
+  m_skill: {fileID: 5509064166464607780, guid: 9afcd3c728210b940a474bb171728c66, type: 3}
+  m_summon: {fileID: 2129505712967752970, guid: f79eda9468a918c4f91e7b2f21d23c22, type: 3}
+  m_spawnPos:
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  m_spawnXOffset: 3

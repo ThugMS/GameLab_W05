@@ -103,12 +103,9 @@ public abstract class BaseMonster : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            damageRefreshTimer -= Time.deltaTime;
-            if (damageRefreshTimer <= 0)
-            {
-                damageRefreshTimer = m_damageRefreshTime;
-                DamagePlayer(collision.gameObject);
-            }
+           
+             DamagePlayer(collision.gameObject);
+           
         }
     }
 
@@ -172,7 +169,7 @@ public abstract class BaseMonster : MonoBehaviour
         m_agent = GetComponent<NavMeshAgent>();
         m_agent.updateRotation = false;
         m_agent.updateUpAxis = false;
-        m_spriteRenderer = GetComponent<SpriteRenderer>();
+        m_spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         m_originalColor = m_spriteRenderer.color;
 
         m_playerObj = GameObject.FindGameObjectWithTag("Player");

@@ -122,4 +122,4 @@ MonoBehaviour:
   m_animator: {fileID: 5509064166464607802}
   m_attackBoxSize: {x: 2, y: 2}
   m_playerCol: {fileID: 0}
-  m_power: 0.5
+  m_power: 1

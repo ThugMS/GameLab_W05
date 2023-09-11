@@ -29,7 +29,10 @@ public class NonePlayer : Player
     
     protected override void Attack()
     {
-        
+        if (m_canChangeClass && m_selectType != PlayerClassType.None)
+        {
+            ChangeClass();
+        }
     }
 
     protected override void Ability()
@@ -39,37 +42,20 @@ public class NonePlayer : Player
 
     public void OnClassChange(InputAction.CallbackContext _context)
     {
-        if (m_canChangeClass && m_selectType != PlayerClassType.None)
-        {
-            ChangeClass();
-        }
+    
     }
 
     private void ChangeClass()
     {
         Debug.Log("Change Class");
 
-        GameObject newClass = null;
-        
-        switch (m_selectType)
-        {
-            case PlayerClassType.Knight:
-                newClass = m_knight;
-                break;
-            case PlayerClassType.Wizard:
-                newClass = m_wizard;
-                break;
-            case PlayerClassType.Archer:
-                newClass = m_archer;
-                break;
-        }
+        PlayerManager.instance.SetClass(m_selectType);
         
         //var player = Instantiate(newClass, transform.position, transform.rotation);
         
         
         m_chooseBoxs.SetActive(false);
         gameObject.SetActive(false);
-        Instantiate(newClass, transform.position, transform.rotation);
     }
 
     public void SetCanChangeClass(bool canChange, PlayerClassType classType)
@@ -77,5 +63,4 @@ public class NonePlayer : Player
         m_canChangeClass = canChange;
         m_selectType = classType;
     }
-    
 }
