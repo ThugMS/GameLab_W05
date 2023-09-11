@@ -113,11 +113,10 @@ MonoBehaviour:
   m_health: 5
   m_basicAttack: 1
   m_damageRefreshTime: 2
-  m_knockbackTime: 2
   m_patrolTime: 2
-  m_attackRange: 5
+  m_attackRange: 6
   m_bullet: {fileID: 4096951867171842566, guid: b1e339cf285252c44b52e93426168a30, type: 3}
-  m_bulletSpeed: 5
+  m_bulletSpeed: 4
   m_bulletCount: 3
   m_attackTime: 3
 --- !u!50 &6857720738556830169
