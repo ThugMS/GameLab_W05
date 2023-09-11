@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6785976041359516814}
-  - component: {fileID: 6785976041359516815}
   - component: {fileID: 6785976041359516813}
+  - component: {fileID: 6785976041359516815}
   - component: {fileID: 6785976041359516803}
   - component: {fileID: 6785976041359516802}
   - component: {fileID: 4023390675470234326}
@@ -37,6 +37,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6785976041359516813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6785976041359516808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b09407312536b4f47b417f09432a0539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stage: 1
+  isOn: 0
+  m_detectingLayer:
+    serializedVersion: 2
+    m_Bits: 136
+  isBoss: 0
+  m_currentState: 0
+  m_speed: 1
+  m_range: 8
+  m_health: 10
+  m_basicAttack: 1
+  m_damageRefreshTime: 2
+  m_patrolTime: 2
+  m_isHovering: 0
 --- !u!212 &6785976041359516815
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -89,33 +115,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6785976041359516813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6785976041359516808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b09407312536b4f47b417f09432a0539, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stage: 0
-  isOn: 0
-  m_detectingLayer:
-    serializedVersion: 2
-    m_Bits: 136
-  isBoss: 0
-  m_currentState: 0
-  m_speed: 3
-  m_range: 4
-  m_health: 10
-  m_basicAttack: 1
-  m_damageRefreshTime: 2
-  m_knockbackTime: 2
-  m_patrolTime: 2
-  m_isHovering: 0
 --- !u!50 &6785976041359516803
 Rigidbody2D:
   serializedVersion: 4
