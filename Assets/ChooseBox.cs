@@ -6,7 +6,7 @@ using UnityEngine;
 public class ChooseBox : MonoBehaviour
 {
     private Animator m_animator;
-    [SerializeField] private Player.PlayerClassType m_classType;
+    [SerializeField] private PlayerClassType m_classType;
     [SerializeField] private GameObject m_keyHint;
     [SerializeField] private NonePlayer m_player;
 
@@ -39,7 +39,7 @@ public class ChooseBox : MonoBehaviour
             
             if (collision.gameObject.TryGetComponent<NonePlayer>(out var player))
             {
-                player.SetCanChangeClass(false, Player.PlayerClassType.None);
+                player.SetCanChangeClass(false, PlayerClassType.None);
             }
         }
     }

@@ -6,19 +6,24 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
+public enum PlayerClassType
+{
+    Knight,
+    Archer,
+    Wizard,
+    None
+}
+
 public abstract class Player : MonoBehaviour
 {
-    public enum PlayerClassType
-    {
-        Knight,
-        Archer,
-        Wizard,
-        None
-    }
+
     
     #region PublicVariables
     public enum ANIMATION_DIRECTION
     { Up, Right, Down, Left}
+
+    [Header("Editor")]
+    public bool m_isGod = false;
     #endregion
 
     #region PrivateVariables
@@ -64,8 +69,7 @@ public abstract class Player : MonoBehaviour
     protected GemType m_currentGemType = GemType.None;
     public GemType CurrentGemType => m_currentGemType;
 
-    [Header("Editor")]
-    [SerializeField] protected bool m_isGod = false;
+
 
     #endregion
 
@@ -266,12 +270,6 @@ public abstract class Player : MonoBehaviour
             Move(-1);
         }
         #endregion
-
-#if UNITY_EDITOR
-        if(Input.GetKeyDown(KeyCode.F6))
-            m_isGod = !m_isGod;
-#else
-#endif
     }
 
     protected abstract void SetStatus();
