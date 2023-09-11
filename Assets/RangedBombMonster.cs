@@ -9,6 +9,7 @@ public class RangedBombMonster : RangedMonster
 
     #region PrivateVariables
     [SerializeField] private int m_BombCount;
+    [SerializeField] private float m_BombSize;
     #endregion
 
     protected override IEnumerator IE_Attack()
@@ -31,6 +32,7 @@ public class RangedBombMonster : RangedMonster
                 while (bullet!=null&&Vector2.Distance(bullet.transform.position, initialPlayerPosition) > 0.2f)
                 {
                     bullet.GetComponent<Bomb>().isStartCounting = true;
+                    bullet.GetComponent<Bomb>().m_explosionSize = m_BombSize;
                     bulletRigidbody.velocity = direction * m_bulletSpeed;
                     if(bullet == null) break;
                             yield return null;
