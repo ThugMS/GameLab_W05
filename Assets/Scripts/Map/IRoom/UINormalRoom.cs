@@ -88,6 +88,15 @@ public class UINormalRoom : UIRoom
             var gift = RoomManager.Instance.m_giftPrefab;
             Instantiate(gift, transform.position, Quaternion.identity);
         }
+        else if(m_baseRoom.Type == RoomType.Normal)
+        {
+            var result = Random.Range(0, 10);
+            if (result < 5)
+            {
+                var potion = ResourceManager.Instance.m_HpPotionPrefab;
+                Instantiate(potion, transform.position, Quaternion.identity);
+            }
+        }
     }
 }
 

@@ -1341,6 +1341,7 @@ MonoBehaviour:
   - {fileID: 6731045985857082654, guid: 176fe52257539754daaa58661be584fc, type: 3}
   - {fileID: 1436218789933595590, guid: 7aa104a9a43aa5745803291cd9605257, type: 3}
   - {fileID: 2403370471375016803, guid: a1fb5c8a3389e4a4b95f9743b65a1f3d, type: 3}
+  m_HpPotionPrefab: {fileID: 8263065905500295332, guid: 4454d03a0e332e44db3b84aa121bcf25, type: 3}
 --- !u!4 &1758589755
 Transform:
   m_ObjectHideFlags: 0
