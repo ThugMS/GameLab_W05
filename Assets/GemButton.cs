@@ -13,8 +13,8 @@ public class GemButton : MonoBehaviour
     private GemType m_gemType;
     private const string m_gemPath = "Gem/";
     private const string HP_Explain_Text = "HP 1 증가";
-    private const string Power_Explain_Text = "공격력 3 증가";
-    private const string Speed_Explain_Text = "이동속도 3 증가";
+    private const string Power_Explain_Text = "공격력 1 증가";
+    private const string Speed_Explain_Text = "이동속도 1 증가";
 
     private Player m_player;
 

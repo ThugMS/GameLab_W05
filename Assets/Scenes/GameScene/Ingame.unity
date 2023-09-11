@@ -1117,7 +1117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2905796350070027993, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
       propertyPath: m_text
-      value: "<color=#2cb6cf>\uC774\uB3D9 \uC18D\uB3C4</color>\uAC00\n\uC601\uAD6C\uC801\uC73C\uB85C\n<color=#2cb6cf><b>2</b></color>
+      value: "<color=#2cb6cf>\uC774\uB3D9 \uC18D\uB3C4</color>\uAC00\n\uC601\uAD6C\uC801\uC73C\uB85C\n<color=#2cb6cf><b>3</b></color>
         \uC99D\uAC00\uD569\uB2C8\uB2E4"
       objectReference: {fileID: 0}
     - target: {fileID: 2983757555544612824, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
@@ -1142,7 +1142,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3017769579849633682, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
       propertyPath: m_text
-      value: "<color=#ef4c57>\uCD5C\uB300 \uCCB4\uB825</color>\uC774\n\uC601\uAD6C\uC801\uC73C\uB85C\n<color=#ef4c57><b>1</b></color>
+      value: "<color=#ef4c57>\uCD5C\uB300 \uCCB4\uB825</color>\uC774\n\uC601\uAD6C\uC801\uC73C\uB85C\n<color=#ef4c57><b>2</b></color>
         \uC99D\uAC00\uD569\uB2C8\uB2E4"
       objectReference: {fileID: 0}
     - target: {fileID: 3128485818427357385, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
@@ -1335,7 +1335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7276406001974190849, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
       propertyPath: m_text
-      value: "<color=#fa9e53>\uACF5\uACA9\uB825</color>\uC774\n\uC601\uAD6C\uC801\uC73C\uB85C\n<color=#fa9e53><b>2</b></color>
+      value: "<color=#fa9e53>\uACF5\uACA9\uB825</color>\uC774\n\uC601\uAD6C\uC801\uC73C\uB85C\n<color=#fa9e53><b>3</b></color>
         \uC99D\uAC00\uD569\uB2C8\uB2E4"
       objectReference: {fileID: 0}
     - target: {fileID: 7381721411543258202, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}

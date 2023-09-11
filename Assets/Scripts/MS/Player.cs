@@ -240,13 +240,13 @@ public abstract class Player : MonoBehaviour
         switch (gemType)
         {
             case GemType.Power:
-                m_plusPower += 3;
+                m_plusPower += 1;
                 break;
             case GemType.HP:
                 m_plusHP += 4;
                 break;
             case GemType.Speed:
-                m_plusSpeed += 3;
+                m_plusSpeed += 1;
                 break;
         }
         
