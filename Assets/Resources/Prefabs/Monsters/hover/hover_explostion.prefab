@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 4345761120803983610}
   - component: {fileID: 7347946609738668918}
   m_Layer: 6
-  m_Name: melee_explostion
+  m_Name: hover_explostion
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
