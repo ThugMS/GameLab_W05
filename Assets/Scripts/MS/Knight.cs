@@ -137,7 +137,7 @@ public class Knight : Player
 
             iter.TryGetComponent<BaseMonster>(out monster);
 
-            monster.getDamage(m_power);
+            monster.getDamage(m_power, 3f);
         }
 
         m_colliders = null;
@@ -162,8 +162,8 @@ public class Knight : Player
     {
         m_animator.SetTrigger("Attack");
         m_canAct = false;
-        m_canMove = false;
-        m_isMove = false;
+        //m_canMove = false;
+        //m_isMove = false;
         m_isAct = true;
     }
 

@@ -13,6 +13,7 @@ public class Arrow : MonoBehaviour
 
     private int m_enemyLayerMask;
     private int m_stopLayerMask;
+    private float m_destroyTime = 5f;
 
     [Header("Speed")]
     [SerializeField] private float m_speed;
@@ -66,7 +67,16 @@ public class Arrow : MonoBehaviour
 
                 transform.SetParent(monster.transform);
             }
+
+            StartCoroutine(nameof(IE_Destroy));
         }
+    }
+
+    private IEnumerator IE_Destroy()
+    {
+        yield return new WaitForSeconds(m_destroyTime);
+
+        Destroy(gameObject);
     }
     #endregion
 }

@@ -36,6 +36,7 @@ public class GameManager : SingleTone<GameManager>
     {
         m_keywordMonsterType = (MonsterType)Random.Range(0, Enum.GetNames(typeof(MonsterType)).Length);
         UIManager.Instance.UpdateMonsterTypeText(m_keywordMonsterType);
+        UIManager.Instance.UpdateRoomTypeText(m_keywordRoomType);
         UIManager.Instance.ShowKeywordPanel();
     
         m_currentStage++;
