@@ -100,6 +100,7 @@ public class MeleeBoss : BaseMonster
         {
             transform.position = Vector2.MoveTowards(transform.position, lastPlayerPosition, m_speed * Time.deltaTime);
             timer += Time.deltaTime;
+            yield return null;
         }
         yield return IEEnd();
     }
