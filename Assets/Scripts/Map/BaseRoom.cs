@@ -20,6 +20,7 @@ public class BaseRoom : MonoBehaviour
     [Header("방 구성")]
     [SerializeField] private Transform m_floor;
     [SerializeField] private Transform[] m_spawnPositons;
+    [SerializeField] private GameObject m_CloseDoorObject; 
     private RoomDoor[] m_doors;
 
     private bool m_isClear;
@@ -29,6 +30,7 @@ public class BaseRoom : MonoBehaviour
         set
         {
             m_isClear = value;
+            m_CloseDoorObject.SetActive(!m_isClear);
             if (m_isClear == true)
             {
                 foreach (var door in m_doors)

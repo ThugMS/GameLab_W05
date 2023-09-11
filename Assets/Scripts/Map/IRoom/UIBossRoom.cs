@@ -1,22 +1,32 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class UIBossRoom : UIRoom
 {
-    private Boss m_boss;
-
     public override void Init(Room _baseRoom)
     {
         base.Init(_baseRoom);
-        m_boss = _baseRoom.m_boss;
     }
 
     public override void Execute()
     {
-        // 코루틴해서 서사를 보이든.. .
-        var obj = TestSample.Instance.m_boss; //[TODO] 보스 정보에 따른 GameObject를 생성
-        var boss = Instantiate(obj, transform.position, Quaternion.identity);
+        StartCoroutine(ShowEnterBossRoom());
         
-        boss.GetComponent<BaseMonster>().DeadListener = End;
+        
+    }
+
+    IEnumerator ShowEnterBossRoom()
+    {
+        // 세팅
+        var obj = Instantiate(ResourceManager.Instance.GetBossByType(GameManager.Instance.m_keywordMonsterType), 
+                                                transform.position,
+                                                Quaternion.identity);
+        var boss =  obj.GetComponent<BaseMonster>();
+        boss.DeadListener = End;
+        
+        yield return new WaitForSeconds(2f);
+        
+        // [TODO] Boss Inir?
     }
 
     protected override void End()
