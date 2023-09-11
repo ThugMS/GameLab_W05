@@ -158,7 +158,7 @@ public abstract class BaseMonster : MonoBehaviour
     }
 
     //===============================InitFunc=================================
-    protected void Update ()
+    protected virtual void Update ()
     {
         if(isOn == true)
         {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class HoverMonster : BaseMonster
 {
@@ -13,19 +14,41 @@ public class HoverMonster : BaseMonster
 
     #region PublicMethod
 
+    public override void init()
+    {
+        m_spriteRenderer = GetComponent<SpriteRenderer>();
+        m_originalColor = m_spriteRenderer.color;
+
+        m_playerObj = GameObject.FindGameObjectWithTag("Player");
+        m_rb = GetComponent<Rigidbody2D>();
+        targetPatrolPos = transform.position;
+        m_knockbackTimer = m_knockbackTime;
+        damageRefreshTimer = 0.1f;
+        m_patrolTimer = m_patrolTime;
+        targetPatrolPos = getPatrolPos();
+        m_agent.speed = m_speed;
+        isOn = true;
+    }
+
+
+    private void Start()
+    {
+        init();
+    }
+
     protected override void stateUpdate()
     {
         switch (m_currentState)
         {
             case MonsterState.Patrol:
-                if (canSeePlayer() && playerWithinRange())
+                if (playerWithinRange())
                 {
                     TransitionToState(MonsterState.Pursuit);
                 }
                 Patrol();
                 break;
             case MonsterState.Pursuit:
-                if (!canSeePlayer() && playerWithinRange())
+                if (!playerWithinRange())
                 {
                     Patrol();
                 }
