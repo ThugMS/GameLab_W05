@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3340928119770820132}
   - component: {fileID: -369962994968447197}
   - component: {fileID: -6977876004128402688}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Door_None_Right
   m_TagString: Walls
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1922669069495791194}
   - component: {fileID: 2481125151844876427}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 3860665671770159709}
   - component: {fileID: 2341912543816385941}
   - component: {fileID: 5591176452569017324}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Disabled
   m_TagString: Untagged
   m_Icon: {fileID: 0}
