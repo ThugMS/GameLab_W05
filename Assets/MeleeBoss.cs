@@ -14,13 +14,16 @@ public class MeleeBoss : BaseMonster
     }
     public GameObject Bullet;
     protected Vector3 m_targetPos;
-    private bool m_onSkill;
-    private bool m_restMode;
-    private bool m_isMove;
+
+
     private Pattern m_currentPattern;
     private SpriteRenderer m_renderer;
+
     private int m_rushSpeed;
     public float attackRange;
+
+    private bool m_onAction;
+
     [Header("Ranged Boss Skill")]
     private static readonly int Walking = Animator.StringToHash("isWalking");
     private static readonly int AttackSkill = Animator.StringToHash("attackSkill");
@@ -38,42 +41,114 @@ public class MeleeBoss : BaseMonster
         base.init();
         m_renderer = GetComponentInChildren<SpriteRenderer>();
         m_animator = GetComponentInChildren<Animator>();
-        m_onSkill = false;
-        m_restMode = true;
+        m_onAction = false;
+
     }
 
     protected override void stateUpdate()
     {
-        if (m_onSkill == false)
+        if (!m_onAction)
         {
-
+            print(m_currentPattern);
             if (Vector2.Distance(m_playerObj.transform.position, transform.position) < attackRange)
             {
                 m_animator.SetBool(AttackSkill, true);
+                m_onAction = true;
+                StartCoroutine(Rest());
+
             }
-            Debug.Log(m_currentPattern.ToString());
-            print(m_currentPattern);
+            else
+            {
+                m_animator.SetBool(AttackSkill, false);
+            }
+
             switch (m_currentPattern)
             {
                 case Pattern.Dash:
-                    StartCoroutine(RushToPlayer(5, m_playerObj.transform.position));
+                    m_onAction = true;
+                    StartCoroutine(MoveToPlayer(m_playerObj.transform.position));
                     break;
                 case Pattern.Shield:
-                    StartCoroutine(IEInvincible(5));
-                    //                    m_animator.SetBool(ShieldSkill, true);
+                    m_onAction = true;
+                    StartCoroutine(IEInvincible());
                     break;
                 case Pattern.Rest:
-                    StartCoroutine(IEEnd(5));
+                    m_onAction = true;
+                    StartCoroutine(Rest());
                     break;
             }
         }
     }
 
+    IEnumerator IEEnd()
+    {
+        EndAttackAnimation();
+        m_onAction = false;
+        m_currentPattern = (Pattern)UnityEngine.Random.Range(0, 2);
+        yield return null;
+    }
+
+    //=============================================================
+
+    IEnumerator MoveToPlayer(Vector2 lastPlayerPosition)
+    {
+        print("MoveToPlayer");
+        TowardPlayer();
+        m_animator.SetBool(Walking, true);
+        float timer = 0f;
+        while (Vector2.Distance(transform.position, lastPlayerPosition) >= 3f && timer < 3)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, lastPlayerPosition, m_speed * Time.deltaTime);
+            timer += Time.deltaTime;
+        }
+        yield return IEEnd();
+    }
+
+    IEnumerator Rest()
+    {
+        m_animator.SetBool(Walking, false);
+        float timer = 0f;
+        yield return new WaitForSeconds(5);
+        yield return IEEnd();
+    }
+
+
+    IEnumerator IEInvincible()
+    {
+        m_animator.SetBool(Walking, false);
+        TowardPlayer();
+        m_renderer.color = Color.blue;
+        isInvincible = true;
+        yield return new WaitForSeconds(5);
+        isInvincible = false;
+        m_renderer.color = Color.white;
+        yield return IEEnd();
+    }
+
+    //=================================
+
+
     protected override void OnCollisionStay2D(Collision2D collision)
+    {
+
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            DamagePlayer(collision.gameObject);
+        }
+        else
+        {
+            reflectObject(collision);
+        }
+    }
+
+
+
+    void reflectObject(Collision2D collision)
     {
         if (isInvincible)
         {
-            Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
+            Rigidbody2D rb = collision.gameObject.gameObject.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
                 Vector2 normal = collision.contacts[0].normal;
@@ -89,12 +164,9 @@ public class MeleeBoss : BaseMonster
                 }
             }
         }
-
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            DamagePlayer(collision.gameObject);
-        }
     }
+
+
 
     public override void getDamage(float _damage)
     {
@@ -117,49 +189,8 @@ public class MeleeBoss : BaseMonster
 
 
 
-    IEnumerator IEEnd(float second)
-    {
-        m_currentPattern = (Pattern)UnityEngine.Random.Range(0, 1);
-        m_onSkill = false;
-        m_restMode = false;
-        yield return new WaitForSeconds(second);
-    }
-
-    IEnumerator IEInvincible(float second)
-    {
-        m_onSkill = true;
-        TowardPlayer();
-        m_renderer.color = Color.blue;
-        isInvincible = true;
-        yield return new WaitForSeconds(second);
-        isInvincible = false;
-        yield return IEEnd(second);
-        m_renderer.color = Color.white;
-        EndAttackAnimation();
-        m_onSkill = false;
-    }
 
 
-
-    IEnumerator RushToPlayer(int second, Vector2 lastPlayerPosition)
-    {
-        m_onSkill = true;
-        TowardPlayer();
-        m_animator.SetBool(Walking, true);
-
-        float timer = 0f;
-
-        while (Vector2.Distance(transform.position, lastPlayerPosition) >= 3f && timer < second)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, lastPlayerPosition, m_speed * Time.deltaTime);
-            timer = Time.deltaTime;
-            yield return null;
-        }
-        yield return IEEnd(second);
-        m_currentPattern = Pattern.Rest;
-        EndAttackAnimation();
-        m_onSkill = false;
-    }
 
 
 
@@ -182,8 +213,6 @@ public class MeleeBoss : BaseMonster
         m_animator.SetBool(Walking, false);
         m_animator.SetBool(AttackSkill, false);
         m_animator.SetBool(ShieldSkill, false);
-        m_onSkill = false;
-        m_restMode = true;
     }
 
 
