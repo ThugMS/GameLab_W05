@@ -6,12 +6,12 @@ using UnityEngine.AI;
 public class MeleeDashMonster : MeleeMonster
 {
     #region PublicVariables
-    [SerializeField] private bool m_isDashing = false;
-    [SerializeField] private float m_originalSpeed;
-    [SerializeField] private float m_dashSpeed = 10.0f;
-    [SerializeField] private float m_dashDuration = 1.5f;
-    [SerializeField] private float m_maxDashDistance = 10.0f;
-    [SerializeField] private float m_dashCoolTime = 3.0f;
+    [SerializeField] protected bool m_isDashing = false;
+    [SerializeField] protected float m_originalSpeed;
+    [SerializeField] protected float m_dashSpeed = 10.0f;
+    [SerializeField] protected float m_dashDuration = 1.5f;
+    [SerializeField] protected float m_maxDashDistance = 10.0f;
+    [SerializeField] protected float m_dashCoolTime = 3.0f;
     #endregion
 
     #region PrivateVariables
