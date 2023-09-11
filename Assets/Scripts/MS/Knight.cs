@@ -74,7 +74,6 @@ public class Knight : Player
     #region PublicMethod
     protected override void SetStatus()
     {
-        m_power = 5f;
         
         OnStatusChanged();
     }
@@ -103,6 +102,7 @@ public class Knight : Player
             return;
         }
 
+        m_isGod = true;
         m_canAct = false;
         m_canMove = false;
         m_canAbility = false;
@@ -171,7 +171,7 @@ public class Knight : Player
         m_isAct = false;
         SetCanAct(true);
         SetCanMove(true);
-
+        m_isGod = false;
         if (m_inputDirection != Vector2.zero)
         {
             m_isMove = true;
@@ -184,9 +184,10 @@ public class Knight : Player
     {
         m_animator.SetTrigger("Attack");
         m_canAct = false;
-        //m_canMove = false;
-        //m_isMove = false;
+        m_canMove = false;
+        m_isMove = false;
         m_isAct = true;
+
     }
 
     private void AttackCheckCollider()
