@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.AnimatedValues;
 using UnityEngine;
 
 public class DoorOpenState : StateMachineBehaviour
