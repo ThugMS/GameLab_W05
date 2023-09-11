@@ -1354,6 +1354,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1639073768931816470, guid: 6c7ec323b7662df40a021b79dbfe4e57, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4138420507533337174, guid: 6c7ec323b7662df40a021b79dbfe4e57, type: 3}
       propertyPath: m_effect
       value: 
@@ -1427,6 +1431,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3014390666014854809, guid: 36f0c63e2a90271479f639b1fa899fae, type: 3}
+      propertyPath: m_archer
+      value: 
+      objectReference: {fileID: 7802226756966478229, guid: bca096ba93024db4395bbd99500a873d, type: 3}
+    - target: {fileID: 3014390666014854809, guid: 36f0c63e2a90271479f639b1fa899fae, type: 3}
+      propertyPath: m_knight
+      value: 
+      objectReference: {fileID: 4138420507533337178, guid: 6c7ec323b7662df40a021b79dbfe4e57, type: 3}
+    - target: {fileID: 3014390666014854809, guid: 36f0c63e2a90271479f639b1fa899fae, type: 3}
+      propertyPath: m_wizard
+      value: 
+      objectReference: {fileID: 7073605362985958941, guid: 2bf459e8a4c88704c953de0d05969cae, type: 3}
     - target: {fileID: 3014390666014854814, guid: 36f0c63e2a90271479f639b1fa899fae, type: 3}
       propertyPath: m_RootOrder
       value: 9
