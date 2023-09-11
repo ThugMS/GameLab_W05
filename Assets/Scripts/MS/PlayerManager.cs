@@ -8,6 +8,8 @@ public class PlayerManager : MonoBehaviour
 
     #region PublicVariables
     public GameObject m_player;
+
+    public List<PlayerData> m_datas = new List<PlayerData>();
     #endregion
 
     #region PrivateVariables
