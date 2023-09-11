@@ -44,7 +44,7 @@ public class MeleeMonster : BaseMonster
 
     protected virtual void setAnimationDir(Vector3 pos)
     {
-        if (m_isHovering)
+        if (!m_isHovering)
         {
             base.m_animator.SetFloat("X", (pos - (Vector3)transform.position).x);
             base.m_animator.SetFloat("Y", (pos - (Vector3)transform.position).y);
