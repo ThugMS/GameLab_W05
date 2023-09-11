@@ -101,6 +101,16 @@ public class PlayerManager : MonoBehaviour
     {
         m_player.GetComponent<Player>().InitSetting(m_datas[_index]);
     }
+
+    public float GetPlayerCurHP()
+    {
+        return m_player.GetComponent<Player>().GetCurHP();
+    }
+
+    public float GetPlayerMaxHP()
+    {
+        return m_player.GetComponent<Player>().GetMaxHP();
+    }
     #endregion
 
     #region PrivateMethod

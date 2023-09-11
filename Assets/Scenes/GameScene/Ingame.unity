@@ -472,6 +472,17 @@ MonoBehaviour:
   - {fileID: 6857720738556830180, guid: e8d883c780d9c1b4480a3ab965a934a1, type: 3}
   m_reward: {fileID: 5894662077695566755, guid: 3db9e5c8efd0dbf4e8d0da74627e750a, type: 3}
   m_boss: {fileID: 6785976041359516808, guid: 66455a3ae37770f44b8fa907948cdc95, type: 3}
+--- !u!114 &732232436 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8069903748981191945, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+  m_PrefabInstance: {fileID: 1568583384}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &868692626 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6743297401910781974, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
@@ -488,6 +499,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &965446802
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8263065905500295332, guid: 4454d03a0e332e44db3b84aa121bcf25, type: 3}
+      propertyPath: m_Name
+      value: Item_HPPotion
+      objectReference: {fileID: 0}
+    - target: {fileID: 8263065905500295386, guid: 4454d03a0e332e44db3b84aa121bcf25, type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8263065905500295386, guid: 4454d03a0e332e44db3b84aa121bcf25, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8263065905500295386, guid: 4454d03a0e332e44db3b84aa121bcf25, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8263065905500295386, guid: 4454d03a0e332e44db3b84aa121bcf25, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8263065905500295386, guid: 4454d03a0e332e44db3b84aa121bcf25, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8263065905500295386, guid: 4454d03a0e332e44db3b84aa121bcf25, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8263065905500295386, guid: 4454d03a0e332e44db3b84aa121bcf25, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8263065905500295386, guid: 4454d03a0e332e44db3b84aa121bcf25, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8263065905500295386, guid: 4454d03a0e332e44db3b84aa121bcf25, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8263065905500295386, guid: 4454d03a0e332e44db3b84aa121bcf25, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8263065905500295386, guid: 4454d03a0e332e44db3b84aa121bcf25, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4454d03a0e332e44db3b84aa121bcf25, type: 3}
 --- !u!1001 &1072962336
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -811,7 +879,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 305968484456112000, guid: 04f9391fe7c0c1b43b7f152763bd9f8f, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 305968484456112000, guid: 04f9391fe7c0c1b43b7f152763bd9f8f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1370,6 +1438,10 @@ PrefabInstance:
       propertyPath: m_plusSpeedText
       value: 
       objectReference: {fileID: 1568583389}
+    - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
+      propertyPath: m_abilityCoolTime
+      value: 
+      objectReference: {fileID: 732232436}
     - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
       propertyPath: m_gemButtonGetted
       value: 

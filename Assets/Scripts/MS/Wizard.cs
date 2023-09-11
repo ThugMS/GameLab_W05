@@ -66,6 +66,7 @@ public class Wizard : Player
         m_canAbility = false;
 
         Port();
+        UIManager.Instance.GetSkillCoolTime(m_coolTime);
     }
 
     public void EndAttackState()
