@@ -62,7 +62,7 @@ public class Knight : Player
         }
 
         Vector2 attackDir = m_Direction.normalized * (m_dashAttackBoxSize.x / 2);
-        Vector3 attackPos = transform.position + new Vector3(attackDir.x, attackDir.y, 0);
+        Vector3 attackPos = transform.position - new Vector3(attackDir.x, attackDir.y, 0) + new Vector3(m_dashDir.x, m_dashDir.y, 0) * 2f;
 
         float angle = Vector2.Angle(Vector2.right, m_Direction.normalized);
 
@@ -143,6 +143,28 @@ public class Knight : Player
         m_colliders = null;
     }
 
+   
+    public void DamageAbilityMonster()
+    {
+        if (m_colliders == null)
+        {
+            return;
+        }
+
+        foreach (var iter in m_colliders)
+        {
+            BaseMonster monster;
+
+            if (iter == null)
+                continue;
+
+            iter.TryGetComponent<BaseMonster>(out monster);
+
+            monster.getDamage(m_power*3, 3f);
+        }
+
+        m_colliders = null;
+    }
     public void EndAttackAnimation()
     {
         m_animator.ResetTrigger("Attack");

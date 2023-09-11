@@ -367,7 +367,7 @@ public abstract class Player : MonoBehaviour
 
     private void SetMoveSpeed(int _arrow)
     {
-        if (m_curSpeed <= m_maxSpeed)
+        if (m_curSpeed <= m_maxSpeed + m_plusSpeed)
         {
             if (_arrow < 0)
             {
@@ -384,9 +384,9 @@ public abstract class Player : MonoBehaviour
             m_curSpeed = 0;
         }
 
-        if (m_curSpeed > m_maxSpeed)
+        if (m_curSpeed > m_maxSpeed + m_plusSpeed)
         {
-            m_curSpeed = m_maxSpeed;
+            m_curSpeed = m_maxSpeed + m_plusSpeed;
         }
     }
 

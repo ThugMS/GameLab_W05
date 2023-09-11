@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2129505712967752969}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HoverBossSummon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 2129505713214893772}
   - component: {fileID: 2129505713214893771}
   - component: {fileID: 4641036319461608675}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,6 +162,4 @@ MonoBehaviour:
   m_range: 100
   m_health: 1
   m_basicAttack: 1
-  m_damageRefreshTime: 1
-  m_knockbackTime: 2
   m_patrolTime: 3
