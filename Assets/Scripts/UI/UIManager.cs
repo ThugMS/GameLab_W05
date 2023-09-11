@@ -61,8 +61,10 @@ public class UIManager : SingleTone<UIManager>
     [SerializeField] private TextMeshProUGUI m_roomTypeText;
     [SerializeField] private TextMeshProUGUI m_rewardTypeText;
 
-    
-    
+
+    [Header("Reward")]
+    [SerializeField] private GameObject m_rewardPanel;
+    [SerializeField] private List<UIClearReward> m_clearReward;
     #endregion
 
     #region PrivateVariables
@@ -138,7 +140,6 @@ public class UIManager : SingleTone<UIManager>
     public void HideKeywordPanel()
     {
         m_keywordPanel.SetActive(false);
-        PlayerManager.instance.m_player.SetActive(true);
     }
     public void UpdateMonsterTypeText(MonsterType monsterType)
     {
@@ -333,7 +334,17 @@ public class UIManager : SingleTone<UIManager>
     }
 
     #endregion
+
+    #region Reward
+
+    public void ShowRewardPanel()
+    {
+        m_rewardPanel.SetActive(true);
+        // 리워드 지정 필요
+    }
     
+
+    #endregion
     #endregion
     
     #region PrivateMethod

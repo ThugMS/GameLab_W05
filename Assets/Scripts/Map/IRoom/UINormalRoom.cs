@@ -18,7 +18,7 @@ public class UINormalRoom : UIRoom
     {
         //GetStageInfo
         GameManager gameManager = GameManager.Instance;
-        int currenetStage = gameManager.m_currentStage;
+        int currenetStage = gameManager.m_currentStage-1;
         // 몬스터 스폰 위치 지정
         m_spawnPositions = new();
         var mTr = transform.GetComponentInChildren<MonsterSpawnPosition>().transform;
