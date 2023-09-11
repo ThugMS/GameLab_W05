@@ -45,6 +45,12 @@ public class UIManager : SingleTone<UIManager>
     [SerializeField] private TextMeshProUGUI m_plusPowerText;
     [SerializeField] private TextMeshProUGUI m_plusSpeedText;
 
+    [SerializeField] private Image m_gemImage;
+
+    [Header("GemPanel")]
+    [SerializeField] private GameObject m_gemPanel;
+    [SerializeField] private GemButton m_gemButtonCurrent;
+    [SerializeField] private GemButton m_gemButtonGetted;
     
     #endregion
 
@@ -130,6 +136,38 @@ public class UIManager : SingleTone<UIManager>
     }
     #endregion
 
+    #region Gem
+
+    public void OpenGemPanel(Player player, Gem gem)
+    {
+        Time.timeScale = 0f;
+        m_gemPanel.SetActive(true);
+        
+        m_gemButtonCurrent.Init(player, player.CurrentGemType);
+        m_gemButtonGetted.Init(player, gem.GemType);
+    }
+
+    public void CloseGemPanel()
+    {
+        m_gemPanel.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
+    public void OnGemChanged(Player player)
+    {
+        if (player.CurrentGemType == GemType.None)
+        {
+            m_gemImage.gameObject.SetActive(false);
+        }
+        else
+        {
+            m_gemImage.sprite = ResourceManager.Instance.GetGemIconImage(player.CurrentGemType);
+            m_gemImage.gameObject.SetActive(true);
+        }
+    }
+
+    #endregion
+    
     #region SkillSlot
 
     public void SetSKillSlot(Player.PlayerClassType playerClassType)

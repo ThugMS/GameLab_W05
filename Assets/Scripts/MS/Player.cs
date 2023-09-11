@@ -53,9 +53,17 @@ public abstract class Player : MonoBehaviour
     protected float m_plusPower;
     protected float m_plusSpeed;
     
+    public float FinalHP => m_maxHP + m_plusHP;
+    public float FinalPower => m_power + m_plusPower;
+    public float FinalSpeed => m_maxSpeed + m_plusSpeed;
     
-    [Header("Type")]
+    protected Gem m_currentTriggerGem;
+    
+    [Header("Type")] 
     protected PlayerClassType m_PlayerClassType;
+    protected GemType m_currentGemType = GemType.None;
+    public GemType CurrentGemType => m_currentGemType;
+    
     #endregion
 
     #region PublicMethod
@@ -102,12 +110,12 @@ public abstract class Player : MonoBehaviour
     {
         m_currentHP -= _damage;
         
-        if(m_currentHP > m_maxHP)
+        if(m_currentHP > FinalHP)
         {
-            m_currentHP = m_maxHP;
+            m_currentHP = FinalHP;
         }
 
-        UIManager.Instance.DecreaseHeart(m_currentHP, m_maxHP);
+        UIManager.Instance.DecreaseHeart(m_currentHP, FinalHP);
 
         if(m_currentHP <= 0)
         {
@@ -130,6 +138,87 @@ public abstract class Player : MonoBehaviour
         m_canAct = _value;
     }
 
+    public bool IsSameGem(GemType gemType)
+    {
+        return m_currentGemType == gemType;
+    }
+
+    public void OnGemTriggerEnter(Gem gem)
+    {
+        if (IsSameGem(gem.GemType))
+            return;
+        
+        m_currentTriggerGem = gem;
+        
+        if(m_currentGemType == GemType.None)
+            ChangeGem(gem.GemType);
+        else
+        {
+            UIManager.Instance.OpenGemPanel(this, gem);
+        }
+    }
+
+    public void ChangeGem(GemType gemType)
+    {
+        if (IsSameGem(gemType))
+            return;
+        
+        if (gemType != GemType.None)
+        {
+            ChangePlusStatus(gemType);
+        }
+        else
+        {
+            AbsorbStatus();
+        }
+        
+        m_currentGemType = gemType;
+
+        Destroy(m_currentTriggerGem.gameObject);
+        m_currentTriggerGem = null;
+        
+        UIManager.Instance.OnGemChanged(this);
+    }
+
+    protected void ChangePlusStatus(GemType gemType)
+    {
+        ResetPlusStatus();
+        
+        switch (gemType)
+        {
+            case GemType.Power:
+                m_plusPower += 3;
+                break;
+            case GemType.HP:
+                m_plusHP += 4;
+                break;
+            case GemType.Speed:
+                m_plusSpeed += 3;
+                break;
+        }
+        
+        OnStatusChanged();
+    }
+    
+    protected void ResetPlusStatus()
+    {
+        m_plusHP = 0;
+        m_plusPower = 0;
+        m_plusSpeed = 0;
+        
+        OnStatusChanged();
+    }
+    
+    protected void AbsorbStatus()
+    {
+        m_maxHP += m_plusHP;
+        m_power += m_plusPower;
+        m_maxSpeed += m_plusSpeed;
+
+        ResetPlusStatus();
+        OnStatusChanged();
+    }
+    
     protected virtual void Awake()
     {
         TryGetComponent<Rigidbody2D>(out m_rigidbody);
@@ -139,7 +228,7 @@ public abstract class Player : MonoBehaviour
     {
         PlayerManager.instance.SetPlayer(gameObject);
         SetStatus();
-        UIManager.Instance.SetHeartUI(m_currentHP, m_maxHP);
+        UIManager.Instance.SetHeartUI(m_currentHP, FinalHP);
     }
 
     protected virtual void FixedUpdate()
@@ -255,6 +344,7 @@ public abstract class Player : MonoBehaviour
     protected void OnStatusChanged()
     {
         UIManager.Instance.SetProfileStatus(m_maxHP, m_power, m_maxSpeed, m_plusHP, m_plusPower, m_plusSpeed);
+        UIManager.Instance.SetHeartUI(m_currentHP, FinalHP);
     }
 
     #endregion
