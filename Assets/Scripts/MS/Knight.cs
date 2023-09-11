@@ -115,15 +115,25 @@ public class Knight : Player
     }
 
     public void DamageAttackMonster()
-    {
+    {   
+        if(m_colliders == null)
+        {
+            return;
+        }
+
         foreach (var iter in m_colliders)
         {
             BaseMonster monster;
+
+            if (iter == null)
+                continue;
 
             iter.TryGetComponent<BaseMonster>(out monster);
 
             monster.getDamage(m_power);
         }
+
+        m_colliders = null;
     }
 
     public void EndAttackAnimation()

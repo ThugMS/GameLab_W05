@@ -83,7 +83,7 @@ public class HoverBoss : BaseMonster
     #region PrivateMethod
     private void ChoicePattern()
     {
-        int value = Random.Range(2, 3);
+        int value = Random.Range(0, 3);
 
         switch(value)
         {
@@ -182,8 +182,11 @@ public class HoverBoss : BaseMonster
     }
 
     protected override void Attack()
-    {
-        m_bossAnimator.SetTrigger("FadeAttack");
+    {   
+        if(m_bossAnimator != null)
+        {
+            m_bossAnimator.SetTrigger("FadeAttack");
+        }
         m_collider.enabled = false;
         StartCoroutine(nameof(FadeInCoolTime));
     }
