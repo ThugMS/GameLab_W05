@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
         m_currentStage++;
         PlayerManager.instance.SavePlusStat();
         SceneManager.LoadScene("Ingame");
-        Invoke(nameof(GameStart), .005f);
+        Invoke(nameof(GameStart), .05f);
     }
 
     public void SelectClearReward(ClearReward reward)

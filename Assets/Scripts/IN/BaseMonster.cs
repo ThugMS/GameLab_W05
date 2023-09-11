@@ -70,12 +70,12 @@ public abstract class BaseMonster : MonoBehaviour
         if (!isBoss)
         {
             TransitionToState(MonsterState.Knockback);
-
             Vector2 moveDirection = (transform.position - m_playerObj.transform.position).normalized;
             if (m_agent.isActiveAndEnabled == true)
             {
                 m_agent.SetDestination((Vector2)transform.position + moveDirection);
             }
+            StartCoroutine(nameof(IE_TweenDamage));
             StartCoroutine(IE_KnockBack(knockbackPower));
         }
         if (Health <= 0)
@@ -211,10 +211,12 @@ public abstract class BaseMonster : MonoBehaviour
         Vector2 moveDirection = (transform.position - m_playerObj.transform.position).normalized;
         m_agent.enabled = false;
         m_knockbackTimer = m_knockbackTime;
-
-        m_rb.velocity = moveDirection * 1.5f;
-        yield return new WaitForSeconds(m_knockbackTime);
-        m_rb.velocity = Vector2.zero;
+        if (m_rb != null)
+        {
+            m_rb.velocity = moveDirection * 1.5f;
+            yield return new WaitForSeconds(m_knockbackTime);
+            m_rb.velocity = Vector2.zero;
+        }
         m_agent.enabled = true;
         TransitionToState(MonsterState.Patrol);
         isAttacked = false;
