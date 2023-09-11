@@ -76,7 +76,7 @@ public abstract class BaseMonster : MonoBehaviour
         }
     }
 
-    public void getDamage(float _damage)
+    public virtual void getDamage(float _damage)
     {
         //TransitionToState(MonsterState.Knockback);
         Health -= _damage;
