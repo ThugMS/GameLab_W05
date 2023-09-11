@@ -13,7 +13,7 @@ public class UIStartRoom : UIRoom
 
     public override void Execute()
     {
-        m_selectedClassObject = transform.Find("../Room(Clone)/Floor/Floor(Clone)/ChoosePlayerClass").gameObject;
+        m_selectedClassObject = transform.GetComponentInChildren<ChoosePlayerClass>().gameObject;
     }
 
     public void CompleteSelect()
