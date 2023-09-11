@@ -14,6 +14,7 @@ public class NonePlayer : Player
     [SerializeField] private GameObject m_wizard;
     [SerializeField] private GameObject m_archer;
     [SerializeField] private GameObject m_chooseBoxs;
+    [SerializeField] private GameObject m_skillPanel;
     
     protected override void Start()
     {
@@ -28,7 +29,7 @@ public class NonePlayer : Player
     {
         OnStatusChanged();
     }
-    
+
     protected override void Attack()
     {
         if (m_canChangeClass && m_selectType != PlayerClassType.None)

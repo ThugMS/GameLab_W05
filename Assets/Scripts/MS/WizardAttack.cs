@@ -37,9 +37,10 @@ public class WizardAttack : MonoBehaviour
         StartCoroutine(nameof(IE_SetReady));
     }
 
-    public void InitSetting(Vector2 _dir)
+    public void InitSetting(Vector2 _dir, float _power)
     {
         m_direction = _dir;
+        m_power = _power;
     }
 
     private void FixedUpdate()

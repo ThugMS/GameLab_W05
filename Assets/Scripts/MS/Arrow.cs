@@ -24,10 +24,11 @@ public class Arrow : MonoBehaviour
     #endregion
 
     #region PublicMethod
-    public void InitSetting(float _speed, Vector2 _dir)
+    public void InitSetting(float _speed, Vector2 _dir, float _power)
     {
         m_speed = _speed;
         m_dir = _dir;
+        m_power = _power;
     }
 
     private void Start()
