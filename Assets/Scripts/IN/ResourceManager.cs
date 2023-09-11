@@ -41,12 +41,15 @@ public class ResourceManager : MonoBehaviour
     public List<GameObject> m_jamPrefabs;
 
     public GameObject m_HpPotionPrefab;
+
+    public List<ClearReward> m_clearRewardInfos;
     
     public void Init()
     {
         InitMonster();
         InitLandscapeInRoom();
         InitDoor();
+        InitClearReward();
     }
 
     void InitMonster()
@@ -209,4 +212,13 @@ public class ResourceManager : MonoBehaviour
             MonsterType.hover => m_hoverBossPrefab,
         };
     }
+
+     void InitClearReward()
+     {
+         // var player = PlayerManager.instance.GetPlayer().GetComponent<Player>();
+         // m_clearRewardInfos = new();
+         // m_clearRewardInfos.Add(new ClearReward("체력 UP", "최대 체력이 영구적으로 2 증가합니다.", null, () => { }));
+         // m_clearRewardInfos.Add(new ClearReward("공격력 UP", "공격력이 영구적으로 2 증가합니다.", null, () => { }));
+         // m_clearRewardInfos.Add(new ClearReward("이동속도 UP", "이동 속도가 영구적으로 2 증가합니다.", null, () => { }));
+     }
 }
