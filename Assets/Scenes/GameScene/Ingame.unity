@@ -1245,6 +1245,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37926c82f1bc9db4c93b9a081ac4d050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_meleeBossPrefab: {fileID: 0}
+  m_rangedBossPrefab: {fileID: 0}
+  m_hoverBossPrefab: {fileID: 0}
 --- !u!4 &1758589755
 Transform:
   m_ObjectHideFlags: 0

@@ -21,7 +21,6 @@ public class Knight : Player
     [SerializeField] private Vector2 m_dashAttackBoxSize;
     [SerializeField] private float m_dashDis;
     [SerializeField] private float m_durationTime = 0.5f;
-    [SerializeField] private float m_coolTime = 3f;
     [SerializeField] private AnimationCurve m_dashEase;
     [SerializeField] private int m_dashLayerMask;
     [SerializeField] private Vector2 m_startPos;
