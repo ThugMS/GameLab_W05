@@ -142,8 +142,13 @@ public abstract class Player : MonoBehaviour
     }
 
     public void Dead()
-    {
-        UIManager.Instance.PlayGameOverEffect();
+    {   
+        SetCanAct(false);
+        SetCanMove(false);
+        m_isMove = false;
+        m_isAct = false;
+
+        m_animator.SetTrigger("Dead");
     }
 
     public void SetCanMove(bool _value)

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1710989630}
   - component: {fileID: 1710989632}
   - component: {fileID: 1710989631}
+  - component: {fileID: 5461450053545238314}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -107,6 +108,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5461450053545238314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710989629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c451ea39d5bb8794b95cf2abbf57796b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_wizard: {fileID: 7073605362985958938}
 --- !u!1 &1817304401
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,11 +365,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc5bc4b2ac2816545ae4dd01718034ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_isGod: 0
+  m_isAttacked: 0
   m_rigidbody: {fileID: 7073605362985958942}
+  m_blink: 0
   m_currentHP: 12
   m_power: 0
   m_offset: 0.5
   m_maxHP: 20
+  m_attackedTime: 1
   m_maxSpeed: 5
   m_accelSpeed: 0.5
   m_decelSpeed: 1
