@@ -14,8 +14,6 @@ public class Room
     public GameObject m_landspace;
 
     public List<GameObject> m_monsters;
-    
-    public Boss m_boss;
 
     public Gift m_gift;
 

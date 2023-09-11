@@ -140,28 +140,29 @@ public class RangedBoss : BaseMonster
     {
         var dir = transform.position - m_playerObj.transform.position;
         var rot = Mathf.Atan2(-dir.y, -dir.x) * Mathf.Rad2Deg;
-        var obj1 = Instantiate(m_bulletPrefab, GetBulletSpawnPos(), Quaternion.Euler(0, 0, rot));
-        obj1.GetComponent<RangedBossBullet>().Init(m_bulletSpeed);
+        var obj = Instantiate(m_bulletPrefab, GetBulletSpawnPos(), Quaternion.Euler(0, 0, rot));
+        obj.GetComponent<RangedBossBullet>().Init(m_bulletSpeed);
     }
     
     public void InstantiateCircleBullet()
     {
         for(int i =0 ; i < m_circleBulletDistance ; i++) 
         {
-            GameObject obj2 = Instantiate(m_bulletPrefab, GetBulletSpawnPos(), quaternion.identity);
+            GameObject obj = Instantiate(m_bulletPrefab, GetBulletSpawnPos(), quaternion.identity);
+            obj.transform.position = GetBulletSpawnPos();
             var radian = Mathf.PI * i * 2 / m_circleBulletDistance;
-            obj2.GetComponent<Rigidbody2D>().AddForce(new Vector2(m_bulletSpeed * Mathf.Cos(radian),
+            obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(m_bulletSpeed * Mathf.Cos(radian),
                 m_bulletSpeed * Mathf.Sin(radian)));
-            obj2.transform.Rotate(new Vector3(0,0,360 * i / m_circleBulletDistance));
+            obj.transform.Rotate(new Vector3(0,0,360 * i / m_circleBulletDistance));
                             
-            obj2.GetComponent<RangedBossBullet>().Init(m_bulletSpeed);
+            obj.GetComponent<RangedBossBullet>().Init(m_bulletSpeed);
         } 
     }
     
     private Vector3 GetBulletSpawnPos()
     {
         var pos = transform.position;
-        var dir = new Vector3(pos.x + (m_spriteRenderer.flipX ? -11f : 1f), pos.y, pos.z);
+        var dir = new Vector3(pos.x + (m_spriteRenderer.flipX ? -1f : 1f), pos.y, pos.z);
         dir.Normalize();
 
         return dir;
