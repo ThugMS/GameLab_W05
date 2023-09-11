@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class MeleeDashRegenMonster : MeleeDashMonster
 {
@@ -15,36 +16,47 @@ public class MeleeDashRegenMonster : MeleeDashMonster
 
     #region PublicMethod
 
-
-
-    public void getDamage(float _damage, float knockbackPower)
+    public void Awake()
     {
+        turnChild(false);
+    }
+
+    public override void getDamage(float _damage, float knockbackPower)
+    {
+        getDamage(_damage);
         TransitionToState(MonsterState.Knockback);
-        Health -= _damage;
         Vector2 moveDirection = (transform.position - m_playerObj.transform.position).normalized;
         if (m_agent.isActiveAndEnabled == true)
         {
             m_agent.SetDestination((Vector2)transform.position + moveDirection);
         }
         StartCoroutine(IE_KnockBack(knockbackPower));
+
+    }
+
+    public override void getDamage(float _damage)
+    {
+        Health -= _damage;
         if (Health <= 0)
         {
             if (isParent)
             {
                 turnChild(true);
-            } else
+            }
+            else
             {
                 checkDone();
             }
-            gameObject.SetActive(false);
+            isOn = false;
         }
     }
 
+
     private void turnChild(bool value)
     {
-        foreach (GameObject child in objectArr)
+        foreach (GameObject obj in objectArr)
         {
-          child.gameObject.SetActive(value);
+          obj.gameObject.SetActive(value);
         }
     }
 

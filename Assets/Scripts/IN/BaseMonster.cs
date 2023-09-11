@@ -27,6 +27,9 @@ public abstract class BaseMonster : MonoBehaviour
         Stop,
         Dead
     }
+    [Header("Boss")]
+    [SerializeField] protected bool isBoss;
+
     [Header("State")]
     [SerializeField] protected MonsterState m_currentState = MonsterState.Patrol;
     protected Rigidbody2D m_rb;
@@ -53,13 +56,15 @@ public abstract class BaseMonster : MonoBehaviour
     //==Timer
     protected float m_knockbackTimer;
     protected float m_patrolTimer;
+    private SpriteRenderer m_spriteRenderer;
+    private Color m_originalColor;
 
-    
+
     #endregion
     #region PublicMethod
     //====================================InteractionWithPlayer========================
     public float Health { get => m_health; set => m_health = value; }
-    public void getDamage(float _damage, float knockbackPower)
+    public virtual void getDamage(float _damage, float knockbackPower)
     {
         TransitionToState(MonsterState.Knockback);
         Health -= _damage;
@@ -76,15 +81,20 @@ public abstract class BaseMonster : MonoBehaviour
         }
     }
 
-    public void getDamage(float _damage)
+    public virtual void getDamage(float _damage)
     {
         //TransitionToState(MonsterState.Knockback);
         Health -= _damage;
-
+        StartCoroutine(nameof(IE_TweenDamage));
         if (Health <= 0)
         {
-            //TransitionToState(MonsterState.Dead);
-            Dead();
+            if (isBoss)
+            {
+                Dead();
+            } else
+            {
+                StartCoroutine(nameof(IE_PlayDyingEffect));
+            }
         }
     }
 
@@ -102,6 +112,18 @@ public abstract class BaseMonster : MonoBehaviour
         }
     }
 
+    private IEnumerator IE_TweenDamage()
+    {
+        transform.DOPunchScale(new Vector3(-0.05f, -0.05f, 0f), 0.2f);
+
+        m_spriteRenderer.DOColor(Color.red, 0.25f);
+
+        yield return new WaitForSeconds(0.25f);
+
+        transform.DOPunchScale(new Vector3(0.05f, 0.05f, 0f), 0.2f);
+
+        m_spriteRenderer.DOColor(m_originalColor, 0.25f);
+    }
 
 
     protected virtual void DamagePlayer(GameObject collidingObject)
@@ -114,6 +136,27 @@ public abstract class BaseMonster : MonoBehaviour
             player.GetDamage(m_basicAttack);
         }
     }
+
+    private IEnumerator IE_PlayDyingEffect()
+    {
+        TransitionToState(MonsterState.Stop);
+        if (m_agent.isActiveAndEnabled)
+        {
+            m_agent.isStopped = true;
+        }
+        yield return new WaitForSeconds(0.5f);
+        Vector3 targetScale = new Vector3(1f, 0f, 1f);
+
+        transform.DOScale(targetScale, .4f);
+        transform.DOMoveY(transform.position.y - transform.localScale.y / 1f, .4f);
+        m_spriteRenderer.DOFade(0f, 0.1f).SetEase(Ease.OutExpo);
+
+
+        yield return new WaitForSeconds(.2f); 
+        DeadListener?.Invoke();
+        Destroy(gameObject);
+    }
+
     //===============================InitFunc=================================
     protected void Update ()
     {
@@ -125,9 +168,12 @@ public abstract class BaseMonster : MonoBehaviour
     protected abstract void stateUpdate();
     public virtual void init()
     {
+
         m_agent = GetComponent<NavMeshAgent>();
         m_agent.updateRotation = false;
         m_agent.updateUpAxis = false;
+        m_spriteRenderer = GetComponent<SpriteRenderer>();
+        m_originalColor = m_spriteRenderer.color;
 
         m_playerObj = GameObject.FindGameObjectWithTag("Player");
         m_rb = GetComponent<Rigidbody2D>();
@@ -147,6 +193,7 @@ public abstract class BaseMonster : MonoBehaviour
     protected abstract void Attack();
     protected virtual void Dead()
     {
+        StartCoroutine(nameof(IE_PlayDyingEffect));
         DeadListener?.Invoke();
         Destroy(gameObject);
     }

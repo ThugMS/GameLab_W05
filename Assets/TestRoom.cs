@@ -11,12 +11,23 @@ public class TestRoom : MonoBehaviour
     #endregion
 
     #region PublicMethod
-   GameObject[] monsters; 
+    GameObject[] monsters;
 
     private void Start()
     {
+        turnOn();
+    }
+
+    private void OnEnable()
+    {
+        turnOn();
+    }
+
+    public void turnOn()
+    {
+
         monsters = GameObject.FindGameObjectsWithTag("Monster");
-        foreach(GameObject monster in monsters)
+        foreach (GameObject monster in monsters)
         {
             monster.GetComponent<BaseMonster>().init();
         }

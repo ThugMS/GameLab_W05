@@ -17,8 +17,7 @@ public class MeleeMonster : BaseMonster
         switch (m_currentState)
         {
             case MonsterState.Patrol:
-                base.m_animator.SetFloat("X", (targetPatrolPos - (Vector3)transform.position).x);
-                base.m_animator.SetFloat("Y", (targetPatrolPos - (Vector3)transform.position).y);
+                setAnimationDir(targetPatrolPos);
                 if (canSeePlayer() && playerWithinRange())
                 {
                     TransitionToState(MonsterState.Pursuit);
@@ -26,8 +25,7 @@ public class MeleeMonster : BaseMonster
                 Patrol();
                 break;
             case MonsterState.Pursuit:
-                base.m_animator.SetFloat("X", (base.m_playerObj.transform.position - (Vector3)transform.position).x);
-                base.m_animator.SetFloat("Y", (base.m_playerObj.transform.position - (Vector3)transform.position).y);
+                setAnimationDir(base.m_playerObj.transform.position);
                 if (!canSeePlayer() || !playerWithinRange())
                 {
                     Patrol();
@@ -38,12 +36,22 @@ public class MeleeMonster : BaseMonster
                 }
                 break;
             case MonsterState.Knockback:
-                base.m_animator.SetFloat("X", (base.m_playerObj.transform.position - (Vector3)transform.position).x);
-                base.m_animator.SetFloat("Y", (base.m_playerObj.transform.position - (Vector3)transform.position).y);
+                setAnimationDir(base.m_playerObj.transform.position);
                 print("Knockback");
                 break;
         }
     }
+
+    protected virtual void setAnimationDir(Vector3 pos)
+    {
+        if (m_isHovering)
+        {
+            base.m_animator.SetFloat("X", (pos - (Vector3)transform.position).x);
+            base.m_animator.SetFloat("Y", (pos - (Vector3)transform.position).y);
+        }
+    }
+
+
     #endregion
 
     #region PublicMethod
