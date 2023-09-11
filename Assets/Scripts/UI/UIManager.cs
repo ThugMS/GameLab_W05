@@ -52,37 +52,26 @@ public class UIManager : SingleTone<UIManager>
     [SerializeField] private GameObject m_gemPanel;
     [SerializeField] private GemButton m_gemButtonCurrent;
     [SerializeField] private GemButton m_gemButtonGetted;
+    [SerializeField] private List<GemButton> m_gemPanelButtons = new List<GemButton>();
+    [SerializeField] private int m_gemListIndex = 0;
     
     [Header("KeywordPanel")]
     [SerializeField] private GameObject m_keywordPanel;
     [SerializeField] private TextMeshProUGUI m_monsterTypeText;
     [SerializeField] private TextMeshProUGUI m_roomTypeText;
     [SerializeField] private TextMeshProUGUI m_rewardTypeText;
+
+    
+    
     #endregion
 
     #region PrivateVariables
     #endregion
 
-
     private void Update()
     {
         CheckMonster();
     }
-
-    public void SetPlayerInput(PlayerInput input)
-    {
-        FieldInfo fieldInfo = typeof(PlayerInput).GetField("m_ControlsChangedEvent", BindingFlags.NonPublic | BindingFlags.Instance);
-        if (fieldInfo != null)
-        {
-            PlayerInput.ControlsChangedEvent controlsChangedAction = (PlayerInput.ControlsChangedEvent)fieldInfo.GetValue(input);
-
-            controlsChangedAction.RemoveListener(OnControlsChanged);
-            controlsChangedAction.AddListener(OnControlsChanged);
-
-            fieldInfo.SetValue(input, controlsChangedAction);
-        }
-    }
-    
     
     #region PublicMethod
     #region KeyHint
@@ -103,11 +92,6 @@ public class UIManager : SingleTone<UIManager>
         GameManager.Instance.GameStart();
     }
     
-    public void LoadTitleScene()
-    {
-        SceneManager.LoadScene("Title");
-    }
-    
     public void ReLoadScene()
     { 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -119,6 +103,34 @@ public class UIManager : SingleTone<UIManager>
     }
     #endregion
     
+    #region InputSysewm
+    public void SetPlayerInput(PlayerInput input)
+    {
+        FieldInfo fieldInfo = typeof(PlayerInput).GetField("m_ControlsChangedEvent", BindingFlags.NonPublic | BindingFlags.Instance);
+        if (fieldInfo != null)
+        {
+            PlayerInput.ControlsChangedEvent controlsChangedAction = (PlayerInput.ControlsChangedEvent)fieldInfo.GetValue(input);
+
+            controlsChangedAction.RemoveListener(OnControlsChanged);
+            controlsChangedAction.AddListener(OnControlsChanged);
+
+            fieldInfo.SetValue(input, controlsChangedAction);
+        }
+    }
+
+    public void GetGemPanelInput(InputAction.CallbackContext _context)
+    {
+        if (_context.started)
+        {   
+            
+            m_gemListIndex++;
+            if (m_gemListIndex >= m_gemPanelButtons.Count)
+            {
+            }
+        }
+    }
+
+    #endregion
     public void ShowKeywordPanel()
     {
         m_keywordPanel.SetActive(true);
@@ -185,11 +197,15 @@ public class UIManager : SingleTone<UIManager>
         
         m_gemButtonCurrent.Init(player, player.CurrentGemType);
         m_gemButtonGetted.Init(player, gem.GemType);
+        
+        m_gemPanelButtons.Add(m_gemButtonCurrent);
+        m_gemPanelButtons.Add(m_gemButtonGetted);
     }
 
     public void CloseGemPanel()
     {
         m_gemPanel.SetActive(false);
+        m_gemPanelButtons = null;
         Time.timeScale = 1f;
     }
 

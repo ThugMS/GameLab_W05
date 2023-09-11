@@ -182,9 +182,27 @@
             "id": "c94b467b-96e8-44a8-85de-5f162c6d82ef",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "ReStartGame",
+                    "type": "Value",
+                    "id": "beaa486f-0229-4521-8def-3701dabffea9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Select",
+                    "type": "PassThrough",
+                    "id": "5bf8fb96-d294-4597-9166-5086e1980202",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Confirm",
                     "type": "Button",
-                    "id": "5ea368e7-28d0-45b7-a9ee-4c66be5f30af",
+                    "id": "20644b78-51bf-4e5c-81e4-31ddabc9cba3",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -194,12 +212,89 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "6458bb29-907a-48f9-acb6-8d91039a5fdb",
-                    "path": "",
+                    "id": "bf7f136e-b2cf-46dc-af1f-2f46c42bc974",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "Hold(duration=1)",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "ReStartGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4aa900f2-f495-400f-bf7a-702657f749d2",
+                    "path": "<Keyboard>/r",
+                    "interactions": "Hold(duration=1)",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ReStartGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8018eadc-ac3a-41c2-bbe9-adddd594180a",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Keyboard",
+                    "id": "b944a081-525d-443d-85a1-134e35b42e14",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Select",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "left",
+                    "id": "ba32f746-46e8-4aef-83bc-ed535de218bf",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "91d7915b-fcbd-49ec-83a3-069e00854db7",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "f29ad0df-bd70-445d-affa-dd8c190cbc0f",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eb6166c7-553f-4a27-8586-4bcee36d9248",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Confirm",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
