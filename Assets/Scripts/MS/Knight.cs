@@ -181,7 +181,7 @@ public class Knight : Player
 
     private RaycastHit2D Dash()
     {
-
+        UIManager.Instance.GetSkillCoolTime(m_coolTime);
         m_dashPosition = transform.position;
 
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.5f, m_dashDir, m_dashDis, m_dashLayerMask);

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -33,6 +34,7 @@ public class UIManager : SingleTone<UIManager>
     [SerializeField] private GameObject m_skillPaenl;
     [SerializeField] private Image m_attackSlot;
     [SerializeField] private Image m_abilitySlot;
+    [SerializeField] private Image m_abilityCoolTime;
     
     [Header("Profile")]
     [SerializeField] private Image m_profileImage;
@@ -197,7 +199,11 @@ public class UIManager : SingleTone<UIManager>
         m_attackSlot.sprite = attackIcon;
         m_abilitySlot.sprite = abilityIcon;
     }
-
+    public void GetSkillCoolTime(float _time)
+    {
+        m_abilityCoolTime.fillAmount = 1f;
+        m_abilityCoolTime.DOFillAmount(0f, _time);
+    }
     #endregion
 
     #region Status
