@@ -29,7 +29,7 @@ public class Wizard : Player
     {
         base.Start();
 
-        m_portLayerMask = LayerMask.GetMask("Wall", "Monster", "Boss");
+        m_portLayerMask = LayerMask.GetMask("Wall");
         SetPlayerClassType(PlayerClassType.Wizard);
     }
     protected override void SetStatus()
@@ -101,7 +101,7 @@ public class Wizard : Player
 
         Vector3 offsetPositon = (m_offset + m_attackRadius) * m_Direction.normalized;
         GameObject obj = Instantiate(m_attackPrefab, transform.position + offsetPositon, Quaternion.Euler(0, 0, angle));
-        obj.GetComponent<WizardAttack>().InitSetting(m_Direction);
+        obj.GetComponent<WizardAttack>().InitSetting(m_Direction, m_power);
     }
 
     private void Port()
@@ -138,6 +138,7 @@ public class Wizard : Player
     private void CreateBomb()
     {
         GameObject obj = Instantiate(m_abilityPrefab, transform.position, Quaternion.identity);
+        obj.GetComponent<WizardAbility>().Init(m_power);
     }
 
     private IEnumerator IE_DashCoolTime()
