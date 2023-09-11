@@ -1185,6 +1185,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 380470869}
+    - target: {fileID: 4101260907637798636, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4371378717064541205, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
       propertyPath: m_Colors.m_SelectedColor.b
       value: 0.39101997
@@ -1316,6 +1320,14 @@ PrefabInstance:
     - target: {fileID: 6209531380910231096, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6743297401910781974, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+      propertyPath: m_Name
+      value: SkillPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6743297401910781974, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7040876719502619666, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
       propertyPath: m_text
