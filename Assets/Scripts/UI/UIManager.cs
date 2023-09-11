@@ -126,6 +126,7 @@ public class UIManager : SingleTone<UIManager>
     public void HideKeywordPanel()
     {
         m_keywordPanel.SetActive(false);
+        PlayerManager.instance.m_player.SetActive(true);
     }
     public void UpdateMonsterTypeText(MonsterType monsterType)
     {
