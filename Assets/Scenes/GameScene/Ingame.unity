@@ -1334,7 +1334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37926c82f1bc9db4c93b9a081ac4d050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_meleeBossPrefab: {fileID: 5960275969316563203, guid: d23c3ddd0f96a3048911e071294cd43a, type: 3}
+  m_meleeBossPrefab: {fileID: 9070271885697952404, guid: b5c02b46e61a7164db6e8bc3f4381c4e, type: 3}
   m_rangedBossPrefab: {fileID: 5960275969316563203, guid: d23c3ddd0f96a3048911e071294cd43a, type: 3}
   m_hoverBossPrefab: {fileID: 6887085735099513768, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
   m_jamPrefabs:
