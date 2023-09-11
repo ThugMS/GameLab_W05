@@ -503,7 +503,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2004c095a4f9058499c3e647ea84f79b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 221898487}
   m_roomPrefabs: {fileID: 3350617661772655293, guid: 7594296276745d5408f49196ed1034c4, type: 3}
   m_gridTr: {fileID: 1384655655}
   m_roomWidthSize: 27
@@ -513,6 +512,7 @@ MonoBehaviour:
   maxMonsterLevel: 0
   minMonsterCount: 0
   maxMonsterCount: 0
+  m_giftPrefab: {fileID: 0}
 --- !u!4 &221898487
 Transform:
   m_ObjectHideFlags: 0
@@ -993,7 +993,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4345761120803983552, guid: 4101e675d56a9fa4c9b49b7047f2ab33, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4345761120803983589, guid: 4101e675d56a9fa4c9b49b7047f2ab33, type: 3}
       propertyPath: knockbackTime
@@ -4950,6 +4950,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37926c82f1bc9db4c93b9a081ac4d050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_meleeBossPrefab: {fileID: 0}
+  m_rangedBossPrefab: {fileID: 0}
+  m_hoverBossPrefab: {fileID: 0}
+  m_jamPrefabs: []
+  m_HpPotionPrefab: {fileID: 0}
 --- !u!4 &1858824615
 Transform:
   m_ObjectHideFlags: 0
@@ -13458,6 +13463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_floor: {fileID: 0}
   m_spawnPositons: []
+  m_CloseDoorObject: {fileID: 0}
 --- !u!4 &3350617660915407665
 Transform:
   m_ObjectHideFlags: 0

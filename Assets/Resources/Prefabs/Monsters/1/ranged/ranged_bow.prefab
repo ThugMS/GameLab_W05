@@ -10,13 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 6857720738556830171}
   - component: {fileID: 6857720738556830170}
-  - component: {fileID: 6879285155288539882}
+  - component: {fileID: 6857720738556830181}
   - component: {fileID: 6857720738556830169}
   - component: {fileID: 6857720738556830168}
   - component: {fileID: 6857720738556830174}
   - component: {fileID: 5009286788165053346}
   m_Layer: 6
-  m_Name: ranged_Bomb
+  m_Name: ranged_bow
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,7 +89,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6879285155288539882
+--- !u!114 &6857720738556830181
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6857720738556830180}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e307f99dd1e378c4eb44dae20c22c8d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 09d26f5937560cd498d187b82150a184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stage: 0
@@ -116,11 +116,10 @@ MonoBehaviour:
   m_knockbackTime: 2
   m_patrolTime: 2
   m_attackRange: 5
-  m_bullet: {fileID: 4096951867171842566, guid: 31cc8f82da8fecb4597ccd0e9ba16ec4, type: 3}
-  m_bulletSpeed: 3
+  m_bullet: {fileID: 4096951867171842566, guid: b1e339cf285252c44b52e93426168a30, type: 3}
+  m_bulletSpeed: 5
   m_bulletCount: 3
   m_attackTime: 3
-  m_BombCount: 1
 --- !u!50 &6857720738556830169
 Rigidbody2D:
   serializedVersion: 4
