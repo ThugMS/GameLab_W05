@@ -203,14 +203,8 @@ public class MeleeBoss : BaseMonster
             
             if (Health <= 0)
             {
-                if (isBoss)
-                {
-                    Dead();
-                }
-                else
-                {
-                    StartCoroutine(nameof(IE_PlayDyingEffect));
-                }
+                m_onAction = true;
+                m_animator.SetBool("isDead", true);
             }
         }
     }
@@ -240,15 +234,7 @@ public class MeleeBoss : BaseMonster
         StartCoroutine(Rest());
     }
 
-    protected override IEnumerator IE_PlayDyingEffect()
-    {
-        m_animator.SetTrigger("Dead");
 
-
-        DeadListener?.Invoke();
-        Destroy(gameObject);
-        yield return null;
-    }
 
 
     protected override void Patrol()
@@ -274,7 +260,8 @@ public class MeleeBoss : BaseMonster
 
     public void ExecuteDeadAfterAnimation()
     {
-        base.Dead();
+        DeadListener?.Invoke();
+        Destroy(gameObject);
     }
 
     void TowardPlayer()
