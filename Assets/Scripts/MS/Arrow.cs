@@ -19,7 +19,7 @@ public class Arrow : MonoBehaviour
     [SerializeField] private float m_decelSpeed = 0.01f;
 
     [Header("Damage")]
-    private float m_power = 0f;
+    [SerializeField] private float m_power = 0f;
     #endregion
 
     #region PublicMethod
