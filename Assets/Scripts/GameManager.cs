@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +12,20 @@ public class GameManager : MonoBehaviour
     public MonsterType m_keywordMonsterType = MonsterType.melee;
     public RoomType m_keywordRoomType = RoomType.Gift;
     public bool m_keywordReword;
+
+    private List<MonsterType> _appearMonsterTypes = new()
+    {
+        MonsterType.ranged,
+        MonsterType.melee,
+        MonsterType.hover,
+    };
+    
+    private List<RoomType> _appearRoomTypes = new()
+    {
+        RoomType.Gift,
+        RoomType.NormalGift,
+        RoomType.Normal,
+    };
     
     public bool isGameOver = false;
     #endregion
@@ -47,10 +58,12 @@ public class GameManager : MonoBehaviour
         PlayerManager.instance.SetPlayer(GameObject.FindWithTag("Player"));;
         PlayerManager.instance.GetPlayer().SetActive(false);
 
+        // 랜덤 타입 설정 및 제거
+        m_keywordMonsterType = _appearMonsterTypes[ (int)Random.Range(0, Time.deltaTime) % _appearMonsterTypes.Count];
+        _appearMonsterTypes.Remove(m_keywordMonsterType);
+        m_keywordRoomType = _appearRoomTypes[(int)Random.Range(0, Time.deltaTime) % _appearRoomTypes.Count];
+        _appearRoomTypes.Remove(m_keywordRoomType);
         
-        m_keywordMonsterType = (MonsterType)Random.Range(0, Enum.GetNames(typeof(MonsterType)).Length);
-        List<RoomType> roomTypes = new() { RoomType.Gift, RoomType.NormalGift } ;
-        m_keywordRoomType = roomTypes[Random.Range(0, roomTypes.Count)];
         UIManager.Instance.UpdateMonsterTypeText(m_keywordMonsterType);
         UIManager.Instance.UpdateRoomTypeText(m_keywordRoomType);
         UIManager.Instance.ShowKeywordPanel();
@@ -89,7 +102,7 @@ public class GameManager : MonoBehaviour
         m_currentStage++;
         PlayerManager.instance.SavePlusStat();
         SceneManager.LoadScene("Ingame");
-        Invoke(nameof(GameStart), .005f);
+        Invoke(nameof(GameStart), .05f);
     }
 
     public void SelectClearReward(ClearReward reward)
