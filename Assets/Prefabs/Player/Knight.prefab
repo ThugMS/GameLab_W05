@@ -246,10 +246,12 @@ MonoBehaviour:
   m_isGod: 0
   m_isAttacked: 0
   m_rigidbody: {fileID: 4138420507533337179}
+  m_blink: 0
   m_currentHP: 12
   m_power: 0
   m_offset: 0.5
   m_maxHP: 20
+  m_attackedTime: 1
   m_maxSpeed: 5
   m_accelSpeed: 0.5
   m_decelSpeed: 1
