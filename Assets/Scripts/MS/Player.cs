@@ -51,6 +51,7 @@ public abstract class Player : MonoBehaviour
     [Header("Action")]
     [SerializeField] protected bool m_canAct = true;
     [SerializeField] protected bool m_isAct = false;
+    [SerializeField] protected float m_coolTime;
 
     [Header("Animation")]
     [SerializeField] protected Animator m_animator;
@@ -306,6 +307,15 @@ public abstract class Player : MonoBehaviour
             Move(-1);
         }
         #endregion
+    }
+
+    public void InitSetting(PlayerData _data)
+    {
+        m_power = _data.Power;
+        m_maxHP = _data.Health;
+        m_currentHP = _data.Health;
+        m_maxSpeed = _data.Speed;
+        m_coolTime = _data.CoolTime;
     }
 
     protected abstract void SetStatus();
