@@ -8,6 +8,8 @@ public class PlayerManager : MonoBehaviour
 
     #region PublicVariables
     public GameObject m_player;
+
+    public List<PlayerData> m_datas = new List<PlayerData>();
     #endregion
 
     #region PrivateVariables
@@ -74,23 +76,30 @@ public class PlayerManager : MonoBehaviour
         switch(_type)
         {
             case PlayerClassType.None:
-                Instantiate(m_none, spawnPos, Quaternion.identity);
+                m_player = Instantiate(m_none, spawnPos, Quaternion.identity);
                 break;
 
             case PlayerClassType.Knight:
-                Instantiate(m_knight, spawnPos, Quaternion.identity);
+                m_player = Instantiate(m_knight, spawnPos, Quaternion.identity);
                 break;
 
             case PlayerClassType.Archer:
-                Instantiate(m_archer, spawnPos, Quaternion.identity);
+                m_player = Instantiate(m_archer, spawnPos, Quaternion.identity);
                 break;
 
             case PlayerClassType.Wizard:
-                Instantiate(m_wizard, spawnPos, Quaternion.identity);
+                m_player = Instantiate(m_wizard, spawnPos, Quaternion.identity);
                 break;
         }
-        //ToDo : Bae - delete class choide panel;
 
+        SetInitSetting((int)_type);
+
+        RoomManager.Instance.RemoveSelectedClassObject();
+    }
+
+    public void SetInitSetting(int _index)
+    {
+        m_player.GetComponent<Player>().InitSetting(m_datas[_index]);
     }
     #endregion
 
