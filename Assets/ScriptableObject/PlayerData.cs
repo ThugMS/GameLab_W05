@@ -10,7 +10,7 @@ public class PlayerData : ScriptableObject
     public float Power { get { return m_power; } }
     public float Speed { get { return m_speed; } }
     public float Health { get { return m_health; } }
-    public float CoolTime { get { return m_health; } }
+    public float CoolTime { get { return m_coolTime; } }
 
     #endregion
 

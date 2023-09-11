@@ -21,6 +21,7 @@ public class Wizard : Player
     [SerializeField] protected Vector2 m_portDir;
     [SerializeField] protected int m_portLayerMask;
     [SerializeField] protected GameObject m_portEffect;
+    [SerializeField] private bool m_canAbility = true;
     #endregion
 
     #region PublicMethod
@@ -39,13 +40,31 @@ public class Wizard : Player
 
     protected override void Attack()
     {
+        if (m_canAct == false)
+        {
+            return;
+        }
+
         CreateAttack();
         StartAttackState();
+        StartCoroutine(nameof(IE_DashCoolTime));
     }
 
     protected override void Ability()
     {
+        if (m_canAct == false)
+        {
+            return;
+        }
+
+        if (m_canAbility == false)
+        {
+            return;
+        }
+
         m_portDir = m_Direction;
+        m_canAbility = false;
+
         Port();
     }
 
@@ -118,6 +137,13 @@ public class Wizard : Player
     private void CreateBomb()
     {
         GameObject obj = Instantiate(m_abilityPrefab, transform.position, Quaternion.identity);
+    }
+
+    private IEnumerator IE_DashCoolTime()
+    {
+        yield return new WaitForSeconds(m_coolTime);
+
+        m_canAbility = true;
     }
     #endregion
 }
