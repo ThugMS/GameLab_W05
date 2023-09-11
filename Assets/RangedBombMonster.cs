@@ -28,14 +28,17 @@ public class RangedBombMonster : RangedMonster
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
                 bullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
                 Rigidbody2D bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
-                while (Vector2.Distance(bullet.transform.position, initialPlayerPosition) > 0.2f)
+                while (bullet!=null&&Vector2.Distance(bullet.transform.position, initialPlayerPosition) > 0.2f)
                 {
                     bullet.GetComponent<Bomb>().isStartCounting = true;
                     bulletRigidbody.velocity = direction * m_bulletSpeed;
                     if(bullet == null) break;
-                    yield return null;
+                            yield return null;
                 }
-                bulletRigidbody.velocity = Vector2.zero;
+                if (bullet != null)
+                {
+                    bulletRigidbody.velocity = Vector2.zero;
+                }
                 yield return new WaitForSeconds(0.25f);
                 base.m_animator.SetBool("isAttacking", false);
                 base.TransitionToState(MonsterState.Pursuit);

@@ -36,7 +36,7 @@ public class MeleeDashMonster : MeleeMonster
         m_originalSpeed = base.m_agent.speed;
         m_isDashing = true;
 
-        base.m_animator.SetBool("isDashing", true);
+        base.m_animator.SetBool("isAttack", true);
 
         base.m_agent.speed = m_dashSpeed;
 
@@ -56,7 +56,7 @@ public class MeleeDashMonster : MeleeMonster
 
         base.m_agent.speed = m_originalSpeed;
         base.m_agent.isStopped = true;
-        base.m_animator.SetBool("isDashing", false);
+        base.m_animator.SetBool("isAttack", false);
 
         yield return new WaitForSeconds(m_dashCoolTime);
         base.m_agent.isStopped = false;
