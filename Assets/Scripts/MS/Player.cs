@@ -6,19 +6,24 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
+public enum PlayerClassType
+{
+    Knight,
+    Archer,
+    Wizard,
+    None
+}
+
 public abstract class Player : MonoBehaviour
 {
-    public enum PlayerClassType
-    {
-        Knight,
-        Archer,
-        Wizard,
-        None
-    }
+
     
     #region PublicVariables
     public enum ANIMATION_DIRECTION
     { Up, Right, Down, Left}
+
+    [Header("Editor")]
+    public bool m_isGod = false;
     #endregion
 
     #region PrivateVariables
@@ -63,7 +68,9 @@ public abstract class Player : MonoBehaviour
     protected PlayerClassType m_PlayerClassType;
     protected GemType m_currentGemType = GemType.None;
     public GemType CurrentGemType => m_currentGemType;
-    
+
+
+
     #endregion
 
     #region PublicMethod
@@ -108,6 +115,9 @@ public abstract class Player : MonoBehaviour
     
     public void GetDamage(float _damage)
     {
+        if (m_isGod == true)
+            return;
+
         m_currentHP -= _damage;
         
         if(m_currentHP > FinalHP)
@@ -267,7 +277,7 @@ public abstract class Player : MonoBehaviour
     protected abstract void Attack();
 
     protected abstract void Ability();
-    #endregion
+#endregion
 
     #region PrivateMethod
     private void Move(int _arrow)

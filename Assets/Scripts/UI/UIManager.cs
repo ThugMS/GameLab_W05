@@ -170,7 +170,7 @@ public class UIManager : SingleTone<UIManager>
     
     #region SkillSlot
 
-    public void SetSKillSlot(Player.PlayerClassType playerClassType)
+    public void SetSKillSlot(PlayerClassType playerClassType)
     {
         m_skillPaenl.SetActive(true);
         
@@ -196,7 +196,7 @@ public class UIManager : SingleTone<UIManager>
         m_plusSpeedText.text = String.Format("+{0:0.#}", plusSpeed);
     }
 
-    public void SetProfileImage(Player.PlayerClassType playerClassType)
+    public void SetProfileImage(PlayerClassType playerClassType)
     {
         var profileImage = ResourceManager.Instance.GetPlayerClassProfileIcon(playerClassType);
         m_profileImage.sprite = profileImage;

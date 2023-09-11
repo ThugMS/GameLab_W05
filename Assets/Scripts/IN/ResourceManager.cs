@@ -144,7 +144,7 @@ public class ResourceManager : MonoBehaviour
     private const string m_abilityIconPath = "Sprite/UI/Skill/Icon_Ability_";
     private const string m_classIconPath = "Sprite/UI/Profile/PlayerClassImage_";
     
-    public Sprite GetSkillSlotAttackIcon(Player.PlayerClassType playerClassType)
+    public Sprite GetSkillSlotAttackIcon(PlayerClassType playerClassType)
     {
         StringBuilder sb = new StringBuilder();
         sb.Append(m_attackIconPath);
@@ -155,7 +155,7 @@ public class ResourceManager : MonoBehaviour
         return attackSprite;
     }
     
-    public Sprite GetSkillSlotAbilityIcon(Player.PlayerClassType playerClassType)
+    public Sprite GetSkillSlotAbilityIcon(PlayerClassType playerClassType)
     {
         StringBuilder sb = new StringBuilder();
         sb.Append(m_abilityIconPath);
@@ -166,7 +166,7 @@ public class ResourceManager : MonoBehaviour
         return abilityIcon;
     }
 
-    public Sprite GetPlayerClassProfileIcon(Player.PlayerClassType playerClassType)
+    public Sprite GetPlayerClassProfileIcon(PlayerClassType playerClassType)
     {
         StringBuilder sb = new StringBuilder();
         sb.Append(m_classIconPath);
