@@ -1,22 +1,27 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class MeleeBoss : BaseMonster
 {
     enum Pattern
     {
         Dash,
-        Shield,
-        Rest
+        Generate,
+        Attack,
+        Invincible,
+        Rest,
+        Dead
     }
-    public GameObject Bullet;
+    public GameObject minions;
     protected Vector3 m_targetPos;
 
 
-    private Pattern m_currentPattern;
+    [SerializeField] private Pattern m_currentPattern;
     private SpriteRenderer m_renderer;
 
     private int m_rushSpeed;
@@ -24,16 +29,23 @@ public class MeleeBoss : BaseMonster
 
     private bool m_onAction;
 
-    [Header("Ranged Boss Skill")]
+    [Header("Melee Boss Skill")]
     private static readonly int Walking = Animator.StringToHash("isWalking");
     private static readonly int AttackSkill = Animator.StringToHash("attackSkill");
     private static readonly int ShieldSkill = Animator.StringToHash("shieldSkill");
-
+    [SerializeField] private Collider2D m_playerCol;
+    private int m_playerLayerMask;
     public bool isInvincible = false;
+    [SerializeField] private float m_power;
+    [SerializeField] private Vector2 m_attackBoxSize;
+    [SerializeField] private float m_attackBoxYOffset;
+
 
     public void Start()
     {
         init();
+        m_playerLayerMask = LayerMask.GetMask("Player");
+        isBoss = true;
     }
 
     public override void init()
@@ -45,6 +57,25 @@ public class MeleeBoss : BaseMonster
 
     }
 
+    public void AttackPlayer()
+    {
+        CheckCollider();
+        if (m_playerCol == null)
+            return;
+
+        Player player;
+        m_playerCol.TryGetComponent<Player>(out player);
+
+        player.GetDamage(m_power);
+    }
+
+    private void CheckCollider()
+    {
+        m_playerCol = null;
+
+        m_playerCol = Physics2D.OverlapBox(transform.position - Vector3.up * m_attackBoxYOffset, m_attackBoxSize, 0, m_playerLayerMask);
+    }
+
     protected override void stateUpdate()
     {
         if (!m_onAction)
@@ -52,37 +83,56 @@ public class MeleeBoss : BaseMonster
             print(m_currentPattern);
             if (Vector2.Distance(m_playerObj.transform.position, transform.position) < attackRange)
             {
-                m_animator.SetBool(AttackSkill, true);
-                m_onAction = true;
-                StartCoroutine(Rest());
+                m_currentPattern = Pattern.Attack;
 
             }
-            else
-            {
-                m_animator.SetBool(AttackSkill, false);
-            }
-
             switch (m_currentPattern)
             {
+                case Pattern.Attack:
+                    m_onAction = true;
+                    m_animator.SetTrigger("attackSkill");
+                    break;
                 case Pattern.Dash:
                     m_onAction = true;
                     StartCoroutine(MoveToPlayer(m_playerObj.transform.position));
                     break;
-                case Pattern.Shield:
+                case Pattern.Generate:
                     m_onAction = true;
-                    StartCoroutine(IEInvincible());
+                    makeMinions(3);
                     break;
                 case Pattern.Rest:
                     m_onAction = true;
                     StartCoroutine(Rest());
                     break;
+                case Pattern.Invincible:
+                    m_onAction = true;
+                    StartCoroutine(IEInvincible());
+                    break;
+                case Pattern.Dead:
+                    m_onAction = true;
+                    StartCoroutine(IE_PlayDyingEffect());
+                    break;
             }
         }
     }
 
+    private void OnDrawGizmosSelected()
+    {
+
+        Gizmos.color = Color.red; // You can change the color to your preference.
+        Gizmos.DrawWireCube(transform.position - Vector3.up * m_attackBoxYOffset, m_attackBoxSize);
+    }
+
+    public void End()
+    {
+        EndWalkingAnimation();
+        m_onAction = false;
+        m_currentPattern = (Pattern)UnityEngine.Random.Range(0, 2);
+    }
+
     IEnumerator IEEnd()
     {
-        EndAttackAnimation();
+        EndWalkingAnimation();
         m_onAction = false;
         m_currentPattern = (Pattern)UnityEngine.Random.Range(0, 2);
         yield return null;
@@ -98,17 +148,21 @@ public class MeleeBoss : BaseMonster
         float timer = 0f;
         while (Vector2.Distance(transform.position, lastPlayerPosition) >= 3f && timer < 3)
         {
-            transform.position = Vector2.MoveTowards(transform.position, lastPlayerPosition, m_speed * Time.deltaTime);
-            timer += Time.deltaTime;
+            if (m_currentPattern == Pattern.Dash) 
+            {
+                transform.position = Vector2.MoveTowards(transform.position, lastPlayerPosition, m_speed * Time.deltaTime);
+                timer += Time.deltaTime;
+            }
+
+            
             yield return null;
         }
         yield return IEEnd();
     }
 
-    IEnumerator Rest()
+    public IEnumerator Rest()
     {
         m_animator.SetBool(Walking, false);
-        float timer = 0f;
         yield return new WaitForSeconds(5);
         yield return IEEnd();
     }
@@ -137,43 +191,16 @@ public class MeleeBoss : BaseMonster
         {
             DamagePlayer(collision.gameObject);
         }
-        else
-        {
-            reflectObject(collision);
-        }
+
     }
-
-
-
-    void reflectObject(Collision2D collision)
-    {
-        if (isInvincible)
-        {
-            Rigidbody2D rb = collision.gameObject.gameObject.GetComponent<Rigidbody2D>();
-            if (rb != null)
-            {
-                Vector2 normal = collision.contacts[0].normal;
-                Vector2 reflection = Vector2.Reflect(rb.velocity, normal).normalized;
-                Destroy(rb.gameObject);
-
-                GameObject newBullet = Instantiate(Bullet, transform.position, Quaternion.identity);
-                Rigidbody2D bulletRb = newBullet.GetComponent<Rigidbody2D>();
-
-                if (bulletRb != null)
-                {
-                    bulletRb.velocity = reflection * 5;
-                }
-            }
-        }
-    }
-
-
 
     public override void getDamage(float _damage)
     {
         if (isInvincible == false)
         {
             Health -= _damage;
+            StartCoroutine(IE_TweenDamage());
+            
             if (Health <= 0)
             {
                 if (isBoss)
@@ -188,12 +215,40 @@ public class MeleeBoss : BaseMonster
         }
     }
 
+    private IEnumerator IE_TweenDamage()
+    {
+        transform.DOPunchScale(new Vector3(-0.05f, -0.05f, 0f), 0.2f);
+
+        m_spriteRenderer.DOColor(Color.red, 0.25f);
+
+        yield return new WaitForSeconds(0.25f);
+
+        transform.DOPunchScale(new Vector3(0.05f, 0.05f, 0f), 0.2f);
+
+        m_spriteRenderer.DOColor(m_originalColor, 0.25f);
+    }
 
 
+    public void makeMinions(int num)
+    {
+        m_animator.SetTrigger("generateSkill");
+        for (int i = 0; i < num; i++)
+        {
+            GameObject temp = Instantiate(minions, transform);
+            temp.GetComponent<BaseMonster>().init();
+        }
+        StartCoroutine(Rest());
+    }
+
+    protected override IEnumerator IE_PlayDyingEffect()
+    {
+        m_animator.SetTrigger("Dead");
 
 
-
-
+        DeadListener?.Invoke();
+        Destroy(gameObject);
+        yield return null;
+    }
 
 
     protected override void Patrol()
@@ -209,11 +264,10 @@ public class MeleeBoss : BaseMonster
 
     }
 
-    public void EndAttackAnimation()
+    public void EndWalkingAnimation()
     {
         m_animator.SetBool(Walking, false);
-        m_animator.SetBool(AttackSkill, false);
-        m_animator.SetBool(ShieldSkill, false);
+        
     }
 
 
