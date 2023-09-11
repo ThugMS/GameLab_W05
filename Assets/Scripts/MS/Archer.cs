@@ -119,6 +119,7 @@ public class Archer : Player
         m_backStepDir = m_Direction;
 
         BackStep();
+        UIManager.Instance.GetSkillCoolTime(m_coolTime);
         StartCoroutine(nameof(IE_DashCoolTime));
     }
 
