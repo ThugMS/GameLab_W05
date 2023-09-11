@@ -105,7 +105,7 @@ MonoBehaviour:
   isOn: 0
   m_detectingLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 136
   isBoss: 0
   m_currentState: 0
   m_speed: 2

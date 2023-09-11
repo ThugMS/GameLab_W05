@@ -14,6 +14,7 @@ public class MeleeExplosiveMonster : MeleeMonster
     [SerializeField] private GameObject m_explosionPrefab;
     [SerializeField] private float m_explosionSize;
     [SerializeField] private float m_explosionWaitTime;
+    private bool isDeadOn = false;
     #endregion
 
     #region PublicMethod
@@ -35,8 +36,29 @@ public class MeleeExplosiveMonster : MeleeMonster
         GameObject bullet = Instantiate(m_explosionPrefab, transform.position, Quaternion.identity);
         bullet.transform.localScale = new Vector3(m_explosionSize, m_explosionSize,m_explosionSize);
         TransitionToState(MonsterState.Dead);
-        Dead();
+        if (!isDeadOn)
+        {
+            isDeadOn = true;
+            Dead();
+        }
         yield return new WaitForFixedUpdate();
+    }
+
+
+    public override void getDamage(float _damage)
+    {
+        Health -= _damage;
+        StartCoroutine(nameof(IE_TweenDamage));
+        if (Health <= 0)
+        {
+  
+                if (isDeadOn)
+                {
+                isDeadOn = true;
+                StartCoroutine(nameof(IE_PlayDyingEffect));
+                }
+            
+        }
     }
     #endregion
 
