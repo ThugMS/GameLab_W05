@@ -37,6 +37,7 @@ public class Archer : Player
     [SerializeField] protected Collider2D[] m_colliders;
     [SerializeField] protected Vector2 m_backStopBoxSize;
     [SerializeField] protected Vector2 m_backStepDir;
+    [SerializeField] private bool m_canAbility = true;
 
     [Header("Effect")]
     [SerializeField] private GameObject m_dashEffect;
@@ -107,11 +108,19 @@ public class Archer : Player
             return;
         }
 
+        if (m_canAbility == false)
+        {
+            return;
+        }
+
         m_canAct = false;
         m_canMove = false;
+        m_canAbility = false;
         m_backStepDir = m_Direction;
 
         BackStep();
+        UIManager.Instance.GetSkillCoolTime(m_coolTime);
+        StartCoroutine(nameof(IE_DashCoolTime));
     }
 
     public void EndAttack()
@@ -284,6 +293,13 @@ public class Archer : Player
 
         EndAttack();
         AttackCheckCollider();
+    }
+
+    private IEnumerator IE_DashCoolTime()
+    {
+        yield return new WaitForSeconds(m_coolTime);
+
+        m_canAbility = true;
     }
     #endregion
 }

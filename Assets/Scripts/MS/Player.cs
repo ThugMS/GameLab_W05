@@ -116,6 +116,18 @@ public abstract class Player : MonoBehaviour
         Ability();
     }
     
+    public void GetHeal(float _damage)
+    {
+        m_currentHP += _damage;
+        
+        if(m_currentHP > FinalHP)
+        {
+            m_currentHP = FinalHP;
+        }
+
+        UIManager.Instance.IncreaseHeart(m_currentHP, FinalHP);
+    }
+    
     public void GetDamage(float _damage)
     {
         if (m_isGod == true)
@@ -204,6 +216,15 @@ public abstract class Player : MonoBehaviour
         UIManager.Instance.OnGemChanged(this);
     }
 
+    public float GetCurHP()
+    {
+        return m_currentHP;
+    }
+
+    public float GetMaxHP()
+    {
+        return m_maxHP;
+    }
     protected void ChangePlusStatus(GemType gemType)
     {
         ResetPlusStatus();

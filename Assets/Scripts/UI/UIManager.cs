@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -19,7 +20,6 @@ public class UIManager : SingleTone<UIManager>
     private PlayerInput m_playerInput;
     
     [Header("Panel")]
-    [SerializeField] private List<GameObject> m_panel;
     [SerializeField] private GameObject m_gameOverPanel;
     [SerializeField] private GameObject m_clearPanel;
     [SerializeField] private GameObject m_hitPanel; 
@@ -34,6 +34,7 @@ public class UIManager : SingleTone<UIManager>
     [SerializeField] private GameObject m_skillPaenl;
     [SerializeField] private Image m_attackSlot;
     [SerializeField] private Image m_abilitySlot;
+    [SerializeField] private Image m_abilityCoolTime;
     
     [Header("Profile")]
     [SerializeField] private Image m_profileImage;
@@ -52,6 +53,9 @@ public class UIManager : SingleTone<UIManager>
     [SerializeField] private GemButton m_gemButtonCurrent;
     [SerializeField] private GemButton m_gemButtonGetted;
     
+    [Header("KeywordPanel")]
+    [SerializeField] private GameObject m_keywordPanel;
+    [SerializeField] private TextMeshProUGUI m_monsterTypeText;
     #endregion
 
     #region PrivateVariables
@@ -113,6 +117,33 @@ public class UIManager : SingleTone<UIManager>
     }
     #endregion
     
+    public void ShowKeywordPanel()
+    {
+        m_keywordPanel.SetActive(true);
+    }
+    public void HideKeywordPanel()
+    {
+        m_keywordPanel.SetActive(false);
+    }
+    public void UpdateMonsterTypeText(MonsterType monsterType)
+    {
+        switch (monsterType)
+        {
+            case MonsterType.melee:
+                m_monsterTypeText.text = "근거리";
+                break;
+            case MonsterType.ranged:
+                m_monsterTypeText.text = "원거리";
+                break;
+            case MonsterType.hover:
+                m_monsterTypeText.text = "공중";
+                break;
+            default:
+                m_monsterTypeText.text = "Unknown";
+                break;
+        }
+    }
+    
     #region Panel
     public void ShowGameOverPanel()
     {
@@ -121,18 +152,6 @@ public class UIManager : SingleTone<UIManager>
     public void ShowClearPanel()
     {
         m_clearPanel.SetActive(true);
-    }
-
-    public void ClosePanel()
-    {
-        for (int i = m_panel.Count - 1; i >= 0; i--)
-        {
-            if (m_panel[i].activeSelf)
-            {
-                m_panel[i].SetActive(false);
-                break;
-            }
-        }
     }
     #endregion
 
@@ -180,7 +199,11 @@ public class UIManager : SingleTone<UIManager>
         m_attackSlot.sprite = attackIcon;
         m_abilitySlot.sprite = abilityIcon;
     }
-
+    public void GetSkillCoolTime(float _time)
+    {
+        m_abilityCoolTime.fillAmount = 1f;
+        m_abilityCoolTime.DOFillAmount(0f, _time);
+    }
     #endregion
 
     #region Status
@@ -213,6 +236,11 @@ public class UIManager : SingleTone<UIManager>
     public void DecreaseHeart(float currentHP, float maxHP)
     {
         StartCoroutine(IE_HitEffect());
+        SetCurrentHpUI(currentHP, maxHP);
+    }
+    public void IncreaseHeart(float currentHP, float maxHP)
+    {
+        //TODO : 뭔가 이펙트
         SetCurrentHpUI(currentHP, maxHP);
     }
 
