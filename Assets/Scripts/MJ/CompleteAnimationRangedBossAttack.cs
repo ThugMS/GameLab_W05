@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CompletAnimation : StateMachineBehaviour
+public class CompleteAnimationRangedBossAttack : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -19,7 +19,8 @@ public class CompletAnimation : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.transform.parent.GetComponent<RangedBoss>().EndAttackAnimation();
+        var boss = animator.transform.GetComponent<RangedBoss>();
+        boss.EndAttackAnimation();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
