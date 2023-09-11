@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -18,17 +19,27 @@ public class RangedBoss : BaseMonster
     private bool m_restMode;
     private bool m_isMove;
     private Pattern m_currentPattern;
-    private SpriteRenderer m_renderer;
     
     [Header("Ranged Boss Related")]
     [SerializeField] private GameObject m_bulletPrefab;
+    [SerializeField] private float m_bulletSpeed;
     [SerializeField] private int m_rushSpeed;
+    [SerializeField] private int m_circleBulletDistance;
+    private Vector3 m_MovePositionToTarget;
     
     [Header("Ranged Boss Skill")]
     private static readonly int Move = Animator.StringToHash("Move");
     private static readonly int Attack1 = Animator.StringToHash("Attack");
     private static readonly int ShortAttack = Animator.StringToHash("ShortAttack");
     private static readonly int Rush = Animator.StringToHash("Rush");
+    private List<Pattern> patterns = new()
+    {
+        Pattern.RushToPlayer,
+        Pattern.SingleFireball,
+        Pattern.SingleFireball,
+        Pattern.CircleFireball,
+        Pattern.CircleFireball,
+    };
 
     public void Start()
     {
@@ -38,15 +49,15 @@ public class RangedBoss : BaseMonster
     public override void init()
     {
         base.init();
-        m_renderer = GetComponentInChildren<SpriteRenderer>();
         m_animator = GetComponentInChildren<Animator>();
+        m_playerObj ??= GameObject.FindGameObjectWithTag("Player");
         m_onSkill = false;
         m_restMode = true;
     }
 
     protected override void stateUpdate()
     {
-        
+        // 액션 관리
         if (!m_onSkill)
         {
             m_onSkill = true;
@@ -56,7 +67,6 @@ public class RangedBoss : BaseMonster
             }
             else
             {
-                Debug.Log(m_currentPattern.ToString());
                 switch (m_currentPattern)
                 {
                     case Pattern.RushToPlayer:
@@ -72,19 +82,20 @@ public class RangedBoss : BaseMonster
             }
         }
 
+        // 이동 시, 플레이어 방향으로 flip
         TowardPlayer();
         if (m_isMove == true)
         {
-            transform.position = Vector2.MoveTowards(transform.position, m_playerObj.transform.position, m_speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, m_MovePositionToTarget, m_speed * Time.deltaTime);
         }
     }
-
+    
     IEnumerator IERest()
     {
         m_animator.Play("RangedBossIdle");
         
         // 다음 공격 패턴 지정
-        m_currentPattern =  (Pattern)Random.Range(0, Enum.GetNames(typeof(Pattern)).Length);
+        m_currentPattern =  patterns[Random.Range(0, patterns.Count)];
         yield return new WaitForSeconds(1f);
         
         // 1초간 추적
@@ -100,7 +111,13 @@ public class RangedBoss : BaseMonster
     {
         float timer = second;
         m_isMove = true;
-        yield return new WaitForSeconds(second);
+
+        do
+        {
+            m_MovePositionToTarget = m_playerObj.transform.position;
+            yield return new WaitForSeconds(.5f);
+            timer -= .5f;
+        } while (timer > 0);
         m_isMove = false;
         yield return null;
     }
@@ -117,6 +134,37 @@ public class RangedBoss : BaseMonster
         EndAttackAnimation();
         
         Debug.Log("Rush End");
+    }
+
+    public void InstantiateSingleBullet()
+    {
+        var dir = transform.position - m_playerObj.transform.position;
+        var rot = Mathf.Atan2(-dir.y, -dir.x) * Mathf.Rad2Deg;
+        var obj1 = Instantiate(m_bulletPrefab, GetBulletSpawnPos(), Quaternion.Euler(0, 0, rot));
+        obj1.GetComponent<RangedBossBullet>().Init(m_bulletSpeed);
+    }
+    
+    public void InstantiateCircleBullet()
+    {
+        for(int i =0 ; i < m_circleBulletDistance ; i++) 
+        {
+            GameObject obj2 = Instantiate(m_bulletPrefab, GetBulletSpawnPos(), quaternion.identity);
+            var radian = Mathf.PI * i * 2 / m_circleBulletDistance;
+            obj2.GetComponent<Rigidbody2D>().AddForce(new Vector2(m_bulletSpeed * Mathf.Cos(radian),
+                m_bulletSpeed * Mathf.Sin(radian)));
+            obj2.transform.Rotate(new Vector3(0,0,360 * i / m_circleBulletDistance));
+                            
+            obj2.GetComponent<RangedBossBullet>().Init(m_bulletSpeed);
+        } 
+    }
+    
+    private Vector3 GetBulletSpawnPos()
+    {
+        var pos = transform.position;
+        var dir = new Vector3(pos.x + (m_spriteRenderer.flipX ? -11f : 1f), pos.y, pos.z);
+        dir.Normalize();
+
+        return dir;
     }
     
     protected override void Patrol()
@@ -161,6 +209,6 @@ public class RangedBoss : BaseMonster
 
     void TowardPlayer()
     {
-        m_renderer.flipX = (m_playerObj.transform.position.x - transform.position.x) < 0;
+        m_spriteRenderer.flipX = (m_playerObj.transform.position.x - transform.position.x) < 0;
     }
 }
