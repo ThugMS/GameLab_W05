@@ -56,7 +56,7 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    public void Init(int _roomCount)
+    IEnumerator Init(int _roomCount)
     {
         // Sample();
         
@@ -64,6 +64,8 @@ public class RoomManager : MonoBehaviour
                               GameManager.Instance.m_keywordRoomType);
         
         GenerateRoom();
+        
+        yield return new WaitForSeconds(0.1f);
         InitPlayerPosition();
         m_bakeRuntime.updateMesh();
     }
@@ -102,7 +104,7 @@ public class RoomManager : MonoBehaviour
     private void Start()
     { 
         m_bakeRuntime = GetComponentInChildren<bakeRuntime>();
-        Init(m_roomCount); // [TODO] 이후 외부에서 호출되도록 수정
+        StartCoroutine(Init(m_roomCount)); // [TODO] 이후 외부에서 호출되도록 수정
     }
     
     #region Create Random Map
