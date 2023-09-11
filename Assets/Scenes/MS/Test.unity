@@ -188,7 +188,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7802226756966478229, guid: bca096ba93024db4395bbd99500a873d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bca096ba93024db4395bbd99500a873d, type: 3}
@@ -258,6 +258,10 @@ PrefabInstance:
     - target: {fileID: 6887085735099513768, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
       propertyPath: m_Name
       value: HoverBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 6887085735099513768, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6887085735099513771, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
       propertyPath: m_RootOrder
@@ -431,7 +435,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4138420507533337178, guid: 6c7ec323b7662df40a021b79dbfe4e57, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c7ec323b7662df40a021b79dbfe4e57, type: 3}
