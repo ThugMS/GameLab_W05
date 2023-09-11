@@ -115,15 +115,25 @@ public class Knight : Player
     }
 
     public void DamageAttackMonster()
-    {
+    {   
+        if(m_colliders == null)
+        {
+            return;
+        }
+
         foreach (var iter in m_colliders)
         {
             BaseMonster monster;
+
+            if (iter == null)
+                continue;
 
             iter.TryGetComponent<BaseMonster>(out monster);
 
             monster.getDamage(m_power);
         }
+
+        m_colliders = null;
     }
 
     public void EndAttackAnimation()
@@ -207,7 +217,7 @@ public class Knight : Player
         m_dashAttackBoxSize = new Vector2(m_moveDis + 2f, m_dashAttackBoxSize.y);
 
         Vector2 attackDir = m_dashDir.normalized * (m_dashAttackBoxSize.x / 2);
-        Vector3 attackPos = transform.position - new Vector3(attackDir.x, attackDir.y, 0) + new Vector3(2f, 0, 0);
+        Vector3 attackPos = transform.position - new Vector3(attackDir.x, attackDir.y, 0) + new Vector3(m_dashDir.x, m_dashDir.y, 0) * 2f;
 
         float angle = Vector2.SignedAngle(Vector2.right, m_dashDir.normalized);
 

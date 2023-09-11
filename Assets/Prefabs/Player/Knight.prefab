@@ -199,7 +199,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -207,7 +207,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &4138420507533337179
@@ -243,11 +243,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb2d6cd44e56044a8f00c147cbedd6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_isGod: 0
+  m_isAttacked: 0
   m_rigidbody: {fileID: 4138420507533337179}
+  m_blink: 0
   m_currentHP: 12
   m_power: 0
   m_offset: 0.5
   m_maxHP: 20
+  m_attackedTime: 1
   m_maxSpeed: 5
   m_accelSpeed: 0.5
   m_decelSpeed: 1
@@ -259,7 +263,6 @@ MonoBehaviour:
   m_canAct: 1
   m_isAct: 0
   m_animator: {fileID: 1975195299}
-  m_isGod: 0
   m_colliders: []
   m_attackBoxSize: {x: 1, y: 2}
   m_range: 0
@@ -437,7 +440,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6469339758110668480
 Transform:
   m_ObjectHideFlags: 0

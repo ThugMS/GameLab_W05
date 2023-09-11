@@ -32,6 +32,10 @@ public class PlayerManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F6))
             m_player.GetComponent<Player>().m_isGod = !m_player.GetComponent<Player>().m_isGod;
 
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            SetClass(PlayerClassType.None);
+        }
         if (Input.GetKeyDown(KeyCode.F2))
         {
             SetClass(PlayerClassType.Knight);
@@ -70,6 +74,7 @@ public class PlayerManager : MonoBehaviour
         switch(_type)
         {
             case PlayerClassType.None:
+                Instantiate(m_none, spawnPos, Quaternion.identity);
                 break;
 
             case PlayerClassType.Knight:

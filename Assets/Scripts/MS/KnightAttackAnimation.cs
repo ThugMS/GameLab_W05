@@ -22,6 +22,11 @@ public class KnightAttackAnimation : MonoBehaviour
         m_knight.DamageAttackMonster();
     }
 
+    public void Dead()
+    {
+        UIManager.Instance.PlayGameOverEffect();
+    }
+
     public void EndAttack()
     {
         m_knight.SetCanMove(true);

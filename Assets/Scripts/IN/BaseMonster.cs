@@ -57,7 +57,7 @@ public abstract class BaseMonster : MonoBehaviour
     protected float m_knockbackTimer;
     protected float m_patrolTimer;
     protected SpriteRenderer m_spriteRenderer;
-    private Color m_originalColor;
+    protected Color m_originalColor;
 
 
     #endregion
@@ -103,12 +103,9 @@ public abstract class BaseMonster : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            damageRefreshTimer -= Time.deltaTime;
-            if (damageRefreshTimer <= 0)
-            {
-                damageRefreshTimer = m_damageRefreshTime;
-                DamagePlayer(collision.gameObject);
-            }
+           
+             DamagePlayer(collision.gameObject);
+           
         }
     }
 
@@ -158,7 +155,7 @@ public abstract class BaseMonster : MonoBehaviour
     }
 
     //===============================InitFunc=================================
-    protected void Update ()
+    protected virtual void Update ()
     {
         if(isOn == true)
         {
