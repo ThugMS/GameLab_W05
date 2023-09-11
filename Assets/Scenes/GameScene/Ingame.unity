@@ -781,17 +781,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 389bd8378c38c964085d86d61063125d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1325488097 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 693028122646011539, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
-  m_PrefabInstance: {fileID: 1568583384}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1325488098 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6095325146088867942, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
@@ -1128,7 +1117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2905796350070027993, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
       propertyPath: m_text
-      value: "\uC774\uB3D9 \uC18D\uB3C4\uAC00 \uC601\uAD6C\uC801\uC73C\uB85C 2 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+      value: "\uC774\uB3D9 \uC18D\uB3C4\uAC00 \uC601\uAD6C\uC801\uC73C\uB85C 3 \uC99D\uAC00\uD569\uB2C8\uB2E4."
       objectReference: {fileID: 0}
     - target: {fileID: 2983757555544612824, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1332,7 +1321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7276406001974190849, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
       propertyPath: m_text
-      value: "\uACF5\uACA9\uB825\uC774 \uC601\uAD6C\uC801\uC73C\uB85C 2 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+      value: "\uACF5\uACA9\uB825\uC774 \uC601\uAD6C\uC801\uC73C\uB85C 3 \uC99D\uAC00\uD569\uB2C8\uB2E4."
       objectReference: {fileID: 0}
     - target: {fileID: 7381721411543258202, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1785,7 +1774,7 @@ PrefabInstance:
     - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
       propertyPath: m_rewardTypeText
       value: 
-      objectReference: {fileID: 1325488097}
+      objectReference: {fileID: 0}
     - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
       propertyPath: m_abilityCoolTime
       value: 
