@@ -43,11 +43,11 @@ public abstract class BaseMonster : MonoBehaviour
    
     [Header("Attack")]
     [SerializeField] protected float m_basicAttack;
-    [SerializeField] protected float m_damageRefreshTime;
+    [SerializeField] float m_damageRefreshTime = 1;
     protected float damageRefreshTimer;
 
     [Header("Time")]
-    [SerializeField] protected float m_knockbackTime;
+    protected float m_knockbackTime = 2;
     [SerializeField] protected float m_patrolTime;
     //==Positions
     protected Vector3 m_initialPosition;
