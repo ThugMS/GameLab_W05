@@ -505,6 +505,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item_HPPotion
       objectReference: {fileID: 0}
+    - target: {fileID: 8263065905500295332, guid: 4454d03a0e332e44db3b84aa121bcf25, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8263065905500295386, guid: 4454d03a0e332e44db3b84aa121bcf25, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -2133,6 +2137,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gem_Speed
       objectReference: {fileID: 0}
+    - target: {fileID: 2403370471375016803, guid: a1fb5c8a3389e4a4b95f9743b65a1f3d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1fb5c8a3389e4a4b95f9743b65a1f3d, type: 3}
 --- !u!1001 &3321316271503661311
@@ -2145,6 +2153,10 @@ PrefabInstance:
     - target: {fileID: 1436218789933595590, guid: 7aa104a9a43aa5745803291cd9605257, type: 3}
       propertyPath: m_Name
       value: Gem_Power
+      objectReference: {fileID: 0}
+    - target: {fileID: 1436218789933595590, guid: 7aa104a9a43aa5745803291cd9605257, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2344352317909316486, guid: 7aa104a9a43aa5745803291cd9605257, type: 3}
       propertyPath: m_RootOrder
@@ -2246,6 +2258,10 @@ PrefabInstance:
     - target: {fileID: 6731045985857082654, guid: 176fe52257539754daaa58661be584fc, type: 3}
       propertyPath: m_Name
       value: Gem_HP
+      objectReference: {fileID: 0}
+    - target: {fileID: 6731045985857082654, guid: 176fe52257539754daaa58661be584fc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 176fe52257539754daaa58661be584fc, type: 3}
