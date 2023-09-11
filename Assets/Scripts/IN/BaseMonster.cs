@@ -38,7 +38,7 @@ public abstract class BaseMonster : MonoBehaviour
     protected bool isAttacked = false;
     [Header("Value")]
     [SerializeField] protected int m_speed;
-    [SerializeField] protected int m_range;
+    [SerializeField] public int m_range;
     [SerializeField] private float m_health;
    
     [Header("Attack")]

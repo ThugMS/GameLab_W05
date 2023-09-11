@@ -1,10 +1,6 @@
 using DG.Tweening;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class MeleeBoss : BaseMonster
 {
@@ -98,7 +94,7 @@ public class MeleeBoss : BaseMonster
                     break;
                 case Pattern.Generate:
                     m_onAction = true;
-                    makeMinions(3);
+                    makeMinions(2);
                     break;
                 case Pattern.Rest:
                     m_onAction = true;
@@ -126,14 +122,14 @@ public class MeleeBoss : BaseMonster
     {
         EndWalkingAnimation();
         m_onAction = false;
-        m_currentPattern = (Pattern)UnityEngine.Random.Range(0, 2);
+        m_currentPattern = (Pattern)UnityEngine.Random.Range(0, 5);
     }
 
     IEnumerator IEEnd()
     {
         EndWalkingAnimation();
         m_onAction = false;
-        m_currentPattern = (Pattern)UnityEngine.Random.Range(0, 2);
+        m_currentPattern = (Pattern)UnityEngine.Random.Range(0, 5);
         yield return null;
     }
 
@@ -162,7 +158,7 @@ public class MeleeBoss : BaseMonster
     public IEnumerator Rest()
     {
         m_animator.SetBool(Walking, false);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
         yield return IEEnd();
     }
 
@@ -208,6 +204,21 @@ public class MeleeBoss : BaseMonster
         }
     }
 
+    public override void getDamage(float _damage, float knockbackPower)
+    {
+      if (isInvincible == false)
+        {
+            Health -= _damage;
+            StartCoroutine(IE_TweenDamage());
+
+            if (Health <= 0)
+            {
+                m_onAction = true;
+                m_animator.SetBool("isDead", true);
+            }
+        }
+    }
+
     private IEnumerator IE_TweenDamage()
     {
         transform.DOPunchScale(new Vector3(-0.05f, -0.05f, 0f), 0.2f);
@@ -229,6 +240,7 @@ public class MeleeBoss : BaseMonster
         {
             GameObject temp = Instantiate(minions, transform);
             temp.GetComponent<BaseMonster>().init();
+            temp.GetComponent<BaseMonster>().m_range = 100;
         }
         StartCoroutine(Rest());
     }
