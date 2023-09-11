@@ -13,7 +13,7 @@ public class HoverBossSkillEffect : MonoBehaviour
     [SerializeField] private Animator m_animator;
     [SerializeField] private Vector2 m_attackBoxSize;
     [SerializeField] private Collider2D m_playerCol;
-    [SerializeField] private float m_power = 1f;
+    [SerializeField] private float m_power = 2f;
     #endregion
 
     #region Test
