@@ -30,8 +30,6 @@ public class HoverBoss : BaseMonster
     [SerializeField] private float m_fadeInCoolTime = 2f;
     [SerializeField] private Vector2 m_attackBoxSize;
     [SerializeField] private Collider2D m_playerCol;
-
-
     #endregion
 
     #region Test
@@ -67,12 +65,24 @@ public class HoverBoss : BaseMonster
     {
         isOn = true;
     }
+
+    public void Summon()
+    {
+        m_bossAnimator.SetTrigger("Summon");
+    }
+
+    protected override void Dead()
+    {
+        DeadListener?.Invoke();
+
+        m_bossAnimator.SetTrigger("Dead");
+    }
     #endregion
 
     #region PrivateMethod
     private void ChoicePattern()
     {
-        int value = Random.Range(0, 2);
+        int value = Random.Range(2, 3);
 
         switch(value)
         {
@@ -85,6 +95,7 @@ public class HoverBoss : BaseMonster
                 break;
 
             case 2:
+                Summon();
                 break;
 
             default:

@@ -151,6 +151,7 @@ MonoBehaviour:
   m_dir: {x: 0, y: 0}
   m_speed: 0
   m_decelSpeed: 0.001
+  m_power: 100
 --- !u!1 &6991600785723360844
 GameObject:
   m_ObjectHideFlags: 0
