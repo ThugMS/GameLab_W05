@@ -40,7 +40,7 @@ public class GameManager : SingleTone<GameManager>
     
         m_currentStage++;
         
-        List<RoomType> roomTypes = new() { RoomType.Gift, RoomType.NormalGift };
+        List<RoomType> roomTypes= new() { RoomType.Gift, RoomType.NormalGift } ;
         m_keywordRoomType = roomTypes[Random.Range(0, roomTypes.Count)];
         
         //TODO : A 입력 시 패널 끄기, 패널 켜져있는 동안 다른 입력 못받도록
