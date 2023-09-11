@@ -16,25 +16,27 @@ public enum PlayerClassType
 
 public abstract class Player : MonoBehaviour
 {
-
-    
     #region PublicVariables
     public enum ANIMATION_DIRECTION
     { Up, Right, Down, Left}
 
     [Header("Editor")]
     public bool m_isGod = false;
+
+    public bool m_isAttacked = false;
     #endregion
 
     #region PrivateVariables
     [SerializeField] protected Rigidbody2D m_rigidbody;
-    
+    [SerializeField] protected bool m_blink = false;
+
     [FormerlySerializedAs("m_heart")]
     [Header("Status")]
     [SerializeField] protected float m_currentHP = 12f;
     [SerializeField] protected float m_power;
     [SerializeField] protected float m_offset = 0.5f;
     [SerializeField] protected float m_maxHP = 20f;
+    [SerializeField] protected float m_attackedTime = 1f;
 
     [Header("Move")]
     [SerializeField] protected float m_maxSpeed = 5f;
@@ -117,6 +119,12 @@ public abstract class Player : MonoBehaviour
     {
         if (m_isGod == true)
             return;
+
+        if (m_isAttacked == true)
+            return;
+
+        m_isAttacked = true;
+        StartCoroutine(nameof(IE_ResetAttackedTime));
 
         m_currentHP -= _damage;
         
@@ -209,7 +217,30 @@ public abstract class Player : MonoBehaviour
         
         OnStatusChanged();
     }
-    
+
+    protected virtual void Update()
+    {
+        if(m_isAttacked == true)
+        {   
+            if(m_blink == false)
+            {
+                transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().color = new Color(1, 1, 1, 0.3f);
+            }
+            else
+            {
+
+                transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().color = new Color(1, 1, 1, 1f);
+
+                
+            }
+            m_blink = !m_blink;
+        }
+        if(m_isAttacked == false)
+        {
+            transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().color = new Color(1, 1, 1, 1f);
+        }
+    }
+
     protected void ResetPlusStatus()
     {
         m_plusHP = 0;
@@ -341,6 +372,13 @@ public abstract class Player : MonoBehaviour
         }
     }
 
+    private IEnumerator IE_ResetAttackedTime()
+    {
+        yield return new WaitForSeconds(m_attackedTime);
+
+        m_isAttacked = false;
+    }
+
     protected void SetPlayerClassType(PlayerClassType playerClassType)
     {
         m_PlayerClassType = playerClassType;
@@ -356,6 +394,7 @@ public abstract class Player : MonoBehaviour
         UIManager.Instance.SetProfileStatus(m_maxHP, m_power, m_maxSpeed, m_plusHP, m_plusPower, m_plusSpeed);
         UIManager.Instance.SetHeartUI(m_currentHP, FinalHP);
     }
+
 
     #endregion
 }

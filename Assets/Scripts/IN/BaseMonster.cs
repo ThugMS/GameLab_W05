@@ -103,12 +103,9 @@ public abstract class BaseMonster : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            damageRefreshTimer -= Time.deltaTime;
-            if (damageRefreshTimer <= 0)
-            {
-                damageRefreshTimer = m_damageRefreshTime;
-                DamagePlayer(collision.gameObject);
-            }
+           
+             DamagePlayer(collision.gameObject);
+           
         }
     }
 

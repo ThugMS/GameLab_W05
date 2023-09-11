@@ -214,6 +214,7 @@ MonoBehaviour:
   m_detectingLayer:
     serializedVersion: 2
     m_Bits: 136
+  isBoss: 0
   m_currentState: 0
   m_speed: 0
   m_range: 100
@@ -235,22 +236,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 926554520, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
-      propertyPath: m_skill
-      value: 
-      objectReference: {fileID: 5509064166464607780, guid: 9afcd3c728210b940a474bb171728c66, type: 3}
-    - target: {fileID: 926554520, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
-      propertyPath: m_canAttack
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 926554524, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
-      propertyPath: m_boss
-      value: 
-      objectReference: {fileID: 1815870299}
-    - target: {fileID: 926554524, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
-      propertyPath: m_skill
-      value: 
-      objectReference: {fileID: 5509064166464607780, guid: 9afcd3c728210b940a474bb171728c66, type: 3}
     - target: {fileID: 926554524, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
       propertyPath: m_summon
       value: 
@@ -258,10 +243,6 @@ PrefabInstance:
     - target: {fileID: 6887085735099513768, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
       propertyPath: m_Name
       value: HoverBoss
-      objectReference: {fileID: 0}
-    - target: {fileID: 6887085735099513768, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6887085735099513771, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
       propertyPath: m_RootOrder
@@ -439,17 +420,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c7ec323b7662df40a021b79dbfe4e57, type: 3}
---- !u!114 &1815870299 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 926554520, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
-  m_PrefabInstance: {fileID: 926554516}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b2ff2446159b67429c01ef506b130b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2145837694
 GameObject:
   m_ObjectHideFlags: 0
