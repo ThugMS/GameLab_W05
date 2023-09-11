@@ -2005,6 +2005,14 @@ PrefabInstance:
       propertyPath: m_player
       value: 
       objectReference: {fileID: 729450606}
+    - target: {fileID: 3014390666014854809, guid: 36f0c63e2a90271479f639b1fa899fae, type: 3}
+      propertyPath: m_datas.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014390666014854809, guid: 36f0c63e2a90271479f639b1fa899fae, type: 3}
+      propertyPath: m_datas.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: de1aac118f4acfc4fa3211e3c1665b55, type: 2}
     - target: {fileID: 3014390666014854814, guid: 36f0c63e2a90271479f639b1fa899fae, type: 3}
       propertyPath: m_RootOrder
       value: 9

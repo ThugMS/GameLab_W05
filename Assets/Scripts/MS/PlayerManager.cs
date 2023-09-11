@@ -103,6 +103,9 @@ public class PlayerManager : MonoBehaviour
 
         SetInitSetting((int)_type);
 
+        if (_type == PlayerClassType.None)
+            return;
+
         RoomManager.Instance.RemoveSelectedClassObject();
     }
 

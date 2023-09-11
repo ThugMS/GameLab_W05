@@ -228,9 +228,9 @@ public abstract class Player : MonoBehaviour
 
     public void SavePlusStat()
     {
-        PlayerManager.instance.m_healthPlus = m_plusHP;
-        PlayerManager.instance.m_powerPlus = m_plusPower;
-        PlayerManager.instance.m_speedPlus = m_plusSpeed;
+        PlayerManager.instance.m_healthPlus += m_plusHP;
+        PlayerManager.instance.m_powerPlus += m_plusPower;
+        PlayerManager.instance.m_speedPlus += m_plusSpeed;
     }
 
     protected void ChangePlusStatus(GemType gemType)
@@ -299,12 +299,13 @@ public abstract class Player : MonoBehaviour
     {
         TryGetComponent<Rigidbody2D>(out m_rigidbody);
         PlayerManager.instance.SetPlayer(gameObject);
-        SetStatus();
-        UIManager.Instance.SetHeartUI(m_currentHP, FinalHP);
+
     }
 
     protected virtual void Start()
     {
+        SetStatus();
+        UIManager.Instance.SetHeartUI(m_currentHP, FinalHP);
     }
 
     protected virtual void FixedUpdate()
