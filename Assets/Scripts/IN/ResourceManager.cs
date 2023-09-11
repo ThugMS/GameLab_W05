@@ -35,6 +35,8 @@ public class ResourceManager : MonoBehaviour
     public GameObject m_meleeBossPrefab;
     public GameObject m_rangedBossPrefab;
     public GameObject m_hoverBossPrefab;
+
+    public List<GameObject> m_jamPrefabs;
     
     public void Init()
     {

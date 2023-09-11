@@ -85,7 +85,7 @@ public class UINormalRoom : UIRoom
 
         if (m_baseRoom.Type == RoomType.NormalGift)
         {
-            var gift = TestSample.Instance.m_reward;
+            var gift = RoomManager.Instance.m_giftPrefab;
             Instantiate(gift, transform.position, Quaternion.identity);
         }
     }

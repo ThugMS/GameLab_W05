@@ -36,6 +36,9 @@ public class RoomManager : MonoBehaviour
     [SerializeField] public int maxMonsterLevel;
     [SerializeField] public int minMonsterCount;
     [SerializeField] public int maxMonsterCount;
+
+    [Header("Gift Room Setting")]
+    public GameObject m_giftPrefab;
     #endregion
 
 
