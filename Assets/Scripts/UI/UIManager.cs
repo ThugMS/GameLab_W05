@@ -100,6 +100,7 @@ public class UIManager : SingleTone<UIManager>
     public void ReLoadScene()
     {
         Destroy(GameManager.Instance.gameObject);
+        Destroy(PlayerManager.instance.gameObject);
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
