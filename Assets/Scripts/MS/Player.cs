@@ -223,7 +223,7 @@ public abstract class Player : MonoBehaviour
 
     public float GetMaxHP()
     {
-        return m_maxHP;
+        return m_maxHP + m_plusHP;
     }
 
     public void SavePlusStat()
@@ -287,8 +287,8 @@ public abstract class Player : MonoBehaviour
     
     protected void AbsorbStatus()
     {
-        m_maxHP += m_plusHP;
-        m_power += m_plusPower;
+        m_maxHP += m_plusHP      ; 
+        m_power += m_plusPower   ;
         m_maxSpeed += m_plusSpeed;
 
         ResetPlusStatus();
@@ -340,10 +340,10 @@ public abstract class Player : MonoBehaviour
 
     public void InitSetting(PlayerData _data)
     {
-        m_power = _data.Power;
-        m_maxHP = _data.Health;
-        m_currentHP = _data.Health;
-        m_maxSpeed = _data.Speed;
+        m_power = _data.Power + PlayerManager.instance.m_powerPlus;
+        m_maxHP = _data.Health + PlayerManager.instance.m_healthPlus;
+        m_currentHP = _data.Health + PlayerManager.instance.m_healthPlus;
+        m_maxSpeed = _data.Speed + PlayerManager.instance.m_speedPlus;
         m_coolTime = _data.CoolTime;
     }
 

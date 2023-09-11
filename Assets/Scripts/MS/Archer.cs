@@ -90,8 +90,6 @@ public class Archer : Player
     }
     protected override void SetStatus()
     {
-        m_power = 3;
-        
         OnStatusChanged();
     }
     
