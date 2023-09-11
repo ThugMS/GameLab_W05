@@ -45,6 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_player: {fileID: 0}
+  m_datas:
+  - {fileID: 11400000, guid: 933314e87b0c7df4cbf79d55c9a7eb99, type: 2}
+  - {fileID: 11400000, guid: 1300eb85ca948b34fb7e74346042af50, type: 2}
+  - {fileID: 11400000, guid: 956567e7c934acb4c9ada22d54277ace, type: 2}
   m_knight: {fileID: 4138420507533337178, guid: 6c7ec323b7662df40a021b79dbfe4e57, type: 3}
   m_archer: {fileID: 7802226756966478229, guid: bca096ba93024db4395bbd99500a873d, type: 3}
   m_wizard: {fileID: 7073605362985958941, guid: 2bf459e8a4c88704c953de0d05969cae, type: 3}
