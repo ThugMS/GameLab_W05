@@ -47,15 +47,9 @@ public class NonePlayer : Player
 
     private void ChangeClass()
     {
-        Debug.Log("Change Class");
-
         PlayerManager.instance.SetClass(m_selectType);
         
         //var player = Instantiate(newClass, transform.position, transform.rotation);
-        
-        
-        m_chooseBoxs.SetActive(false);
-        gameObject.SetActive(false);
     }
 
     public void SetCanChangeClass(bool canChange, PlayerClassType classType)
