@@ -29,7 +29,7 @@ public class PlayerManager : MonoBehaviour
         if(instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -102,6 +102,9 @@ public class PlayerManager : MonoBehaviour
         }
 
         SetInitSetting((int)_type);
+
+        if (_type == PlayerClassType.None)
+            return;
 
         RoomManager.Instance.RemoveSelectedClassObject();
     }

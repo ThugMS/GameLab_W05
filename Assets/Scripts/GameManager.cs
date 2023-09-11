@@ -43,8 +43,10 @@ public class GameManager : MonoBehaviour
 
     public void GameStart()
     {
-        //PlayerManager.instance.SetPlayer(GameObject.FindWithTag("Player"));;
+
+        PlayerManager.instance.SetPlayer(GameObject.FindWithTag("Player"));;
         PlayerManager.instance.GetPlayer().SetActive(false);
+
         
         m_keywordMonsterType = (MonsterType)Random.Range(0, Enum.GetNames(typeof(MonsterType)).Length);
         List<RoomType> roomTypes = new() { RoomType.Gift, RoomType.NormalGift } ;
@@ -85,6 +87,7 @@ public class GameManager : MonoBehaviour
     void NextStage()
     {
         m_currentStage++;
+        PlayerManager.instance.SavePlusStat();
         SceneManager.LoadScene("Ingame");
         Invoke(nameof(GameStart), .005f);
     }

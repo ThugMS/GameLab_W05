@@ -19,7 +19,7 @@ public class KnightAttackAnimation : MonoBehaviour
 
     public void Ability()
     {
-        m_knight.DamageAttackMonster();
+        m_knight.DamageAbilityMonster();
     }
 
     public void Dead()
