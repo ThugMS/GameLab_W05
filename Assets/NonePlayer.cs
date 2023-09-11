@@ -20,6 +20,8 @@ public class NonePlayer : Player
         base.Start();
 
         SetPlayerClassType(PlayerClassType.None);
+        PlayerManager.instance.SetInitSetting(3);
+        UIManager.Instance.SetHeartUI(m_currentHP, FinalHP);
     }
     
     protected override void SetStatus()
