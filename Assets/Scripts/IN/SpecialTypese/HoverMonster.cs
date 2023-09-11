@@ -26,7 +26,6 @@ public class HoverMonster : BaseMonster
         damageRefreshTimer = 0.1f;
         m_patrolTimer = m_patrolTime;
         targetPatrolPos = getPatrolPos();
-        m_agent.speed = m_speed;
         isOn = true;
     }
 

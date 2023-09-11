@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeMonsterSummon : MonoBehaviour
+public class MeleeMonsterSummon : MeleeMonster
 {
     #region PublicVariables
     #endregion
