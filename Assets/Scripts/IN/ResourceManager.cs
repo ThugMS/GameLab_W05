@@ -35,6 +35,8 @@ public class ResourceManager : MonoBehaviour
     public GameObject m_meleeBossPrefab;
     public GameObject m_rangedBossPrefab;
     public GameObject m_hoverBossPrefab;
+
+    public List<GameObject> m_jamPrefabs;
     
     public void Init()
     {
@@ -182,7 +184,7 @@ public class ResourceManager : MonoBehaviour
     public Sprite GetGemImage(GemType gemType)
     {
         StringBuilder sb = new StringBuilder();
-        sb.Append("Sprite/Gem/Gem_");
+        sb.Append("Sprite/Item/Gem/Gem_");
         sb.Append(gemType.ToString());
         
         Sprite gemSprite = Resources.Load<Sprite>(sb.ToString());
@@ -193,7 +195,7 @@ public class ResourceManager : MonoBehaviour
     public Sprite GetGemIconImage(GemType gemType)
     {
         StringBuilder sb = new StringBuilder();
-        sb.Append("Sprite/Gem/GemIcon_");
+        sb.Append("Sprite/Item/Gem/GemIcon_");
         sb.Append(gemType.ToString());
         
         Sprite gemSprite = Resources.Load<Sprite>(sb.ToString());

@@ -149,7 +149,6 @@ public class RangedBoss : BaseMonster
         for(int i =0 ; i < m_circleBulletDistance ; i++) 
         {
             GameObject obj = Instantiate(m_bulletPrefab, GetBulletSpawnPos(), quaternion.identity);
-            obj.transform.position = GetBulletSpawnPos();
             var radian = Mathf.PI * i * 2 / m_circleBulletDistance;
             obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(m_bulletSpeed * Mathf.Cos(radian),
                 m_bulletSpeed * Mathf.Sin(radian)));
@@ -163,8 +162,6 @@ public class RangedBoss : BaseMonster
     {
         var pos = transform.position;
         var dir = new Vector3(pos.x + (m_spriteRenderer.flipX ? -1f : 1f), pos.y, pos.z);
-        dir.Normalize();
-
         return dir;
     }
     
