@@ -119,6 +119,8 @@ public class BaseRoom : MonoBehaviour
     void UpdateCameraPosition()
     {
         var cameraPos = transform.position;
+        cameraPos.x += .5f;
+        cameraPos.y += .5f;
         cameraPos.z = -10;
 
         Camera.main.transform.position = cameraPos;
