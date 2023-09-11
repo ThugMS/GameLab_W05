@@ -29,6 +29,11 @@ public class WizardAbility : MonoBehaviour
         m_enemyLayerMask = LayerMask.GetMask("Monster", "Boss");
         m_targets = new Dictionary<string, Collider2D>();
     }
+
+    public void Init(float _power)
+    {
+        m_power = _power;
+    }
     #endregion
 
     #region PrivateMethod
