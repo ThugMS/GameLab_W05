@@ -10,6 +10,8 @@ public class UIGift : MonoBehaviour
     [SerializeField] private GameObject m_giftOpenObject;
     [SerializeField] private GameObject m_giftCloseObject;
     private CircleCollider2D m_circleCollider;
+
+    private bool isOpen;
     
     private void Start()
     {
@@ -22,16 +24,27 @@ public class UIGift : MonoBehaviour
     {
         if (col.CompareTag("Player"))
         {
-            m_circleCollider.isTrigger = false;
+            if (!isOpen)
+            {
+                isOpen = true;
+                m_circleCollider.isTrigger = false;
             
-            m_giftCloseObject.SetActive(false);
-            m_giftOpenObject.SetActive(true);
+                m_giftCloseObject.SetActive(false);
+                m_giftOpenObject.SetActive(true);
             
-            var jams = ResourceManager.Instance.m_jamPrefabs;
-            int index = Random.Range(0, jams.Count);
+                var jams = ResourceManager.Instance.m_jamPrefabs;
+                int index = Random.Range(0, jams.Count);
 
             
-            Instantiate(jams[index], transform);
+                Instantiate(jams[index], transform);
+                StartCoroutine(Timer());
+            }
         }
+    }
+
+    IEnumerator Timer()
+    {
+        yield return new WaitForSeconds(.5f);
+        m_circleCollider.isTrigger = true;
     }
 }
