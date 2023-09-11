@@ -30,9 +30,11 @@ public class ResourceManager : MonoBehaviour
 
     public Dictionary<MonsterType, List<GameObject>> MonsterPrefabDict { get; private set; }
     public Dictionary<RoomType, List<GameObject>> LandscapeByRoomTypePrefabDict { get; private set; }
-    
     public Dictionary<(RoomType, Direction), GameObject> DoorPrefabDict { get; private set; }
-    
+
+    public GameObject m_meleeBossPrefab;
+    public GameObject m_rangedBossPrefab;
+    public GameObject m_hoverBossPrefab;
     
     public void Init()
     {
@@ -197,5 +199,15 @@ public class ResourceManager : MonoBehaviour
         Sprite gemSprite = Resources.Load<Sprite>(sb.ToString());
 
         return gemSprite;
+    }
+
+    public GameObject GetBossByType(MonsterType monsterType)
+    {
+        return monsterType switch
+        {
+            MonsterType.melee => m_meleeBossPrefab,
+            MonsterType.ranged => m_rangedBossPrefab,
+            MonsterType.hover => m_hoverBossPrefab,
+        };
     }
 }

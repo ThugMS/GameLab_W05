@@ -298,11 +298,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &548498328 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4138420507533337177, guid: 6c7ec323b7662df40a021b79dbfe4e57, type: 3}
-  m_PrefabInstance: {fileID: 1974107273}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &556357897 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2710996500834821994, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
@@ -633,7 +628,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1438675050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -646,7 +641,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2004c095a4f9058499c3e647ea84f79b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 548498328}
   m_roomPrefabs: {fileID: 3350617661772655293, guid: f289b01fbcfed0e438ae5dd8c2bdb146, type: 3}
   m_gridTr: {fileID: 46587034}
   m_roomWidthSize: 30
@@ -1052,6 +1046,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangedBoss
       objectReference: {fileID: 0}
+    - target: {fileID: 5960275969316563203, guid: d23c3ddd0f96a3048911e071294cd43a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5960275969316563206, guid: d23c3ddd0f96a3048911e071294cd43a, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -1127,6 +1125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37926c82f1bc9db4c93b9a081ac4d050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_meleeBossPrefab: {fileID: 5960275969316563203, guid: d23c3ddd0f96a3048911e071294cd43a, type: 3}
+  m_rangedBossPrefab: {fileID: 5960275969316563203, guid: d23c3ddd0f96a3048911e071294cd43a, type: 3}
+  m_hoverBossPrefab: {fileID: 6887085735099513768, guid: 81309456154fe094eb5a38c014b4d3fc, type: 3}
 --- !u!4 &1758589755
 Transform:
   m_ObjectHideFlags: 0
