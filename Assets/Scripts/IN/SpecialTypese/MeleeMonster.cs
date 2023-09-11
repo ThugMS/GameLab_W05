@@ -9,7 +9,7 @@ public class MeleeMonster : BaseMonster
     #region PublicVariables
 
     #endregion
-
+    [SerializeField] private bool m_isHovering;
     #region PrivateVariables
 
     protected override void stateUpdate()
@@ -49,7 +49,10 @@ public class MeleeMonster : BaseMonster
     #region PublicMethod
     protected override void Pursuit()
     {
-        m_agent.SetDestination(m_playerObj.transform.position);
+        while (Vector2.Distance(base.m_playerObj.transform.position, transform.position) > .5f)
+        {
+            m_agent.SetDestination(m_playerObj.transform.position);
+        }
     }
 
     protected override void Patrol()
@@ -70,6 +73,23 @@ public class MeleeMonster : BaseMonster
     protected override void Attack()
     {
     }
+
+
+    protected override bool playerWithinRange()
+    {
+        if(m_isHovering == true)
+        {
+            return true;
+        }
+
+        if (Vector2.Distance(transform.position, m_playerObj.transform.position) < m_range)
+        {
+            return true;
+        }
+        return false;
+    }
+
+
     #endregion
 
     #region PrivateMethod

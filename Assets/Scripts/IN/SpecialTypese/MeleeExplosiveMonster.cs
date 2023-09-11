@@ -12,49 +12,31 @@ public class MeleeExplosiveMonster : MeleeMonster
 
     #region PrivateVariables
     [SerializeField] private GameObject m_explosionPrefab;
+    [SerializeField] private float m_explosionSize;
     [SerializeField] private float m_explosionWaitTime;
     #endregion
 
     #region PublicMethod
-    protected override void stateUpdate()
+    protected override void Pursuit()
     {
-        switch (base.m_currentState)
+        if (Vector2.Distance(transform.position, base.m_playerObj.transform.position) < 2f)
         {
-            case MonsterState.Patrol:
+            StartCoroutine(IE_Attack());
+        } else
+        {
+            m_agent.SetDestination(m_playerObj.transform.position);
 
-                if (canSeePlayer() && playerWithinRange())
-                {
-                    TransitionToState(MonsterState.Pursuit);
-                }
-                Patrol();
-                break;
-            case MonsterState.Pursuit:
-
-                if (!canSeePlayer() && playerWithinRange())
-                {
-                    Patrol();
-                    
-                }
-                else
-                {
-                    if (Vector2.Distance(transform.position, base.m_playerObj.transform.position) < 1f)
-                    {
-                        
-                        StartCoroutine(IE_Attack());
-                        TransitionToState(MonsterState.Dead);
-                    }
-                    Pursuit();
-                }
-                break;
         }
     }
-
-
 
     protected IEnumerator IE_Attack()
     {
         yield return new WaitForSeconds(m_explosionWaitTime);
         GameObject bullet = Instantiate(m_explosionPrefab, transform.position, Quaternion.identity);
+        bullet.transform.localScale = new Vector3(m_explosionSize, m_explosionSize,m_explosionSize);
+        TransitionToState(MonsterState.Dead);
+        Dead();
+        yield return new WaitForFixedUpdate();
         Destroy(gameObject);
         yield return null;
     }

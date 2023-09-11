@@ -14,7 +14,7 @@ public class RangedMonster : BaseMonster
     [Header("RangedAttack")]
     [SerializeField] protected float m_attackRange;
     [SerializeField] protected GameObject m_bullet;
-    [SerializeField] private float m_bulletSpeed;
+    [SerializeField] protected float m_bulletSpeed;
     [SerializeField] private int m_bulletCount;
     [SerializeField] protected int m_attackTime;
 

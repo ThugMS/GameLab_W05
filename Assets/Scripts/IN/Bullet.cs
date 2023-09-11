@@ -8,9 +8,9 @@ public class Bullet : MonoBehaviour
     #endregion
 
     #region PrivateVariables
-    private float m_timer;
-    [SerializeField] private float m_limitTime;
-    [SerializeField] private float m_damage;
+    protected float m_timer;
+    public float m_limitTime;
+    public float m_damage;
     #endregion
 
     #region PublicMethod
@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
         m_damage = 0.5f;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         m_timer -= Time.deltaTime;
         if(m_timer < 0)
@@ -43,8 +43,6 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
             print("arrowDeleted");
         }
-
-
     }
 
     #endregion
