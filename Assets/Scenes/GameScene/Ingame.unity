@@ -866,6 +866,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2695062877884427339, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2695062878396085252, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1216,6 +1220,22 @@ MonoBehaviour:
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &1688887635 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2695062879421569484, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+  m_PrefabInstance: {fileID: 1568583384}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1688887636 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2695062877884427339, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+  m_PrefabInstance: {fileID: 1568583384}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1758589753
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,6 +1347,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7926765508556418659, guid: 67271840728b7994bac53dc1e4a9f0fe, type: 3}
     - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
+      propertyPath: m_keywordPanel
+      value: 
+      objectReference: {fileID: 1688887636}
+    - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
       propertyPath: m_profileImage
       value: 
       objectReference: {fileID: 1568583395}
@@ -1350,6 +1374,10 @@ PrefabInstance:
       propertyPath: m_gemButtonGetted
       value: 
       objectReference: {fileID: 2082654394}
+    - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
+      propertyPath: m_monsterTypeText
+      value: 
+      objectReference: {fileID: 1688887635}
     - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
       propertyPath: m_gemButtonCurrent
       value: 

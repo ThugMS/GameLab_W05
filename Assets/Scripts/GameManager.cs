@@ -23,6 +23,7 @@ public class GameManager : SingleTone<GameManager>
     void Start()
     {
         Time.timeScale = 1f;
+        GameStart();
     }
 
     #region PrivateVariables
@@ -33,12 +34,17 @@ public class GameManager : SingleTone<GameManager>
 
     public void GameStart()
     {
-        m_currentStage++;
-         
-        // [TODO] 키워드에 따른 화면 출력
         m_keywordMonsterType = (MonsterType)Random.Range(0, Enum.GetNames(typeof(MonsterType)).Length);
+        UIManager.Instance.UpdateMonsterTypeText(m_keywordMonsterType);
+        UIManager.Instance.ShowKeywordPanel();
+    
+        m_currentStage++;
+        
         List<RoomType> roomTypes = new() { RoomType.Gift, RoomType.NormalGift };
         m_keywordRoomType = roomTypes[Random.Range(0, roomTypes.Count)];
+        
+        //TODO : A 입력 시 패널 끄기, 패널 켜져있는 동안 다른 입력 못받도록
+        //UIManager.Instance.HideKeywordPanel();
     }
     
     public void GameOver()
