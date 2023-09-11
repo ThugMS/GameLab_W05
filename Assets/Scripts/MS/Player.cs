@@ -225,6 +225,14 @@ public abstract class Player : MonoBehaviour
     {
         return m_maxHP;
     }
+
+    public void SavePlusStat()
+    {
+        PlayerManager.instance.m_healthPlus = m_plusHP;
+        PlayerManager.instance.m_powerPlus = m_plusPower;
+        PlayerManager.instance.m_speedPlus = m_plusSpeed;
+    }
+
     protected void ChangePlusStatus(GemType gemType)
     {
         ResetPlusStatus();
