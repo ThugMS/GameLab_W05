@@ -59,7 +59,7 @@ MonoBehaviour:
   m_speed: 3
   m_range: 8
   m_health: 10
-  m_basicAttack: 1
+  m_basicAttack: 2
   m_patrolTime: 2
   m_isHovering: 0
 --- !u!212 &6785976041359516815

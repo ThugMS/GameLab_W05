@@ -59,7 +59,7 @@ MonoBehaviour:
   m_speed: 3
   m_range: 4
   m_health: 10
-  m_basicAttack: 1
+  m_basicAttack: 4
   m_patrolTime: 2
   m_isHovering: 1
   m_isDashing: 0
