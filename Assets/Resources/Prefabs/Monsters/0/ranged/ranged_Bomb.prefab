@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 969847509, guid: ef639b28ba7f2514c8c3bd194d0bc013, type: 3}
+  m_Sprite: {fileID: 1721063118, guid: b00524fed4e7e234dbe7c096b77410a6, type: 3}
   m_Color: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -113,7 +113,6 @@ MonoBehaviour:
   m_health: 5
   m_basicAttack: 1
   m_damageRefreshTime: 2
-  m_knockbackTime: 2
   m_patrolTime: 2
   m_attackRange: 5
   m_bullet: {fileID: 4096951867171842566, guid: 0f90d535e47bd8a4b9f22979dff32d26, type: 3}
@@ -200,7 +199,7 @@ Animator:
   m_GameObject: {fileID: 6857720738556830180}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 385ecd33ae388604bbf1986c39e5239d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 21463cc33c5221941ba7b55f4374efdb, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

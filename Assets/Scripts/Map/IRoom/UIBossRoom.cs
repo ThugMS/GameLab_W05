@@ -10,28 +10,22 @@ public class UIBossRoom : UIRoom
 
     public override void Execute()
     {
-        StartCoroutine(ShowEnterBossRoom());
-        
-        
-    }
-
-    IEnumerator ShowEnterBossRoom()
-    {
-        // 세팅
         var obj = Instantiate(ResourceManager.Instance.GetBossByType(GameManager.Instance.m_keywordMonsterType), 
-                                                transform.position,
-                                                Quaternion.identity);
+            transform.position,
+            Quaternion.identity);
         var boss =  obj.GetComponent<BaseMonster>();
         boss.DeadListener = End;
-        
-        yield return new WaitForSeconds(2f);
-        
-        // [TODO] Boss Inir?
     }
 
     protected override void End()
     {
-        base.End();
+        // base.End();
+        StartCoroutine(ClearProcess());
+    }
+
+    IEnumerator ClearProcess()
+    {
+        yield return new WaitForSeconds(2f);
         GameManager.Instance.GameClear();
     }
 }
