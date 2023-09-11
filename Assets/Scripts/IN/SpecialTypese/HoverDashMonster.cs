@@ -6,11 +6,7 @@ using UnityEngine.Tilemaps;
 public class HoverDashMonster : MeleeDashMonster
 {
     [SerializeField] private float m_dashStartDistance;
-    private float m_originalSpeed;
     [SerializeField]private float m_maxDashForce;
-    private bool m_isDashing = false;
-    [SerializeField]private float m_dashDuration;
-    [SerializeField] private float m_dashCoolTime;
     Vector2 dashDirection;
     #region PublicVariables
     #endregion
