@@ -117,14 +117,14 @@ public class MeleeBoss : BaseMonster
     {
         EndWalkingAnimation();
         m_onAction = false;
-        m_currentPattern = (Pattern)UnityEngine.Random.Range(0, 5);
+        m_currentPattern = (Pattern)UnityEngine.Random.Range(0, 4);
     }
 
     IEnumerator IEEnd()
     {
         EndWalkingAnimation();
         m_onAction = false;
-        m_currentPattern = (Pattern)UnityEngine.Random.Range(0, 5);
+        m_currentPattern = (Pattern)UnityEngine.Random.Range(0, 4);
         yield return null;
     }
 
