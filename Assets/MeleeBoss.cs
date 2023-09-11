@@ -110,7 +110,6 @@ public class MeleeBoss : BaseMonster
                     break;
                 case Pattern.Dead:
                     m_onAction = true;
-                    StartCoroutine(IE_PlayDyingEffect());
                     break;
             }
         }
