@@ -10,6 +10,10 @@ public class PlayerManager : MonoBehaviour
     public GameObject m_player;
 
     public List<PlayerData> m_datas = new List<PlayerData>();
+
+    public float m_healthPlus = 0f;
+    public float m_powerPlus = 0f;
+    public float m_speedPlus = 0f;
     #endregion
 
     #region PrivateVariables
@@ -115,6 +119,11 @@ public class PlayerManager : MonoBehaviour
     public float GetPlayerMaxHP()
     {
         return m_player.GetComponent<Player>().GetMaxHP();
+    }
+
+    public void SavePlusStat()
+    {
+        m_player.GetComponent<Player>().SavePlusStat();
     }
     #endregion
 
