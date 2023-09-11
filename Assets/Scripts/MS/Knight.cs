@@ -21,7 +21,6 @@ public class Knight : Player
     [SerializeField] private Vector2 m_dashAttackBoxSize;
     [SerializeField] private float m_dashDis;
     [SerializeField] private float m_durationTime = 0.5f;
-    [SerializeField] private float m_coolTime = 3f;
     [SerializeField] private AnimationCurve m_dashEase;
     [SerializeField] private int m_dashLayerMask;
     [SerializeField] private Vector2 m_startPos;
@@ -29,6 +28,7 @@ public class Knight : Player
     [SerializeField] private float m_moveDis;
     [SerializeField] private Vector2 m_dashDir;
     [SerializeField] private GameObject m_effect;
+    [SerializeField] private bool m_canAbility = true;
 
     [Header("Effect")]
     [SerializeField] private GameObject m_dashEffect;
@@ -98,11 +98,18 @@ public class Knight : Player
             return;
         }
 
+        if(m_canAbility == false)
+        {
+            return;
+        }
+
         m_canAct = false;
         m_canMove = false;
-
+        m_canAbility = false;
         m_dashDir = m_Direction;
+
         Dash();
+        StartCoroutine(nameof(IE_DashCoolTime));
     }
 
     protected override void Start()
@@ -234,6 +241,13 @@ public class Knight : Player
         SpawnEffect();
         DashAttackCheckCollider();
         m_animator.SetTrigger("Ability");
+    }
+
+    private IEnumerator IE_DashCoolTime()
+    {
+        yield return new WaitForSeconds(m_coolTime);
+
+        m_canAbility = true;
     }
     #endregion
 }
