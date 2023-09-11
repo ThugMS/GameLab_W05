@@ -57,14 +57,12 @@ MonoBehaviour:
   m_currentState: 0
   m_speed: 1
   m_range: 1
-  m_health: 1
-  m_basicAttack: 0
-  m_damageRefreshTime: 1
-  m_knockbackTime: 0
+  m_health: 50
+  m_basicAttack: 1
   m_patrolTime: 0
   m_bulletPrefab: {fileID: 6728282666144321241, guid: 93db1ba50fb69b448b821ca41043a3ef, type: 3}
-  m_bulletSpeed: 2
-  m_rushSpeed: 2
+  m_bulletSpeed: 3
+  m_rushSpeed: 3
   m_circleBulletDistance: 10
 --- !u!60 &5960275969316563200
 PolygonCollider2D:

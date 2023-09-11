@@ -31,7 +31,7 @@ public class UIClearReward : MonoBehaviour
         var player = PlayerManager.instance.GetComponent<PlayerManager>();
         switch ((RewardType)m_index)
         {
-            case RewardType.Hp : player.m_healthPlus += 2; break;
+            case RewardType.Hp : player.m_healthPlus += 4; break;
             case RewardType.Power : player.m_powerPlus += 2; break;
             case RewardType.Speed : player.m_speedPlus += 2; break;
         }

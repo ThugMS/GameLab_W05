@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -59,9 +61,9 @@ public class GameManager : MonoBehaviour
         PlayerManager.instance.GetPlayer().SetActive(false);
 
         // 랜덤 타입 설정 및 제거
-        m_keywordMonsterType = _appearMonsterTypes[ (int)Random.Range(0, Time.deltaTime) % _appearMonsterTypes.Count];
+        m_keywordMonsterType = _appearMonsterTypes[ Random.Range(0, DateTime.Now.Second + 5) % _appearMonsterTypes.Count];
         _appearMonsterTypes.Remove(m_keywordMonsterType);
-        m_keywordRoomType = _appearRoomTypes[(int)Random.Range(0, Time.deltaTime) % _appearRoomTypes.Count];
+        m_keywordRoomType = _appearRoomTypes[Random.Range(0, DateTime.Now.Second + 10) % _appearRoomTypes.Count];
         _appearRoomTypes.Remove(m_keywordRoomType);
         
         UIManager.Instance.UpdateMonsterTypeText(m_keywordMonsterType);
