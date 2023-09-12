@@ -183,11 +183,16 @@ public class RoomManager : MonoBehaviour
         // 특수 맵 설정
         var ignoreRooms = _rooms.Where(x => x.Type == RoomType.None).ToList();
         int specialRoomCount =  _rooms.Count / 5; // [TODO] 5개 방당 1개 꼴로 설정. RoomManager 머지 후 해당 값 수정 필요
-        for (int i = 0; i < specialRoomCount; i++)
+
+        List<RoomType> list = null;
+        if (_specialRoomType == RoomType.Gift) list = new List<RoomType>() { RoomType.Gift, RoomType.Gift };
+        if (_specialRoomType == RoomType.NormalGift) list = new List<RoomType>() { RoomType.NormalGift, RoomType.Gift };
+        if (_specialRoomType == RoomType.Normal) list = new List<RoomType>() { RoomType.NormalGift, RoomType.Normal };
+        for (int i = 0; i < 2; i++)
         {
             int idx = Random.Range(0, ignoreRooms.Count);
-            ignoreRooms[idx].Type = _specialRoomType;
-            ignoreRooms[idx].m_landspace = ResourceManager.Instance.GetRandomLandscapeByType(_specialRoomType);
+            ignoreRooms[idx].Type = list[i];
+            ignoreRooms[idx].m_landspace = ResourceManager.Instance.GetRandomLandscapeByType(list[i]);
             ignoreRooms.RemoveAt(idx);
         }
         
