@@ -189,7 +189,21 @@ public class RangedBoss : BaseMonster
     
     public override void getDamage(float _damage)
     {
-        m_animator.Play("RangedBossGetHit");
+        // m_animator.Play("RangedBossGetHit");
+        Health -= _damage;
+
+        if (Health <= 0)
+        {
+            // [TODO] 공격 추가?
+            m_isMove = false;
+            m_animator.Play("RangedBossDead");
+            //이 후 죽음은 애니메이션 재생 후, OnStateExit()에서 ExecuteDeadAfterAnimation() 호출하여 종료
+        }
+    }
+
+    public override void getDamage(float _damage, float knockbackPower)
+    {
+        // m_animator.Play("RangedBossGetHit");
         Health -= _damage;
 
         if (Health <= 0)
