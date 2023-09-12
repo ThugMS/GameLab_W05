@@ -97,7 +97,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 15
   m_Sprite: {fileID: -1169823817, guid: e0b5a6a5756cd3e49828af28dde6a2c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_speed: 1
   m_range: 1
   m_health: 50
-  m_basicAttack: 0
+  m_basicAttack: 2
   m_patrolTime: 2
   minions: {fileID: 865472287801231118, guid: 39f9cec6adddf5f41aef1314c74847fd, type: 3}
   m_currentPattern: 0
