@@ -248,7 +248,7 @@ public class Archer : Player
 
             iter.TryGetComponent<BaseMonster>(out monster);
 
-            monster.getDamage(m_power * 2);
+            monster.getDamage(m_power * 1.5f);
 
             cnt++;
 
