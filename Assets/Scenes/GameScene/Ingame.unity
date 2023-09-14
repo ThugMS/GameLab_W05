@@ -1169,6 +1169,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -400
       objectReference: {fileID: 0}
+    - target: {fileID: 3249177928020414960, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+      propertyPath: m_Spacing
+      value: -500
+      objectReference: {fileID: 0}
     - target: {fileID: 3251514011203183050, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
       propertyPath: m_text
       value: "\uC774\uB3D9\uC18D\uB3C4 UP"
@@ -1687,6 +1691,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1812623701 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2695062879206527183, guid: fb284bd8b9f875542903c690bc5e2290, type: 3}
+  m_PrefabInstance: {fileID: 1568583384}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1912074522
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1750,6 +1759,10 @@ PrefabInstance:
       propertyPath: m_eventSystem
       value: 
       objectReference: {fileID: 1948057473}
+    - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
+      propertyPath: m_gameOverBtn
+      value: 
+      objectReference: {fileID: 1812623701}
     - target: {fileID: 7155325743458241429, guid: 7a7cd97deb83f824793c0d04efbb518d, type: 3}
       propertyPath: m_heartPrefab
       value: 

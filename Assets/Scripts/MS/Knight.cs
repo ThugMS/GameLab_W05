@@ -160,7 +160,7 @@ public class Knight : Player
 
             iter.TryGetComponent<BaseMonster>(out monster);
 
-            monster.getDamage(m_power * 3, 3f);
+            monster.getDamage(m_power * 1.5f, 3f);
         }
 
         m_colliders = null;

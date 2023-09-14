@@ -24,6 +24,7 @@ public class UIManager : SingleTone<UIManager>
     
     [Header("Panel")]
     [SerializeField] private GameObject m_gameOverPanel;
+    [SerializeField] private GameObject m_gameOverBtn;
     [SerializeField] private GameObject m_clearPanel;
     [SerializeField] private GameObject m_hitPanel; 
     
@@ -197,6 +198,7 @@ public class UIManager : SingleTone<UIManager>
     public void ShowGameOverPanel()
     {
         m_gameOverPanel.SetActive(true);
+        m_gameOverBtn.GetComponent<Button>().Select();
     }
     public void ShowClearPanel()
     {
