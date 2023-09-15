@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3630956270788708593
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3630956270788708599}
+  - component: {fileID: 3630956270788708592}
+  m_Layer: 0
+  m_Name: PlayerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3630956270788708599
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3630956270788708593}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5676661, y: 0.97160757, z: 0.047291048}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3630956270788708592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3630956270788708593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae05908d8cbebd547a40eb9876856196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_player: {fileID: 0}
+  m_datas:
+  - {fileID: 11400000, guid: 933314e87b0c7df4cbf79d55c9a7eb99, type: 2}
+  - {fileID: 11400000, guid: 1300eb85ca948b34fb7e74346042af50, type: 2}
+  - {fileID: 11400000, guid: 956567e7c934acb4c9ada22d54277ace, type: 2}
+  - {fileID: 11400000, guid: de1aac118f4acfc4fa3211e3c1665b55, type: 2}
+  m_healthPlus: 0
+  m_powerPlus: 0
+  m_speedPlus: 0
+  m_knight: {fileID: 4138420507533337178, guid: 6c7ec323b7662df40a021b79dbfe4e57, type: 3}
+  m_archer: {fileID: 7802226756966478229, guid: bca096ba93024db4395bbd99500a873d, type: 3}
+  m_wizard: {fileID: 7073605362985958941, guid: 2bf459e8a4c88704c953de0d05969cae, type: 3}
+  m_none: {fileID: 305968484456112003, guid: 04f9391fe7c0c1b43b7f152763bd9f8f, type: 3}
