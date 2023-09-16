@@ -8,9 +8,12 @@ using UnityEngine.Serialization;
 public class IssacPlayer : Player
 {
     #region PublicVariables
+    public bool m_canAttack = true;
     #endregion
 
     #region PrivateVariables
+    private bool m_isAttackPressed = false;
+
     private bool m_canChangeClass;
     private PlayerClassType m_selectType = PlayerClassType.None;
     [Header("Class")]
@@ -22,7 +25,7 @@ public class IssacPlayer : Player
 
     [Header("Stat")]
     [SerializeField] private float m_range = 1f;
-    [SerializeField] private float m_attackSpeed = 3f;
+    [SerializeField] private float m_attackSpeed = 0.5f;
     [SerializeField] private float m_projectileSpeed = 10f;
     //and m_power, m_speed.
 
@@ -38,7 +41,20 @@ public class IssacPlayer : Player
     {
 
 
-    }  
+    }
+
+    public override void OnAttack(InputAction.CallbackContext _context)
+    {
+        if (_context.started)
+        {
+            m_isAttackPressed = true;
+        }
+
+        if (_context.canceled)
+        {
+            m_isAttackPressed = false;
+        }
+    }
 
     protected override void Start()
     {
@@ -47,6 +63,20 @@ public class IssacPlayer : Player
         SetPlayerClassType(PlayerClassType.None);
         PlayerManager.instance.SetInitSetting(3);
         UIManager.Instance.SetHeartUI(m_currentHP, FinalHP);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        if(m_isAttackPressed == true)
+        {
+            if (m_canAttack)
+            {
+                Attack();
+                StartCoroutine(nameof(IE_StartAttackCoolTime)); 
+            }
+        }
     }
 
     public void SetCanChangeClass(bool canChange, PlayerClassType classType)
@@ -111,6 +141,15 @@ public class IssacPlayer : Player
                 _obj.GetComponent<Tear>().InitSetting(m_projectileType, m_range, m_projectileSpeed, m_Direction, m_power);
                 break;
         }
+    }
+
+    private IEnumerator IE_StartAttackCoolTime()
+    {
+        m_canAttack = false;
+
+        yield return new WaitForSeconds(m_attackSpeed);
+
+        m_canAttack = true;
     }
     #endregion
 }
