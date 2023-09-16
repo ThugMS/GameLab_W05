@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8479906667733579993}
   - component: {fileID: 8421465815871794951}
   - component: {fileID: 1906718836587027090}
+  - component: {fileID: -3843431253125422037}
   m_Layer: 0
   m_Name: Ring
   m_TagString: Untagged
@@ -123,3 +124,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &-3843431253125422037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5025109717558747259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0712d73a2a5ab48963dcbbeb0afc29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_projectileType: 0
+  m_lifeTime: 1
+  m_speed: 5
+  m_dir: {x: 0, y: 0}
+  m_power: 1
+  m_size: 0

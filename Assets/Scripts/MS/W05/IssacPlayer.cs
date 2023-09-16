@@ -9,6 +9,8 @@ public class IssacPlayer : Player
 {
     #region PublicVariables
     public bool m_canAttack = true;
+
+    
     #endregion
 
     #region PrivateVariables
@@ -33,6 +35,10 @@ public class IssacPlayer : Player
     [SerializeField] private AttackType m_attackType = AttackType.Tear;
     [SerializeField] private ProjectileType m_projectileType = ProjectileType.None;
     [SerializeField] private GameObject m_attackStorage;
+
+    [Header("Ring")]
+    [SerializeField] private float m_chargeCurTime = 0f;
+    [SerializeField] private float m_chargeMaxTime = 2f;
 
     #endregion
 
@@ -77,14 +83,7 @@ public class IssacPlayer : Player
     {
         base.Update();
 
-        if(m_isAttackPressed == true)
-        {
-            if (m_canAttack)
-            {
-                Attack();
-                StartCoroutine(nameof(IE_StartAttackCoolTime)); 
-            }
-        }
+        CheckAttackTypePressed();
     }
 
     public void SetCanChangeClass(bool canChange, PlayerClassType classType)
@@ -128,11 +127,59 @@ public class IssacPlayer : Player
         
     }
 
+    private void CheckAttackTypePressed()
+    {
+        switch (m_attackType)
+        {
+            case AttackType.Ring:
+                AttackRing();
+                break;
+
+            case AttackType.Tear:
+                AttackTear();
+                break;
+        }
+    }
+
+    private void AttackTear()
+    {
+        if (m_isAttackPressed == true)
+        {
+            if (m_canAttack)
+            {
+                Attack();
+                StartCoroutine(nameof(IE_StartAttackCoolTime));
+            }
+        }
+    }
+
+    private void AttackRing()
+    {
+        if (m_isAttackPressed == true)
+        {
+            m_chargeCurTime += Time.deltaTime;
+        }
+
+        if (m_isAttackPressed == false) 
+        {
+            if(m_chargeCurTime / m_chargeMaxTime > 0.3)
+            {
+                ShowAttack();
+            }
+            m_chargeCurTime = 0;
+        }
+
+    }
+
     private string GetAttackPath()
     {
         string path = "";
 
-        switch (m_attackType) { 
+        switch (m_attackType) {
+            case AttackType.Ring:
+                path = AttackResouceStore.ATTACK_RING;
+                break;
+
             case AttackType.Tear:
                 path = AttackResouceStore.ATTACK_TEAR;
                 break;
@@ -144,7 +191,11 @@ public class IssacPlayer : Player
     private void SetAttackInit(GameObject _obj)
     {
         switch (m_attackType)
-        {
+        {   
+            case AttackType.Ring:
+                _obj.GetComponent<Ring>().InitSetting(m_projectileType, m_range, m_projectileSpeed, m_Direction, m_power, m_chargeCurTime / m_chargeMaxTime);
+                break;
+
             case AttackType.Tear:
                 _obj.GetComponent<Tear>().InitSetting(m_projectileType, m_range, m_projectileSpeed, m_Direction, m_power);
                 break;
