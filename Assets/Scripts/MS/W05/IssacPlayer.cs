@@ -8,9 +8,14 @@ using UnityEngine.Serialization;
 public class IssacPlayer : Player
 {
     #region PublicVariables
+    public bool m_canAttack = true;
+
+    
     #endregion
 
     #region PrivateVariables
+    private bool m_isAttackPressed = false;
+
     private bool m_canChangeClass;
     private PlayerClassType m_selectType = PlayerClassType.None;
     [Header("Class")]
@@ -22,7 +27,7 @@ public class IssacPlayer : Player
 
     [Header("Stat")]
     [SerializeField] private float m_range = 1f;
-    [SerializeField] private float m_attackSpeed = 3f;
+    [SerializeField] private float m_attackSpeed = 0.5f;
     [SerializeField] private float m_projectileSpeed = 10f;
     //and m_power, m_speed.
 
@@ -31,6 +36,10 @@ public class IssacPlayer : Player
     [SerializeField] private ProjectileType m_projectileType = ProjectileType.None;
     [SerializeField] private GameObject m_attackStorage;
 
+    [Header("Ring")]
+    [SerializeField] private float m_chargeCurTime = 0f;
+    [SerializeField] private float m_chargeMaxTime = 2f;
+
     #endregion
 
     #region PublicMethod
@@ -38,7 +47,28 @@ public class IssacPlayer : Player
     {
 
 
-    }  
+    }
+
+    public override void OnAttack(InputAction.CallbackContext _context)
+    {
+        if (_context.started)
+        {
+            m_isAttackPressed = true;
+        }
+
+        if (_context.canceled)
+        {
+            m_isAttackPressed = false;
+        }
+    }
+
+    public void ChangeAttackType(AttackType _type)
+    {
+        if((int)m_attackType < (int)_type)
+            return;
+
+        m_attackType = _type;
+    }
 
     protected override void Start()
     {
@@ -47,6 +77,13 @@ public class IssacPlayer : Player
         SetPlayerClassType(PlayerClassType.None);
         PlayerManager.instance.SetInitSetting(3);
         UIManager.Instance.SetHeartUI(m_currentHP, FinalHP);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        CheckAttackTypePressed();
     }
 
     public void SetCanChangeClass(bool canChange, PlayerClassType classType)
@@ -90,11 +127,59 @@ public class IssacPlayer : Player
         
     }
 
+    private void CheckAttackTypePressed()
+    {
+        switch (m_attackType)
+        {
+            case AttackType.Ring:
+                AttackRing();
+                break;
+
+            case AttackType.Tear:
+                AttackTear();
+                break;
+        }
+    }
+
+    private void AttackTear()
+    {
+        if (m_isAttackPressed == true)
+        {
+            if (m_canAttack)
+            {
+                Attack();
+                StartCoroutine(nameof(IE_StartAttackCoolTime));
+            }
+        }
+    }
+
+    private void AttackRing()
+    {
+        if (m_isAttackPressed == true)
+        {
+            m_chargeCurTime += Time.deltaTime;
+        }
+
+        if (m_isAttackPressed == false) 
+        {
+            if(m_chargeCurTime / m_chargeMaxTime > 0.3)
+            {
+                ShowAttack();
+            }
+            m_chargeCurTime = 0;
+        }
+
+    }
+
     private string GetAttackPath()
     {
         string path = "";
 
-        switch (m_attackType) { 
+        switch (m_attackType) {
+            case AttackType.Ring:
+                path = AttackResouceStore.ATTACK_RING;
+                break;
+
             case AttackType.Tear:
                 path = AttackResouceStore.ATTACK_TEAR;
                 break;
@@ -106,11 +191,24 @@ public class IssacPlayer : Player
     private void SetAttackInit(GameObject _obj)
     {
         switch (m_attackType)
-        {
+        {   
+            case AttackType.Ring:
+                _obj.GetComponent<Ring>().InitSetting(m_projectileType, m_range, m_projectileSpeed, m_Direction, m_power, m_chargeCurTime / m_chargeMaxTime);
+                break;
+
             case AttackType.Tear:
                 _obj.GetComponent<Tear>().InitSetting(m_projectileType, m_range, m_projectileSpeed, m_Direction, m_power);
                 break;
         }
+    }
+
+    private IEnumerator IE_StartAttackCoolTime()
+    {
+        m_canAttack = false;
+
+        yield return new WaitForSeconds(m_attackSpeed);
+
+        m_canAttack = true;
     }
     #endregion
 }
