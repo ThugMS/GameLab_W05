@@ -2527,6 +2527,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChoosePlayerClass
       objectReference: {fileID: 0}
+    - target: {fileID: 2281382930762007323, guid: a62a73e1554b2dc4abfe04ec73c34597, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281382930849919761, guid: a62a73e1554b2dc4abfe04ec73c34597, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281382931000449326, guid: a62a73e1554b2dc4abfe04ec73c34597, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281382931726578584, guid: a62a73e1554b2dc4abfe04ec73c34597, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a62a73e1554b2dc4abfe04ec73c34597, type: 3}
 --- !u!4 &6592989998117250044 stripped
