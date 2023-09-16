@@ -7,5 +7,7 @@ public enum AttackType
     Bomb, Ring, Brimstone, Tech, Tear
 }
 
-
-
+public enum ProjectileType
+{
+    None, Planet, Zigzag
+}
