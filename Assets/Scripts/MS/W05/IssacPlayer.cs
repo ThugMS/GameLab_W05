@@ -56,6 +56,14 @@ public class IssacPlayer : Player
         }
     }
 
+    public void ChangeAttackType(AttackType _type)
+    {
+        if((int)m_attackType < (int)_type)
+            return;
+
+        m_attackType = _type;
+    }
+
     protected override void Start()
     {
         base.Start();
