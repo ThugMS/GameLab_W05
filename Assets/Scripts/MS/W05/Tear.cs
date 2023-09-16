@@ -9,6 +9,7 @@ public class Tear : MonoBehaviour
 
     #region PrivateVariables
     private Rigidbody2D m_rigidbody;
+    private int m_layerMask;
 
     [Header("Status")]
     [SerializeField] private ProjectileType m_projectileType = ProjectileType.None;
@@ -39,6 +40,7 @@ public class Tear : MonoBehaviour
     private void Start()
     {
         m_rigidbody = GetComponent<Rigidbody2D>();
+        m_layerMask = LayerMask.GetMask("Monster", "Boss");
 
         StartCoroutine(nameof(IE_Destroy));
     }
@@ -49,6 +51,14 @@ public class Tear : MonoBehaviour
     {
         yield return new WaitForSeconds(m_lifeTime);
         Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if((m_layerMask & (1 << collision.gameObject.layer)) != 0)
+        {
+            collision.gameObject.GetComponent<DamageBot>().ShowDamage(m_power);
+        }
     }
     #endregion
 }
