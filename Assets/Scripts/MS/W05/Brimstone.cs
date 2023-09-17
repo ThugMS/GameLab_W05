@@ -34,7 +34,7 @@ public class Brimstone : MonoBehaviour
 
     public void FixedUpdate()
     {
-        Debug.Log(transform.position);
+        transform.position = PlayerManager.instance.GetPlayer().transform.position;
     }
 
     private void Start()
@@ -51,9 +51,13 @@ public class Brimstone : MonoBehaviour
         }
         
         StartCoroutine(nameof(IE_Destroy));
-        SetShape();
+        CheckProjectileType();
         gameObject.SetActive(true);
+
+        transform.SetParent(PlayerManager.instance.GetPlayer().transform);
     }
+
+
 
     private void Update()
     {
@@ -71,17 +75,22 @@ public class Brimstone : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void SetShape()
+
+    private void CheckProjectileType()
     {
-        switch(m_projectileType)
+        switch (m_projectileType)
         {
             case ProjectileType.None:
-                ShapeNone();
+                NoneType();
+                break;
+
+            case ProjectileType.Planet:
+                PlanetType();
                 break;
         }
     }
 
-    private void ShapeNone()
+    private void NoneType()
     {
         for (int i = 0; i < m_points.Count; i++)
         {
@@ -94,6 +103,19 @@ public class Brimstone : MonoBehaviour
 
             m_points[i].transform.localPosition = Vector3.zero;
         }
+    }
+
+    private void PlanetType()
+    {
+        float angle = Vector2.SignedAngle(Vector2.right, m_dir.normalized);
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        m_points[0].transform.localPosition = new Vector3(1, 0, 0);
+        m_points[1].transform.localPosition = new Vector3(0, 1.5f, 0);
+        m_points[2].transform.localPosition = new Vector3(-1.5f, 0, 0);
+        m_points[3].transform.localPosition = new Vector3(0, -2, 0);
+        m_points[4].transform.localPosition = new Vector3(2, 0, 0);
+        m_points[5].transform.localPosition = new Vector3(10f, 0, 0);
     }
 
     private void GenerateCollider()
