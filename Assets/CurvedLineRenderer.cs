@@ -34,7 +34,6 @@ public class CurvedLineRenderer : MonoBehaviour
 		for( int i = 0; i < linePoints.Length; i++ )
 		{
 			linePositions[i] = linePoints[i].transform.localPosition;
-            Debug.Log(linePositions[i]);
         }
 	}
 
