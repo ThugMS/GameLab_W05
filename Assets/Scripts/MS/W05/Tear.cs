@@ -25,6 +25,10 @@ public class Tear : MonoBehaviour
     [SerializeField] private float m_radius = 0f;
     [SerializeField] private float m_radiusAdd = 0.1f;
     [SerializeField] private float m_radiusMax = 3f;
+
+    [Header("Electric")]
+    [SerializeField] private LineRenderer m_line;
+    [SerializeField] private Vector3[] m_linePoints = new Vector3[2];
     #endregion
 
     #region PublicMethod
@@ -55,6 +59,14 @@ public class Tear : MonoBehaviour
         }
 
         StartCoroutine(nameof(IE_Destroy));
+    }
+
+    public void SetElectric(GameObject _obj)
+    {
+        m_linePoints[0] = transform.position;
+        m_linePoints[1] = _obj.transform.position;
+
+        m_line.SetPositions(m_linePoints);
     }
     #endregion
 
@@ -103,6 +115,7 @@ public class Tear : MonoBehaviour
         if((m_layerMask & (1 << collision.gameObject.layer)) != 0)
         {
             collision.gameObject.GetComponent<DamageBot>().ShowDamage(m_power);
+            Destroy(gameObject);
         }
     }
     #endregion
