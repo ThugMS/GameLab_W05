@@ -119,7 +119,7 @@ public class IssacPlayer : Player
     private void ShowAttack()
     {
         string attackPath = GetAttackPath();
-        float angle = Vector2.SignedAngle(Vector2.up, m_Direction.normalized);
+        float angle = Vector2.SignedAngle(Vector2.right, m_Direction.normalized);
         //Vector3 offsetPositon = (m_offset) * m_Direction.normalized;
 
         GameObject obj = (GameObject)Instantiate(Resources.Load(attackPath), transform.position, Quaternion.Euler(0,0,angle), m_attackStorage.transform);
@@ -135,9 +135,15 @@ public class IssacPlayer : Player
                 AttackRing();
                 break;
 
+            case AttackType.Brimstone:
+                AttackBrimstone();
+                break;
+
             case AttackType.Tear:
                 AttackTear();
                 break;
+
+            
         }
     }
 
@@ -171,6 +177,23 @@ public class IssacPlayer : Player
 
     }
 
+    private void AttackBrimstone()
+    {
+        if (m_isAttackPressed == true)
+        {
+            m_chargeCurTime += Time.deltaTime;
+        }
+
+        if (m_isAttackPressed == false)
+        {
+            if (m_chargeCurTime > m_chargeMaxTime)
+            {
+                ShowAttack();
+            }
+            m_chargeCurTime = 0;
+        }
+    }
+
     private string GetAttackPath()
     {
         string path = "";
@@ -178,6 +201,10 @@ public class IssacPlayer : Player
         switch (m_attackType) {
             case AttackType.Ring:
                 path = AttackResouceStore.ATTACK_RING;
+                break;
+
+            case AttackType.Brimstone:
+                path = AttackResouceStore.ATTACK_BRIMSTONE;
                 break;
 
             case AttackType.Tear:
@@ -194,6 +221,11 @@ public class IssacPlayer : Player
         {   
             case AttackType.Ring:
                 _obj.GetComponent<Ring>().InitSetting(m_projectileType, m_range, m_projectileSpeed, m_Direction, m_power, m_chargeCurTime / m_chargeMaxTime);
+                break;
+
+            case AttackType.Brimstone:
+                _obj.GetComponent<Brimstone>().InitSetting(m_projectileType, m_range, m_Direction, m_power);
+                _obj.transform.SetParent(transform);
                 break;
 
             case AttackType.Tear:
