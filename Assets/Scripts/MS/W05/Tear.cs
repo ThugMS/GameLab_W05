@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,13 @@ public class Tear : MonoBehaviour
     [SerializeField] private float m_speed = 5f;
     [SerializeField] private Vector2 m_dir = Vector2.zero;
     [SerializeField] private float m_power = 1f;
+
+    [Header("Planet")]
+    [SerializeField] private Vector3 m_centerPos;
+    [SerializeField] private float m_angle = 0f;
+    [SerializeField] private float m_radius = 0f;
+    [SerializeField] private float m_radiusAdd = 0.1f;
+    [SerializeField] private float m_radiusMax = 3f;
     #endregion
 
     #region PublicMethod
@@ -31,22 +39,59 @@ public class Tear : MonoBehaviour
 
     public void FixedUpdate()
     {
-        Vector2 moveAmount = transform.up * m_speed * Time.deltaTime;
-        Vector2 nextPosition = m_rigidbody.position + moveAmount;
-
-        m_rigidbody.MovePosition(nextPosition);
+        CheckProjectileType();
+        
     }
 
     private void Start()
     {
         m_rigidbody = GetComponent<Rigidbody2D>();
         m_layerMask = LayerMask.GetMask("Monster", "Boss");
+        m_centerPos = transform.position;
+
+        if(m_projectileType == ProjectileType.Planet)
+        {
+            m_lifeTime = 5f;
+        }
 
         StartCoroutine(nameof(IE_Destroy));
     }
     #endregion
 
     #region PrivateMethod
+    private void CheckProjectileType()
+    {
+        switch(m_projectileType)
+        {
+            case ProjectileType.None:
+                NoneType();
+                break;
+
+            case ProjectileType.Planet:
+                PlanetType();
+                break;
+        }
+    }
+    
+    private void NoneType()
+    {
+        Vector2 moveAmount = transform.right * m_speed * Time.deltaTime;
+        Vector2 nextPosition = m_rigidbody.position + moveAmount;
+
+        m_rigidbody.MovePosition(nextPosition);
+    }
+
+    private void PlanetType()
+    {
+        m_centerPos = PlayerManager.instance.GetPlayer().transform.position;
+        m_angle += m_speed * Time.deltaTime;
+
+        m_speed = m_speed - 0.1f < 2f ? m_speed : m_speed - 0.1f;
+        m_radius = m_radius + m_radiusAdd > m_radiusMax ? m_radiusMax : m_radius + m_radiusAdd;
+
+        m_rigidbody.MovePosition(m_centerPos + new Vector3(Mathf.Cos(m_angle), Mathf.Sin(m_angle), 0) * m_radius);
+    }
+
     private IEnumerator IE_Destroy()
     {
         yield return new WaitForSeconds(m_lifeTime);
