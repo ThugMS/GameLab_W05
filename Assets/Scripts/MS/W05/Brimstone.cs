@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,13 +15,20 @@ public class Brimstone : MonoBehaviour
     private int m_layerMask;
     private LineRenderer m_line;
 
+    private float m_dis = 20f;
+    private Animator m_animator;
+
     [Header("Status")]
     [SerializeField] private ProjectileType m_projectileType = ProjectileType.None;
     [SerializeField] private float m_lifeTime = 1.0f;
     [SerializeField] private float m_speed = 5f;
     [SerializeField] private Vector2 m_dir = Vector2.zero;
     [SerializeField] private float m_power = 1f;
-    [SerializeField] private float m_size;
+
+    [Header("ZigZag")]
+    [SerializeField] private float m_interval = 1.5f;
+    [SerializeField] private float m_height = 1f;
+    
     #endregion
 
     #region PublicMethod
@@ -42,6 +50,9 @@ public class Brimstone : MonoBehaviour
         m_rigidbody = GetComponent<Rigidbody2D>();
         m_layerMask = LayerMask.GetMask("Monster", "Boss");
         m_line = GetComponent<LineRenderer>();
+        m_animator = GetComponent<Animator>();
+        
+
         transform.rotation = Quaternion.identity;
 
         CurvedLinePoint[] allchild = GetComponentsInChildren<CurvedLinePoint>();
@@ -66,13 +77,19 @@ public class Brimstone : MonoBehaviour
             m_points[i].GetComponent<CurvedLinePoint>().SetCollider(m_points[i + 1]);
         }
     }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
+    }
     #endregion
 
     #region PrivateMethod
     private IEnumerator IE_Destroy()
     {
         yield return new WaitForSeconds(m_lifeTime);
-        Destroy(gameObject);
+
+        m_animator.Play("Brimstone");
     }
 
 
@@ -87,6 +104,10 @@ public class Brimstone : MonoBehaviour
             case ProjectileType.Planet:
                 PlanetType();
                 break;
+
+            case ProjectileType.Zigzag:
+                ZigZagType();
+                break;
         }
     }
 
@@ -96,7 +117,7 @@ public class Brimstone : MonoBehaviour
         {
             if (i == m_points.Count - 1)
             {
-                Vector3 pos = new Vector3(m_dir.x, m_dir.y, 0) * 10f;
+                Vector3 pos = new Vector3(m_dir.x, m_dir.y, 0) * m_dis;
                 m_points[i].transform.localPosition = pos;
                 break;
             }
@@ -115,7 +136,36 @@ public class Brimstone : MonoBehaviour
         m_points[2].transform.localPosition = new Vector3(-1.5f, 0, 0);
         m_points[3].transform.localPosition = new Vector3(0, -2, 0);
         m_points[4].transform.localPosition = new Vector3(2, 0, 0);
-        m_points[5].transform.localPosition = new Vector3(10f, 0, 0);
+        m_points[5].transform.localPosition = new Vector3(m_dis, 0, 0);
+    }
+
+    private void ZigZagType()
+    {
+        float angle = Vector2.SignedAngle(Vector2.right, m_dir.normalized);
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        m_points = new List<GameObject>();
+
+        int len = (int)(m_dis / m_interval) + 1;
+        int check = -1;
+
+        for(int i = 0; i < len; i++)
+        {
+            check *= -1;    
+            GameObject obj = (GameObject)Instantiate(Resources.Load(AttackResouceStore.ATTACK_BRIMSTONE_POINT), transform.position, Quaternion.identity, transform);
+            if (i == 0)
+            {
+                obj.transform.localPosition = new Vector3(1, 0, 0);  
+            }
+            else if(i == len - 1)
+            {
+                obj.transform.localPosition = new Vector3(m_dis, 1, 0);
+            }
+            else
+            {
+                obj.transform.localPosition = new Vector3(i * m_interval, m_height * check, 0);
+            }
+        }
     }
 
     private void GenerateCollider()
@@ -136,6 +186,5 @@ public class Brimstone : MonoBehaviour
             collision.gameObject.GetComponent<DamageBot>().ShowDamage(m_power);
         }
     }
-
     #endregion
 }
