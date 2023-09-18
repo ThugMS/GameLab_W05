@@ -11,3 +11,13 @@ public enum ProjectileType
 {
     None, Planet, Zigzag
 }
+
+public enum ItemType 
+{
+    AttackSpeedUp, AttackSpeedDown, 
+    PowerUp, PowerDown, 
+    RangeUp, RangeDown, 
+    ProjectileUp, ProjectileDown,
+    Bomb, Ring, Brimstone, Tech, Tear,
+    ProjectileTypeNone, ProjectileTypePlanet, ProjectileTypeZigzag
+}
