@@ -26,7 +26,7 @@ public class DamagerText : MonoBehaviour
     public void InitSetting(string _text)
     {
         m_text.text = _text;
-        transform.DOMoveY(transform.position.y + 3f, 1f);
+        transform.DOMoveY(transform.position.y + 3f, 0.2f);
     }
     #endregion
 

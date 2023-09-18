@@ -132,8 +132,9 @@ public class Tear : MonoBehaviour
         if((m_layerMask & (1 << collision.gameObject.layer)) != 0)
         {
             collision.gameObject.GetComponent<DamageBot>().ShowDamage(m_power);
-            Destroy(gameObject);
+            
         }
+        Destroy(gameObject);
     }
     #endregion
 }

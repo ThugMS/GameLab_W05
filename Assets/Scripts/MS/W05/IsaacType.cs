@@ -19,5 +19,6 @@ public enum ItemType
     RangeUp, RangeDown, 
     ProjectileUp, ProjectileDown,
     Bomb, Ring, Brimstone, Tech, Tear,
-    ProjectileTypeNone, ProjectileTypePlanet, ProjectileTypeZigzag
+    ProjectileTypeNone, ProjectileTypePlanet, ProjectileTypeZigzag,
+    AttackOptionNone, AttackOptionElectric
 }

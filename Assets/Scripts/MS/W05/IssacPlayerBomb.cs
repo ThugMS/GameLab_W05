@@ -11,6 +11,7 @@ public class IssacPlayerBomb : MonoBehaviour
     #region PrivateVariables
     private Rigidbody2D m_rigidbody;
     private int m_layerMask;
+    private Animator m_animator;
 
     [Header("Status")]
     [SerializeField] private ProjectileType m_projectileType = ProjectileType.None;
@@ -33,7 +34,7 @@ public class IssacPlayerBomb : MonoBehaviour
     [Header("Bomb")]
     private float m_downSpeed = 0f;
     private float m_downAddSpeed = 0.01f;
-
+    
     //[Header("Electric")]
     //[SerializeField] private LineRenderer m_line;
     //[SerializeField] private Vector3[] m_linePoints = new Vector3[2];
@@ -47,7 +48,7 @@ public class IssacPlayerBomb : MonoBehaviour
         m_lifeTime = _lifeTime;
         m_speed = _speed;
         m_dir = _dir;
-        m_power = _power;
+        m_power = _power * 8;
         m_turnArr = _turnArr;
     }
 
@@ -61,13 +62,34 @@ public class IssacPlayerBomb : MonoBehaviour
         m_rigidbody = GetComponent<Rigidbody2D>();
         m_layerMask = LayerMask.GetMask("Monster", "Boss");
         m_centerPos = transform.position;
+        m_animator = GetComponent<Animator>();
 
         if (m_projectileType == ProjectileType.Planet)
         {
             m_lifeTime = 5f;
         }
 
-        //StartCoroutine(nameof(IE_Destroy));
+        StartCoroutine(nameof(IE_Destroy));
+    }
+
+    public void Explosion()
+    {
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 2);
+
+        foreach(var col in cols)
+        {
+            if ((m_layerMask & (1 << col.gameObject.layer)) != 0)
+            {
+                col.gameObject.GetComponent<DamageBot>().ShowDamage(m_power);
+            }
+        }
+
+        
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
     #endregion
 
@@ -130,16 +152,13 @@ public class IssacPlayerBomb : MonoBehaviour
     private IEnumerator IE_Destroy()
     {
         yield return new WaitForSeconds(m_lifeTime);
-        Destroy(gameObject);
+
+        m_animator.Play("Bomb");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if ((m_layerMask & (1 << collision.gameObject.layer)) != 0)
-        {
-            collision.gameObject.GetComponent<DamageBot>().ShowDamage(m_power);
-            Destroy(gameObject);
-        }
+        
     }
     #endregion
 }

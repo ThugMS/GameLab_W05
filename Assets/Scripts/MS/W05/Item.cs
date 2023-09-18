@@ -11,6 +11,7 @@ public class Item : MonoBehaviour
 
     #region PrivateVariables
     [SerializeField] private GameObject m_item;
+    [SerializeField] private GameObject m_electirc;
     [SerializeField] private bool m_canItemEat = true;
 
     private int m_playerLayer;
@@ -48,27 +49,27 @@ public class Item : MonoBehaviour
         switch (m_type) 
         {
             case ItemType.AttackSpeedUp:
-                _obj.SetAttackSpeed(1);
+                _obj.SetAttackSpeed(-0.3f);
                 break;
 
             case ItemType.AttackSpeedDown:
-                _obj.SetAttackSpeed(-1);
+                _obj.SetAttackSpeed(0.3f);
                 break;
 
             case ItemType.PowerUp:
-                _obj.SetPower(1);
+                _obj.SetPower(3);
                 break;
 
             case ItemType.PowerDown:
-                _obj.SetPower(-1);
+                _obj.SetPower(-3);
                 break;
 
             case ItemType.RangeUp:
-                _obj.SetRange(1);
+                _obj.SetRange(2);
                 break;
 
             case ItemType.RangeDown:
-                _obj.SetRange(-1);
+                _obj.SetRange(-2);
                 break;
 
             case ItemType.ProjectileUp:
@@ -109,6 +110,14 @@ public class Item : MonoBehaviour
 
             case ItemType.ProjectileTypeZigzag:
                 _obj.SetProjectileType(ProjectileType.Zigzag);
+                break;
+
+            case ItemType.AttackOptionNone:
+                m_electirc.GetComponent<AttackStorage>().m_isElectric = false;
+                break;
+
+            case ItemType.AttackOptionElectric:
+                m_electirc.GetComponent<AttackStorage>().m_isElectric = true;
                 break;
         }
     }
