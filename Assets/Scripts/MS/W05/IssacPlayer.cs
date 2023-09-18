@@ -40,6 +40,8 @@ public class IssacPlayer : Player
     [SerializeField] private float m_chargeCurTime = 0f;
     [SerializeField] private float m_chargeMaxTime = 2f;
 
+    [Header("Tear")]
+    [SerializeField] private int m_turnArr = 1;
     #endregion
 
     #region PublicMethod
@@ -142,8 +144,6 @@ public class IssacPlayer : Player
             case AttackType.Tear:
                 AttackTear();
                 break;
-
-            
         }
     }
 
@@ -229,7 +229,7 @@ public class IssacPlayer : Player
                 break;
 
             case AttackType.Tear:
-                _obj.GetComponent<Tear>().InitSetting(m_projectileType, m_range, m_projectileSpeed, m_Direction, m_power);
+                _obj.GetComponent<Tear>().InitSetting(m_projectileType, m_range, m_projectileSpeed, m_Direction, m_power, m_turnArr *= -1);
                 break;
         }
     }

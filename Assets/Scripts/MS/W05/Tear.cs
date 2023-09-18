@@ -1,7 +1,9 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Tear : MonoBehaviour
 {
@@ -25,20 +27,23 @@ public class Tear : MonoBehaviour
     [SerializeField] private float m_radius = 0f;
     [SerializeField] private float m_radiusAdd = 0.1f;
     [SerializeField] private float m_radiusMax = 3f;
+    [SerializeField] private int m_turnArr = 1;
 
-    [Header("Electric")]
-    [SerializeField] private LineRenderer m_line;
-    [SerializeField] private Vector3[] m_linePoints = new Vector3[2];
+    //[Header("Electric")]
+    //[SerializeField] private LineRenderer m_line;
+    //[SerializeField] private Vector3[] m_linePoints = new Vector3[2];
+    //[SerializeField] private BoxCollider2D m_boxCol;
     #endregion
 
     #region PublicMethod
-    public void InitSetting(ProjectileType _type, float _lifeTime, float _speed, Vector2 _dir, float _power)
+    public void InitSetting(ProjectileType _type, float _lifeTime, float _speed, Vector2 _dir, float _power, int _turnArr)
     {
         m_projectileType = _type;
         m_lifeTime = _lifeTime;
         m_speed = _speed;
         m_dir = _dir;
         m_power = _power;
+        m_turnArr = _turnArr;
     }
 
     public void FixedUpdate()
@@ -59,14 +64,6 @@ public class Tear : MonoBehaviour
         }
 
         StartCoroutine(nameof(IE_Destroy));
-    }
-
-    public void SetElectric(GameObject _obj)
-    {
-        m_linePoints[0] = transform.position;
-        m_linePoints[1] = _obj.transform.position;
-
-        m_line.SetPositions(m_linePoints);
     }
     #endregion
 
@@ -96,12 +93,14 @@ public class Tear : MonoBehaviour
     private void PlanetType()
     {
         m_centerPos = PlayerManager.instance.GetPlayer().transform.position;
-        m_angle += m_speed * Time.deltaTime;
+        m_angle += m_speed * Time.deltaTime * m_turnArr;
 
         m_speed = m_speed - 0.1f < 2f ? m_speed : m_speed - 0.1f;
         m_radius = m_radius + m_radiusAdd > m_radiusMax ? m_radiusMax : m_radius + m_radiusAdd;
 
-        m_rigidbody.MovePosition(m_centerPos + new Vector3(Mathf.Cos(m_angle), Mathf.Sin(m_angle), 0) * m_radius);
+        Vector3 nextPos = m_centerPos + new Vector3(Mathf.Cos(m_angle), Mathf.Sin(m_angle), 0) * m_radius;
+
+        m_rigidbody.MovePosition(nextPos);
     }
 
     private IEnumerator IE_Destroy()
