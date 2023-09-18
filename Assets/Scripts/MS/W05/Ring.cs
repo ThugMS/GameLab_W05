@@ -24,7 +24,7 @@ public class Ring : MonoBehaviour
     public void InitSetting(ProjectileType _type, float _lifeTime, float _speed, Vector2 _dir, float _power, float _size)
     {
         m_projectileType = _type;
-        m_lifeTime = _lifeTime;
+        m_lifeTime = _lifeTime * 3;
         m_speed = _speed;
         m_dir = _dir;
         m_power = _power;
@@ -38,7 +38,7 @@ public class Ring : MonoBehaviour
 
     public void FixedUpdate()
     {
-        Vector2 moveAmount = transform.up * m_speed * Time.deltaTime;
+        Vector2 moveAmount = transform.right * m_speed * Time.deltaTime;
         Vector2 nextPosition = m_rigidbody.position + moveAmount;
 
         m_rigidbody.MovePosition(nextPosition);
