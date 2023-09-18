@@ -1,3 +1,4 @@
+using DG.Tweening;
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,6 +29,9 @@ public class Tear : MonoBehaviour
     [SerializeField] private float m_radiusAdd = 0.1f;
     [SerializeField] private float m_radiusMax = 3f;
     [SerializeField] private int m_turnArr = 1;
+
+    [Header("ZigZag")]
+    [SerializeField] private float m_zigzagDis = 0.5f;
 
     //[Header("Electric")]
     //[SerializeField] private LineRenderer m_line;
@@ -79,6 +83,10 @@ public class Tear : MonoBehaviour
             case ProjectileType.Planet:
                 PlanetType();
                 break;
+
+            case ProjectileType.Zigzag:
+                ZigZagType();
+                break;
         }
     }
     
@@ -101,6 +109,16 @@ public class Tear : MonoBehaviour
         Vector3 nextPos = m_centerPos + new Vector3(Mathf.Cos(m_angle), Mathf.Sin(m_angle), 0) * m_radius;
 
         m_rigidbody.MovePosition(nextPos);
+    }
+
+    private void ZigZagType()
+    {
+        Vector2 axis = transform.up;
+        Vector2 moveAmount = transform.right * m_speed * Time.deltaTime;
+        Vector2 zigzag = axis * Mathf.Sin(Time.time * 10f) * 0.1f * m_turnArr;
+        Vector2 nextPosition = m_rigidbody.position + moveAmount + zigzag;
+
+        m_rigidbody.MovePosition(nextPosition);
     }
 
     private IEnumerator IE_Destroy()
