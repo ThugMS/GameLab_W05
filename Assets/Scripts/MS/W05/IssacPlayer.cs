@@ -243,4 +243,36 @@ public class IssacPlayer : Player
         m_canAttack = true;
     }
     #endregion
+
+    #region ItemInteract
+    public void SetAttackSpeed(float _value)
+    {
+        m_attackSpeed += _value;
+    }
+
+    public void SetPower(float _power)
+    {
+        m_power += _power;
+    }
+
+    public void SetRange(float _range)
+    {
+        m_range += _range;
+    }
+
+    public void SetProjectileSpeed(float _projectileSpeed)
+    {
+        m_projectileSpeed += _projectileSpeed;
+    }
+
+    public void SetAttackType(AttackType _type)
+    {
+        m_attackType = _type;
+    }
+
+    public void SetProjectileType(ProjectileType _type)
+    {
+        m_projectileType = _type;
+    }
+    #endregion
 }
