@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class IssacPlayerBomb : MonoBehaviour
 {
@@ -29,6 +30,10 @@ public class IssacPlayerBomb : MonoBehaviour
     [Header("ZigZag")]
     [SerializeField] private float m_zigzagDis = 0.5f;
 
+    [Header("Bomb")]
+    private float m_downSpeed = 0f;
+    private float m_downAddSpeed = 0.01f;
+
     //[Header("Electric")]
     //[SerializeField] private LineRenderer m_line;
     //[SerializeField] private Vector3[] m_linePoints = new Vector3[2];
@@ -49,7 +54,6 @@ public class IssacPlayerBomb : MonoBehaviour
     public void FixedUpdate()
     {
         CheckProjectileType();
-
     }
 
     private void Start()
@@ -63,7 +67,7 @@ public class IssacPlayerBomb : MonoBehaviour
             m_lifeTime = 5f;
         }
 
-        StartCoroutine(nameof(IE_Destroy));
+        //StartCoroutine(nameof(IE_Destroy));
     }
     #endregion
 
@@ -88,10 +92,16 @@ public class IssacPlayerBomb : MonoBehaviour
 
     private void NoneType()
     {
-        Vector2 moveAmount = transform.right * m_speed * Time.deltaTime;
-        Vector2 nextPosition = m_rigidbody.position + moveAmount;
+        m_rigidbody.velocity = transform.right * m_speed;
 
-        m_rigidbody.MovePosition(nextPosition);
+        m_speed = m_speed - m_downSpeed < 0 ? 0 : m_speed - m_downSpeed;
+        m_downSpeed += m_downAddSpeed;
+
+        
+        //Vector2 moveAmount = transform.right * m_speed * Time.deltaTime;
+        //Vector2 nextPosition = m_rigidbody.position + moveAmount;
+
+        //m_rigidbody.MovePosition(nextPosition);
     }
 
     private void PlanetType()

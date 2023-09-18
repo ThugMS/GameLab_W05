@@ -133,6 +133,10 @@ public class IssacPlayer : Player
     {
         switch (m_attackType)
         {
+            case AttackType.Bomb:
+                AttackBomb();
+                break;
+
             case AttackType.Ring:
                 AttackRing();
                 break;
@@ -174,7 +178,6 @@ public class IssacPlayer : Player
             }
             m_chargeCurTime = 0;
         }
-
     }
 
     private void AttackBrimstone()
@@ -194,11 +197,27 @@ public class IssacPlayer : Player
         }
     }
 
+    private void AttackBomb()
+    {
+        if (m_isAttackPressed == true)
+        {
+            if (m_canAttack)
+            {
+                Attack();
+                StartCoroutine(nameof(IE_StartAttackCoolTime));
+            }
+        }
+    }
+
     private string GetAttackPath()
     {
         string path = "";
 
         switch (m_attackType) {
+            case AttackType.Bomb:
+                path = AttackResouceStore.ATTACK_BOMB;
+                break;
+
             case AttackType.Ring:
                 path = AttackResouceStore.ATTACK_RING;
                 break;
@@ -218,7 +237,10 @@ public class IssacPlayer : Player
     private void SetAttackInit(GameObject _obj)
     {
         switch (m_attackType)
-        {   
+        {
+            case AttackType.Bomb:
+                _obj.GetComponent<IssacPlayerBomb>().InitSetting(m_projectileType, m_range, m_projectileSpeed, m_Direction, m_power, m_turnArr *= -1);
+                break;
             case AttackType.Ring:
                 _obj.GetComponent<Ring>().InitSetting(m_projectileType, m_range, m_projectileSpeed, m_Direction, m_power, m_chargeCurTime / m_chargeMaxTime);
                 break;
