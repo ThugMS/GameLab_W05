@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SO_None
   m_EditorClassIdentifier: 
   m_type: 3
-  m_power: 0
+  m_power: 5
   m_speed: 5
   m_health: 2
   m_coolTime: 5

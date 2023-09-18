@@ -2344,6 +2344,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2388716582393499791, guid: 91416a42377088a4da697b76fafe0a47, type: 3}
+      propertyPath: m_attackSpeed
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2388716582393499791, guid: 91416a42377088a4da697b76fafe0a47, type: 3}
       propertyPath: m_attackStorage
       value: 
       objectReference: {fileID: 430645137}
@@ -2512,6 +2516,10 @@ PrefabInstance:
     - target: {fileID: 3770711284908484458, guid: 99bb660260a72af43803b1a8923d3f59, type: 3}
       propertyPath: m_Name
       value: AttackStorage
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789976734628624418, guid: 99bb660260a72af43803b1a8923d3f59, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99bb660260a72af43803b1a8923d3f59, type: 3}
