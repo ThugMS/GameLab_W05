@@ -2517,9 +2517,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: AttackStorage
       objectReference: {fileID: 0}
-    - target: {fileID: 8789976734628624418, guid: 99bb660260a72af43803b1a8923d3f59, type: 3}
-      propertyPath: m_Enabled
-      value: 1
+    - target: {fileID: 6446933206368881015, guid: 99bb660260a72af43803b1a8923d3f59, type: 3}
+      propertyPath: m_isElectric
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99bb660260a72af43803b1a8923d3f59, type: 3}
