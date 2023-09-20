@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 112033045943669650}
   - component: {fileID: 7642167859396978313}
   - component: {fileID: 3701619878096290315}
-  m_Layer: 10
+  m_Layer: 13
   m_Name: Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &7642167859396978313
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -3569,6 +3569,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2388716582393499791, guid: 91416a42377088a4da697b76fafe0a47, type: 3}
+      propertyPath: m_power
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2388716582393499791, guid: 91416a42377088a4da697b76fafe0a47, type: 3}
       propertyPath: m_attackSpeed
       value: 0.05
       objectReference: {fileID: 0}
