@@ -28,6 +28,28 @@ public class AttackStorage : MonoBehaviour
         if(m_isElectric == true)
         {
             Tear[] objs = gameObject.GetComponentsInChildren<Tear>();
+
+             if(objs == null)
+             {
+                IssacPlayerBomb[] obj = gameObject.GetComponentsInChildren<IssacPlayerBomb>();
+
+                m_points = new Vector3[obj.Length];
+                m_pointsArr = new Vector2[obj.Length];
+
+                for (int i = 0; i < obj.Length; i++)
+                {
+                    m_points[i] = obj[i].transform.position;
+                    m_pointsArr[i] = obj[i].transform.position;
+
+                    m_points2D.Add(obj[i].transform.position);
+                }
+                m_line.positionCount = m_points.Length;
+                m_line.SetPositions(m_points);
+
+                m_edgeCollider.points = m_pointsArr;
+                return;
+            }
+
             m_points = new Vector3[objs.Length];
             m_pointsArr = new Vector2[objs.Length]; 
 

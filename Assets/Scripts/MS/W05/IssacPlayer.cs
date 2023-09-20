@@ -290,6 +290,11 @@ public class IssacPlayer : Player
     public void SetAttackType(AttackType _type)
     {
         m_attackType = _type;
+
+        if(_type == AttackType.Bomb)
+        {
+            m_attackSpeed *= 5f;
+        }
     }
 
     public void SetProjectileType(ProjectileType _type)
